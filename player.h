@@ -6,6 +6,7 @@
 class player : public gameNode
 {
 private:
+	//수우왔다감요
 	inventory * _inventory;
 public:
 	player();
