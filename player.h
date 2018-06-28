@@ -3,7 +3,7 @@
 #include "skill.h"
 #include "inventory.h"
 
-class player : public gameNode
+class player : public gameNode  
 {
 private:
 	//수우왔다감요
