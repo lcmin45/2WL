@@ -8,6 +8,8 @@
 
 class inGame : public gameNode
 {
+private:
+	player * _player;
 public:
 	inGame();
 	~inGame();
