@@ -5,9 +5,13 @@
 #include "scenePart.h"
 #include "player.h"
 #include "store.h"
+#include "UI.h"
 
 class inGame : public gameNode
 {
+private:
+	UI * _UI;
+	player* _player;
 public:
 	inGame();
 	~inGame();

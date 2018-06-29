@@ -157,9 +157,8 @@
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="ending.h" />
     <ClInclude Include="enemyManager.h" />
-    <ClInclude Include="fireBoss.h" />
     <ClInclude Include="gameNode.h" />
-    <ClInclude Include="iceBoss.h" />
+    <ClInclude Include="Ghoul.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="inGame.h" />
@@ -170,14 +169,21 @@
     <ClInclude Include="itemManager.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="loading.h" />
+    <ClInclude Include="Mage.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="mapToolBook.h" />
+    <ClInclude Include="mapToolNode.h" />
+    <ClInclude Include="mapToolPage.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Rogue.h" />
+    <ClInclude Include="Scarecrow.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="scenePart.h" />
     <ClInclude Include="singletonBase.h" />
@@ -192,7 +198,6 @@
     <ClInclude Include="txtData.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
-    <ClInclude Include="woodBoss.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
@@ -203,9 +208,8 @@
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="ending.cpp" />
     <ClCompile Include="enemyManager.cpp" />
-    <ClCompile Include="fireBoss.cpp" />
     <ClCompile Include="gameNode.cpp" />
-    <ClCompile Include="iceBoss.cpp" />
+    <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="inGame.cpp" />
@@ -216,12 +220,18 @@
     <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="loading.cpp" />
+    <ClCompile Include="Mage.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="mapToolBook.cpp" />
+    <ClCompile Include="mapToolPage.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="Rogue.cpp" />
+    <ClCompile Include="Scarecrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="scenePart.cpp" />
     <ClCompile Include="skill.cpp" />
@@ -240,7 +250,6 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
-    <ClCompile Include="woodBoss.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

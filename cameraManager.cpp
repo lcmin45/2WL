@@ -24,19 +24,19 @@ void cameraManager::render(HDC hdc)
 
 void cameraManager::keyProcess()
 {
-	if (KEYMANAGER->isStayKeyDown('W'))
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
 	{
 		if (_y - WINSIZEY / 2 > 0) _y -= 10;
 	}
-	if (KEYMANAGER->isStayKeyDown('S'))
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
 	{
 		if (_y + WINSIZEY / 2 < BACKGROUND_HEIGHT) _y += 10;
 	}
-	if (KEYMANAGER->isStayKeyDown('A'))
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
 	{
 		if (_x - WINSIZEX / 2 > 0) _x -= 10;
 	}
-	if (KEYMANAGER->isStayKeyDown('D'))
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
 	{
 		if (_x + WINSIZEX / 2 < BACKGROUND_WIDTH) _x += 10;
 	}
