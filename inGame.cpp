@@ -6,6 +6,9 @@ inGame::~inGame() {}
 
 HRESULT inGame::init()
 {
+	_UI = new UI;
+	_UI->init();
+
 	_player = new player;
 	_player->init();
 
@@ -22,4 +25,5 @@ void inGame::update()
 void inGame::render()
 {
 	_player->render();
+	_UI->render();
 }
