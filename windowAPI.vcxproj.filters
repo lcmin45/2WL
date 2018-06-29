@@ -234,6 +234,21 @@
     <ClInclude Include="mapToolNode.h">
       <Filter>playGround\mapTool</Filter>
     </ClInclude>
+    <ClInclude Include="Rogue.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Scarecrow.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -355,6 +370,21 @@
     </ClCompile>
     <ClCompile Include="mapToolPage.cpp">
       <Filter>playGround\mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Rogue.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Scarecrow.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
