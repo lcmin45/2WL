@@ -37,7 +37,7 @@ void mapToolPage::render(void)
 	{
 		for (int i = 0; i < 6; ++i)
 		{
-			_title[i].img->render(getMemDC(),
+			_title[i].img->render(CAMERAMANAGER->getCameraDC(),
 				_center.x + BOOKSIZEX / 4 - _title[i].img->getWidth() / 2,
 				_center.y + BOOKSIZEY / 2 - 50 * i - 100);
 		}
@@ -49,7 +49,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].img->frameRender(getMemDC(),
+				_box[i * 6 + j].img->frameRender(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21 + 4,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21 + 4,
 					_box[i * 6 + j].frameX,
@@ -61,7 +61,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].edgeImg->render(getMemDC(),
+				_box[i * 6 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21);
 			}
@@ -71,7 +71,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].edgeImg->render(getMemDC(),
+				_box[i * 6 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21);
 			}
@@ -86,7 +86,7 @@ void mapToolPage::render(void)
 			{
 				if (i * 3 + j > 4) continue;
 
-				_box[i * 3 + j].img->frameRender(getMemDC(),
+				_box[i * 3 + j].img->frameRender(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21 + 4,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21 + 4,
 					_box[i * 3 + j].frameX,
@@ -98,7 +98,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -108,7 +108,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -121,7 +121,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * (i + 1) - 21);
 			}
@@ -131,7 +131,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 3 + j + 18].edgeImg->render(getMemDC(),
+				_box[i * 3 + j + 18].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j + 1)) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -144,7 +144,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 2; ++j)
 			{
-				_box[i * 2 + j].edgeImg->render(getMemDC(),
+				_box[i * 2 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 3) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -154,7 +154,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 2; ++j)
 			{
-				_box[i * 2 + j].edgeImg->render(getMemDC(),
+				_box[i * 2 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j * 3) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -163,7 +163,7 @@ void mapToolPage::render(void)
 	break;
 	}
 
-	RectangleMakeCenter(getMemDC(), _center.x, _center.y, 10, 10);
+	RectangleMakeCenter(CAMERAMANAGER->getCameraDC(), _center.x, _center.y, 10, 10);
 }
 
 void mapToolPage::imageInit(void)

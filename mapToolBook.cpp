@@ -212,7 +212,7 @@ void mapToolBook::iconRender(void)
 {
 	if (!_icon.isView) return;
 
-	_icon.img->frameRender(getMemDC(), _icon.center.x - _icon.img->getFrameWidth() / 2,
+	_icon.img->frameRender(CAMERAMANAGER->getCameraDC(), _icon.center.x - _icon.img->getFrameWidth() / 2,
 		_icon.center.y - _icon.img->getFrameHeight() / 2, _icon.frameX, _icon.frameY);
 }
 
@@ -220,7 +220,7 @@ void mapToolBook::bookRender(void)
 {
 	if (!_book.isView) return;
 
-	_book.img->frameRender(getMemDC(), _book.center.x - _book.img->getFrameWidth() / 2,
+	_book.img->frameRender(CAMERAMANAGER->getCameraDC(), _book.center.x - _book.img->getFrameWidth() / 2,
 		_book.center.y - _book.img->getFrameHeight() / 2, _book.frameX, _book.frameY);
 }
 
@@ -228,7 +228,7 @@ void mapToolBook::pageRender(void)
 {
 	if (!_page.isView) return;
 
-	_page.img->frameRender(getMemDC(), _book.center.x - _book.img->getFrameWidth() / 2,
+	_page.img->frameRender(CAMERAMANAGER->getCameraDC(), _book.center.x - _book.img->getFrameWidth() / 2,
 		_book.center.y - _book.img->getFrameHeight() / 2, _page.frameX, _page.frameY);
 }
 
@@ -236,11 +236,11 @@ void mapToolBook::markRender(void)
 {
 	if (!_book.isOpenCheck) return;
 
-	_mark.leftImg->render(getMemDC(), _mark.leftPoint.x, _mark.leftPoint.y,
+	_mark.leftImg->render(CAMERAMANAGER->getCameraDC(), _mark.leftPoint.x, _mark.leftPoint.y,
 		0, 0,
 		_mark.leftImg->getWidth() / 2, (_mark.leftImg->getHeight() / (MAXPAGE + 1)) * (_mark.pageIndex + 1));
 
-	_mark.rightImg->render(getMemDC(),
+	_mark.rightImg->render(CAMERAMANAGER->getCameraDC(),
 		_mark.rightPoint.x,
 		_mark.rightPoint.y + ((_mark.rightImg->getHeight() / (MAXPAGE + 1)) * (_mark.pageIndex + 1)),
 		_mark.rightImg->getWidth() / 2,
@@ -280,4 +280,4 @@ void mapToolBook::changePage(bool isNext)
 		_page.frameX = 1;
 		_mark.pageIndex -= 1;
 	}
-}s
+}

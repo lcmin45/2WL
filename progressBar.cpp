@@ -40,13 +40,13 @@ void progressBar::update()
 void progressBar::render()
 {
 	//그려줄땐 뒤에 게이지부터 먼저 그린다
-	IMAGEMANAGER->render("backBar", getMemDC(),
+	IMAGEMANAGER->render("backBar", CAMERAMANAGER->getCameraDC(),
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_progressBarBottom->getWidth(), _progressBarBottom->getHeight());
 
 	//앞에 게이지는 가로크기 혹은 세로크기가 변해야하기때문에 변수가 크기값에 들어간다
-	IMAGEMANAGER->render("frontBar", getMemDC(), 
+	IMAGEMANAGER->render("frontBar", CAMERAMANAGER->getCameraDC(), 
 		_rcProgress.left + _progressBarBottom->getWidth() / 2,
 		_y + _progressBarBottom->getHeight() / 2, 0, 0,
 		_width, _progressBarBottom->getHeight());
