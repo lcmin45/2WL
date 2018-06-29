@@ -225,6 +225,15 @@
     <ClInclude Include="itemManager.h">
       <Filter>playGround\itemManager</Filter>
     </ClInclude>
+    <ClInclude Include="mapToolBook.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="mapToolPage.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="mapToolNode.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -340,6 +349,12 @@
     </ClCompile>
     <ClCompile Include="itemManager.cpp">
       <Filter>playGround\itemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="mapToolBook.cpp">
+      <Filter>playGround\mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="mapToolPage.cpp">
+      <Filter>playGround\mapTool</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

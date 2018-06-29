@@ -59,11 +59,11 @@ void button::render()
 	switch (_direction)
 	{
 		case BUTTONDIRECTION_NULL:	case BUTTONDIRECTION_UP:
-			_image->frameRender(getMemDC(), _rc.left, _rc.top,
+			_image->frameRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top,
 				_btnUpFramePoint.x, _btnUpFramePoint.y);
 		break;
 		case BUTTONDIRECTION_DOWN:
-			_image->frameRender(getMemDC(), _rc.left, _rc.top,
+			_image->frameRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top,
 				_btnDownFramePoint.x, _btnDownFramePoint.y);
 		break;	
 	}
