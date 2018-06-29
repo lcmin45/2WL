@@ -157,7 +157,9 @@
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="ending.h" />
     <ClInclude Include="enemyManager.h" />
+    <ClInclude Include="fireBoss.h" />
     <ClInclude Include="gameNode.h" />
+    <ClInclude Include="iceBoss.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="inGame.h" />
@@ -190,6 +192,7 @@
     <ClInclude Include="txtData.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
+    <ClInclude Include="woodBoss.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
@@ -200,7 +203,9 @@
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="ending.cpp" />
     <ClCompile Include="enemyManager.cpp" />
+    <ClCompile Include="fireBoss.cpp" />
     <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="iceBoss.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="inGame.cpp" />
@@ -235,6 +240,7 @@
     <ClCompile Include="UI.cpp" />
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
+    <ClCompile Include="woodBoss.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

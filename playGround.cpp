@@ -19,12 +19,13 @@ void playGround::release(void)
 void playGround::update(void)
 {
 	gameNode::update();
+
 }
 
 void playGround::render(void)
 {
 	//흰색도화지 한 장 깔아둔다
-	PatBlt(getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//============== 이 위로는 건드리지 말자 ==============
 
 	//getMemDC() 대신에 CAMERAMANAGER->getCameraDC();
