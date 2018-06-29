@@ -6,7 +6,8 @@ inGame::~inGame() {}
 
 HRESULT inGame::init()
 {
-	//hbhbh
+	_player = new player;
+	_player->init();
 
 	return S_OK;
 }
@@ -15,10 +16,10 @@ void inGame::release() {}
 
 void inGame::update()
 {
-
+	_player->update();
 }
 
 void inGame::render()
 {
-
+	_player->render();
 }
