@@ -158,6 +158,7 @@
     <ClInclude Include="ending.h" />
     <ClInclude Include="enemyManager.h" />
     <ClInclude Include="gameNode.h" />
+    <ClInclude Include="Ghoul.h" />
     <ClInclude Include="image.h" />
     <ClInclude Include="imageManager.h" />
     <ClInclude Include="inGame.h" />
@@ -168,7 +169,9 @@
     <ClInclude Include="itemManager.h" />
     <ClInclude Include="keyAniManager.h" />
     <ClInclude Include="keyManager.h" />
+    <ClInclude Include="Knight.h" />
     <ClInclude Include="loading.h" />
+    <ClInclude Include="Mage.h" />
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="mapToolBook.h" />
     <ClInclude Include="mapToolNode.h" />
@@ -179,6 +182,8 @@
     <ClInclude Include="progressBar.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="Rogue.h" />
+    <ClInclude Include="Scarecrow.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="scenePart.h" />
     <ClInclude Include="singletonBase.h" />
@@ -204,6 +209,7 @@
     <ClCompile Include="ending.cpp" />
     <ClCompile Include="enemyManager.cpp" />
     <ClCompile Include="gameNode.cpp" />
+    <ClCompile Include="Ghoul.cpp" />
     <ClCompile Include="image.cpp" />
     <ClCompile Include="imageManager.cpp" />
     <ClCompile Include="inGame.cpp" />
@@ -214,7 +220,9 @@
     <ClCompile Include="itemManager.cpp" />
     <ClCompile Include="keyAniManager.cpp" />
     <ClCompile Include="keyManager.cpp" />
+    <ClCompile Include="Knight.cpp" />
     <ClCompile Include="loading.cpp" />
+    <ClCompile Include="Mage.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
     <ClCompile Include="mapToolPage.cpp" />
@@ -222,6 +230,8 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="Rogue.cpp" />
+    <ClCompile Include="Scarecrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="scenePart.cpp" />
     <ClCompile Include="skill.cpp" />
