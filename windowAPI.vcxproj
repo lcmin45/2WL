@@ -170,6 +170,9 @@
     <ClInclude Include="keyManager.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="mapTool.h" />
+    <ClInclude Include="mapToolBook.h" />
+    <ClInclude Include="mapToolNode.h" />
+    <ClInclude Include="mapToolPage.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
@@ -213,6 +216,8 @@
     <ClCompile Include="keyManager.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="mapTool.cpp" />
+    <ClCompile Include="mapToolBook.cpp" />
+    <ClCompile Include="mapToolPage.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />

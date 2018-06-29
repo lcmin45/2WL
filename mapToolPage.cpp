@@ -9,7 +9,7 @@ mapToolPage::~mapToolPage() {}
 HRESULT mapToolPage::init(int index)
 {
 	imageInit();
-	checkPage(index);
+	checkPage(index);  
 	  
 	for (int i = 0; i < 6; ++i)
 	{
