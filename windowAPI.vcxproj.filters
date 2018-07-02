@@ -249,6 +249,15 @@
     <ClInclude Include="Knight.h">
       <Filter>playGround\enemyManager\monster</Filter>
     </ClInclude>
+    <ClInclude Include="fireBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="iceBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="woodBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -385,6 +394,15 @@
     </ClCompile>
     <ClCompile Include="Ghoul.cpp">
       <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="fireBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="iceBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="woodBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

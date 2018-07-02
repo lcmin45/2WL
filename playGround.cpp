@@ -40,7 +40,7 @@ void playGround::update(void)
 void playGround::render(void)
 {
 	//흰색도화지 한 장 깔아둔다
-	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
+	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, BACKGROUND_WIDTH, BACKGROUND_HEIGHT, WHITENESS);
 	//============== 이 위로는 건드리지 말자 ==============
 
 	SCENEMANAGER->render();

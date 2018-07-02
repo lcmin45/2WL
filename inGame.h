@@ -4,14 +4,14 @@
 #include "itemManager.h"
 #include "scenePart.h"
 #include "player.h"
-#include "store.h"
 #include "UI.h"
 
 class inGame : public gameNode
 {
 private:
+	player * _player;
+	itemManager* _itemManager;
 	UI * _UI;
-	player* _player;
 public:
 	inGame();
 	~inGame();

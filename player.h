@@ -21,6 +21,7 @@ private:
 	RECT _body; //바디
 	float _speed; //스피드
 	float _dashSpeed; //대쉬 스피드
+	inventory* _inventory;
 
 	//임시
 	RECT _zOrderBox;
@@ -41,6 +42,7 @@ public:
 	static void afterAction(void* obj); //에니매이션 콜백용
 
 	DIRECTION getDirection() { return _direction; }
+	inventory* getInventory() { return _inventory; }
 	void setAction(ACTION action) { _action = action; }
 	void setAnimation(animation* animation) { _animation = animation; }
 };

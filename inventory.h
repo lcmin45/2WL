@@ -8,6 +8,10 @@ class inventory : public gameNode
 private:
 	vector<item*> _vItem;
 	vector<item*>::iterator _viItem;
+	POINTFLOAT _position;
+	image* _image;
+	RECT _itemRect[3];
+	bool _isOpen;
 public:
 	inventory();
 	~inventory();
@@ -16,4 +20,9 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void keyProcess();
+
+	void addItem(item* item);
+	const char* dumpItem(int index);
 };
