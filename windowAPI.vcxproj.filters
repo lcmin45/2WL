@@ -98,16 +98,16 @@
       <UniqueIdentifier>{ed4b5bc8-535f-45c7-bcf2-0def0af3ae4f}</UniqueIdentifier>
     </Filter>
     <Filter Include="playGround\mapTool\book">
-      <UniqueIdentifier>{65fc4185-1b62-4e8c-b34a-918c9299509a}</UniqueIdentifier>
+      <UniqueIdentifier>{5730e187-1bb3-4770-bd11-de717418cdbd}</UniqueIdentifier>
     </Filter>
     <Filter Include="playGround\mapTool\book\page">
-      <UniqueIdentifier>{55d7ac2d-0e19-4e0f-ad2a-e23aa5702a40}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\tile">
-      <UniqueIdentifier>{cca7acb7-fe3d-4fec-85ec-d3ececabeacb}</UniqueIdentifier>
+      <UniqueIdentifier>{455f924f-d8ab-4d6b-89c4-a23e4f990da4}</UniqueIdentifier>
     </Filter>
     <Filter Include="playGround\mapTool\object">
-      <UniqueIdentifier>{a9316e2a-e588-4f88-bcd0-5fbcda7157b8}</UniqueIdentifier>
+      <UniqueIdentifier>{c1b663ce-06e2-4b21-9010-f69de57617d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\tile">
+      <UniqueIdentifier>{1b51bdbe-6d1b-4115-a181-6ebb704a5420}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -131,6 +131,9 @@
     </ClInclude>
     <ClInclude Include="gameNode.h">
       <Filter>2DFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="playGround.h">
+      <Filter>playGround</Filter>
     </ClInclude>
     <ClInclude Include="keyManager.h">
       <Filter>2DFramework\Manager</Filter>
@@ -255,6 +258,15 @@
     <ClInclude Include="Knight.h">
       <Filter>playGround\enemyManager\monster</Filter>
     </ClInclude>
+    <ClInclude Include="fireBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="iceBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="woodBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
     <ClInclude Include="mapToolBook.h">
       <Filter>playGround\mapTool\book</Filter>
     </ClInclude>
@@ -284,18 +296,6 @@
     </ClInclude>
     <ClInclude Include="tileNode.h">
       <Filter>playGround\mapTool</Filter>
-    </ClInclude>
-    <ClInclude Include="fireBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="iceBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="woodBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="playGround.h">
-      <Filter>playGround\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -431,6 +431,15 @@
     <ClCompile Include="Ghoul.cpp">
       <Filter>playGround\enemyManager\monster</Filter>
     </ClCompile>
+    <ClCompile Include="fireBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="iceBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="woodBoss.cpp">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
     <ClCompile Include="mapToolBook.cpp">
       <Filter>playGround\mapTool\book</Filter>
     </ClCompile>
@@ -457,15 +466,6 @@
     </ClCompile>
     <ClCompile Include="mapTile.cpp">
       <Filter>playGround\mapTool\tile</Filter>
-    </ClCompile>
-    <ClCompile Include="fireBoss.cpp">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClCompile>
-    <ClCompile Include="iceBoss.cpp">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClCompile>
-    <ClCompile Include="woodBoss.cpp">
-      <Filter>playGround\enemyManager\boss</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
