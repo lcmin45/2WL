@@ -24,12 +24,12 @@ void playGround::update(void)
 {
 	gameNode::update();
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F1))
+	if (KEYMANAGER->isOnceKeyDown(VK_F5))
 	{
 		SCENEMANAGER->changeScene("mapTool");
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F2))
+	if (KEYMANAGER->isOnceKeyDown(VK_F6))
 	{
 		SCENEMANAGER->changeScene("inGame");
 	}
@@ -40,12 +40,14 @@ void playGround::update(void)
 void playGround::render(void)
 {
 	//흰색도화지 한 장 깔아둔다
+	PatBlt(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, BLACKNESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//============== 이 위로는 건드리지 말자 ==============
 
 	SCENEMANAGER->render();
 	//getMemDC() 대신 CAMERAMANAGER->getCameraDC()
-
+	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	//================이 밑으로도 건드리지 말자 =============
-	CAMERAMANAGER->render(getHDC());
+	CAMERAMANAGER->render(this->getBackBuffer());
+	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }

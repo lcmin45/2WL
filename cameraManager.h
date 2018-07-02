@@ -4,18 +4,22 @@
 class cameraManager : public singletonBase<cameraManager>
 {
 private:
-	image * _camera;
-	float _x, _y;
+	image*	_camera;
+	float	_x, _y;
+
 public:
-	HRESULT init();
-	void release();
-	void update();
-	void render(HDC hdc);
-	void keyProcess();
-	void changePos(float x, float y);
-
-	HDC getCameraDC() { return _camera->getMemDC(); }
-
 	cameraManager();
 	~cameraManager();
+
+	HRESULT init(void);
+	void release(void);
+	void update(void);
+	void render();
+	void render(image* img);
+
+	HDC getCameraDC() { return _camera->getMemDC(); }
+	void setCameraPoint(POINT point);
+	POINT getCameraPoint() { return PointMake(_x, _y); }
+	image* getCamera() { return _camera; }
 };
+
