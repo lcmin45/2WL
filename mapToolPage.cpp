@@ -9,13 +9,13 @@ mapToolPage::~mapToolPage() {}
 HRESULT mapToolPage::init(int index)
 {
 	imageInit();
-	checkPage(index);
-
+	checkPage(index);  
+	  
 	for (int i = 0; i < 6; ++i)
 	{
 		_title[i].img = IMAGEMANAGER->findImage("title");
 	}
-	
+
 
 	return S_OK;
 }
@@ -37,19 +37,19 @@ void mapToolPage::render(void)
 	{
 		for (int i = 0; i < 6; ++i)
 		{
-			_title[i].img->render(getMemDC(),
+			_title[i].img->render(CAMERAMANAGER->getCameraDC(),
 				_center.x + BOOKSIZEX / 4 - _title[i].img->getWidth() / 2,
 				_center.y + BOOKSIZEY / 2 - 50 * i - 100);
 		}
 	}
-		break;
+	break;
 	case 1:
 	{
 		for (int i = 0; i < 6; ++i)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].img->frameRender(getMemDC(),
+				_box[i * 6 + j].img->frameRender(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21 + 4,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21 + 4,
 					_box[i * 6 + j].frameX,
@@ -61,7 +61,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].edgeImg->render(getMemDC(),
+				_box[i * 6 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21);
 			}
@@ -71,13 +71,13 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 6 + j].edgeImg->render(getMemDC(),
+				_box[i * 6 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * (j + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - (55) * (i + 1) - 21);
 			}
 		}
 	}
-		break;
+	break;
 	case 2:
 	{
 		for (int i = 0; i < 3; ++i)
@@ -86,7 +86,7 @@ void mapToolPage::render(void)
 			{
 				if (i * 3 + j > 4) continue;
 
-				_box[i * 3 + j].img->frameRender(getMemDC(),
+				_box[i * 3 + j].img->frameRender(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21 + 4,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21 + 4,
 					_box[i * 3 + j].frameX,
@@ -98,7 +98,7 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -108,20 +108,20 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
 		}
 	}
-		break;
+	break;
 	case 3:
 	{
 		for (int i = 0; i < 6; ++i)
 		{
 			for (int j = 0; j < 3; ++j)
 			{
-				_box[i * 3 + j].edgeImg->render(getMemDC(),
+				_box[i * 3 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 2) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * (i + 1) - 21);
 			}
@@ -131,20 +131,20 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 6; ++j)
 			{
-				_box[i * 3 + j + 18].edgeImg->render(getMemDC(),
+				_box[i * 3 + j + 18].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j + 1)) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
 		}
 	}
-		break;
+	break;
 	case 4:
 	{
 		for (int i = 0; i < 3; ++i)
 		{
 			for (int j = 0; j < 2; ++j)
 			{
-				_box[i * 2 + j].edgeImg->render(getMemDC(),
+				_box[i * 2 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 2 / 7) * ((j * 3) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
@@ -154,16 +154,16 @@ void mapToolPage::render(void)
 		{
 			for (int j = 0; j < 2; ++j)
 			{
-				_box[i * 2 + j].edgeImg->render(getMemDC(),
+				_box[i * 2 + j].edgeImg->render(CAMERAMANAGER->getCameraDC(),
 					(_center.x) + (BOOKSIZEX / 2 / 7) * ((j * 3) + 1) - 21,
 					(_center.y + BOOKSIZEY / 2 - 20) - 55 * ((i * 2) + 2) - 21);
 			}
 		}
 	}
-		break;
-	}	
+	break;
+	}
 
-	RectangleMakeCenter(getMemDC(), _center.x, _center.y, 10, 10);
+	RectangleMakeCenter(CAMERAMANAGER->getCameraDC(), _center.x, _center.y, 10, 10);
 }
 
 void mapToolPage::imageInit(void)
@@ -191,7 +191,7 @@ void mapToolPage::checkPage(int index)
 	{
 		return;
 	}
-		break;
+	break;
 	case 1:
 	{
 		for (int i = 0; i < 36; ++i)
@@ -202,7 +202,7 @@ void mapToolPage::checkPage(int index)
 			_box[i].frameY = i % 6;
 		}
 	}
-		break;
+	break;
 	case 2:
 	{
 		for (int i = 0; i < 9; ++i)
@@ -214,7 +214,7 @@ void mapToolPage::checkPage(int index)
 			_box[i].frameY = 0;
 		}
 	}
-		break;
+	break;
 	case 3:
 	{
 		for (int i = 0; i < 18; ++i)
@@ -223,7 +223,7 @@ void mapToolPage::checkPage(int index)
 			_box[i + 18].edgeImg = IMAGEMANAGER->findImage("BASE_1_2"); //포인터
 		}
 	}
-		break;
+	break;
 	case 4:
 	{
 		for (int i = 0; i < 6; ++i)
@@ -231,9 +231,9 @@ void mapToolPage::checkPage(int index)
 			_box[i].edgeImg = IMAGEMANAGER->findImage("BASE_3_2"); //포인터
 		}
 	}
-		break;
+	break;
 	}
-	
+
 }
 
 void mapToolPage::checkCenter(POINT bookCenter)

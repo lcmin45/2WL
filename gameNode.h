@@ -2,7 +2,7 @@
 #include "image.h"
 
 //백버퍼 선언
-static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", TOTALSIZEX, TOTALSIZEY);
+static image* _backBuffer = IMAGEMANAGER->addImage("backBuffer", WINSIZEX, WINSIZEY);
 
 class gameNode
 {
@@ -31,8 +31,5 @@ public:
 
 	gameNode();
 	virtual ~gameNode();
-
-	POINT getMousePoint(void);
-	POINT getCameraPoint(void);
 };
 

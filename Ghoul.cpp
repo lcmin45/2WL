@@ -15,7 +15,7 @@ Ghoul::~Ghoul()
 HRESULT Ghoul::init(POINTFLOAT point,float speed)
 {
 
-	_image = IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("Ghoul", "Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
 
 	_ghoulDirection = GHOUL_RIGHT_MOVE;
 	_attackRange = 20;

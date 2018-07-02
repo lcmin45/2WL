@@ -126,13 +126,3 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 
 	return (DefWindowProc(hWnd, iMessage, wParam, lParam));
 }
-
-POINT gameNode::getMousePoint(void)
-{
-	return PointMake(CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2 + _ptMouse.x, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2 + _ptMouse.y);
-}
-
-POINT gameNode::getCameraPoint(void)
-{
-	return _ptMouse;
-}
