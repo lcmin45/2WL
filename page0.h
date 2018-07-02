@@ -14,7 +14,7 @@ private:
 	POINT	_center;
 
 	mapTile* _mapTile;
-public:
+public: 
 	page0();
 	~page0();
 

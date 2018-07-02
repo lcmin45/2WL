@@ -15,7 +15,7 @@ private:
 		int			moveSpeed;
 		bool		isView;
 		bool		isOpen;
-		bool		isMove;
+		bool		isMove; 
 	};
 
 	struct tagBookIcon

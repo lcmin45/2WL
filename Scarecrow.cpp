@@ -21,7 +21,7 @@ HRESULT Scarecrow::init(POINTFLOAT point)
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
-
+	 
 
 
 	int Stand[] = { 0 };

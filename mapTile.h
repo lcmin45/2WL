@@ -22,7 +22,7 @@ public:
 
 	virtual HRESULT init(void);
 	virtual void release(void);
-	virtual void update(void);
+	virtual void update(void); 
 	virtual void render(void);
 
 	void imageInit(void);			// 이미지 초기화

@@ -21,7 +21,7 @@ private:
 		int		frameX;
 		int		frameY;
 	};
-
+	 
 private:
 	int		_pageIndex;
 	POINT	_center;

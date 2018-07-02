@@ -12,7 +12,7 @@ private:
 
 	int				_moveSpeed;
 
-	
+	 
 
 public:
 	mapTool();

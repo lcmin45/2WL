@@ -27,7 +27,7 @@ void cameraManager::update(void)
 
 void cameraManager::render()
 {
-	
+	 
 }
 
 void cameraManager::render(image* img)

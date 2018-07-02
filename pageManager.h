@@ -14,7 +14,7 @@ private:
 private:
 	page0*	_page0;
 	page1*	_page1;
-	page1*	_page2;
+	page1*	_page2; 
 	page2*	_page3;
 	page2*	_page4;
 	page3*	_page5;

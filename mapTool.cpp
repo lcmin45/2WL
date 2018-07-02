@@ -60,7 +60,7 @@ void mapTool::imageInit(void)
 	IMAGEMANAGER->addFrameImage("SAMPLETILE_ICE", "image/mapTool/sampleTile.bmp", 320, 224, 10, 7, false, RGB(0, 0, 0));
 	IMAGEMANAGER->addFrameImage("SAMPLETILE_AUTO_ICE", "image/mapTool/tile/autoTile_ice.bmp", 480, 224, 15, 7, false, RGB(0, 0, 0));
 
-	// 오브젝트 이미지
+	// 오브젝트 이미지 
 	IMAGEMANAGER->addFrameImage("OBJECT_CANDLE", "image/mapTool/object1.bmp", 60, 34, 6, 1, true, MAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object5.bmp", 192, 96, 6, 1, true, MAGENTA);
 

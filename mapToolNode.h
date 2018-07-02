@@ -14,7 +14,7 @@
 struct tagBox 
 {
 	image*	baseImg;
-	RECT	rc;
+	RECT	rc; 
 	POINT	center;
 	int		imageIndex;
 	int		frameX;

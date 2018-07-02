@@ -15,7 +15,7 @@ private:
 
 	POINT	_center;
 
-public:
+public: 
 	page1();
 	~page1();
 

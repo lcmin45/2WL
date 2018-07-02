@@ -19,7 +19,7 @@ void page3::release(void)
 
 void page3::update(void)
 {
-	checkBox();
+	checkBox(); 
 }
 
 void page3::render(void)

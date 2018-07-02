@@ -19,7 +19,7 @@ HRESULT tileObject::init(int index)
 		animation = KEYANIMANAGER->findAnimation("CANDLE");
 		
 	}
-		break;
+		break; 
 	case 2:
 	{
 

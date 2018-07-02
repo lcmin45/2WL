@@ -21,7 +21,7 @@ void mapTile::release(void)
 }
 
 void mapTile::update(void)
-{
+{ 
 	inputKey();
 	checkTile();
 }

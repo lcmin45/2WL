@@ -17,7 +17,7 @@ HRESULT mapToolPage::init(int index)
 	}
 	
  
-	return S_OK;
+	return S_OK; 
 }
 
 void mapToolPage::release(void)

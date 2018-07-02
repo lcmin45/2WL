@@ -15,7 +15,7 @@ HRESULT mapToolBook::init(void)
 }
 
 void mapToolBook::release(void) { }
-
+ 
 void mapToolBook::update(void)
 {
 	inputKey();

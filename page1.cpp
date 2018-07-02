@@ -13,7 +13,7 @@ HRESULT page1::init(void)
 }
 
 void page1::release(void)
-{
+{ 
 
 }
 

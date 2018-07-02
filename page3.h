@@ -13,7 +13,7 @@ private:
 
 private:
 	image* _titleImage[2];
-	tagBox _box[MAXBOX];
+	tagBox _box[MAXBOX]; 
 
 	POINT	_center;
 

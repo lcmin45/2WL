@@ -4,7 +4,7 @@
 
 fireBoss::fireBoss()
 {
-}
+} 
 
 
 fireBoss::~fireBoss()

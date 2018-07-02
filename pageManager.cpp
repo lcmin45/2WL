@@ -16,7 +16,7 @@ HRESULT pageManager::init(void)
 void pageManager::release(void)
 {
 	_page0->release();
-	_page1->release();
+	_page1->release(); 
 	_page2->release();
 	_page3->release();
 	_page4->release();

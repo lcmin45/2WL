@@ -20,3 +20,4 @@ public:
 	void setPoint(POINT point) { renderPoint = point; }
 };
 
+ 

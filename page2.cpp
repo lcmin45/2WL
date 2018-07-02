@@ -18,7 +18,7 @@ void page2::release(void)
 }
 
 void page2::update(void)
-{
+{ 
 
 }
 

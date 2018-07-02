@@ -12,7 +12,7 @@ HRESULT page0::init(void)
 
 	return S_OK;
 }
-
+ 
 void page0::release(void)
 {
 

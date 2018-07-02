@@ -16,7 +16,7 @@ private:
 	tagBox	_box[MAXBOX];
 
 	POINT	_center;
-
+	 
 public:
 	page4();
 	~page4();

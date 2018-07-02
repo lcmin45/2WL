@@ -43,7 +43,7 @@ void playGround::render(void)
 	PatBlt(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, BLACKNESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 	//============== 이 위로는 건드리지 말자 ==============
-	   
+	    
 	SCENEMANAGER->render();
 	//getMemDC() 대신 CAMERAMANAGER->getCameraDC()
 	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());

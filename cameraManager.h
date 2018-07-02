@@ -10,7 +10,7 @@ private:
 public:
 	cameraManager();
 	~cameraManager();
-
+	 
 	HRESULT init(void);
 	void release(void);
 	void update(void);

@@ -20,7 +20,7 @@ public:
 	~page2();
 
 	virtual HRESULT init(void);
-	virtual void release(void);
+	virtual void release(void); 
 	virtual void update(void);
 	virtual void render(void);
 

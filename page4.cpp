@@ -14,7 +14,7 @@ HRESULT page4::init(void)
 
 void page4::release(void)
 {
-
+	 
 }
 
 void page4::update(void)
