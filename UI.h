@@ -8,7 +8,7 @@ private:
 public:
 	UI();
 	~UI();
-
+	
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
