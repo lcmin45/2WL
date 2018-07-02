@@ -297,6 +297,21 @@
     <ClInclude Include="tileNode.h">
       <Filter>playGround\mapTool</Filter>
     </ClInclude>
+    <ClInclude Include="projectileManager.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="바람베기.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="불꽃타격.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="화염구.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="흙주먹.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -466,6 +481,21 @@
     </ClCompile>
     <ClCompile Include="mapTile.cpp">
       <Filter>playGround\mapTool\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="projectileManager.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="바람베기.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="불꽃타격.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="화염구.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="흙주먹.cpp">
+      <Filter>playGround\skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
