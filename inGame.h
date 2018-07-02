@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "projectileManager.h"
 #include "enemyManager.h"
 #include "itemManager.h"
 #include "scenePart.h"
@@ -12,6 +13,7 @@ class inGame : public gameNode
 private:
 	UI * _UI;
 	player* _player;
+	projectileManager* _ptM;
 public:
 	inGame();
 	~inGame();

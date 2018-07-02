@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "player.h"
+#include "projectileManager.h"
 
 player::player() {}
 player::~player() {}
@@ -158,6 +159,31 @@ void player::keyProcess()
 		_dashSpeed = 4;
 		animationProcess();
 	}
+
+	//=============================스킬 사용==========================
+
+	if (KEYMANAGER->isOnceKeyDown('Z'))
+	{
+		_ptM->fire("바람베기");
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('X'))
+	{
+		_ptM->fire("불꽃타격");
+	}
+	if (KEYMANAGER->isOnceKeyDown('C'))
+	{
+		_ptM->fire("화염구");
+	}
+	if (KEYMANAGER->isOnceKeyDown('V'))
+	{
+		_ptM->fire("흙주먹");
+	}
+
+
+
+	//=============================스킬 사용==========================
+
 	//바디 갱신
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
 }

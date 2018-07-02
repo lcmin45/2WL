@@ -1,6 +1,6 @@
 #pragma once
 #include "gameNode.h"
-#include "player.h"
+//#include "player.h"
 #include "阂采鸥拜.h"
 #include "官恩海扁.h"
 #include "入林冈.h"

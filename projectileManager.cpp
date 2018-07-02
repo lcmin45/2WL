@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "projectileManager.h"
+#include "player.h"
 
 
 projectileManager::projectileManager()
