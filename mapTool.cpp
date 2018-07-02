@@ -37,7 +37,7 @@ void mapTool::update(void)
 	_mapTile->update();
 	_book->update();
 
-	if (_book->getIsMoveBook()) return;
+	if (_book->getIsMoveBook()) return; 
 
 	if (KEYMANAGER->isStayKeyDown('W')) CAMERAMANAGER->setCameraPoint({ CAMERAMANAGER->getCameraPoint().x, CAMERAMANAGER->getCameraPoint().y - _moveSpeed });
 

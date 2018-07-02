@@ -12,7 +12,7 @@
 enum TERRAIN
 {
 	TR_NONE,
-	TR_WAY,
+	TR_WAY, 
 	TR_WALL	
 };
 

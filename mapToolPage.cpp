@@ -16,7 +16,7 @@ HRESULT mapToolPage::init(int index)
 		_title[i].img = IMAGEMANAGER->findImage("title");
 	}
 	
-
+ 
 	return S_OK;
 }
 

@@ -11,7 +11,7 @@
 #define ZEROPOINT PointMake(NULL, NULL)
 
 
-struct tagBox
+struct tagBox 
 {
 	image*	baseImg;
 	RECT	rc;
