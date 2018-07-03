@@ -27,7 +27,7 @@ void itemManager::release() {}
 
 void itemManager::update()
 {
-	if (KEYMANAGER->isOnceKeyDown('Z'))
+	if (KEYMANAGER->isOnceKeyDown('P'))
 	{
 		int rand = RND->getInt(10);
 		_vItem[rand]->setStatus(IN_INVENTORY);

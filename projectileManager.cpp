@@ -43,7 +43,6 @@ void projectileManager::update()
 	if (earthPunchAtt) earthPunchAtt->update();
 
 	if (fireBallAtt) fireBallAtt->update();
-
 }
 
 void projectileManager::render()
@@ -73,7 +72,6 @@ void projectileManager::fire(const char * skillName)
 		earthPunchAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 50, 1.0f);
 		earthPunchAtt->fireAtt();
 	}
-
 	if (skillName == "È­¿°±¸")
 	{
 		fireBallAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX*2, 50, 30);

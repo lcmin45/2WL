@@ -70,7 +70,6 @@ HRESULT player::init() //초기화
 	//임시
 	_box = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 200, 100);
 
-
 	return S_OK;
 }
 
@@ -83,9 +82,10 @@ void player::update()
 	KEYANIMANAGER->update();
 	_inventory->update();
 
+	//CAMERAMANAGER->setCameraPoint(_position);
+
 	//임시
 	_zOrderBox = RectMakeCenter(_position.x, _position.y + 60, 50, 25);
-	//CAMERAMANAGER->changePos(_position.x, _position.y);
 }
 
 void player::render()
@@ -93,7 +93,7 @@ void player::render()
 	//_image->aniRender(CAMERAMANAGER->getCameraDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
 
 	_inventory->render();
-
+	Rectangle(getMemDC(), 100, 100, 100, 100);
 	//임시
 	if (_zOrderBox.top > _box.bottom)
 	{
@@ -156,6 +156,7 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
+		_ptM->fire("바람베기");
 	}
 	//쉬프트(대쉬 키 입력)
 	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT)) //쿨타임 추가 해야함
@@ -167,29 +168,10 @@ void player::keyProcess()
 		animationProcess();
 	}
 
-	//=============================스킬 사용==========================
-
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-		_ptM->fire("바람베기");
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		_ptM->fire("불꽃타격");
-	}
-	if (KEYMANAGER->isOnceKeyDown('C'))
-	{
-		_ptM->fire("화염구");
-	}
-	if (KEYMANAGER->isOnceKeyDown('V'))
-	{
-		_ptM->fire("흙주먹");
-	}
-
-
-
-	//=============================스킬 사용==========================
+	//스킬 사용
+	if (KEYMANAGER->isOnceKeyDown('Z')) _ptM->fire("불꽃타격");
+	if (KEYMANAGER->isOnceKeyDown('X')) _ptM->fire("화염구");
+	if (KEYMANAGER->isOnceKeyDown('C')) _ptM->fire("흙주먹");
 
 	//바디 갱신
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);

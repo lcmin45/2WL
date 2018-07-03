@@ -25,7 +25,7 @@ void inventory::render()
 {
 	if (_isOpen)
 	{
-		_position = { CAMERAMANAGER->getXy().x - WINSIZEX / 4, CAMERAMANAGER->getXy().y };
+		_position = { CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 4, CAMERAMANAGER->getCameraPoint().y };
 		_image->alphaRender(CAMERAMANAGER->getCameraDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2, 200);
 
 		for (int i = 0; i < _vItem.size(); i++)
