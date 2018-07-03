@@ -1,56 +1,48 @@
 #include "stdafx.h"
 #include "cameraManager.h"
 
-HRESULT cameraManager::init()
+
+cameraManager::cameraManager() { }
+
+cameraManager::~cameraManager() { }
+
+HRESULT cameraManager::init(void)
 {
-	_camera = IMAGEMANAGER->addImage("camera", BACKGROUND_WIDTH, BACKGROUND_HEIGHT);
-	_x = WINSIZEX / 2;
-	_y = WINSIZEY / 2;
+	_camera = IMAGEMANAGER->addImage("camera", WINSIZEX, WINSIZEY);
+
+	_x = WINSIZEX / 2.0f;
+	_y = WINSIZEY / 2.0f;
 
 	return S_OK;
 }
 
-void cameraManager::release() {}
-
-void cameraManager::update()
+void cameraManager::release(void)
 {
-	//keyProcess();
+
 }
 
-void cameraManager::render(HDC hdc)
+void cameraManager::update(void)
 {
-	_camera->render(hdc, 0, 0, _x - WINSIZEX / 2, _y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
 
-void cameraManager::keyProcess()
+void cameraManager::render()
 {
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		if (_y - WINSIZEY / 2 > 0) _y -= 10;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		if (_y + WINSIZEY / 2 < BACKGROUND_HEIGHT) _y += 10;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		if (_x - WINSIZEX / 2 > 0) _x -= 10;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		if (_x + WINSIZEX / 2 < BACKGROUND_WIDTH) _x += 10;
-	}
+	 
 }
 
-void cameraManager::changePos(float x, float y)
+void cameraManager::render(image* img)
 {
-	if (x - WINSIZEX / 2 > 0 && x + WINSIZEX / 2 < BACKGROUND_WIDTH) _x = x;
-	else if (x - WINSIZEX / 2 <= 0) _x = WINSIZEX / 2;
-	else if (x + WINSIZEX / 2 >= BACKGROUND_WIDTH) _x = BACKGROUND_WIDTH - WINSIZEX / 2;
-	if (y - WINSIZEY / 2 > 0 && y + WINSIZEY / 2 < BACKGROUND_HEIGHT) _y = y;
-	else if (y - WINSIZEY / 2 <= 0) _y = WINSIZEY / 2;
-	else if (y + WINSIZEY / 2 >= BACKGROUND_HEIGHT) _y = BACKGROUND_HEIGHT - WINSIZEY / 2;
+	GdiTransparentBlt(img->getMemDC(), _x - WINSIZEX / 2, _y - WINSIZEY / 2, WINSIZEX, WINSIZEY,
+		_camera->getMemDC(), 0, 0, WINSIZEX, WINSIZEY, RGB(0, 0, 0));
 }
 
-cameraManager::cameraManager() {}
-cameraManager::~cameraManager() {}
+void cameraManager::setCameraPoint(POINT point)
+{ 
+	_x = point.x; 
+	_y = point.y; 
+
+	if (_x <= WINSIZEX / 2) _x = WINSIZEX / 2;
+	if (_x >= TOTALSIZEX - WINSIZEX / 2) _x = TOTALSIZEX - WINSIZEX / 2;
+	if (_y <= WINSIZEY / 2) _y = WINSIZEY / 2;
+	if (_y >= TOTALSIZEY - WINSIZEY / 2) _y = TOTALSIZEY - WINSIZEY / 2;
+}

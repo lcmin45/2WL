@@ -13,7 +13,7 @@ Scarecrow::~Scarecrow()
 
 HRESULT Scarecrow::init(POINTFLOAT point)
 {
-	_image = IMAGEMANAGER->addFrameImage("Scarecrow", "Scarecrow.bmp", 0, 0, 80, 60,2,1, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("Scarecrow", "image/monster/Scarecrow.bmp", 0, 0, 80, 60,2,1, true, RGB(255, 0, 255));
 	_scarecrowDirection = SCARECROW_STAND;
 	_x = point.x;
 	_y = point.y;
@@ -21,7 +21,7 @@ HRESULT Scarecrow::init(POINTFLOAT point)
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
-
+	 
 
 
 	int Stand[] = { 0 };

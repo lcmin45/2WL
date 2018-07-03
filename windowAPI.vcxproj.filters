@@ -97,6 +97,18 @@
     <Filter Include="playGround\itemManager">
       <UniqueIdentifier>{ed4b5bc8-535f-45c7-bcf2-0def0af3ae4f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\mapTool\book">
+      <UniqueIdentifier>{5730e187-1bb3-4770-bd11-de717418cdbd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\book\page">
+      <UniqueIdentifier>{455f924f-d8ab-4d6b-89c4-a23e4f990da4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\object">
+      <UniqueIdentifier>{c1b663ce-06e2-4b21-9010-f69de57617d0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\tile">
+      <UniqueIdentifier>{1b51bdbe-6d1b-4115-a181-6ebb704a5420}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -225,9 +237,6 @@
     <ClInclude Include="itemManager.h">
       <Filter>playGround\itemManager</Filter>
     </ClInclude>
-    <ClInclude Include="mapToolBook.h">
-      <Filter>playGround\mapTool</Filter>
-    </ClInclude>
     <ClInclude Include="mapToolPage.h">
       <Filter>playGround\mapTool</Filter>
     </ClInclude>
@@ -257,6 +266,51 @@
     </ClInclude>
     <ClInclude Include="woodBoss.h">
       <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="mapToolBook.h">
+      <Filter>playGround\mapTool\book</Filter>
+    </ClInclude>
+    <ClInclude Include="page0.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page1.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page2.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page3.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page4.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="pageManager.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="tileObject.h">
+      <Filter>playGround\mapTool\object</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTile.h">
+      <Filter>playGround\mapTool\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="tileNode.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="projectileManager.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="바람베기.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="불꽃타격.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="화염구.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="흙주먹.h">
+      <Filter>playGround\skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -374,9 +428,6 @@
     <ClCompile Include="itemManager.cpp">
       <Filter>playGround\itemManager</Filter>
     </ClCompile>
-    <ClCompile Include="mapToolBook.cpp">
-      <Filter>playGround\mapTool</Filter>
-    </ClCompile>
     <ClCompile Include="mapToolPage.cpp">
       <Filter>playGround\mapTool</Filter>
     </ClCompile>
@@ -403,6 +454,48 @@
     </ClCompile>
     <ClCompile Include="woodBoss.cpp">
       <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="mapToolBook.cpp">
+      <Filter>playGround\mapTool\book</Filter>
+    </ClCompile>
+    <ClCompile Include="page0.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="page1.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="page2.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="page3.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="page4.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="pageManager.cpp">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClCompile>
+    <ClCompile Include="tileObject.cpp">
+      <Filter>playGround\mapTool\object</Filter>
+    </ClCompile>
+    <ClCompile Include="mapTile.cpp">
+      <Filter>playGround\mapTool\tile</Filter>
+    </ClCompile>
+    <ClCompile Include="projectileManager.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="바람베기.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="불꽃타격.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="화염구.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="흙주먹.cpp">
+      <Filter>playGround\skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

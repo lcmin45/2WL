@@ -3,7 +3,7 @@
 #include "mapToolNode.h"
 
 #define BOOK
-
+ 
 class mapToolPage : public gameNode
 {
 private:
@@ -21,7 +21,7 @@ private:
 		int		frameX;
 		int		frameY;
 	};
-
+	 
 private:
 	int		_pageIndex;
 	POINT	_center;

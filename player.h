@@ -9,6 +9,8 @@ enum DIRECTION { UP, DOWN, LEFT, RIGHT }; //방향
 enum ACTION { IDLE, MOVE, ATTACK1, ATTACK2, DASH }; //행동
 enum ANGLE { ANGLE0, ANGLE1, ANGLE2, ANGLE3, ANGLE4, ANGLE5, ANGLE6, ANGLE7 }; //각도 (라디안 기준 0부터 2PI까지 8분할)
 
+class projectileManager;
+
 class player : public gameNode
 {
 private:
@@ -22,6 +24,8 @@ private:
 	float _speed; //스피드
 	float _dashSpeed; //대쉬 스피드
 	inventory* _inventory;
+
+	projectileManager* _ptM; // 투사체 매니저 호환
 
 	//임시
 	RECT _zOrderBox;
@@ -45,4 +49,9 @@ public:
 	inventory* getInventory() { return _inventory; }
 	void setAction(ACTION action) { _action = action; }
 	void setAnimation(animation* animation) { _animation = animation; }
+
+
+	//=======================스킬 사용 =================
+	POINTFLOAT getPosition() {return _position;}
+	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
 };

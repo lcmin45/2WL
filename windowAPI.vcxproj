@@ -174,14 +174,22 @@
     <ClInclude Include="Knight.h" />
     <ClInclude Include="loading.h" />
     <ClInclude Include="Mage.h" />
+    <ClInclude Include="mapTile.h" />
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="mapToolBook.h" />
     <ClInclude Include="mapToolNode.h" />
     <ClInclude Include="mapToolPage.h" />
     <ClInclude Include="monster.h" />
+    <ClInclude Include="page0.h" />
+    <ClInclude Include="page1.h" />
+    <ClInclude Include="page2.h" />
+    <ClInclude Include="page3.h" />
+    <ClInclude Include="page4.h" />
+    <ClInclude Include="pageManager.h" />
     <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="progressBar.h" />
+    <ClInclude Include="projectileManager.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rogue.h" />
@@ -195,12 +203,18 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="store.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tileNode.h" />
+    <ClInclude Include="tileObject.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
     <ClInclude Include="txtData.h" />
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="woodBoss.h" />
+    <ClInclude Include="바람베기.h" />
+    <ClInclude Include="불꽃타격.h" />
+    <ClInclude Include="화염구.h" />
+    <ClInclude Include="흙주먹.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
@@ -228,13 +242,21 @@
     <ClCompile Include="Knight.cpp" />
     <ClCompile Include="loading.cpp" />
     <ClCompile Include="Mage.cpp" />
+    <ClCompile Include="mapTile.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
     <ClCompile Include="mapToolPage.cpp" />
     <ClCompile Include="monster.cpp" />
+    <ClCompile Include="page0.cpp" />
+    <ClCompile Include="page1.cpp" />
+    <ClCompile Include="page2.cpp" />
+    <ClCompile Include="page3.cpp" />
+    <ClCompile Include="page4.cpp" />
+    <ClCompile Include="pageManager.cpp" />
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="projectileManager.cpp" />
     <ClCompile Include="Rogue.cpp" />
     <ClCompile Include="Scarecrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
@@ -249,6 +271,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="store.cpp" />
+    <ClCompile Include="tileObject.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
     <ClCompile Include="txtData.cpp" />
@@ -256,6 +279,10 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
     <ClCompile Include="woodBoss.cpp" />
+    <ClCompile Include="바람베기.cpp" />
+    <ClCompile Include="불꽃타격.cpp" />
+    <ClCompile Include="화염구.cpp" />
+    <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

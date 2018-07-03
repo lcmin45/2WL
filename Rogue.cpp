@@ -12,7 +12,7 @@ Rogue::~Rogue()
 }
 
 HRESULT Rogue::init(const char * imgName, POINTFLOAT point, float speed)
-{
+{//¤±¤¤¤·
 	sprintf_s(str, "%s", imgName);
 	sprintf_s(str2, "image/monster/%s.bmp", imgName);
 
