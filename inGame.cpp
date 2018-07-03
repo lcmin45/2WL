@@ -16,11 +16,7 @@ HRESULT inGame::init()
 	_UI = new UI;
 	_UI->init();
 
-	_ptM = new projectileManager;
-	_ptM->init();
 
-	_ptM->setPlayerAddressLink(_player);
-	_player->setProjectileManagerAddressLink(_ptM);
 
 	return S_OK;
 }
