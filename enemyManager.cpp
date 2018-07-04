@@ -6,7 +6,8 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-
+	IMAGEMANAGER->addFrameImage("SummonMonster", "image/Effect/SummonMonster.bmp", 0, 0, 64, 1856, 1, 29, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
 
 
 	//_woodBoss = new woodBoss;
@@ -70,7 +71,7 @@ void enemyManager::settingMonster()
 	{
 		Ghoul* _ghoul;
 		_ghoul = new Ghoul;
-		_ghoul->init({ 128 + i * 128,128 }, 1 + i*0.5);
+		_ghoul->init({ 128 + i * 128,128 }, 1 + i*0.5,i);
 
 		_vGhoul.push_back(_ghoul);
 	}

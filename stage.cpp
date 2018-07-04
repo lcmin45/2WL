@@ -1,12 +1,21 @@
 #include "stdafx.h"
 #include "stage.h"
 #include "player.h"
+#include "tileObject.h"
 
 stage::stage() {}
 stage::~stage() {}
 
 HRESULT stage::init()
 {
+	// 셈플 타일 이미지
+	IMAGEMANAGER->addFrameImage("SAMPLETILE_ICE", "image/mapTool/tile/sampleTile.bmp", 320, 224, 10, 7, false, RGBNONE);
+	IMAGEMANAGER->addFrameImage("SAMPLETILE_AUTO_ICE", "image/mapTool/tile/autoTile_ice.bmp", 480, 224, 15, 7, false, RGBNONE);
+	
+	// 오브젝트 이미지
+	IMAGEMANAGER->addFrameImage("OBJECT_CANDLE", "image/mapTool/object1.bmp", 60, 34, 6, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object/object_5.bmp", 192, 96, 6, 1, true, RGBMAGENTA);
+
 	_stage = 0;
 
 	return S_OK;
@@ -29,6 +38,8 @@ void stage::render()
 		{
 			if (i >= MAXTILEY || j >= MAXTILEX) continue;
 
+			if (_tile[i * MAXTILEX + j].imageIndex == NULL) continue;
+
 			switch (_tile[i * MAXTILEX + j].imageIndex)
 			{
 			case 1:
@@ -50,7 +61,7 @@ void stage::render()
 		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
 		{
 			if (i >= MAXTILEY || j >= MAXTILEX) continue;
-
+			
 			if ((int)(_player->getPosition().y / TILESIZE) == i) _player->render();
 
 			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
@@ -67,6 +78,21 @@ void stage::render()
 
 void stage::stageLoad(int stage)
 {
+	int temp;
+	for (int i = 0; i < MAXTILEY; ++i)
+	{
+		for (int j = 0; j < MAXTILEX; ++j)
+		{
+			temp = i * MAXTILEX + j;
+
+			_tile[temp].imageIndex = NULL;
+			_tile[temp].terrain = TR_NONE;
+			_tile[temp].object = OBJ_NONE;
+			_tile[temp].objectIndex = NULL;
+			_tile[temp].objectClass = NULL;
+		}
+	}
+
 	_stage = stage;
 
 	HANDLE file;

@@ -12,10 +12,10 @@ Ghoul::~Ghoul()
 {
 }
 
-HRESULT Ghoul::init(POINTFLOAT point,float speed)
+HRESULT Ghoul::init(POINTFLOAT point,float speed,int index)
 {
-	IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
-	_image = IMAGEMANAGER->addFrameImage("SummonMonster", "image/Effect/SummonMonster.bmp", 0, 0, 64, 1856, 1, 29, true, RGB(255, 0, 255));
+	
+	_image = IMAGEMANAGER->findImage("SummonMonster");
 	_form = CARD;
 	_ghoulDirection = GHOUL_RIGHT_STAND; 
 	_attackRange = 20;
@@ -33,7 +33,6 @@ HRESULT Ghoul::init(POINTFLOAT point,float speed)
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
 	KEYANIMANAGER->addArrayFrameAnimation("MonsterSummon", "SummonMonster", Summon, 29, 6, false, summonOn, this);
-
 
 	int rightStand[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightStand", "Ghoul", rightStand, 1, 1, false);
@@ -57,13 +56,10 @@ HRESULT Ghoul::init(POINTFLOAT point,float speed)
 	int leftHit[] = { 30 ,19 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftHit", "Ghoul", leftHit, 2, 3, false);
 
-
-
 	int rightDie[] = { 21,22,23,24,25,26,27,28,29 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightDie", "Ghoul", rightDie, 9, 6, false);
 	int leftDie[] = { 31,32,33,34,35,36,37,38,39 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftDie", "Ghoul", leftDie, 9, 6, false);
-
 
 	_ghoulMotion = KEYANIMANAGER->findAnimation("MonsterSummon");
 

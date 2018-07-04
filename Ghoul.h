@@ -29,7 +29,7 @@ public:
 
 
 
-	virtual HRESULT init(POINTFLOAT point, float speed);
+	virtual HRESULT init(POINTFLOAT point, float speed, int index);
 	virtual void release();
 	virtual void update();
 	virtual void render();

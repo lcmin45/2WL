@@ -11,6 +11,8 @@ private:
 	int		_stage;
 	player* _player;
 
+	bool  isCheck;
+
 public:
 	stage();
 	~stage();

@@ -87,7 +87,7 @@ void projectileManager::render()
 
 void projectileManager::fire(const char * skillName)
 {
-	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, _ptMouse.x, _ptMouse.y);
+	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, getMousePoint().x, getMousePoint().y);
 
 	if (skillName == "∫“≤…≈∏∞›")
 	{
