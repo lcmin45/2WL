@@ -87,7 +87,8 @@ void stage::stageLoad(int stage)
 			
 			_tile[i * MAXTILEX + j].objectClass = new tileObject;
 			_tile[i * MAXTILEX + j].objectClass->init(_tile[i * MAXTILEX + j].objectIndex);
-			_tile[i * MAXTILEX + j].objectClass->setPoint(_tile[i * MAXTILEX + j].center);
+			_tile[i * MAXTILEX + j].objectClass->setRenderPoint(_tile[i * MAXTILEX + j].renderPoint);
+			_tile[i * MAXTILEX + j].objectClass->setCenterPoint(_tile[i * MAXTILEX + j].center);
 		}
 	}
 }

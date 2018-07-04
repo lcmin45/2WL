@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "tileObject.h"
-#include "tileNode.h"
+#include "mapToolNode.h"
 
 tileObject::tileObject() { }
 
@@ -12,41 +12,41 @@ HRESULT tileObject::init(int index)
 	{
 	case 1:
 	{
-		img = IMAGEMANAGER->findImage("OBJECT_CANDLE");
+		_img = IMAGEMANAGER->findImage("OBJECT_CANDLE");
 
 		int candle[] = { 0, 1, 2, 3, 4, 5 };
 		KEYANIMANAGER->addArrayFrameAnimation("CANDLE", "OBJECT_CANDLE", candle, 6, 10, true);
-		animation = KEYANIMANAGER->findAnimation("CANDLE");
-		
+		_animation = KEYANIMANAGER->findAnimation("CANDLE");
+
 	}
-		break; 
+	break;
 	case 2:
 	{
 
 	}
-		break;
+	break;
 	case 3:
 	{
 
 	}
-		break;
+	break;
 	case 4:
 	{
 
 	}
-		break;
+	break;
 	case 5:
 	{
-		img = IMAGEMANAGER->findImage("OBJECT_5");
+		_img = IMAGEMANAGER->findImage("OBJECT_5");
 
 		int ani[] = { 0, 1, 2, 3, 4, 5 };
 		KEYANIMANAGER->addArrayFrameAnimation("ANI_OBJECT_5", "OBJECT_5", ani, 6, 10, true);
-		animation = KEYANIMANAGER->findAnimation("ANI_OBJECT_5");
+		_animation = KEYANIMANAGER->findAnimation("ANI_OBJECT_5");
 	}
-		break;
+	break;
 	}
-	
-	animation->start();
+
+	_animation->start();
 	return S_OK;
 }
 
@@ -62,5 +62,5 @@ void tileObject::update(void)
 
 void tileObject::render(void)
 {
-	img->aniRender(getMemDC(), renderPoint.x - TILESIZE / 2, (renderPoint.y + TILESIZE / 2) - img->getFrameHeight(), animation);
+	_img->aniRender(getMemDC(), _tileCenterPoint.x - _renderPoint.x, _tileCenterPoint.y - _renderPoint.y, _animation);
 }

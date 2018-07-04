@@ -4,9 +4,10 @@
 class tileObject : public gameNode
 {
 private:
-	image*		img;
-	animation*	animation;
-	POINT		renderPoint;
+	image * _img;
+	animation*	_animation;
+	POINT		_tileCenterPoint;
+	POINT		_renderPoint;
 
 public:
 	tileObject();
@@ -17,7 +18,7 @@ public:
 	virtual void update(void);
 	virtual void render(void);
 
-	void setPoint(POINT point) { renderPoint = point; }
+	void setCenterPoint(POINT point) { _tileCenterPoint = point; }
+	void setRenderPoint(POINT point) { _renderPoint = point; }
 };
 
- 
