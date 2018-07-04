@@ -6,25 +6,15 @@
 #include "»Î¡÷∏‘.h"
 #include "»≠ø∞±∏.h"
 #include "∫“≈∏¥¬ø√∞°πÃ.h"
+
+
 class projectileManager : public gameNode
 {
 private:
 	player * _player;
 
-	vector<∫“≤…≈∏∞›>			vFirePunchAtt;
-	vector<∫“≤…≈∏∞›>::iterator	viFirePunchAtt;
-
-	vector<πŸ∂˜∫£±‚>			vWindCutterAtt;
-	vector<πŸ∂˜∫£±‚>::iterator	viWindCutterAtt;
-
-	vector<»Î¡÷∏‘>			vEarthPunchAtt;
-	vector<»Î¡÷∏‘>::iterator	viEarthPunchAtt;
-
-	vector<»≠ø∞±∏>			vFireBallAtt;
-	vector<»≠ø∞±∏>::iterator	viFireBallAtt;
-
-	vector<∫“≈∏¥¬ø√∞°πÃ>			vFireSword;
-	vector<∫“≈∏¥¬ø√∞°πÃ>::iterator	viFireSword;
+	vector<skill*>				vSkill;
+	vector<skill*>::iterator	viSkill;
 
 public:
 	projectileManager();

@@ -44,118 +44,53 @@ void projectileManager::fire(const char * skillName)
 
 	if (skillName == "ºÒ²ÉÅ¸°İ")
 	{
-		ºÒ²ÉÅ¸°İ firePunchAtt;
-		ZeroMemory(&firePunchAtt, sizeof(ºÒ²ÉÅ¸°İ));
-		firePunchAtt.fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50, 1.0f);
-		vFirePunchAtt.push_back(firePunchAtt);
+		ºÒ²ÉÅ¸°İ* FirePunch = new ºÒ²ÉÅ¸°İ;
+		FirePunch->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50, 1.0f);
+		vSkill.push_back(FirePunch);
 	}
 	if (skillName == "¹Ù¶÷º£±â")
 	{
-		¹Ù¶÷º£±â windCutterAtt;
-		ZeroMemory(&windCutterAtt, sizeof(¹Ù¶÷º£±â));
-		windCutterAtt.fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50, 1.0f);
-		vWindCutterAtt.push_back(windCutterAtt);
+		¹Ù¶÷º£±â* WindCutter = new ¹Ù¶÷º£±â;
+		WindCutter->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50, 1.0f);
+		vSkill.push_back(WindCutter);
 	}
 	if (skillName == "ÈëÁÖ¸Ô")
 	{
-		ÈëÁÖ¸Ô earthPunchAtt;
-		ZeroMemory(&earthPunchAtt, sizeof(ÈëÁÖ¸Ô));
-		earthPunchAtt.fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 50, 1.0f);
-		earthPunchAtt.fireAtt();
-		vEarthPunchAtt.push_back(earthPunchAtt);
+		ÈëÁÖ¸Ô* EarthPunch = new ÈëÁÖ¸Ô;
+		EarthPunch->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 50, 1.0f);
+		EarthPunch->fireAtt();
+		vSkill.push_back(EarthPunch);
 	}
 
 	if (skillName == "È­¿°±¸")
 	{
-		È­¿°±¸ fireBallAtt;
-		ZeroMemory(&fireBallAtt, sizeof(È­¿°±¸));
-		fireBallAtt.fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 50, 30);
-		vFireBallAtt.push_back(fireBallAtt);
+		È­¿°±¸* FireBall = new È­¿°±¸;
+		FireBall->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 50, 30);
+		vSkill.push_back(FireBall);
 	}
 
 	if (skillName == "ºÒÅ¸´Â¿Ã°¡¹Ì")
 	{
-		ºÒÅ¸´Â¿Ã°¡¹Ì fireSword;
-		ZeroMemory(&fireSword, sizeof(ºÒÅ¸´Â¿Ã°¡¹Ì));
-		fireSword.fire(skillName, 1, _player->getPosition(), 8, 200, 50, 1.0f);
-		vFireSword.push_back(fireSword);
+		ºÒÅ¸´Â¿Ã°¡¹Ì* FireSword = new ºÒÅ¸´Â¿Ã°¡¹Ì;
+		FireSword->fire(skillName, 1, _player->getPosition(), 8, 200, 50, 1.0f);
+		vSkill.push_back(FireSword);
 	}
 }
 
 void projectileManager::vectorCheck()
 {
-	if (vFirePunchAtt.size() != 0)
+	if (vSkill.size() != 0)
 	{
-		for (viFirePunchAtt = vFirePunchAtt.begin(); viFirePunchAtt != vFirePunchAtt.end();)
+		for (viSkill = vSkill.begin(); viSkill != vSkill.end();)
 		{
-			if (!viFirePunchAtt->getImage())
+			if (!(*viSkill)->getImage())
 			{
-				viFirePunchAtt = vFirePunchAtt.erase(viFirePunchAtt);
+				viSkill = vSkill.erase(viSkill);
 			}
 			else
 			{
-				viFirePunchAtt->update();
-				viFirePunchAtt++;
-			}
-		}
-	}
-	if (vWindCutterAtt.size() != 0)
-	{
-		for (viWindCutterAtt = vWindCutterAtt.begin(); viWindCutterAtt != vWindCutterAtt.end();)
-		{
-			if (!viWindCutterAtt->getImage())
-			{
-				viWindCutterAtt = vWindCutterAtt.erase(viWindCutterAtt);
-			}
-			else
-			{
-				viWindCutterAtt->update();
-				viWindCutterAtt++;
-			}
-		}
-	}
-	if (vEarthPunchAtt.size() != 0)
-	{
-		for (viEarthPunchAtt = vEarthPunchAtt.begin(); viEarthPunchAtt != vEarthPunchAtt.end();)
-		{
-			if (!viEarthPunchAtt->getImage())
-			{
-				viEarthPunchAtt = vEarthPunchAtt.erase(viEarthPunchAtt);
-			}
-			else
-			{
-				viEarthPunchAtt->update();
-				viEarthPunchAtt++;
-			}
-		}
-	}
-	if (vFireBallAtt.size() != 0)
-	{
-		for (viFireBallAtt = vFireBallAtt.begin(); viFireBallAtt != vFireBallAtt.end();)
-		{
-			if (!viFireBallAtt->getImage())
-			{
-				viFireBallAtt = vFireBallAtt.erase(viFireBallAtt);
-			}
-			else
-			{
-				viFireBallAtt->update();
-				viFireBallAtt++;
-			}
-		}
-	}
-	if (vFireSword.size() != 0)
-	{
-		for (viFireSword = vFireSword.begin(); viFireSword != vFireSword.end();)
-		{
-			if (!viFireSword->getImage())
-			{
-				viFireSword = vFireSword.erase(viFireSword);
-			}
-			else
-			{
-				viFireSword->update();
-				viFireSword++;
+				(*viSkill)->update();
+				viSkill++;
 			}
 		}
 	}
@@ -163,39 +98,11 @@ void projectileManager::vectorCheck()
 
 void projectileManager::vectorDraw()
 {
-	if (vFirePunchAtt.size() != 0)
+	if (vSkill.size() != 0)
 	{
-		for (viFirePunchAtt = vFirePunchAtt.begin(); viFirePunchAtt != vFirePunchAtt.end(); viFirePunchAtt++)
+		for (viSkill = vSkill.begin(); viSkill != vSkill.end(); viSkill++)
 		{
-			viFirePunchAtt->render();
-		}
-	}
-	if (vWindCutterAtt.size() != 0)
-	{
-		for (viWindCutterAtt = vWindCutterAtt.begin(); viWindCutterAtt != vWindCutterAtt.end(); viWindCutterAtt++)
-		{
-			viWindCutterAtt->render();
-		}
-	}
-	if (vEarthPunchAtt.size() != 0)
-	{
-		for (viEarthPunchAtt = vEarthPunchAtt.begin(); viEarthPunchAtt != vEarthPunchAtt.end(); viEarthPunchAtt++)
-		{
-			viEarthPunchAtt->render();
-		}
-	}
-	if (vFireBallAtt.size() != 0)
-	{
-		for (viFireBallAtt = vFireBallAtt.begin(); viFireBallAtt != vFireBallAtt.end(); viFireBallAtt++)
-		{
-			viFireBallAtt->render();
-		}
-	}
-	if (vFireSword.size() != 0)
-	{
-		for (viFireSword = vFireSword.begin(); viFireSword != vFireSword.end(); viFireSword++)
-		{
-			viFireSword->render();
+			(*viSkill)->render();
 		}
 	}
 }
