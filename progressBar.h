@@ -15,7 +15,7 @@ public:
 	progressBar();
 	~progressBar();
 
-	HRESULT init(int x, int y, int width, int height);
+	HRESULT init(int x, int y, const char* frontImage, const char* backImage, int width, int height);
 	void release();
 	void update();
 	void render();

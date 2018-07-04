@@ -20,24 +20,15 @@ enum MAGEDIRECTION
 class Mage :
 	public monster
 {
-public:
-	Mage();
-	~Mage();
-
-
-
 	MAGEDIRECTION _MageDirection;
 	animation* _MageMotion;
 
-	char str[256],str2[256];
+	char str[256], str2[256];
 
-	image* _image;
-	float _x, _y;
-	float _attackRange;
-	RECT _rc;
-	float _angle;
-	float _speed;
-
+public:
+	Mage();
+	~Mage();
+	
 
 	virtual HRESULT init(const char* imgName, POINTFLOAT point, float speed);
 	virtual void release();

@@ -1,10 +1,13 @@
 #pragma once
 #include "gameNode.h"
 
+class player;
+
 class UI : public gameNode
 {
 private:
 	image * _image;
+	player* _player;
 public:
 	UI();
 	~UI();
@@ -13,4 +16,6 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void setPlayerAddressLink(player* getLink) { _player = getLink; }
 };

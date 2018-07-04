@@ -20,19 +20,13 @@ enum GHOULDIRECTION
 
 class Ghoul : public monster
 {
+	GHOULDIRECTION _ghoulDirection;
+	animation* _ghoulMotion;
+
 public:
 	Ghoul();
 	~Ghoul();
 
-	GHOULDIRECTION _ghoulDirection;
-	animation* _ghoulMotion;
-
-	image* _image;
-	float _x, _y;
-	float _attackRange;
-	RECT _rc;
-	float _angle;
-	float _speed;
 
 
 	virtual HRESULT init(POINTFLOAT point, float speed);
@@ -47,6 +41,8 @@ public:
 	static void rightStop(void* obj);
 	static void leftStop(void* obj);
 
+	static void summonOn(void * obj);
+
 	//=====================================테스트용=======================
 	void Test();	//이미지 테스트용 함수 나중에 지우자
 	float PX, PY;
@@ -56,6 +52,9 @@ public:
 
 
 	//구울의 상태에 대한 접근자, 설정자
+	void setImage(image* img) { _image = img; }
+	void setForm(MONSTERFORM form) { _form = form; }
+
 	GHOULDIRECTION getGhoulDirection() { return _ghoulDirection; }
 	void setGhoulDirection(GHOULDIRECTION direction) { _ghoulDirection = direction; }
 

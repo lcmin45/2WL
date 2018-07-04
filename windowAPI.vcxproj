@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
@@ -189,6 +190,7 @@
     <ClInclude Include="player.h" />
     <ClInclude Include="playGround.h" />
     <ClInclude Include="progressBar.h" />
+    <ClInclude Include="projectileManager.h" />
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rogue.h" />
@@ -210,9 +212,15 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="woodBoss.h" />
+    <ClInclude Include="바람베기.h" />
+    <ClInclude Include="불꽃타격.h" />
+    <ClInclude Include="불타는올가미.h" />
+    <ClInclude Include="화염구.h" />
+    <ClInclude Include="흙주먹.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
@@ -251,6 +259,7 @@
     <ClCompile Include="player.cpp" />
     <ClCompile Include="playGround.cpp" />
     <ClCompile Include="progressBar.cpp" />
+    <ClCompile Include="projectileManager.cpp" />
     <ClCompile Include="Rogue.cpp" />
     <ClCompile Include="Scarecrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
@@ -273,6 +282,11 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
     <ClCompile Include="woodBoss.cpp" />
+    <ClCompile Include="바람베기.cpp" />
+    <ClCompile Include="불꽃타격.cpp" />
+    <ClCompile Include="불타는올가미.cpp" />
+    <ClCompile Include="화염구.cpp" />
+    <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -20,23 +20,17 @@ enum KNIGHTDIRECTION
 class Knight :
 	public monster
 {
-public:
-	Knight();
-	~Knight();
-
-
-
 	KNIGHTDIRECTION _KnightDirection;
 	animation* _KnightMotion;
 
 	char str[256], str2[256];
 
-	image* _image;
-	float _x, _y;
-	float _attackRange;
-	RECT _rc;
-	float _angle;
-	float _speed;
+
+public:
+	Knight();
+	~Knight();
+
+
 
 
 	virtual HRESULT init(const char* imgName, POINTFLOAT point, float speed);

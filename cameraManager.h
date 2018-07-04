@@ -5,8 +5,7 @@ class cameraManager : public singletonBase<cameraManager>
 {
 private:
 	image*	_camera;
-	float	_x, _y;
-
+	POINTFLOAT _cameraPos;
 public:
 	cameraManager();
 	~cameraManager();
@@ -18,8 +17,7 @@ public:
 	void render(image* img);
 
 	HDC getCameraDC() { return _camera->getMemDC(); }
-	void setCameraPoint(POINT point);
-	POINT getCameraPoint() { return PointMake(_x, _y); }
+	void setCameraPoint(POINTFLOAT point);
+	POINTFLOAT getCameraPoint() { return _cameraPos; }
 	image* getCamera() { return _camera; }
 };
-

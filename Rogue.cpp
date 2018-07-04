@@ -21,12 +21,14 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point, float speed)
 
 	_RogueDirection = ROGUE_RIGHT_STAND;
 	_attackRange = 100;
-	_x = point.x;
-	_y = point.y;
+	_bottomX = point.x;
+	_bottomY = point.y;
+	_x = _bottomX;
+	_y = _bottomY - _image->getFrameHeight() / 2;
 	_speed = speed;
-	/*
+	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
-	_image->getFrameHeight());*/
+		_image->getFrameHeight());
 
 
 	int rightStand[] = { 0 };
@@ -76,7 +78,12 @@ void Rogue::update()
 
 void Rogue::render()
 {
-	_image->aniRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top, _RogueMotion);
+	_image->aniRender(getMemDC(), _rc.left, _rc.top, _RogueMotion);
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+	}
 }
 
 void Rogue::RogueMove()

@@ -15,18 +15,14 @@ enum SCARECROWDIRECTION
 class Scarecrow :
 	public monster
 {
-public:
-	Scarecrow();
-	~Scarecrow();
-
 
 	SCARECROWDIRECTION _scarecrowDirection;
 	animation* _scarecrowMotion;
 
-	image* _image;
-	float _x, _y;
-	RECT _rc;
 
+public:
+	Scarecrow();
+	~Scarecrow();
 
 
 	virtual HRESULT init(POINTFLOAT point);
