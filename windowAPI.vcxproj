@@ -149,11 +149,13 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="bossProgressBar.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="current.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="ending.h" />
@@ -179,7 +181,7 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="mapToolBook.h" />
     <ClInclude Include="mapToolNode.h" />
-    <ClInclude Include="mapToolPage.h" />
+    <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="page0.h" />
     <ClInclude Include="page1.h" />
@@ -204,7 +206,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="store.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="tileNode.h" />
     <ClInclude Include="tileObject.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
@@ -212,17 +213,21 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="woodBoss.h" />
+    <ClInclude Include="맹렬회오리.h" />
     <ClInclude Include="바람베기.h" />
     <ClInclude Include="불꽃타격.h" />
+    <ClInclude Include="불타는올가미.h" />
     <ClInclude Include="화염구.h" />
     <ClInclude Include="흙주먹.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="bossProgressBar.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="current.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="ending.cpp" />
@@ -247,7 +252,8 @@
     <ClCompile Include="mapTile.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
-    <ClCompile Include="mapToolPage.cpp" />
+    <ClCompile Include="mapToolImage.cpp" />
+    <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="page0.cpp" />
     <ClCompile Include="page1.cpp" />
@@ -281,8 +287,10 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
     <ClCompile Include="woodBoss.cpp" />
+    <ClCompile Include="맹렬회오리.cpp" />
     <ClCompile Include="바람베기.cpp" />
     <ClCompile Include="불꽃타격.cpp" />
+    <ClCompile Include="불타는올가미.cpp" />
     <ClCompile Include="화염구.cpp" />
     <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>

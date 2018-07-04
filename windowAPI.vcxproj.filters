@@ -73,9 +73,6 @@
     <Filter Include="playGround\UI">
       <UniqueIdentifier>{4403e405-88d2-4500-bb34-6567acea347e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\player\inventory">
-      <UniqueIdentifier>{001f3e5f-f4a5-4fba-9946-68515f385ca7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\skill">
       <UniqueIdentifier>{c5ee8f07-9d8c-4999-bfb1-05ae2a51e996}</UniqueIdentifier>
     </Filter>
@@ -109,8 +106,11 @@
     <Filter Include="playGround\mapTool\tile">
       <UniqueIdentifier>{1b51bdbe-6d1b-4115-a181-6ebb704a5420}</UniqueIdentifier>
     </Filter>
-    <Filter Include="2DFramework\bossProgressBar">
-      <UniqueIdentifier>{eb1749fc-e1e3-4d7f-a719-b8292a33f292}</UniqueIdentifier>
+    <Filter Include="playGround\mapTool\miniMap">
+      <UniqueIdentifier>{cec4259d-b7b8-4259-8559-767604dc3fe6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\current">
+      <UniqueIdentifier>{8e2ec1e8-8ffd-47f1-9a57-3ad2896e315d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -210,9 +210,6 @@
     <ClInclude Include="UI.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="inventory.h">
-      <Filter>playGround\player\inventory</Filter>
-    </ClInclude>
     <ClInclude Include="item.h">
       <Filter>playGround\itemManager</Filter>
     </ClInclude>
@@ -239,9 +236,6 @@
     </ClInclude>
     <ClInclude Include="itemManager.h">
       <Filter>playGround\itemManager</Filter>
-    </ClInclude>
-    <ClInclude Include="mapToolPage.h">
-      <Filter>playGround\mapTool</Filter>
     </ClInclude>
     <ClInclude Include="mapToolNode.h">
       <Filter>playGround\mapTool</Filter>
@@ -297,9 +291,6 @@
     <ClInclude Include="mapTile.h">
       <Filter>playGround\mapTool\tile</Filter>
     </ClInclude>
-    <ClInclude Include="tileNode.h">
-      <Filter>playGround\mapTool</Filter>
-    </ClInclude>
     <ClInclude Include="projectileManager.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
@@ -315,8 +306,23 @@
     <ClInclude Include="흙주먹.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
-    <ClInclude Include="bossProgressBar.h">
-      <Filter>2DFramework\bossProgressBar</Filter>
+    <ClInclude Include="inventory.h">
+      <Filter>playGround\itemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="불타는올가미.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="miniMap.h">
+      <Filter>playGround\mapTool\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="current.h">
+      <Filter>playGround\mapTool\current</Filter>
+    </ClInclude>
+    <ClInclude Include="맹렬회오리.h">
+      <Filter>playGround\skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -401,9 +407,6 @@
     <ClCompile Include="UI.cpp">
       <Filter>playGround\UI</Filter>
     </ClCompile>
-    <ClCompile Include="inventory.cpp">
-      <Filter>playGround\player\inventory</Filter>
-    </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>playGround\itemManager</Filter>
     </ClCompile>
@@ -433,9 +436,6 @@
     </ClCompile>
     <ClCompile Include="itemManager.cpp">
       <Filter>playGround\itemManager</Filter>
-    </ClCompile>
-    <ClCompile Include="mapToolPage.cpp">
-      <Filter>playGround\mapTool</Filter>
     </ClCompile>
     <ClCompile Include="Mage.cpp">
       <Filter>playGround\enemyManager\monster</Filter>
@@ -503,8 +503,26 @@
     <ClCompile Include="흙주먹.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
-    <ClCompile Include="bossProgressBar.cpp">
-      <Filter>2DFramework\bossProgressBar</Filter>
+    <ClCompile Include="inventory.cpp">
+      <Filter>playGround\itemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="불타는올가미.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="mapToolImage.cpp">
+      <Filter>playGround\mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="miniMap.cpp">
+      <Filter>playGround\mapTool\miniMap</Filter>
+    </ClCompile>
+    <ClCompile Include="current.cpp">
+      <Filter>playGround\mapTool\current</Filter>
+    </ClCompile>
+    <ClCompile Include="맹렬회오리.cpp">
+      <Filter>playGround\skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

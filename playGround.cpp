@@ -10,7 +10,7 @@ HRESULT playGround::init(void)
 
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
-	SCENEMANAGER->changeScene("inGame");
+	SCENEMANAGER->changeScene("mapTool");
 
 	return S_OK;
 }
@@ -39,15 +39,13 @@ void playGround::update(void)
 
 void playGround::render(void)
 {
-	//흰색도화지 한 장 깔아둔다
 	PatBlt(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY, BLACKNESS);
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
-	//============== 이 위로는 건드리지 말자 ==============
-	    
+
 	SCENEMANAGER->render();
-	//getMemDC() 대신 CAMERAMANAGER->getCameraDC()
-	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
-	//================이 밑으로도 건드리지 말자 =============
+
+	//TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
+
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }

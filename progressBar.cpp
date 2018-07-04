@@ -11,18 +11,22 @@ progressBar::~progressBar()
 {
 }
 
-HRESULT progressBar::init(int x, int y, int width, int height)
+HRESULT progressBar::init(int x, int y, const char* frontImage, int frontWidth, int frontHeight, const char* backImage, int backWidth, int backHeight)
 {
 	_x = x;
 	_y = y;
+	_gap = (backWidth - frontWidth) / 2;
+	_frontImage = frontImage;
+	_backImage = backImage;
 
-	_rcProgress = RectMake(x, y, width, height);
+	_rcFront = RectMakeCenter(x + _gap, y, frontWidth, frontHeight);
+	_rcBack = RectMakeCenter(x, y, backWidth, backHeight);
 
-	_progressBarTop = IMAGEMANAGER->addImage("frontBar", "HpBarTop.bmp", x, y, width, height, true, RGB(255, 0, 255));
-	_progressBarBottom = IMAGEMANAGER->addImage("backBar", "HpBarBottom.bmp", x, y, width, height, true, RGB(255, 0, 255));
+	_progressBarFront = IMAGEMANAGER->findImage(_frontImage);
+	_progressBarBack = IMAGEMANAGER->findImage(_backImage);
 
 	//가로크기는 이미지의 가로크기로!
-	_width = _progressBarTop->getWidth();
+	_width = _progressBarFront->getWidth();
 
 	return S_OK;
 }
@@ -34,25 +38,19 @@ void progressBar::release()
 
 void progressBar::update()
 {
-	_rcProgress = RectMakeCenter(_x, _y, _progressBarTop->getWidth(), _progressBarTop->getHeight());
+	_rcFront = RectMakeCenter(_x + _gap, _y, _progressBarFront->getWidth(), _progressBarFront->getHeight());
 }
 
 void progressBar::render()
 {
 	//그려줄땐 뒤에 게이지부터 먼저 그린다
-	IMAGEMANAGER->render("backBar", CAMERAMANAGER->getCameraDC(),
-		_rcProgress.left + _progressBarBottom->getWidth() / 2,
-		_y + _progressBarBottom->getHeight() / 2, 0, 0,
-		_progressBarBottom->getWidth(), _progressBarBottom->getHeight());
+	IMAGEMANAGER->render(_backImage, CAMERAMANAGER->getCameraDC(), _rcBack.left + _progressBarBack->getWidth() / 2, _y + _progressBarBack->getHeight() / 2, 0, 0, _progressBarBack->getWidth(), _progressBarBack->getHeight());
 
 	//앞에 게이지는 가로크기 혹은 세로크기가 변해야하기때문에 변수가 크기값에 들어간다
-	IMAGEMANAGER->render("frontBar", CAMERAMANAGER->getCameraDC(), 
-		_rcProgress.left + _progressBarBottom->getWidth() / 2,
-		_y + _progressBarBottom->getHeight() / 2, 0, 0,
-		_width, _progressBarBottom->getHeight());
+	IMAGEMANAGER->render(_frontImage, CAMERAMANAGER->getCameraDC(), _rcFront.left + _progressBarFront->getWidth() / 2, _y + _progressBarFront->getHeight() / 2, 0, 0, _width, _progressBarFront->getHeight());
 }
 
 void progressBar::setGauge(float currentGauge, float maxGauge)
 {
-	_width = (currentGauge / maxGauge) * _progressBarBottom->getWidth();
+	_width = (currentGauge / maxGauge) * _progressBarFront->getWidth();
 }

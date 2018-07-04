@@ -5,18 +5,26 @@
 #include "πŸ∂˜∫£±‚.h"
 #include "»Î¡÷∏‘.h"
 #include "»≠ø∞±∏.h"
-
-class player;
-
-class projectileManager:public gameNode
+#include "∫“≈∏¥¬ø√∞°πÃ.h"
+class projectileManager : public gameNode
 {
 private:
-	∫“≤…≈∏∞› * firePunchAtt;
-	πŸ∂˜∫£±‚ * windCutterAtt;
-	»Î¡÷∏‘ * earthPunchAtt;
+	player * _player;
 
-	»≠ø∞±∏ * fireBallAtt;
-	player* _player;
+	vector<∫“≤…≈∏∞›>			vFirePunchAtt;
+	vector<∫“≤…≈∏∞›>::iterator	viFirePunchAtt;
+
+	vector<πŸ∂˜∫£±‚>			vWindCutterAtt;
+	vector<πŸ∂˜∫£±‚>::iterator	viWindCutterAtt;
+
+	vector<»Î¡÷∏‘>			vEarthPunchAtt;
+	vector<»Î¡÷∏‘>::iterator	viEarthPunchAtt;
+
+	vector<»≠ø∞±∏>			vFireBallAtt;
+	vector<»≠ø∞±∏>::iterator	viFireBallAtt;
+
+	vector<∫“≈∏¥¬ø√∞°πÃ>			vFireSword;
+	vector<∫“≈∏¥¬ø√∞°πÃ>::iterator	viFireSword;
 
 public:
 	projectileManager();
@@ -28,6 +36,8 @@ public:
 	virtual void render();
 
 	void fire(const char * skillName);
+	void vectorCheck();
+	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
 };
 

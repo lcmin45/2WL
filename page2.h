@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "mapToolNode.h"
+#include "current.h"
 
 class page2 : public gameNode
 {
@@ -10,7 +11,7 @@ private:
 #define MAXBOXY 3
 
 private:
-	image*	_titleImage[2];
+	image * _titleImage[2];
 	tagBox	_box[MAXBOX];
 
 	POINT	_center;
@@ -20,7 +21,7 @@ public:
 	~page2();
 
 	virtual HRESULT init(void);
-	virtual void release(void); 
+	virtual void release(void);
 	virtual void update(void);
 	virtual void render(void);
 
