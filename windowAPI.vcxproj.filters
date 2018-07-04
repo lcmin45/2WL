@@ -73,9 +73,6 @@
     <Filter Include="playGround\UI">
       <UniqueIdentifier>{4403e405-88d2-4500-bb34-6567acea347e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="playGround\player\inventory">
-      <UniqueIdentifier>{001f3e5f-f4a5-4fba-9946-68515f385ca7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="playGround\skill">
       <UniqueIdentifier>{c5ee8f07-9d8c-4999-bfb1-05ae2a51e996}</UniqueIdentifier>
     </Filter>
@@ -207,9 +204,6 @@
     <ClInclude Include="UI.h">
       <Filter>playGround\UI</Filter>
     </ClInclude>
-    <ClInclude Include="inventory.h">
-      <Filter>playGround\player\inventory</Filter>
-    </ClInclude>
     <ClInclude Include="item.h">
       <Filter>playGround\itemManager</Filter>
     </ClInclude>
@@ -312,6 +306,9 @@
     <ClInclude Include="흙주먹.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>playGround\itemManager</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -394,9 +391,6 @@
     </ClCompile>
     <ClCompile Include="UI.cpp">
       <Filter>playGround\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="inventory.cpp">
-      <Filter>playGround\player\inventory</Filter>
     </ClCompile>
     <ClCompile Include="item.cpp">
       <Filter>playGround\itemManager</Filter>
@@ -496,6 +490,9 @@
     </ClCompile>
     <ClCompile Include="흙주먹.cpp">
       <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>playGround\itemManager</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

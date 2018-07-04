@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "player.h"
+#include "itemManager.h"
 #include "projectileManager.h"
 
 player::player() {}
@@ -62,14 +63,10 @@ HRESULT player::init() //초기화
 
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
 
-	_speed = SPEED;
-
-	_inventory = new inventory;
-	_inventory->init();
-
-	//임시
-	_box = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2, 200, 100);
-
+	_maxHp = _currentHp = PLAYER_HP;
+	_damage = PLAYER_DAMAGE;
+	_speed = PLAYER_SPEED;
+	_critical = PLAYER_CRITICAL;
 
 	return S_OK;
 }
@@ -80,32 +77,19 @@ void player::update()
 {
 	keyProcess();
 	actionProcess();
+	collisionProcess();
+	inventoryProcess();
 	KEYANIMANAGER->update();
-	_inventory->update();
-
-	//임시
-	_zOrderBox = RectMakeCenter(_position.x, _position.y + 60, 50, 25);
-	//CAMERAMANAGER->changePos(_position.x, _position.y);
+	CAMERAMANAGER->setCameraPoint(_position);
 }
 
 void player::render()
 {
-	//_image->aniRender(CAMERAMANAGER->getCameraDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
+	_image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
 
-	_inventory->render();
-
-	//임시
-	if (_zOrderBox.top > _box.bottom)
-	{
-		Rectangle(CAMERAMANAGER->getCameraDC(), _box.left, _box.top, _box.right, _box.bottom);
-		_image->aniRender(CAMERAMANAGER->getCameraDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
-	}
-	else
-	{
-		_image->aniRender(CAMERAMANAGER->getCameraDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
-		Rectangle(CAMERAMANAGER->getCameraDC(), _box.left, _box.top, _box.right, _box.bottom);
-	}
-	if (KEYMANAGER->isToggleKey(VK_TAB)) Rectangle(CAMERAMANAGER->getCameraDC(), _zOrderBox.left, _zOrderBox.top, _zOrderBox.right, _zOrderBox.bottom);
+	char temp[128];
+	sprintf_s(temp, "HP : %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _maxHp, _damage, _speed, _critical);
+	TextOut(CAMERAMANAGER->getCameraDC(), 50, 50, temp, strlen(temp));
 }
 
 void player::keyProcess()
@@ -156,6 +140,7 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
+		_ptM->fire("바람베기");
 	}
 	//쉬프트(대쉬 키 입력)
 	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT)) //쿨타임 추가 해야함
@@ -167,29 +152,28 @@ void player::keyProcess()
 		animationProcess();
 	}
 
-	//=============================스킬 사용==========================
-
+	//스킬 사용
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
-		_ptM->fire("바람베기");
+		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("불꽃타격");
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
-		_ptM->fire("불꽃타격");
+		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("화염구");
 	}
 	if (KEYMANAGER->isOnceKeyDown('C'))
 	{
-		_ptM->fire("화염구");
-	}
-	if (KEYMANAGER->isOnceKeyDown('V'))
-	{
+		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		attackAngleProcess();
+		animationProcess();
 		_ptM->fire("흙주먹");
 	}
-
-
-
-	//=============================스킬 사용==========================
 
 	//바디 갱신
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
@@ -198,7 +182,7 @@ void player::keyProcess()
 void player::attackAngleProcess()
 {
 	//플레이어와 마우스 포인터의 각도
-	float tempAngle = getAngle(_position.x, _position.y, _ptMouse.x, _ptMouse.y);
+	float tempAngle = getAngle(_position.x, _position.y, getMousePoint().x, getMousePoint().y);
 
 	if ((tempAngle > 0 && tempAngle <= PI / 4) || (tempAngle > PI / 4 * 7 && tempAngle <= PI2)) { _direction = RIGHT; _angle = ANGLE0; }
 	else if (tempAngle <= PI / 4 * 3) { _direction = UP; _angle = ANGLE2; }
@@ -250,6 +234,56 @@ void player::actionProcess()
 		else if (_angle == ANGLE7) { _position.x += (_action == MOVE ? _speed * temp : _speed * _dashSpeed * temp); _position.y += (_action == MOVE ? _speed * temp : _speed * _dashSpeed * temp); }
 		//대쉬일 경우 미끄러지는 속도 구현용
 		if (_action == DASH) _dashSpeed -= 0.1f;
+	}
+}
+
+void player::collisionProcess()
+{
+	for (int i = 0; i < _itemManager->getVItem().size(); i++)
+	{
+		if (_itemManager->getVItem()[i]->getStatus() != ON_FIELD) continue;
+
+		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 50)
+		{
+			if (KEYMANAGER->isOnceKeyDown('F'))
+			{
+				if (_itemManager->addItem(_itemManager->getVItem()[i]));
+
+				break;
+			}
+		}
+	}
+}
+
+void player::inventoryProcess()
+{
+	_maxHp = PLAYER_HP;
+	_damage = PLAYER_DAMAGE;
+	_speed = PLAYER_SPEED;
+	_critical = PLAYER_CRITICAL;
+	for (int i = 0; i < _itemManager->getInventory()->getVItem().size(); i++)
+	{
+		item* item = _itemManager->getInventory()->getVItem()[i];
+		for (int j = 0; j < 2; j++)
+		{
+			switch (item->getEffect()[j].type)
+			{
+			case NONE:
+				break;
+			case HP:
+				_maxHp += _maxHp * item->getEffect()[j].amount / 100;
+				break;
+			case DAMAGE:
+				_damage += _damage * item->getEffect()[j].amount / 100;
+				break;
+			case SPEED:
+				_speed += _speed * item->getEffect()[j].amount / 100;
+				break;
+			case CRITICAL:
+				_critical += _critical * item->getEffect()[j].amount / 100;
+				break;
+			}
+		}
 	}
 }
 

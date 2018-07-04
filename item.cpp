@@ -6,6 +6,7 @@ item::~item() {}
 
 HRESULT item::init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char * imageName, const char * name, const char * info)
 {
+	//초기값 설정
 	char directory[128];
 	_position = position;
 	_status = status;
@@ -25,5 +26,6 @@ void item::update() {}
 
 void item::render()
 {
-	if (_status == ON_FIELD) _image->render(CAMERAMANAGER->getCameraDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);
+	//아이템의 상태가 필드에 있을 때만 랜더
+	if (_status == ON_FIELD) _image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);
 }

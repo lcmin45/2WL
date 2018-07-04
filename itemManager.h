@@ -1,16 +1,18 @@
 #pragma once
 #include "gameNode.h"
+#include "inventory.h"
 #include "item.h"
 #include <vector>
 
-class inventory;
+class player;
 
 class itemManager : public gameNode
 {
 private:
-	vector<item*> _vItem;
-	vector<item*>::iterator _viItem;
-	inventory* _inventory;
+	vector<item*> _vItem; //아이템 백터
+	vector<item*>::iterator _viItem; //아이템 백터 이터레이터
+	player* _player; //플레이어
+	inventory* _inventory; //인벤토리
 public:
 	itemManager();
 	~itemManager();
@@ -20,8 +22,9 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void setPosition(const char* name, POINTFLOAT position);
-	void setStatus(const char* name, STATUS status);
-
-	void setInventoryLink(inventory* inventory) { _inventory = inventory; }
+	vector<item*> getVItem() { return _vItem; }
+	inventory* getInventory() { return _inventory; }
+	void setItem(item* item, STATUS status, POINTFLOAT position);
+	bool addItem(item* item);
+	void setPlayerAddressLink(player* getLink) { _player = getLink; }
 };
