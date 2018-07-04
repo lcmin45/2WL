@@ -162,7 +162,7 @@ void player::keyProcess()
 
 	//=============================스킬 사용==========================
 
-	if (KEYMANAGER->isOnceKeyDown('Z'))
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 	{
 		_ptM->fire("바람베기");
 	}
