@@ -16,6 +16,6 @@ public:
 
 	virtual void move();
 	virtual void frameCount();
-	virtual void fireAtt();
+	void fireAtt();
 };
 

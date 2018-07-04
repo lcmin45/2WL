@@ -151,7 +151,6 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="boss.h" />
-    <ClInclude Include="bossProgressBar.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -213,6 +212,7 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="woodBoss.h" />
+    <ClInclude Include="맹렬회오리.h" />
     <ClInclude Include="바람베기.h" />
     <ClInclude Include="불꽃타격.h" />
     <ClInclude Include="불타는올가미.h" />
@@ -223,7 +223,6 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="boss.cpp" />
-    <ClCompile Include="bossProgressBar.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="current.cpp" />
@@ -286,6 +285,7 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
     <ClCompile Include="woodBoss.cpp" />
+    <ClCompile Include="맹렬회오리.cpp" />
     <ClCompile Include="바람베기.cpp" />
     <ClCompile Include="불꽃타격.cpp" />
     <ClCompile Include="불타는올가미.cpp" />

@@ -60,6 +60,4 @@ public:
 	void setAnimation(animation* animation) { _animation = animation; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
-
-	RECT getBody() { return _body; }
 };

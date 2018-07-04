@@ -24,11 +24,9 @@ private:
 
 
 	//보스 클래스 소환
-	woodBoss * _woodBoss;
+	woodBoss* _woodBoss;
 	iceBoss* _iceBoss;
 	fireBoss* _fireBoss;
-	//보스 좌표설정
-	POINTFLOAT _woodposition, _iceposition, _fireposition;
 
 	vGhoul		_vGhoul;
 	viGhoul		_viGhoul;
@@ -43,7 +41,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void setBoss();
+	virtual void setBoss();
 
 	void settingMonster();
 };
