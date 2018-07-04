@@ -321,6 +321,9 @@
     <ClInclude Include="current.h">
       <Filter>playGround\mapTool\current</Filter>
     </ClInclude>
+    <ClInclude Include="맹렬회오리.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -517,6 +520,9 @@
     </ClCompile>
     <ClCompile Include="current.cpp">
       <Filter>playGround\mapTool\current</Filter>
+    </ClCompile>
+    <ClCompile Include="맹렬회오리.cpp">
+      <Filter>playGround\skill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

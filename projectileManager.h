@@ -6,22 +6,25 @@
 #include "흙주먹.h"
 #include "화염구.h"
 #include "불타는올가미.h"
-
-class player;
-
-class projectileManager:public gameNode
+class projectileManager : public gameNode
 {
 private:
-	불꽃타격 * firePunchAtt;
-	바람베기 * windCutterAtt;
-	흙주먹 * earthPunchAtt;
+	player * _player;
 
-	화염구 * fireBallAtt;
+	vector<불꽃타격>			vFirePunchAtt;
+	vector<불꽃타격>::iterator	viFirePunchAtt;
 
+	vector<바람베기>			vWindCutterAtt;
+	vector<바람베기>::iterator	viWindCutterAtt;
 
-	불타는올가미* fireSword;
+	vector<흙주먹>			vEarthPunchAtt;
+	vector<흙주먹>::iterator	viEarthPunchAtt;
 
-	player* _player;
+	vector<화염구>			vFireBallAtt;
+	vector<화염구>::iterator	viFireBallAtt;
+
+	vector<불타는올가미>			vFireSword;
+	vector<불타는올가미>::iterator	viFireSword;
 
 public:
 	projectileManager();
@@ -33,6 +36,8 @@ public:
 	virtual void render();
 
 	void fire(const char * skillName);
+	void vectorCheck();
+	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
 };
 
