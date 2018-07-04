@@ -149,6 +149,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="animation.h" />
+    <ClInclude Include="Astar.h" />
     <ClInclude Include="boss.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
@@ -213,11 +214,13 @@
     <ClInclude Include="woodBoss.h" />
     <ClInclude Include="바람베기.h" />
     <ClInclude Include="불꽃타격.h" />
+    <ClInclude Include="불타는올가미.h" />
     <ClInclude Include="화염구.h" />
     <ClInclude Include="흙주먹.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="animation.cpp" />
+    <ClCompile Include="Astar.cpp" />
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
@@ -281,6 +284,7 @@
     <ClCompile Include="woodBoss.cpp" />
     <ClCompile Include="바람베기.cpp" />
     <ClCompile Include="불꽃타격.cpp" />
+    <ClCompile Include="불타는올가미.cpp" />
     <ClCompile Include="화염구.cpp" />
     <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>

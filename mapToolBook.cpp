@@ -14,7 +14,10 @@ HRESULT mapToolBook::init(void)
 	return S_OK;
 }
 
-void mapToolBook::release(void) { }
+void mapToolBook::release(void) 
+{ 
+	SAFE_DELETE(_page);
+}
  
 void mapToolBook::update(void)
 {

@@ -26,8 +26,9 @@ HRESULT mapTool::init(void)
 
 void mapTool::release(void)
 {
-	_mapTile->release();
-	_book->release();	
+	SAFE_DELETE(_book);
+	SAFE_RELEASE(_book);
+	SAFE_DELETE(_mapTile);
 }
 
 void mapTool::update(void)

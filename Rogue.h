@@ -19,21 +19,16 @@ enum ROGUEDIRECTION
 class Rogue :
 	public monster
 {
-public:
-	Rogue();
-	~Rogue();
 
 	ROGUEDIRECTION _RogueDirection;
 	animation* _RogueMotion;
 
 	char str[256], str2[256];
 
-	image* _image;
-	float _x, _y;
-	float _attackRange;
-	RECT _rc;
-	float _angle;
-	float _speed;
+
+public:
+	Rogue();
+	~Rogue();
 
 
 	virtual HRESULT init(const char* imgName, POINTFLOAT point, float speed);

@@ -7,6 +7,8 @@
 #include "player.h"
 #include "store.h"
 #include "UI.h"
+#include "stage.h"
+#include "Astar.h"
 
 class inGame : public gameNode
 {
@@ -15,6 +17,11 @@ private:
 	player* _player;
 	itemManager* _itemManager;
 	projectileManager* _ptM;
+
+
+	enemyManager* _enemyManager;
+	stage * _stage;
+	Astar* _Astar;
 public:
 	inGame();
 	~inGame();
