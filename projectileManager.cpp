@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "projectileManager.h"
-#include "player.h"
 
 
 projectileManager::projectileManager()
@@ -20,6 +19,20 @@ HRESULT projectileManager::init()
 	IMAGEMANAGER->addFrameImage("흙주먹", "image/skill/흙주먹.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("바람베기", "image/skill/바람베기.bmp", 480, 1920, 4, 16, true, RGB(255, 0, 255));
 
+	string str[MAXPARTICLE];
+
+	for (int i = 0; i < MAXPARTICLE; i++)
+	{
+		str[i] = i;
+		IMAGEMANAGER->addFrameImage(str[i], "image/skill/불꽃파티클.bmp", 666, 94, 9, 1, true, RGB(255, 0, 255));
+	}
+	string pStr[64];
+	for (int i = 0; i < 64; i++)
+	{
+		pStr[i] = i + MAXPARTICLE;
+		IMAGEMANAGER->addFrameImage(pStr[i], "image/skill/불꽃파티클.bmp", 666, 94, 9, 1, true, RGB(255, 0, 255));
+	}
+	
 
 	firePunchAtt = new 불꽃타격;
 	windCutterAtt = new 바람베기;
@@ -28,6 +41,11 @@ HRESULT projectileManager::init()
 
 
 	fireBallAtt = new 화염구;
+
+
+
+	fireSword = new 불타는올가미;
+
 	return S_OK;
 }
 
@@ -44,6 +62,16 @@ void projectileManager::update()
 
 	if (fireBallAtt) fireBallAtt->update();
 
+
+	if (fireSword) fireSword->update();
+
+
+	if (fireSword->getErase())
+	{
+		/*delete fireSword;
+		ZeroMemory(&fireSword, sizeof(fireSword));
+		fireSword = new 불타는올가미;*/
+	}
 }
 
 void projectileManager::render()
@@ -53,6 +81,8 @@ void projectileManager::render()
 	if (earthPunchAtt) earthPunchAtt->render();
 
 	if (fireBallAtt) fireBallAtt->render();
+
+	if (fireSword) fireSword->render();
 }
 
 void projectileManager::fire(const char * skillName)
@@ -77,5 +107,10 @@ void projectileManager::fire(const char * skillName)
 	if (skillName == "화염구")
 	{
 		fireBallAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX*2, 50, 30);
+	}
+
+	if (skillName == "불타는올가미")
+	{
+		fireSword->fire(skillName, 1, _player->getPosition(), 8, 200, 50, 1.0f);
 	}
 }

@@ -1,10 +1,11 @@
 #pragma once
 #include "gameNode.h"
-//#include "player.h"
+#include "player.h"
 #include "불꽃타격.h"
 #include "바람베기.h"
 #include "흙주먹.h"
 #include "화염구.h"
+#include "불타는올가미.h"
 
 class player;
 
@@ -16,6 +17,10 @@ private:
 	흙주먹 * earthPunchAtt;
 
 	화염구 * fireBallAtt;
+
+
+	불타는올가미* fireSword;
+
 	player* _player;
 
 public:
