@@ -32,7 +32,7 @@ HRESULT projectileManager::init()
 		pStr[i] = i + MAXPARTICLE;
 		IMAGEMANAGER->addFrameImage(pStr[i], "image/skill/불꽃파티클.bmp", 666, 94, 9, 1, true, RGB(255, 0, 255));
 	}
-	
+
 
 	firePunchAtt = new 불꽃타격;
 	windCutterAtt = new 바람베기;
@@ -51,7 +51,7 @@ HRESULT projectileManager::init()
 
 void projectileManager::release()
 {
-	
+
 }
 
 void projectileManager::update()
@@ -87,11 +87,11 @@ void projectileManager::render()
 
 void projectileManager::fire(const char * skillName)
 {
-	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, _ptMouse.x, _ptMouse.y);
+	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, getMousePoint().x, getMousePoint().y);
 
 	if (skillName == "불꽃타격")
 	{
-		firePunchAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50,1.0f);
+		firePunchAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 50, 1.0f);
 	}
 	if (skillName == "바람베기")
 	{
@@ -106,7 +106,7 @@ void projectileManager::fire(const char * skillName)
 
 	if (skillName == "화염구")
 	{
-		fireBallAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX*2, 50, 30);
+		fireBallAtt->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 50, 30);
 	}
 
 	if (skillName == "불타는올가미")
