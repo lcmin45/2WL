@@ -1,456 +1,41 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="소스 파일">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="헤더 파일">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="리소스 파일">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="2DFramework">
-      <UniqueIdentifier>{2097f7dd-466c-43ba-bf64-382891d85213}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\singletonBase">
-      <UniqueIdentifier>{27f5bfd9-a1f0-43c1-97da-f30c056f6397}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround">
-      <UniqueIdentifier>{7d41c859-4579-4624-b673-c0e05586ad1f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\Manager">
-      <UniqueIdentifier>{9bb540ca-4b5e-4022-9141-2af7c425e122}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\utils">
-      <UniqueIdentifier>{c21c4c8a-1155-499d-b121-68b14fe4a82c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\image">
-      <UniqueIdentifier>{0ea639ba-92ce-4c57-a4a7-e0cc0b1731d4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\progressBar">
-      <UniqueIdentifier>{7f62cdff-c24e-412b-abb0-097542fb2ea8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\txtData">
-      <UniqueIdentifier>{fb2550d5-b60d-4281-862b-1d8329019df9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\timer">
-      <UniqueIdentifier>{e9484528-0487-4586-a201-bc9cc283c075}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\animation">
-      <UniqueIdentifier>{1ffd2ec9-ea41-4955-b856-37cf78b3c082}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\effect">
-      <UniqueIdentifier>{e401df2d-a36e-4add-9dcb-7b125fb6272a}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="2DFramework\button">
-      <UniqueIdentifier>{f7d51706-c5d3-48b6-820a-231ce8fb495f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\inGame">
-      <UniqueIdentifier>{7004009f-fc72-4539-a74a-83346e60de71}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool">
-      <UniqueIdentifier>{286e7892-972f-4e77-b138-1f497a85863d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\player">
-      <UniqueIdentifier>{3d71f1f1-7a0a-45f5-a522-63b7c4c5ed8e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\enemyManager">
-      <UniqueIdentifier>{cbda3cb5-e29e-439c-a17f-e9e3d24bcd1e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\stage">
-      <UniqueIdentifier>{6b75fe45-1d5b-4521-9ed0-c57f9e3ac308}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\enemyManager\monster">
-      <UniqueIdentifier>{8ac7d5d4-70b2-4fce-95d1-550d30fedcd8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\enemyManager\boss">
-      <UniqueIdentifier>{21c20875-20bd-4291-bb57-3c15a8cef592}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\UI">
-      <UniqueIdentifier>{4403e405-88d2-4500-bb34-6567acea347e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\skill">
-      <UniqueIdentifier>{c5ee8f07-9d8c-4999-bfb1-05ae2a51e996}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\store">
-      <UniqueIdentifier>{72e1d539-0473-490f-8bd4-0f639e700b9e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\scenePart">
-      <UniqueIdentifier>{5fbe0dc5-3af0-437a-8c95-3dca0bb5403d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\scenePart\intro">
-      <UniqueIdentifier>{064addc6-ea68-45d3-9d41-0a202a0ef66e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\scenePart\loading">
-      <UniqueIdentifier>{2f7eb0e8-d1bf-40c9-8377-fd0a3e5a37be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\scenePart\ending">
-      <UniqueIdentifier>{bc6b8fe7-df58-4db4-9e92-f1eb5b955a12}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\itemManager">
-      <UniqueIdentifier>{ed4b5bc8-535f-45c7-bcf2-0def0af3ae4f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\book">
-      <UniqueIdentifier>{5730e187-1bb3-4770-bd11-de717418cdbd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\book\page">
-      <UniqueIdentifier>{455f924f-d8ab-4d6b-89c4-a23e4f990da4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\object">
-      <UniqueIdentifier>{c1b663ce-06e2-4b21-9010-f69de57617d0}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\tile">
-      <UniqueIdentifier>{1b51bdbe-6d1b-4115-a181-6ebb704a5420}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\miniMap">
-      <UniqueIdentifier>{cec4259d-b7b8-4259-8559-767604dc3fe6}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="playGround\mapTool\current">
-      <UniqueIdentifier>{8e2ec1e8-8ffd-47f1-9a57-3ad2896e315d}</UniqueIdentifier>
-    </Filter>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="stdafx.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="targetver.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Resource.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="commonMacroFunction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="singletonBase.h">
-      <Filter>2DFramework\singletonBase</Filter>
-    </ClInclude>
-    <ClInclude Include="randomFunction.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="gameNode.h">
-      <Filter>2DFramework</Filter>
-    </ClInclude>
-    <ClInclude Include="playGround.h">
-      <Filter>playGround</Filter>
-    </ClInclude>
-    <ClInclude Include="keyManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="utils.h">
-      <Filter>2DFramework\utils</Filter>
-    </ClInclude>
-    <ClInclude Include="image.h">
-      <Filter>2DFramework\image</Filter>
-    </ClInclude>
-    <ClInclude Include="imageManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="progressBar.h">
-      <Filter>2DFramework\progressBar</Filter>
-    </ClInclude>
-    <ClInclude Include="txtData.h">
-      <Filter>2DFramework\txtData</Filter>
-    </ClInclude>
-    <ClInclude Include="timer.h">
-      <Filter>2DFramework\timer</Filter>
-    </ClInclude>
-    <ClInclude Include="timeManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="soundManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="animation.h">
-      <Filter>2DFramework\animation</Filter>
-    </ClInclude>
-    <ClInclude Include="effect.h">
-      <Filter>2DFramework\effect</Filter>
-    </ClInclude>
-    <ClInclude Include="effectManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="sceneManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="button.h">
-      <Filter>2DFramework\button</Filter>
-    </ClInclude>
-    <ClInclude Include="iniDataManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="keyAniManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="inGame.h">
-      <Filter>playGround\inGame</Filter>
-    </ClInclude>
-    <ClInclude Include="mapTool.h">
-      <Filter>playGround\mapTool</Filter>
-    </ClInclude>
-    <ClInclude Include="player.h">
-      <Filter>playGround\player</Filter>
-    </ClInclude>
-    <ClInclude Include="enemyManager.h">
-      <Filter>playGround\enemyManager</Filter>
-    </ClInclude>
-    <ClInclude Include="stage.h">
-      <Filter>playGround\stage</Filter>
-    </ClInclude>
-    <ClInclude Include="monster.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="boss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="UI.h">
-      <Filter>playGround\UI</Filter>
-    </ClInclude>
-    <ClInclude Include="item.h">
-      <Filter>playGround\itemManager</Filter>
-    </ClInclude>
-    <ClInclude Include="skill.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="store.h">
-      <Filter>playGround\store</Filter>
-    </ClInclude>
-    <ClInclude Include="scenePart.h">
-      <Filter>playGround\scenePart</Filter>
-    </ClInclude>
-    <ClInclude Include="intro.h">
-      <Filter>playGround\scenePart\intro</Filter>
-    </ClInclude>
-    <ClInclude Include="loading.h">
-      <Filter>playGround\scenePart\loading</Filter>
-    </ClInclude>
-    <ClInclude Include="ending.h">
-      <Filter>playGround\scenePart\ending</Filter>
-    </ClInclude>
-    <ClInclude Include="cameraManager.h">
-      <Filter>2DFramework\Manager</Filter>
-    </ClInclude>
-    <ClInclude Include="itemManager.h">
-      <Filter>playGround\itemManager</Filter>
-    </ClInclude>
-    <ClInclude Include="mapToolNode.h">
-      <Filter>playGround\mapTool</Filter>
-    </ClInclude>
-    <ClInclude Include="Rogue.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Scarecrow.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Mage.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Ghoul.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="Knight.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="fireBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="iceBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="woodBoss.h">
-      <Filter>playGround\enemyManager\boss</Filter>
-    </ClInclude>
-    <ClInclude Include="mapToolBook.h">
-      <Filter>playGround\mapTool\book</Filter>
-    </ClInclude>
-    <ClInclude Include="page0.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="page1.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="page2.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="page3.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="page4.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="pageManager.h">
-      <Filter>playGround\mapTool\book\page</Filter>
-    </ClInclude>
-    <ClInclude Include="tileObject.h">
-      <Filter>playGround\mapTool\object</Filter>
-    </ClInclude>
-    <ClInclude Include="mapTile.h">
-      <Filter>playGround\mapTool\tile</Filter>
-    </ClInclude>
-    <ClInclude Include="projectileManager.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="바람베기.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="불꽃타격.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="화염구.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="흙주먹.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="inventory.h">
-      <Filter>playGround\itemManager</Filter>
-    </ClInclude>
-    <ClInclude Include="불타는올가미.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Astar.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
-    <ClInclude Include="miniMap.h">
-      <Filter>playGround\mapTool\miniMap</Filter>
-    </ClInclude>
-    <ClInclude Include="current.h">
-      <Filter>playGround\mapTool\current</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="windowAPI.cpp">
+    <ClCompile Include="stdafx.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="gameNode.cpp">
-      <Filter>2DFramework</Filter>
-    </ClCompile>
-    <ClCompile Include="playGround.cpp">
-      <Filter>playGround</Filter>
-    </ClCompile>
-    <ClCompile Include="keyManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="utils.cpp">
-      <Filter>2DFramework\utils</Filter>
-    </ClCompile>
-    <ClCompile Include="image.cpp">
-      <Filter>2DFramework\image</Filter>
-    </ClCompile>
-    <ClCompile Include="imageManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="progressBar.cpp">
-      <Filter>2DFramework\progressBar</Filter>
-    </ClCompile>
-    <ClCompile Include="txtData.cpp">
-      <Filter>2DFramework\txtData</Filter>
-    </ClCompile>
-    <ClCompile Include="timer.cpp">
-      <Filter>2DFramework\timer</Filter>
-    </ClCompile>
-    <ClCompile Include="timeManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="soundManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
+    <ClCompile Include="windowAPI.cpp">
+      <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="animation.cpp">
       <Filter>2DFramework\animation</Filter>
     </ClCompile>
-    <ClCompile Include="effect.cpp">
-      <Filter>2DFramework\effect</Filter>
-    </ClCompile>
-    <ClCompile Include="effectManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="button.cpp">
-      <Filter>2DFramework\button</Filter>
-    </ClCompile>
-    <ClCompile Include="iniDataManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="keyAniManager.cpp">
-      <Filter>2DFramework\Manager</Filter>
-    </ClCompile>
-    <ClCompile Include="inGame.cpp">
-      <Filter>playGround\inGame</Filter>
-    </ClCompile>
-    <ClCompile Include="mapTool.cpp">
-      <Filter>playGround\mapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="player.cpp">
-      <Filter>playGround\player</Filter>
-    </ClCompile>
-    <ClCompile Include="enemyManager.cpp">
-      <Filter>playGround\enemyManager</Filter>
-    </ClCompile>
-    <ClCompile Include="stage.cpp">
-      <Filter>playGround\stage</Filter>
-    </ClCompile>
-    <ClCompile Include="monster.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
     <ClCompile Include="boss.cpp">
       <Filter>playGround\enemyManager\boss</Filter>
     </ClCompile>
-    <ClCompile Include="UI.cpp">
-      <Filter>playGround\UI</Filter>
-    </ClCompile>
-    <ClCompile Include="item.cpp">
-      <Filter>playGround\itemManager</Filter>
-    </ClCompile>
-    <ClCompile Include="skill.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="store.cpp">
-      <Filter>playGround\store</Filter>
-    </ClCompile>
-    <ClCompile Include="scenePart.cpp">
-      <Filter>playGround\scenePart</Filter>
-    </ClCompile>
-    <ClCompile Include="intro.cpp">
-      <Filter>playGround\scenePart\intro</Filter>
-    </ClCompile>
-    <ClCompile Include="loading.cpp">
-      <Filter>playGround\scenePart\loading</Filter>
-    </ClCompile>
-    <ClCompile Include="ending.cpp">
-      <Filter>playGround\scenePart\ending</Filter>
+    <ClCompile Include="bossProgressBar.cpp">
+      <Filter>2DFramework\boosProgressBar</Filter>
     </ClCompile>
     <ClCompile Include="cameraManager.cpp">
       <Filter>2DFramework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="stdafx.cpp">
-      <Filter>소스 파일</Filter>
+    <ClCompile Include="effectManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
     </ClCompile>
-    <ClCompile Include="itemManager.cpp">
-      <Filter>playGround\itemManager</Filter>
+    <ClCompile Include="effect.cpp">
+      <Filter>2DFramework\effect</Filter>
     </ClCompile>
-    <ClCompile Include="Mage.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
+    <ClCompile Include="button.cpp">
+      <Filter>2DFramework\button</Filter>
     </ClCompile>
-    <ClCompile Include="Rogue.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Knight.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Scarecrow.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
-    <ClCompile Include="Ghoul.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
+    <ClCompile Include="enemyManager.cpp">
+      <Filter>playGround\enemyManager</Filter>
     </ClCompile>
     <ClCompile Include="fireBoss.cpp">
       <Filter>playGround\enemyManager\boss</Filter>
+    </ClCompile>
+    <ClCompile Include="gameNode.cpp">
+      <Filter>2DFramework</Filter>
     </ClCompile>
     <ClCompile Include="iceBoss.cpp">
       <Filter>playGround\enemyManager\boss</Filter>
@@ -458,8 +43,74 @@
     <ClCompile Include="woodBoss.cpp">
       <Filter>playGround\enemyManager\boss</Filter>
     </ClCompile>
-    <ClCompile Include="mapToolBook.cpp">
-      <Filter>playGround\mapTool\book</Filter>
+    <ClCompile Include="image.cpp">
+      <Filter>2DFramework\image</Filter>
+    </ClCompile>
+    <ClCompile Include="imageManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="iniDataManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="keyAniManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="keyManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="soundManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="timeManager.cpp">
+      <Filter>2DFramework\Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="progressBar.cpp">
+      <Filter>2DFramework\progressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="timer.cpp">
+      <Filter>2DFramework\timer</Filter>
+    </ClCompile>
+    <ClCompile Include="txtData.cpp">
+      <Filter>2DFramework\txtData</Filter>
+    </ClCompile>
+    <ClCompile Include="utils.cpp">
+      <Filter>2DFramework\utils</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Ghoul.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Knight.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Mage.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Rogue.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Scarecrow.cpp">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClCompile>
+    <ClCompile Include="inGame.cpp">
+      <Filter>playGround\inGame</Filter>
+    </ClCompile>
+    <ClCompile Include="inventory.cpp">
+      <Filter>playGround\itemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="item.cpp">
+      <Filter>playGround\itemManager</Filter>
+    </ClCompile>
+    <ClCompile Include="itemManager.cpp">
+      <Filter>playGround\itemManager</Filter>
     </ClCompile>
     <ClCompile Include="page0.cpp">
       <Filter>playGround\mapTool\book\page</Filter>
@@ -479,13 +130,46 @@
     <ClCompile Include="pageManager.cpp">
       <Filter>playGround\mapTool\book\page</Filter>
     </ClCompile>
+    <ClCompile Include="mapToolBook.cpp">
+      <Filter>playGround\mapTool\book</Filter>
+    </ClCompile>
+    <ClCompile Include="current.cpp">
+      <Filter>playGround\mapTool\current</Filter>
+    </ClCompile>
+    <ClCompile Include="miniMap.cpp">
+      <Filter>playGround\mapTool\miniMap</Filter>
+    </ClCompile>
     <ClCompile Include="tileObject.cpp">
       <Filter>playGround\mapTool\object</Filter>
     </ClCompile>
     <ClCompile Include="mapTile.cpp">
       <Filter>playGround\mapTool\tile</Filter>
     </ClCompile>
+    <ClCompile Include="mapTool.cpp">
+      <Filter>playGround\mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="mapToolImage.cpp">
+      <Filter>playGround\mapTool</Filter>
+    </ClCompile>
+    <ClCompile Include="player.cpp">
+      <Filter>playGround\player</Filter>
+    </ClCompile>
+    <ClCompile Include="ending.cpp">
+      <Filter>playGround\scenePart\ending</Filter>
+    </ClCompile>
+    <ClCompile Include="intro.cpp">
+      <Filter>playGround\scenePart\intro</Filter>
+    </ClCompile>
+    <ClCompile Include="loading.cpp">
+      <Filter>playGround\scenePart\loading</Filter>
+    </ClCompile>
+    <ClCompile Include="scenePart.cpp">
+      <Filter>playGround\scenePart</Filter>
+    </ClCompile>
     <ClCompile Include="projectileManager.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="skill.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
     <ClCompile Include="바람베기.cpp">
@@ -494,29 +178,351 @@
     <ClCompile Include="불꽃타격.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
+    <ClCompile Include="불타는올가미.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
     <ClCompile Include="화염구.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
     <ClCompile Include="흙주먹.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
-    <ClCompile Include="inventory.cpp">
-      <Filter>playGround\itemManager</Filter>
+    <ClCompile Include="stage.cpp">
+      <Filter>playGround\stage</Filter>
     </ClCompile>
-    <ClCompile Include="불타는올가미.cpp">
-      <Filter>playGround\skill</Filter>
+    <ClCompile Include="store.cpp">
+      <Filter>playGround\store</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
+    <ClCompile Include="UI.cpp">
+      <Filter>playGround\Ui</Filter>
+    </ClCompile>
+    <ClCompile Include="playGround.cpp">
+      <Filter>playGround</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="animation.h">
+      <Filter>2DFramework\animation</Filter>
+    </ClInclude>
+    <ClInclude Include="boss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="bossProgressBar.h">
+      <Filter>2DFramework\boosProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="cameraManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="effectManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="effect.h">
+      <Filter>2DFramework\effect</Filter>
+    </ClInclude>
+    <ClInclude Include="button.h">
+      <Filter>2DFramework\button</Filter>
+    </ClInclude>
+    <ClInclude Include="enemyManager.h">
+      <Filter>playGround\enemyManager</Filter>
+    </ClInclude>
+    <ClInclude Include="fireBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="gameNode.h">
+      <Filter>2DFramework</Filter>
+    </ClInclude>
+    <ClInclude Include="iceBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="woodBoss.h">
+      <Filter>playGround\enemyManager\boss</Filter>
+    </ClInclude>
+    <ClInclude Include="image.h">
+      <Filter>2DFramework\image</Filter>
+    </ClInclude>
+    <ClInclude Include="imageManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="iniDataManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="keyAniManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="keyManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="soundManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="timeManager.h">
+      <Filter>2DFramework\Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="progressBar.h">
+      <Filter>2DFramework\progressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="singletonBase.h">
+      <Filter>2DFramework\singletonBase</Filter>
+    </ClInclude>
+    <ClInclude Include="timer.h">
+      <Filter>2DFramework\timer</Filter>
+    </ClInclude>
+    <ClInclude Include="txtData.h">
+      <Filter>2DFramework\txtData</Filter>
+    </ClInclude>
+    <ClInclude Include="utils.h">
+      <Filter>2DFramework\utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
       <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
-    <ClCompile Include="mapToolImage.cpp">
-      <Filter>playGround\mapTool</Filter>
-    </ClCompile>
-    <ClCompile Include="miniMap.cpp">
-      <Filter>playGround\mapTool\miniMap</Filter>
-    </ClCompile>
-    <ClCompile Include="current.cpp">
+    </ClInclude>
+    <ClInclude Include="Ghoul.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Knight.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Mage.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Rogue.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Scarecrow.h">
+      <Filter>playGround\enemyManager\monster</Filter>
+    </ClInclude>
+    <ClInclude Include="inGame.h">
+      <Filter>playGround\inGame</Filter>
+    </ClInclude>
+    <ClInclude Include="inventory.h">
+      <Filter>playGround\itemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="item.h">
+      <Filter>playGround\itemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="itemManager.h">
+      <Filter>playGround\itemManager</Filter>
+    </ClInclude>
+    <ClInclude Include="page0.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page1.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page2.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page3.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="page4.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="pageManager.h">
+      <Filter>playGround\mapTool\book\page</Filter>
+    </ClInclude>
+    <ClInclude Include="mapToolBook.h">
+      <Filter>playGround\mapTool\book</Filter>
+    </ClInclude>
+    <ClInclude Include="current.h">
       <Filter>playGround\mapTool\current</Filter>
-    </ClCompile>
+    </ClInclude>
+    <ClInclude Include="miniMap.h">
+      <Filter>playGround\mapTool\miniMap</Filter>
+    </ClInclude>
+    <ClInclude Include="tileObject.h">
+      <Filter>playGround\mapTool\object</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTile.h">
+      <Filter>playGround\mapTool\tile</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTool.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="mapToolNode.h">
+      <Filter>playGround\mapTool</Filter>
+    </ClInclude>
+    <ClInclude Include="player.h">
+      <Filter>playGround\player</Filter>
+    </ClInclude>
+    <ClInclude Include="ending.h">
+      <Filter>playGround\scenePart\ending</Filter>
+    </ClInclude>
+    <ClInclude Include="intro.h">
+      <Filter>playGround\scenePart\intro</Filter>
+    </ClInclude>
+    <ClInclude Include="loading.h">
+      <Filter>playGround\scenePart\loading</Filter>
+    </ClInclude>
+    <ClInclude Include="scenePart.h">
+      <Filter>playGround\scenePart</Filter>
+    </ClInclude>
+    <ClInclude Include="projectileManager.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="skill.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="바람베기.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="불꽃타격.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="불타는올가미.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="화염구.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="흙주먹.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="stage.h">
+      <Filter>playGround\stage</Filter>
+    </ClInclude>
+    <ClInclude Include="store.h">
+      <Filter>playGround\store</Filter>
+    </ClInclude>
+    <ClInclude Include="UI.h">
+      <Filter>playGround\Ui</Filter>
+    </ClInclude>
+    <ClInclude Include="commonMacroFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="randomFunction.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Resource.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="stdafx.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="playGround.h">
+      <Filter>playGround</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="2DFramework">
+      <UniqueIdentifier>{f50d6f25-9aa8-4b11-96b8-1060d0df9e2e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround">
+      <UniqueIdentifier>{4b4ea5ee-a789-4168-ace9-f6e20f85c19f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="리소스파일">
+      <UniqueIdentifier>{ff9503d2-cd9d-46ee-9f8b-7f4e6090a84b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="소스 파일">
+      <UniqueIdentifier>{f350ccb9-d7d7-4d67-b06b-0241a7122364}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="헤더 파일">
+      <UniqueIdentifier>{6d549e11-56a0-496e-b8bd-74a7bc50c2dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\animation">
+      <UniqueIdentifier>{1e2c2339-6800-4314-881f-e7e58425a9fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\button">
+      <UniqueIdentifier>{5297de6a-d0ee-4de9-a32c-4e7116991a64}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\effect">
+      <UniqueIdentifier>{603e1992-4949-488f-9d57-3e97ea9cf851}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\image">
+      <UniqueIdentifier>{037e8641-c159-4cc8-b76e-1ab27c70b3fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\Manager">
+      <UniqueIdentifier>{20209c38-c3be-4288-bf58-7f05d11ecde5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\boosProgressBar">
+      <UniqueIdentifier>{1f3d827c-e62a-4fa6-b443-ce2d8b65cbb4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\progressBar">
+      <UniqueIdentifier>{fad2a675-ed50-4c9f-a461-410a2bd0fadb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\singletonBase">
+      <UniqueIdentifier>{04fc2773-1d63-4726-836a-329378ade427}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\timer">
+      <UniqueIdentifier>{f551bda3-8617-488a-8e2e-5867d0f5f742}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\txtData">
+      <UniqueIdentifier>{ee7c5900-14de-4848-83b6-f0e51e8808fa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="2DFramework\utils">
+      <UniqueIdentifier>{fd5d72f2-bcad-416b-8bf8-25611f44d283}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\enemyManager">
+      <UniqueIdentifier>{09ed0a88-2f71-470d-8b9f-459c925801fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\enemyManager\boss">
+      <UniqueIdentifier>{aa29d49d-6a60-40c6-9753-7f2f66defad4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\enemyManager\monster">
+      <UniqueIdentifier>{f4b9641c-1fde-48e5-8426-af1335086a6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\inGame">
+      <UniqueIdentifier>{e06a9295-42bd-4138-8a3f-dd9faae4541d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\itemManager">
+      <UniqueIdentifier>{8fafae23-87d5-4c19-bfb8-5ad60bec85bd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\player">
+      <UniqueIdentifier>{9658718d-e697-478c-9e2c-800d14d52792}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\scenePart">
+      <UniqueIdentifier>{ab423493-1769-41c8-ae70-01674385dc93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\scenePart\ending">
+      <UniqueIdentifier>{e6993d78-d2d5-48a3-924c-fd4e46ba94fc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\scenePart\intro">
+      <UniqueIdentifier>{496d5fe5-e4ed-4ec2-9b4a-b93150ac8a7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\scenePart\loading">
+      <UniqueIdentifier>{5456a70c-c4d1-4306-bbd9-c857116951dc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\skill">
+      <UniqueIdentifier>{1b86589a-26c7-4873-94fd-257404741752}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\stage">
+      <UniqueIdentifier>{73be7658-ea12-413b-8611-7492ca06ddb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\store">
+      <UniqueIdentifier>{8b2fca1e-1f87-4c52-868d-f1a315c7b189}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\Ui">
+      <UniqueIdentifier>{dfad9448-df11-45ea-a2d5-8a8ae5164c8f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool">
+      <UniqueIdentifier>{66b0c31d-f783-44ea-9523-1bd4a6e8222b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\book">
+      <UniqueIdentifier>{0310b110-07f9-47de-809c-60054a88db2d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\book\page">
+      <UniqueIdentifier>{e1f03840-de1b-457f-a7a3-2a13c4dff00e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\current">
+      <UniqueIdentifier>{92bf0acb-b0ea-4df5-80f5-7b53551d08ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\miniMap">
+      <UniqueIdentifier>{2a296bc7-0270-4760-beaf-aea7c6f5ea58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\object">
+      <UniqueIdentifier>{a7481c50-6c84-4715-ac93-47baab620914}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\mapTool\tile">
+      <UniqueIdentifier>{506bfaca-6810-424f-8feb-2324449a7adf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
