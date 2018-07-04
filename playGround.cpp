@@ -10,7 +10,7 @@ HRESULT playGround::init(void)
 
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
-	SCENEMANAGER->changeScene("inGame");
+	SCENEMANAGER->changeScene("mapTool");
 
 	return S_OK;
 }

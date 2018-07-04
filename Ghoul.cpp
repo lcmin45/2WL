@@ -14,17 +14,25 @@ Ghoul::~Ghoul()
 
 HRESULT Ghoul::init(POINTFLOAT point,float speed)
 {
-
-	_image = IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
-
-	_ghoulDirection = GHOUL_RIGHT_MOVE; 
+	IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("SummonMonster", "image/Effect/SummonMonster.bmp", 0, 0, 64, 1856, 1, 29, true, RGB(255, 0, 255));
+	_form = CARD;
+	_ghoulDirection = GHOUL_RIGHT_STAND; 
 	_attackRange = 20;
-	_x = point.x;
-	_y = point.y;
+	_bottomX = point.x;
+	_bottomY = point.y;
+	_x = _bottomX;
+	_y = _bottomY - _image->getFrameHeight() / 2;
 	_speed = speed;
+	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(),10);
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
+
+	
+
+	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
+	KEYANIMANAGER->addArrayFrameAnimation("MonsterSummon", "SummonMonster", Summon, 29, 6, false, summonOn, this);
 
 
 	int rightStand[] = { 0 };
@@ -33,9 +41,9 @@ HRESULT Ghoul::init(POINTFLOAT point,float speed)
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftStand", "Ghoul", leftStand, 1, 1, false);
 
 	int rightMove[] = { 3,4,5,6,7,8 };
-	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightMove", "Ghoul", rightMove, 6, 1, true);
+	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightMove", "Ghoul", rightMove, 6, 3, true);
 	int leftMove[] = { 13,14,15,16,17,18 };
-	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftMove", "Ghoul", leftMove, 6, 1, true);
+	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftMove", "Ghoul", leftMove, 6, 3, true);
 
 
 	int rightAttack[] = { 1 ,2, 2 };
@@ -52,12 +60,12 @@ HRESULT Ghoul::init(POINTFLOAT point,float speed)
 
 
 	int rightDie[] = { 21,22,23,24,25,26,27,28,29 };
-	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightDie", "Ghoul", rightDie, 9, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightDie", "Ghoul", rightDie, 9, 6, false);
 	int leftDie[] = { 31,32,33,34,35,36,37,38,39 };
-	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftDie", "Ghoul", leftDie, 9, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftDie", "Ghoul", leftDie, 9, 6, false);
 
 
-	_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulRightMove");
+	_ghoulMotion = KEYANIMANAGER->findAnimation("MonsterSummon");
 
 
 	//=====================================테스트용=======================
@@ -74,23 +82,58 @@ void Ghoul::release()
 
 void Ghoul::update()
 {
+	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
+	{
+		PX += 5;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
+	{
+		PX -= 5;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_UP))
+	{
+		PY -= 5;
+	}
+	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
+	{
+		PY += 5;
+	}
+	PRC = RectMakeCenter(PX, PY, 30, 30);
 
-	//ghoulMove();
-	Test();
 	KEYANIMANAGER->update();
+	if (getDistance(_x, _y, PX, PY) < 100 && _form == CARD)
+	{
+		_form = SUMMOM;
+		getGhoulMotion()->start();
+	}
+
+	if (_form == BATTLE)
+	{
+		ghoulMove();
+		Test();
+	}
 }
 
 void Ghoul::render()
 {
 
-	//Rectangle(CAMERAMANAGER->getCameraDC(), PRC.left, PRC.top, PRC.right, PRC.bottom);
-	_image->aniRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top, _ghoulMotion);
+	Rectangle(getMemDC(), PRC.left, PRC.top, PRC.right, PRC.bottom);
+	_image->aniRender(getMemDC(), _rc.left, _rc.top, _ghoulMotion);
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+	}
 }
 
 void Ghoul::ghoulMove()
 {
 	_angle = getAngle(_x, _y, PX, PY);
 
+
+	_bottomX = _x;
+	_bottomY = _y + _image->getFrameHeight() / 2;
+	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
@@ -98,7 +141,7 @@ void Ghoul::ghoulMove()
 	{
 		if (_x < PX)
 		{
-			if (_ghoulDirection == GHOUL_RIGHT_MOVE)
+			if (_ghoulDirection == GHOUL_RIGHT_MOVE || _ghoulDirection == GHOUL_RIGHT_STAND)
 			{
 				_ghoulDirection = GHOUL_RIGHT_ATTACK;
 				_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulRightAttack");
@@ -108,7 +151,7 @@ void Ghoul::ghoulMove()
 		else if (_x > PX)
 		{
 
-			if (_ghoulDirection == GHOUL_LEFT_MOVE)
+			if (_ghoulDirection == GHOUL_LEFT_MOVE || _ghoulDirection == GHOUL_LEFT_STAND)
 			{
 				_ghoulDirection = GHOUL_LEFT_ATTACK;
 				_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulLeftAttack");
@@ -163,27 +206,23 @@ void Ghoul::leftStop(void * obj)
 }
 
 
+void Ghoul::summonOn(void * obj)
+{
+
+	Ghoul* _MonsterGhoul = (Ghoul*)obj;
+
+	_MonsterGhoul->setImage(IMAGEMANAGER->findImage("Ghoul"));
+	_MonsterGhoul->setForm(BATTLE);
+	_MonsterGhoul->setGhoulDirection(GHOUL_LEFT_STAND);
+	_MonsterGhoul->setGhoulMotion(KEYANIMANAGER->findAnimation("GhoulLeftStand"));
+	_MonsterGhoul->getGhoulMotion()->start();
+}
+
+
 //=====================================테스트용=======================
 void Ghoul::Test()
 {
-	/*if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		PX += 2;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		PX -= 2;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		PY -= 2;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		PY += 2;
-	}
-	PRC = RectMakeCenter(PX, PY, 30, 30);*/
-
+	
 
 	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
 	{

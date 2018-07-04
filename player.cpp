@@ -13,7 +13,7 @@ HRESULT player::init() //ÃÊ±âÈ­
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
-	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200, 2400, 16, 12, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200/2, 2400/2, 16, 12, true, RGB(255, 0, 255));
 
 	int playerIdleUp[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("playerIdleUp", "player", playerIdleUp, 1, 1, false);

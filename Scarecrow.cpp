@@ -15,9 +15,11 @@ HRESULT Scarecrow::init(POINTFLOAT point)
 {
 	_image = IMAGEMANAGER->addFrameImage("Scarecrow", "image/monster/Scarecrow.bmp", 0, 0, 80, 60,2,1, true, RGB(255, 0, 255));
 	_scarecrowDirection = SCARECROW_STAND;
-	_x = point.x;
-	_y = point.y;
-
+	_bottomX = point.x;
+	_bottomY = point.y;
+	_x = _bottomX;
+	_y = _bottomY - _image->getFrameHeight() / 2;
+	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
@@ -47,7 +49,12 @@ void Scarecrow::update()
 
 void Scarecrow::render()
 {
-	_image->aniRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top, _scarecrowMotion);
+	_image->aniRender(getMemDC(), _rc.left, _rc.top, _scarecrowMotion);
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+	}
 }
 
 void Scarecrow::Test()

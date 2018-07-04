@@ -2,7 +2,7 @@
 #include "불타는올가미.h"
 
 
-불타는올가미::불타는올가미()
+불타는올가미::불타는올가미() 
 {
 }
 
@@ -59,15 +59,15 @@ void 불타는올가미::render()
 {
 	if (_img)
 	{
-		_img->frameRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top);		
+		_img->frameRender(getMemDC(), _rc.left, _rc.top);		
 		for (int i = 0; i < MAXPARTICLE; i++)
 		{
-			pImg[i]->frameRender(CAMERAMANAGER->getCameraDC(), sRect[i].left, sRect[i].top);
+			pImg[i]->frameRender(getMemDC(), sRect[i].left, sRect[i].top);
 		}
 
 		for (viParticle = vParticle.begin(); viParticle != vParticle.end(); viParticle++)
 		{
-			viParticle->img->frameRender(CAMERAMANAGER->getCameraDC(), viParticle->rc.left, viParticle->rc.top, viParticle->index, 0);
+			viParticle->img->frameRender(getMemDC(), viParticle->rc.left, viParticle->rc.top, viParticle->index, 0);
 		}
 	}
 }

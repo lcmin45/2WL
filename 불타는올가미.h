@@ -3,7 +3,7 @@
 
 #define MAXPARTICLE 5
 
-struct PARTICLE
+struct PARTICLE 
 {
 	image* img;
 	POINTFLOAT pt;

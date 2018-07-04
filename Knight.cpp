@@ -20,13 +20,15 @@ HRESULT Knight::init(const char * imgName, POINTFLOAT point, float speed)
 	_image = IMAGEMANAGER->addFrameImage(str, str2, 0, 0, 420 * 2, 200 * 2, 10, 4, true, RGB(255, 0, 255));
 
 	_KnightDirection = KNIGHT_RIGHT_STAND;
-	_attackRange = 30;
-	_x = point.x;
-	_y = point.y;
+	_attackRange = 30; _bottomX = point.x;
+	_bottomY = point.y;
+	_x = _bottomX;
+	_y = _bottomY - _image->getFrameHeight() / 2;
 	_speed = speed;
-	/*
-	_rc = RectMakeCenter(_x, _y, _iKnight->getFrameWidth(),
-	_iKnight->getFrameHeight());*/
+	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
+	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
+		_image->getFrameHeight());
+	
 
 
 	int rightStand[] = { 0 };
@@ -77,7 +79,12 @@ void Knight::update()
 void Knight::render()
 {
 
-	_image->aniRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top, _KnightMotion);
+	_image->aniRender(getMemDC(), _rc.left, _rc.top, _KnightMotion);
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
+		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
+	}
 }
 
 void Knight::KnightMove()

@@ -54,8 +54,6 @@ void mapTile::tileInit(void)
 		for (int j = 0; j < MAXTILEX; ++j)
 		{
 			_tile[i * MAXTILEX + j].img = new image;
-			_tile[i * MAXTILEX + j].boxImage = IMAGEMANAGER->findImage("BASETILE");
-			_tile[i * MAXTILEX + j].checkImage = IMAGEMANAGER->findImage("CHECKTILE");
 			_tile[i * MAXTILEX + j].center = PointMake(j * TILESIZE + TILESIZE / 2, i * TILESIZE + TILESIZE / 2);
 			_tile[i * MAXTILEX + j].rc = RectMakeCenter(_tile[i * MAXTILEX + j].center.x, _tile[i * MAXTILEX + j].center.y, TILESIZE, TILESIZE);
 			_tile[i * MAXTILEX + j].imageIndex = NULL;
@@ -258,7 +256,7 @@ void mapTile::tileBoxRender(void)
 		{
 			if (i >= MAXTILEY || j >= MAXTILEX) continue;
 
-			_tile[i * MAXTILEX + j].boxImage->render(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top);
+			IMAGEMANAGER->findImage("BASETILE")->render(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top);
 		}
 	}
 }
@@ -286,7 +284,7 @@ void mapTile::pointRender(void)
 
 void mapTile::mouseBoxRender(void)
 {
-	_tile[getMousePoint().y / TILESIZE * MAXTILEX + getMousePoint().x / TILESIZE].checkImage->render(getMemDC(), _tile[getMousePoint().y / TILESIZE * MAXTILEX + getMousePoint().x / TILESIZE].rc.left,
+	IMAGEMANAGER->findImage("CHECKTILE")->render(getMemDC(), _tile[getMousePoint().y / TILESIZE * MAXTILEX + getMousePoint().x / TILESIZE].rc.left,
 		_tile[getMousePoint().y / TILESIZE * MAXTILEX + getMousePoint().x / TILESIZE].rc.top);
 
 	if (_startPoint.x == NULL && _startPoint.y == NULL) return;
@@ -316,7 +314,7 @@ void mapTile::mouseBoxRender(void)
 	{
 		for (int j = startPoint.x; j < mousePoint.x + 1; ++j)
 		{
-			_tile[i * MAXTILEX + j].checkImage->render(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top);
+			IMAGEMANAGER->findImage("CHECKTILE")->render(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top);
 		}
 	}
 }
@@ -330,6 +328,17 @@ void mapTile::mousePointRender(void)
 
 void mapTile::save(void)
 {
+	for (int i = 0; i < MAXTILEY; ++i)
+	{
+		for (int j = 0; j < MAXTILEX; ++j)
+		{
+			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
+
+			_tile[i * MAXTILEX + j].objectClass->release();
+			_tile[i * MAXTILEX + j].objectClass = NULL;
+		}
+	}
+
 	HANDLE file;
 	DWORD save;
 
@@ -339,10 +348,24 @@ void mapTile::save(void)
 	WriteFile(file, _tile, sizeof(tagMapToolTile) * MAXTILEX * MAXTILEY, &save, NULL);
 
 	CloseHandle(file);
+
+	for (int i = 0; i < MAXTILEY; ++i)
+	{
+		for (int j = 0; j < MAXTILEX; ++j)
+		{
+			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
+
+			_tile[i * MAXTILEX + j].objectClass = new tileObject;
+			_tile[i * MAXTILEX + j].objectClass->init(_tile[i * MAXTILEX + j].objectIndex);
+			_tile[i * MAXTILEX + j].objectClass->setPoint(_tile[i * MAXTILEX + j].center);
+		}
+	}
 }
 
 void mapTile::load(void)
 {
+	tileInit();
+
 	HANDLE file;
 	DWORD load;
 
@@ -352,6 +375,18 @@ void mapTile::load(void)
 	ReadFile(file, _tile, sizeof(tagMapToolTile) * MAXTILEX * MAXTILEY, &load, NULL);
 
 	CloseHandle(file);
+
+	for (int i = 0; i < MAXTILEY; ++i)
+	{
+		for (int j = 0; j < MAXTILEX; ++j)
+		{
+			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
+
+			_tile[i * MAXTILEX + j].objectClass = new tileObject;
+			_tile[i * MAXTILEX + j].objectClass->init(_tile[i * MAXTILEX + j].objectIndex);
+			_tile[i * MAXTILEX + j].objectClass->setPoint(_tile[i * MAXTILEX + j].center);
+		}
+	}
 }
 
 void mapTile::minimap(void)
