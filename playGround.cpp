@@ -44,7 +44,7 @@ void playGround::render(void)
 
 	SCENEMANAGER->render();
 
-	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
+	//TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
