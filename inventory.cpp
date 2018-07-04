@@ -9,7 +9,7 @@ HRESULT inventory::init()
 	//ÃÊ±â°ª ¼³Á¤
 	_image = new image;
 	_image = IMAGEMANAGER->addImage("inventory", "image/item/inventory.bmp", 400, 500, true, RGB(255, 0, 255));
-	_inventoryRect = RectMakeCenter(WINSIZEX / 4, WINSIZEY / 2, 400, 500);
+	_inventoryRect = RectMakeCenter(WINSIZEX / 5, WINSIZEY / 2, 400, 500);
 	_selectedItemIndex = -1;
 	_isOpen = false;
 
@@ -40,7 +40,7 @@ void inventory::render()
 				RECT itemText;
 				font = CreateFont(25, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("¸¼Àº °íµñ"));
 				oldFont = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font);
-				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(0, 0, 0));
+				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
 				SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
 				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 250, 300, 50);
 				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_vItem[i]->getName()), strlen(_vItem[i]->getName()), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);

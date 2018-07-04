@@ -32,7 +32,7 @@ HRESULT inGame::init()
 	_Astar->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 
-
+	_UI->setPlayerAddressLink(_player);
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
 	_itemManager->setPlayerAddressLink(_player);
@@ -47,6 +47,7 @@ void inGame::release() {}
 
 void inGame::update()
 {
+	_UI->update();
 	//_player->update();
 	_itemManager->update();
 	_ptM->update();

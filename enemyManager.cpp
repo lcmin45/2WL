@@ -6,23 +6,26 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-	IMAGEMANAGER->addFrameImage("SummonMonster", "image/Effect/SummonMonster.bmp", 0, 0, 64, 1856, 1, 29, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("Ghoul", "image/monster/Ghoul.bmp", 0, 0, 560, 304, 10, 4, true, RGB(255, 0, 255));
+	///////보스 초기 위치 설정해주기
+	_woodposition.x = WINSIZEX / 2;
+	_woodposition.y = WINSIZEY / 2;
+	_iceposition.x = WINSIZEX / 2;
+	_iceposition.y = WINSIZEY / 2;
+	_fireposition.x = WINSIZEX / 2;
+	_fireposition.y = WINSIZEY / 2;
 
+	_woodBoss = new woodBoss;
+	_woodBoss->init();
+	_woodBoss->setting("나무소환", { _woodposition.x, _woodposition.y });
 
-	//_woodBoss = new woodBoss;
-	//_woodBoss->init();
-	//_woodBoss->setting("나무소환", PointMake(200,200));
-	//
-	//_iceBoss= new iceBoss;
-	//_iceBoss->init();
-	//_iceBoss->setting("얼음소환", PointMake(300,300));
-	//
-	//_fireBoss= new fireBoss;
-	//_fireBoss->init();
-	//_fireBoss->setting("불소환", PointMake(100,100));
+	_iceBoss = new iceBoss;
+	_iceBoss->init();
+	_iceBoss->setting("얼음소환", { _iceposition.x, _iceposition.y });
 
-	settingMonster();
+	_fireBoss = new fireBoss;
+	_fireBoss->init();
+	_fireBoss->setting("불소환", {_fireposition.x, _fireposition.y});
+
 
 	return S_OK;
 }
@@ -31,49 +34,25 @@ void enemyManager::release() {}
 
 void enemyManager::update()
 {
-	//_woodBoss->update();
-	//_woodBoss->woodMove();
-	//
-	//_iceBoss->update();
-	//_iceBoss->iceMove();
-	//
-	//_fireBoss->update();
-	//_fireBoss->fireMove();
-
-	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
-	{
-		(*_viGhoul)->update();
-	}
-
+	//조건 추가하기
+	_woodBoss->update();
+	_woodBoss->woodMove();
+	_woodBoss->woodSkill();
+	//조건 추가하기
+	_iceBoss->update();
+	_iceBoss->iceMove();
+	_iceBoss->iceSkill();
+	//조건 추가하기
+	_fireBoss->update();
+	_fireBoss->fireMove();
+	_fireBoss->fireSkill();
 }
 
 void enemyManager::render()
 {
-	//_woodBoss->render();
-	//_iceBoss->render();
-	//_fireBoss->render();
-
-
-	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
-	{
-		(*_viGhoul)->render();
-	}
+	//조건 추가하기
+	_woodBoss->render();
+	_iceBoss->render();
+	_fireBoss->render();
 }
 
-void enemyManager::setBoss()
-{
-
-}
-
-void enemyManager::settingMonster()
-{
-	for (float i = 0; i < 3; ++i)
-	{
-		Ghoul* _ghoul;
-		_ghoul = new Ghoul;
-		_ghoul->init({ 128 + i * 128,128 }, 1 + i*0.5,i);
-
-		_vGhoul.push_back(_ghoul);
-	}
-
-}

@@ -96,8 +96,7 @@ void 불타는올가미::fire(const char * skillName, int amount, POINTFLOAT pt, float
 
 		for (int i = 0; i < MAXPARTICLE; i++)
 		{
-			str[i] = i;
-			pImg[i] = IMAGEMANAGER->findImage(str[i]);
+			pImg[i] = IMAGEMANAGER->findImage("불꽃파티클");
 			sword[i].x = _firePt.x + cosf(_angle) * (50 + (i + 1) * 30);
 			sword[i].y = _firePt.y - sinf(_angle) * (50 + (i + 1) * 30);
 			sRect[i] = RectMakeCenter(sword[i].x, sword[i].y, pImg[i]->getFrameWidth(), pImg[i]->getFrameHeight());
@@ -153,7 +152,7 @@ void 불타는올가미::move()
 	
 	PARTICLE particle;
 	ZeroMemory(&particle, sizeof(PARTICLE));
-	particle.img = IMAGEMANAGER->addFrameImage("fire", "image/skill/불꽃파티클.bmp", 666, 94, 9, 1, true, RGB(255, 0, 255));
+	particle.img = IMAGEMANAGER->findImage("불꽃파티클");
 	
 	particle.pt = sword[MAXPARTICLE - 1];
 	particle.rc = RectMakeCenter(particle.pt.x, particle.pt.y, particle.img->getFrameWidth(), particle.img->getFrameHeight());
