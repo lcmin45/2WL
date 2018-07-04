@@ -12,11 +12,16 @@ HRESULT inGame::init()
 	_player = new player;
 	_player->init();
 
+	_itemManager = new itemManager;
+	_itemManager->init();
+
 	_ptM = new projectileManager;
 	_ptM->init();
 
-	_ptM->setPlayerAddressLink(_player);
+	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
+	_itemManager->setPlayerAddressLink(_player);
+	_ptM->setPlayerAddressLink(_player);
 
 	return S_OK;
 }
@@ -26,12 +31,14 @@ void inGame::release() {}
 void inGame::update()
 {
 	_player->update();
+	_itemManager->update();
 	_ptM->update();
 }
 
 void inGame::render()
 {
 	_player->render();
-	_UI->render();
+	_itemManager->render();
 	_ptM->render();
+	_UI->render();
 }

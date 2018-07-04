@@ -36,7 +36,7 @@ void 入林冈::update()
 
 void 入林冈::render()
 {
-	if (_img)_img->frameRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top, _img->getFrameX(), _img->getFrameY());
+	if (_img)_img->frameRender(getMemDC(), _rc.left, _rc.top, _img->getFrameX(), _img->getFrameY());
 }
 
 void 入林冈::move()

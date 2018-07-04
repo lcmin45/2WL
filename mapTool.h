@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 #include "gameNode.h"
 #include "mapToolNode.h"
 #include "mapTile.h"
@@ -7,13 +7,9 @@
 class mapTool : public gameNode
 {
 private:
-	mapTile*		_mapTile;
+	mapTile * _mapTile;
 	mapToolBook*	_book;
-
 	int				_moveSpeed;
-
-	 
-
 public:
 	mapTool();
 	~mapTool();
@@ -25,4 +21,3 @@ public:
 
 	void imageInit(void);
 };
-

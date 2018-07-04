@@ -13,6 +13,7 @@ class inGame : public gameNode
 private:
 	UI * _UI;
 	player* _player;
+	itemManager* _itemManager;
 	projectileManager* _ptM;
 public:
 	inGame();
