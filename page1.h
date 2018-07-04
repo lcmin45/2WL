@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "mapToolNode.h"
+#include "current.h"
 
 class page1 : public gameNode
 {
@@ -10,12 +11,12 @@ private:
 #define MAXBOXY 6
 
 private:
-	image*	_titleImage[2];
+	image * _titleImage[2];
 	tagBox	_box[MAXBOX];
 
 	POINT	_center;
 
-public: 
+public:
 	page1();
 	~page1();
 
@@ -35,4 +36,5 @@ public:
 	void setIndex(int index);
 	void setCenterPoint(POINT point);
 };
+
 

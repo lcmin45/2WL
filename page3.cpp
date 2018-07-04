@@ -19,27 +19,22 @@ void page3::release(void)
 
 void page3::update(void)
 {
-	checkBox(); 
+	checkBox();
 }
 
 void page3::render(void)
 {
 	titleRender();
 
-	if (_box[18].objectIndex != NULL)IMAGEMANAGER->findImage("OBJECT_5")->frameRender(CAMERAMANAGER->getCameraDC(), _box[18].rc.left, _box[18].rc.top, 0, 0);
+	if (_box[18].objectIndex != NULL) IMAGEMANAGER->findImage(_box[18].imageName)->frameRender(CAMERAMANAGER->getCameraDC(), _box[18].center.x - IMAGEMANAGER->findImage(_box[18].imageName)->getFrameWidth() / 2, _box[18].center.y - IMAGEMANAGER->findImage(_box[18].imageName)->getFrameHeight() / 2, 0, 0);
 
 	for (int i = 0; i < MAXBOX; ++i)
 	{
-		_box[i].baseImg->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top);
+		IMAGEMANAGER->findImage(_box[i].boxName)->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top);
 
 		char str[128];
 		sprintf_s(str, "%d", i);
 		TextOut(CAMERAMANAGER->getCameraDC(), _box[i].center.x, _box[i].center.y, str, strlen(str));
-
-		if (KEYMANAGER->isToggleKey(VK_TAB))
-		{
-			RectangleMake(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top, _box[i].baseImg->getWidth(), _box[i].baseImg->getHeight());
-		}
 	}
 }
 
@@ -47,16 +42,19 @@ void page3::boxInit(void)
 {
 	_center = WINCENTER;
 
+	int temp = 0;
+
 	for (int i = 0; i < MAXBOXLY; ++i)
 	{
 		for (int j = 0; j < MAXBOXLX; ++j)
 		{
-			_box[i * MAXBOXLX + j].baseImg = IMAGEMANAGER->findImage("BOX_2_1");
-			_box[i * MAXBOXLX + j].center = PointMake((_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 14) * ((j * 2) + 1) - 21 + 48,
-				(_center.y + BOOKSIZEY / 2 - 20) - 55 * (6 - i));
-			_box[i * MAXBOXLX + j].rc = RectMakeCenter(_box[i * MAXBOXLX + j].center.x, _box[i * MAXBOXLX + j].center.y, _box[i * MAXBOXLX + j].baseImg->getWidth(), _box[i * MAXBOXLX + j].baseImg->getHeight());
-			_box[i * MAXBOXLX + j].frameX = NULL;
-			_box[i * MAXBOXLX + j].frameY = NULL;
+			temp = i * MAXBOXLX + j;
+
+			_box[temp].boxName = "PAGE_BOX_2_1";
+			_box[temp].center = PointMake((_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 14) * ((j * 2) + 1) - 21 + 48, (_center.y + BOOKSIZEY / 2 - 20) - 55 * (6 - i));
+			_box[temp].rc = RectMakeCenter(_box[temp].center.x, _box[temp].center.y, IMAGEMANAGER->findImage(_box[temp].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[temp].boxName)->getHeight());
+			_box[temp].frameX = NULL;
+			_box[temp].frameY = NULL;
 		}
 	}
 
@@ -64,12 +62,13 @@ void page3::boxInit(void)
 	{
 		for (int j = 0; j < MAXBOXRX; ++j)
 		{
-			_box[i * MAXBOXRX + j + MAXBOX / 2].baseImg = IMAGEMANAGER->findImage("BOX_1_2");
-			_box[i * MAXBOXRX + j + MAXBOX / 2].center = PointMake(_center.x + (BOOKSIZEX / 14) * (j + 1) - 21 + 21,
-				_center.y + BOOKSIZEY / 2 - 55 * (((2 - i) * 2) + 2) + 6);
-			_box[i * MAXBOXRX + j + MAXBOX / 2].rc = RectMakeCenter(_box[i * MAXBOXRX + j + MAXBOX / 2].center.x, _box[i * MAXBOXRX + j + MAXBOX / 2].center.y, _box[i * MAXBOXRX + j + MAXBOX / 2].baseImg->getWidth(), _box[i * MAXBOXRX + j + MAXBOX / 2].baseImg->getHeight());
-			_box[i * MAXBOXRX + j + MAXBOX / 2].frameX = NULL;
-			_box[i * MAXBOXRX + j + MAXBOX / 2].frameY = NULL;
+			temp = i * MAXBOXRX + j + MAXBOX / 2;
+
+			_box[temp].boxName = "PAGE_BOX_1_2";
+			_box[temp].center = PointMake(_center.x + (BOOKSIZEX / 14) * (j + 1) - 21 + 21, _center.y + BOOKSIZEY / 2 - 55 * (((2 - i) * 2) + 2) + 6);
+			_box[temp].rc = RectMakeCenter(_box[temp].center.x, _box[temp].center.y, IMAGEMANAGER->findImage(_box[temp].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[temp].boxName)->getHeight());
+			_box[temp].frameX = NULL;
+			_box[temp].frameY = NULL;
 		}
 	}
 }
@@ -102,6 +101,7 @@ void page3::setIndex(int index)
 		_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_OBJECT");
 		_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_OBJECT");
 
+		_box[18].imageName = "OBJECT_5";
 		_box[18].objectIndex = 5;
 		_box[18].renderPoint = PointMake(16, 80);
 	}
@@ -119,13 +119,16 @@ void page3::setCenterPoint(POINT point)
 {
 	_center = point;
 
+	int temp = 0;
+
 	for (int i = 0; i < MAXBOXLY; ++i)
 	{
 		for (int j = 0; j < MAXBOXLX; ++j)
 		{
-			_box[i * MAXBOXLX + j].center = PointMake((_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 14) * ((j * 2) + 1) - 21 + 48,
-				(_center.y + BOOKSIZEY / 2 - 20) - 55 * (6 - i));
-			_box[i * MAXBOXLX + j].rc = RectMakeCenter(_box[i * MAXBOXLX + j].center.x, _box[i * MAXBOXLX + j].center.y, _box[i * MAXBOXLX + j].baseImg->getWidth(), _box[i * MAXBOXLX + j].baseImg->getHeight());
+			temp = i * MAXBOXLX + j;
+
+			_box[temp].center = PointMake((_center.x - BOOKSIZEX / 2) + (BOOKSIZEX / 14) * ((j * 2) + 1) - 21 + 48, (_center.y + BOOKSIZEY / 2 - 20) - 55 * (6 - i));
+			_box[temp].rc = RectMakeCenter(_box[temp].center.x, _box[temp].center.y, IMAGEMANAGER->findImage(_box[temp].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[temp].boxName)->getHeight());
 		}
 	}
 
@@ -133,9 +136,10 @@ void page3::setCenterPoint(POINT point)
 	{
 		for (int j = 0; j < MAXBOXRX; ++j)
 		{
-			_box[i * MAXBOXRX + j + MAXBOX / 2].center = PointMake(_center.x + (BOOKSIZEX / 14) * (j + 1) - 21 + 21,
-				_center.y + BOOKSIZEY / 2 - 55 * (((2 - i) * 2) + 2) + 6);
-			_box[i * MAXBOXRX + j + MAXBOX / 2].rc = RectMakeCenter(_box[i * MAXBOXRX + j + MAXBOX / 2].center.x, _box[i * MAXBOXRX + j + MAXBOX / 2].center.y, _box[i * MAXBOXRX + j + MAXBOX / 2].baseImg->getWidth(), _box[i * MAXBOXRX + j + MAXBOX / 2].baseImg->getHeight());
+			temp = i * MAXBOXRX + j + MAXBOX / 2;
+
+			_box[temp].center = PointMake(_center.x + (BOOKSIZEX / 14) * (j + 1) - 21 + 21, _center.y + BOOKSIZEY / 2 - 55 * (((2 - i) * 2) + 2) + 6);
+			_box[temp].rc = RectMakeCenter(_box[temp].center.x, _box[temp].center.y, IMAGEMANAGER->findImage(_box[temp].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[temp].boxName)->getHeight());
 		}
 	}
 }
