@@ -6,17 +6,26 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
+	///////보스 초기 위치 설정해주기
+	_woodposition.x = WINSIZEX / 2;
+	_woodposition.y = WINSIZEY / 2;
+	_iceposition.x = WINSIZEX / 2;
+	_iceposition.y = WINSIZEY / 2;
+	_fireposition.x = WINSIZEX / 2;
+	_fireposition.y = WINSIZEY / 2;
+
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
-	_woodBoss->setting("나무소환", PointMake(200,200));
+	_woodBoss->setting("나무소환", PointMake(_woodposition.x, _woodposition.y));
 
-	_iceBoss= new iceBoss;
+	_iceBoss = new iceBoss;
 	_iceBoss->init();
-	_iceBoss->setting("얼음소환", PointMake(300,300));
+	_iceBoss->setting("얼음소환", PointMake(_iceposition.x, _iceposition.y));
 
-	_fireBoss= new fireBoss;
+	_fireBoss = new fireBoss;
 	_fireBoss->init();
-	_fireBoss->setting("불소환", PointMake(100,100));
+	_fireBoss->setting("불소환", PointMake(_fireposition.x, _fireposition.y));
+
 
 	return S_OK;
 }
@@ -25,24 +34,25 @@ void enemyManager::release() {}
 
 void enemyManager::update()
 {
+	//조건 추가하기
 	_woodBoss->update();
 	_woodBoss->woodMove();
-
+	_woodBoss->woodSkill();
+	//조건 추가하기
 	_iceBoss->update();
 	_iceBoss->iceMove();
-
+	_iceBoss->iceSkill();
+	//조건 추가하기
 	_fireBoss->update();
 	_fireBoss->fireMove();
+	_fireBoss->fireSkill();
 }
 
 void enemyManager::render()
 {
+	//조건 추가하기
 	_woodBoss->render();
 	_iceBoss->render();
 	_fireBoss->render();
 }
 
-void enemyManager::setBoss()
-{
-
-}

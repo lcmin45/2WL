@@ -109,6 +109,9 @@
     <Filter Include="playGround\mapTool\tile">
       <UniqueIdentifier>{1b51bdbe-6d1b-4115-a181-6ebb704a5420}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2DFramework\bossProgressBar">
+      <UniqueIdentifier>{eb1749fc-e1e3-4d7f-a719-b8292a33f292}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -312,6 +315,9 @@
     <ClInclude Include="흙주먹.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
+    <ClInclude Include="bossProgressBar.h">
+      <Filter>2DFramework\bossProgressBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -496,6 +502,9 @@
     </ClCompile>
     <ClCompile Include="흙주먹.cpp">
       <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="bossProgressBar.cpp">
+      <Filter>2DFramework\bossProgressBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

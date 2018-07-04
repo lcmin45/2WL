@@ -18,7 +18,7 @@ private:
 	ANGLE _angle; //각도
 	image* _image; //이미지
 	animation* _animation; //에니매이션
-	RECT _body; //바디
+	RECT _body; //바
 	float _speed; //스피드
 	float _dashSpeed; //대쉬 스피드
 
@@ -43,4 +43,6 @@ public:
 	DIRECTION getDirection() { return _direction; }
 	void setAction(ACTION action) { _action = action; }
 	void setAnimation(animation* animation) { _animation = animation; }
+
+	RECT getBody() { return _body; }
 };

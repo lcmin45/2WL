@@ -18,8 +18,8 @@ HRESULT progressBar::init(int x, int y, int width, int height)
 
 	_rcProgress = RectMake(x, y, width, height);
 
-	_progressBarTop = IMAGEMANAGER->addImage("frontBar", "hpBarTop.bmp", x, y, width, height, true, RGB(255, 0, 255));
-	_progressBarBottom = IMAGEMANAGER->addImage("backBar", "hpBarBottom.bmp", x, y, width, height, true, RGB(255, 0, 255));
+	_progressBarTop = IMAGEMANAGER->addImage("frontBar", "HpBarTop.bmp", x, y, width, height, true, RGB(255, 0, 255));
+	_progressBarBottom = IMAGEMANAGER->addImage("backBar", "HpBarBottom.bmp", x, y, width, height, true, RGB(255, 0, 255));
 
 	//가로크기는 이미지의 가로크기로!
 	_width = _progressBarTop->getWidth();
