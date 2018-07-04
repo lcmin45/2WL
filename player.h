@@ -9,7 +9,7 @@
 #define PLAYER_CRITICAL 10.0f
 
 enum DIRECTION { UP, DOWN, LEFT, RIGHT }; //방향
-enum ACTION { IDLE, MOVE, ATTACK1, ATTACK2, DASH }; //행동
+enum ACTION { IDLE, MOVE, ATTACK1, ATTACK2, DASH, FIREBALL }; //행동
 enum ANGLE { ANGLE0, ANGLE1, ANGLE2, ANGLE3, ANGLE4, ANGLE5, ANGLE6, ANGLE7 }; //각도 (라디안 기준 0부터 2PI까지 8분할)
 
 class itemManager;

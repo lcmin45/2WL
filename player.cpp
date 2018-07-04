@@ -13,7 +13,7 @@ HRESULT player::init() //초기화
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
-	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200, 2400, 16, 12, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200, 3600, 16, 18, true, RGB(255, 0, 255));
 
 	int playerIdleUp[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("playerIdleUp", "player", playerIdleUp, 1, 1, false);
@@ -58,6 +58,20 @@ HRESULT player::init() //초기화
 	KEYANIMANAGER->addArrayFrameAnimation("playerDashLeft", "player", playerDashLeft, 13, 20, false, afterAction, this);
 	int playerDashRight[] = { 176, 177, 178, 179, 180, 181, 182, 183, 184, 184, 184, 184, 184 };
 	KEYANIMANAGER->addArrayFrameAnimation("playerDashRight", "player", playerDashRight, 13, 20, false, afterAction, this);
+
+	int playerKickUp[] = { 192, 193, 194, 195, 196, 197, 198, 199 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickUp", "player", playerKickUp, 8, 20, false, afterAction, this);
+	int playerKickDown[] = { 208, 209, 210, 211, 212, 213, 214, 215 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickDown", "player", playerKickDown, 8, 20, false, afterAction, this);
+	int playerKickLeft[] = { 224, 225, 226, 227, 228, 229, 230, 231 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickLeft", "player", playerKickLeft, 8, 20, false, afterAction, this);
+	int playerKickRight[] = { 240, 241, 242, 243, 244, 245, 246, 247 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickRight", "player", playerKickRight, 8, 20, false, afterAction, this);
+
+	int playerBangUp[] = { 256, 257, 258, 259, 260, 261, 262, 263, 264, 265 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangUp", "player", playerBangUp, 10, 20, false, afterAction, this);
+	int playerBangDown[] = { 272, 273, 274, 275, 276, 277, 278, 279, 280, 281 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 10, 20, false, afterAction, this);
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
@@ -165,14 +179,14 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("화염구");
+		_ptM->fire("흙주먹");
 	}
 	if (KEYMANAGER->isOnceKeyDown('C'))
 	{
-		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		_action = FIREBALL;
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("흙주먹");
+		_ptM->fire("화염구");
 	}
 
 	//바디 갱신
@@ -201,6 +215,7 @@ void player::animationProcess()
 	case ATTACK1: strcat_s(temp, "Attack1"); break;
 	case ATTACK2: strcat_s(temp, "Attack2"); break;
 	case DASH: strcat_s(temp, "Dash"); break;
+	case FIREBALL: strcat_s(temp, "Kick"); break;
 	}
 	//방향에 맞게 에니매이션 이름 추가
 	switch (_direction)
