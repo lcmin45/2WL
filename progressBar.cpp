@@ -11,15 +11,20 @@ progressBar::~progressBar()
 {
 }
 
-HRESULT progressBar::init(int x, int y, int width, int height)
+HRESULT progressBar::init(int x, int y, const char* frontImage, const char* backImage, int width, int height)
 {
 	_x = x;
 	_y = y;
 
 	_rcProgress = RectMake(x, y, width, height);
 
-	_progressBarTop = IMAGEMANAGER->addImage("frontBar", "hpBarTop.bmp", x, y, width, height, true, RGB(255, 0, 255));
-	_progressBarBottom = IMAGEMANAGER->addImage("backBar", "hpBarBottom.bmp", x, y, width, height, true, RGB(255, 0, 255));
+	char temp[20];
+	sprintf_s(temp, "%s", frontImage);
+	strcat_s(temp, ".bmp");
+	_progressBarTop = IMAGEMANAGER->addImage(frontImage, temp, x, y, width, height, true, RGB(255, 0, 255));
+	sprintf_s(temp, "%s", frontImage);
+	strcat_s(temp, ".bmp");
+	_progressBarBottom = IMAGEMANAGER->addImage(backImage, temp, x, y, width, height, true, RGB(255, 0, 255));
 
 	//가로크기는 이미지의 가로크기로!
 	_width = _progressBarTop->getWidth();

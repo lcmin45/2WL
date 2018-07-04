@@ -154,6 +154,7 @@
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
+    <ClInclude Include="current.h" />
     <ClInclude Include="effect.h" />
     <ClInclude Include="effectManager.h" />
     <ClInclude Include="ending.h" />
@@ -179,7 +180,7 @@
     <ClInclude Include="mapTool.h" />
     <ClInclude Include="mapToolBook.h" />
     <ClInclude Include="mapToolNode.h" />
-    <ClInclude Include="mapToolPage.h" />
+    <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
     <ClInclude Include="page0.h" />
     <ClInclude Include="page1.h" />
@@ -204,7 +205,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="store.h" />
     <ClInclude Include="targetver.h" />
-    <ClInclude Include="tileNode.h" />
     <ClInclude Include="tileObject.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
@@ -224,6 +224,7 @@
     <ClCompile Include="boss.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
+    <ClCompile Include="current.cpp" />
     <ClCompile Include="effect.cpp" />
     <ClCompile Include="effectManager.cpp" />
     <ClCompile Include="ending.cpp" />
@@ -248,7 +249,8 @@
     <ClCompile Include="mapTile.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
-    <ClCompile Include="mapToolPage.cpp" />
+    <ClCompile Include="mapToolImage.cpp" />
+    <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="page0.cpp" />
     <ClCompile Include="page1.cpp" />

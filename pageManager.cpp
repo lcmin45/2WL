@@ -7,7 +7,6 @@ pageManager::~pageManager() { }
 
 HRESULT pageManager::init(void)
 {
-	imageInit();
 	pageInit();
 
 	return S_OK;
@@ -16,7 +15,7 @@ HRESULT pageManager::init(void)
 void pageManager::release(void)
 {
 	_page0->release();
-	_page1->release(); 
+	_page1->release();
 	_page2->release();
 	_page3->release();
 	_page4->release();
@@ -28,7 +27,7 @@ void pageManager::release(void)
 
 void pageManager::update(void)
 {
-	checkPage();
+	pageUpdate();
 }
 
 void pageManager::render(void)
@@ -54,17 +53,6 @@ void pageManager::render(void)
 	case 8: _page8->render();
 		break;
 	}
-}
-
-void pageManager::imageInit(void)
-{
-	IMAGEMANAGER->addImage("TITLE", "image/mapTool/title2.bmp", 171, 42, true, RGB(255, 0, 255));
-
-	IMAGEMANAGER->addImage("BOX_1_1", "image/mapTool/view_1_1.bmp", 42, 42, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("BOX_1_2", "image/mapTool/view_1_2.bmp", 42, 97, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("BOX_2_1", "image/mapTool/view_2_1.bmp", 93, 42, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("BOX_2_2", "image/mapTool/view_2_2.bmp", 93, 97, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("BOX_3_2", "image/mapTool/view_3_2.bmp", 144, 97, true, RGB(255, 0, 255));
 }
 
 void pageManager::pageInit(void)
@@ -98,7 +86,7 @@ void pageManager::pageInit(void)
 	_page8->setIndex(1);
 }
 
-void pageManager::checkPage(void)
+void pageManager::pageUpdate(void)
 {
 	switch (_pageIndex)
 	{
@@ -130,19 +118,19 @@ void pageManager::setCenterPoint(POINT center)
 	case 0:	_page0->setCenterPoint(center);
 		break;
 	case 1: _page1->setCenterPoint(center);
-		break;		
+		break;
 	case 2: _page2->setCenterPoint(center);
-		break;		
+		break;
 	case 3: _page3->setCenterPoint(center);
-		break;		
+		break;
 	case 4: _page4->setCenterPoint(center);
-		break;		
+		break;
 	case 5: _page5->setCenterPoint(center);
-		break;		
+		break;
 	case 6: _page6->setCenterPoint(center);
-		break;		
+		break;
 	case 7: _page7->setCenterPoint(center);
-		break;		
+		break;
 	case 8: _page8->setCenterPoint(center);
 		break;
 	}

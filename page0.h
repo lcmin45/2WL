@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "mapToolNode.h"
+#include "current.h"
 
 class mapTile;
 
@@ -14,7 +15,7 @@ private:
 	POINT	_center;
 
 	mapTile* _mapTile;
-public: 
+public:
 	page0();
 	~page0();
 
@@ -26,7 +27,7 @@ public:
 	void boxInit(void);
 
 	void checkBox(void);
-	
+
 	void boxRender(void);
 	void fontRender(void);
 
@@ -34,4 +35,3 @@ public:
 
 	void setMapTileClass(mapTile* mapTile) { _mapTile = mapTile; }
 };
-
