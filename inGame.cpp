@@ -18,8 +18,9 @@ HRESULT inGame::init()
 	_ptM = new projectileManager;
 	_ptM->init();
 
+	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
-	_itemManager->setInventoryLink(_player->getInventory());
+	_itemManager->setPlayerAddressLink(_player);
 	_ptM->setPlayerAddressLink(_player);
 
 	return S_OK;

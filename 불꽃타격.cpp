@@ -31,7 +31,7 @@ void ∫“≤…≈∏∞›::update()
 
 void ∫“≤…≈∏∞›::render()
 {
-	if(_img)_img->frameRender(CAMERAMANAGER->getCameraDC(), _rc.left, _rc.top);
+	if(_img)_img->frameRender(getMemDC(), _rc.left, _rc.top);
 }
 
 void ∫“≤…≈∏∞›::move()

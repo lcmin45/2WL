@@ -6,19 +6,19 @@ enum STATUS { NOWHERE, ON_FIELD, IN_INVENTORY, IN_STORE };
 
 struct EFFECT
 {
-	TYPE type;
-	int amount;
+	TYPE type; //아이템 효과
+	int amount; //효과의 수치
 };
 
 class item : public gameNode
 {
 private:
-	POINTFLOAT _position;
-	STATUS _status;
-	EFFECT _effect[2];
-	image* _image;
-	const char* _name;
-	const char* _info;
+	POINTFLOAT _position; //좌표
+	STATUS _status; //현재 어디에 있는지
+	EFFECT _effect[2]; //각 아이템 당 가진 효과는 2개
+	image* _image; //이미지
+	const char* _name; //이름
+	const char* _info; //설명
 public:
 	item();
 	~item();
@@ -28,6 +28,8 @@ public:
 	virtual void update();
 	virtual void render();
 
+	POINTFLOAT getPosition() { return _position; }
+	STATUS getStatus() { return _status; }
 	EFFECT* getEffect() { return _effect; }
 	image* getImage() { return _image; }
 	const char* getName() { return _name; }

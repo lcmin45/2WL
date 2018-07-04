@@ -20,13 +20,9 @@ HRESULT projectileManager::init()
 	IMAGEMANAGER->addFrameImage("入林冈", "image/skill/入林冈.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("官恩海扁", "image/skill/官恩海扁.bmp", 480, 1920, 4, 16, true, RGB(255, 0, 255));
 
-
 	firePunchAtt = new 阂采鸥拜;
 	windCutterAtt = new 官恩海扁;
 	earthPunchAtt = new 入林冈;
-
-
-
 	fireBallAtt = new 拳堪备;
 	return S_OK;
 }
@@ -56,7 +52,7 @@ void projectileManager::render()
 
 void projectileManager::fire(const char * skillName)
 {
-	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, _ptMouse.x, _ptMouse.y);
+	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, getMousePoint().x, getMousePoint().y);
 
 	if (skillName == "阂采鸥拜")
 	{
