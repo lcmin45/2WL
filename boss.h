@@ -52,7 +52,7 @@ public:
 
 	virtual HRESULT init();
 	///////////////초기 이미지와 좌표설정
-	virtual HRESULT setting(const char* imageName, POINT position);
+	virtual HRESULT setting(const char* imageName, POINTFLOAT position);
 	virtual void release();
 	virtual void render();
 	virtual void update();

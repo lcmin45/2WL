@@ -81,7 +81,7 @@ HRESULT boss::init()
 	return S_OK;
 }
 
-HRESULT boss::setting(const char * imageName, POINT position)
+HRESULT boss::setting(const char * imageName, POINTFLOAT position)
 {
 	_frameCount = 0;
 	_bossImg = IMAGEMANAGER->findImage(imageName);

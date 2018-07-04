@@ -15,7 +15,7 @@ void iceBoss::render()
 {
 	char str[256];
 
-	_bossImg->frameRender(CAMERAMANAGER->getCameraDC(), _bossRc.left, _bossRc.top, _iceindex, 0);
+	_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _iceindex, 0);
 
 	_iceHpBar->render();
 

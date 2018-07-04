@@ -43,7 +43,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	virtual void setBoss();
+	void setBoss();
 
 	void settingMonster();
 };

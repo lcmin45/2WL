@@ -16,15 +16,15 @@ HRESULT enemyManager::init()
 
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
-	_woodBoss->setting("나무소환", PointMake(_woodposition.x, _woodposition.y));
+	_woodBoss->setting("나무소환", { _woodposition.x, _woodposition.y });
 
 	_iceBoss = new iceBoss;
 	_iceBoss->init();
-	_iceBoss->setting("얼음소환", PointMake(_iceposition.x, _iceposition.y));
+	_iceBoss->setting("얼음소환", { _iceposition.x, _iceposition.y });
 
 	_fireBoss = new fireBoss;
 	_fireBoss->init();
-	_fireBoss->setting("불소환", PointMake(_fireposition.x, _fireposition.y));
+	_fireBoss->setting("불소환", {_fireposition.x, _fireposition.y});
 
 
 	return S_OK;

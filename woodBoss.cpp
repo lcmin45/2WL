@@ -16,7 +16,7 @@ void woodBoss::render()
 {
 	char str[256];
 
-	_bossImg->frameRender(CAMERAMANAGER->getCameraDC(), _bossRc.left, _bossRc.top, _woodindex, 0);
+	_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _woodindex, 0);
 
 	_woodHpBar->render();
 
@@ -101,7 +101,7 @@ void woodBoss::update()
 			_woodindex = 0;
 		}
 	}
-	_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
+	_bossRc = RectMakeCenter((int)_x, (int)_y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 }
 
 
