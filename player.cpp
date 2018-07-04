@@ -13,7 +13,7 @@ HRESULT player::init() //초기화
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
-	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200, 3600, 16, 18, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 3200 / 2, 3600 / 2, 16, 18, true, RGB(255, 0, 255));
 
 	int playerIdleUp[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("playerIdleUp", "player", playerIdleUp, 1, 1, false);
@@ -25,57 +25,57 @@ HRESULT player::init() //초기화
 	KEYANIMANAGER->addArrayFrameAnimation("playerIdleRight", "player", playerIdleRight, 1, 1, false);
 
 	int playerMoveUp[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerMoveUp", "player", playerMoveUp, 10, 10, true);
+	KEYANIMANAGER->addArrayFrameAnimation("playerMoveUp", "player", playerMoveUp, 10, 5, true);
 	int playerMoveDown[] = { 17, 18, 19, 20, 21, 22, 23, 24, 25, 26 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerMoveDown", "player", playerMoveDown, 10, 10, true);
+	KEYANIMANAGER->addArrayFrameAnimation("playerMoveDown", "player", playerMoveDown, 10, 5, true);
 	int playerMoveLeft[] = { 33, 34, 35, 36, 37, 38, 39, 40, 41, 42 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerMoveLeft", "player", playerMoveLeft, 10, 10, true);
+	KEYANIMANAGER->addArrayFrameAnimation("playerMoveLeft", "player", playerMoveLeft, 10, 5, true);
 	int playerMoveRight[] = { 49, 50, 51, 52, 53, 54, 55, 56, 57, 58 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerMoveRight", "player", playerMoveRight, 10, 10, true);
+	KEYANIMANAGER->addArrayFrameAnimation("playerMoveRight", "player", playerMoveRight, 10, 5, true);
 
 	int playerAttack1Up[] = { 64, 65, 66, 67, 68, 69, 70, 71 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Up", "player", playerAttack1Up, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Up", "player", playerAttack1Up, 8, 10, false, afterAction, this);
 	int playerAttack2Up[] = { 72, 73, 74, 75, 76, 77, 78, 79 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Up", "player", playerAttack2Up, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Up", "player", playerAttack2Up, 8, 10, false, afterAction, this);
 	int playerAttack1Down[] = { 80, 81, 82, 83, 84, 85, 86, 87 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Down", "player", playerAttack1Down, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Down", "player", playerAttack1Down, 8, 10, false, afterAction, this);
 	int playerAttack2Down[] = { 88, 89, 90, 91, 92, 93, 94, 95 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Down", "player", playerAttack2Down, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Down", "player", playerAttack2Down, 8, 10, false, afterAction, this);
 	int playerAttack1Left[] = { 96, 97, 98, 99, 100, 101, 102, 103 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Left", "player", playerAttack1Left, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Left", "player", playerAttack1Left, 8, 10, false, afterAction, this);
 	int playerAttack2Left[] = { 104, 105, 106, 107, 108, 109, 110, 111 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Left", "player", playerAttack2Left, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Left", "player", playerAttack2Left, 8, 10, false, afterAction, this);
 	int playerAttack1Right[] = { 112, 113, 114, 115, 116, 117, 118, 119 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Right", "player", playerAttack1Right, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Right", "player", playerAttack1Right, 8, 10, false, afterAction, this);
 	int playerAttack2Right[] = { 120, 121, 122, 123, 124, 125, 126, 127 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Right", "player", playerAttack2Right, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Right", "player", playerAttack2Right, 8, 10, false, afterAction, this);
 
 	int playerDashUp[] = { 128, 129, 130, 131, 132, 133, 134, 135, 136, 136, 136, 136, 136 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashUp", "player", playerDashUp, 13, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashUp", "player", playerDashUp, 13, 10, false, afterAction, this);
 	int playerDashDown[] = { 144, 145, 146, 147, 148, 149, 150, 151, 152, 152, 152, 152, 152 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashDown", "player", playerDashDown, 13, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashDown", "player", playerDashDown, 13, 10, false, afterAction, this);
 	int playerDashLeft[] = { 160, 161, 162, 163, 164, 165, 166, 167, 168, 168, 168, 168, 168 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashLeft", "player", playerDashLeft, 13, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashLeft", "player", playerDashLeft, 13, 10, false, afterAction, this);
 	int playerDashRight[] = { 176, 177, 178, 179, 180, 181, 182, 183, 184, 184, 184, 184, 184 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashRight", "player", playerDashRight, 13, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashRight", "player", playerDashRight, 13, 10, false, afterAction, this);
 
 	int playerKickUp[] = { 192, 193, 194, 195, 196, 197, 198, 199 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickUp", "player", playerKickUp, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickUp", "player", playerKickUp, 8, 10, false, afterAction, this);
 	int playerKickDown[] = { 208, 209, 210, 211, 212, 213, 214, 215 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickDown", "player", playerKickDown, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickDown", "player", playerKickDown, 8, 10, false, afterAction, this);
 	int playerKickLeft[] = { 224, 225, 226, 227, 228, 229, 230, 231 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickLeft", "player", playerKickLeft, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickLeft", "player", playerKickLeft, 8, 10, false, afterAction, this);
 	int playerKickRight[] = { 240, 241, 242, 243, 244, 245, 246, 247 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickRight", "player", playerKickRight, 8, 20, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickRight", "player", playerKickRight, 8, 10, false, afterAction, this);
 
-	int playerBangUp[] = { 256, 257, 258, 259, 260, 261, 262, 263, 264, 265 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerBangUp", "player", playerBangUp, 10, 20, false, afterAction, this);
-	int playerBangDown[] = { 272, 273, 274, 275, 276, 277, 278, 279, 280, 281 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 10, 20, false, afterAction, this);
+	int playerBangUp[] = { 256, 257, 258, 259, 260, 261, 262, 263, 263, 263, 263, 263, 264, 265 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangUp", "player", playerBangUp, 14, 5, false, afterAction, this);
+	int playerBangDown[] = { 272, 273, 274, 275, 276, 277, 278, 279, 279, 279, 279, 279, 280, 281 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 14, 5, false, afterAction, this);
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
-	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
+	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 4);
 
 	_maxHp = _currentHp = PLAYER_HP;
 	_damage = PLAYER_DAMAGE;
@@ -100,7 +100,6 @@ void player::update()
 void player::render()
 {
 	_image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
-
 	char temp[128];
 	sprintf_s(temp, "HP : %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _maxHp, _damage, _speed, _critical);
 	TextOut(CAMERAMANAGER->getCameraDC(), 50, 50, temp, strlen(temp));
@@ -188,9 +187,16 @@ void player::keyProcess()
 		animationProcess();
 		_ptM->fire("화염구");
 	}
+	if (KEYMANAGER->isOnceKeyDown('V'))
+	{
+		_action = FIRESWORD;
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("불타는올가미");
+	}
 
 	//바디 갱신
-	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
+	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 4);
 }
 
 void player::attackAngleProcess()
@@ -216,6 +222,7 @@ void player::animationProcess()
 	case ATTACK2: strcat_s(temp, "Attack2"); break;
 	case DASH: strcat_s(temp, "Dash"); break;
 	case FIREBALL: strcat_s(temp, "Kick"); break;
+	case FIRESWORD: strcat_s(temp, "Bang"); break;
 	}
 	//방향에 맞게 에니매이션 이름 추가
 	switch (_direction)
