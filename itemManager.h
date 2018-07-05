@@ -26,5 +26,7 @@ public:
 	inventory* getInventory() { return _inventory; }
 	void setItem(item* item, STATUS status, POINTFLOAT position);
 	bool addItem(item* item);
+	void dropCoin(POINTFLOAT position);
+	void takeCoin(int index);
 	void setPlayerAddressLink(player* getLink) { _player = getLink; }
 };

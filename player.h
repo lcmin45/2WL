@@ -3,9 +3,12 @@
 #include "item.h"
 #include "skill.h"
 
+#define PLAYER_MOVE_ANI_SPEED 10
+#define PLAYER_ACTION_ANI_SPEED 20
+
 #define PLAYER_HP 500.0f
 #define PLAYER_DAMAGE 1.0f
-#define PLAYER_SPEED 5.0f
+#define PLAYER_SPEED 3.0f
 #define PLAYER_CRITICAL 10.0f
 
 enum DIRECTION { UP, DOWN, LEFT, RIGHT }; //방향
@@ -31,8 +34,10 @@ private:
 	float _speed; //스피드
 	float _critical; //치명타율
 	float _dashSpeed; //대쉬 스피드
+	int _coin;
 	itemManager* _itemManager; //인벤토리
 	projectileManager* _ptM; // 투사체 매니저 호환
+	bool _canTakeItem;
 public:
 	player();
 	~player();
@@ -52,8 +57,13 @@ public:
 
 	POINTFLOAT getPosition() { return _position; }
 	DIRECTION getDirection() { return _direction; }
+	float getMaxHp() { return _maxHp; }
+	float getCurrentHp() { return _currentHp; }
+	int getCoin() { return _coin; }
+	bool getCanTakeItem() { return _canTakeItem; }
 	void setAction(ACTION action) { _action = action; }
 	void setAnimation(animation* animation) { _animation = animation; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
+	RECT getBody() { return _body; }
 };

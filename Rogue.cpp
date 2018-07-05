@@ -11,24 +11,33 @@ Rogue::~Rogue()
 {
 }
 
-HRESULT Rogue::init(const char * imgName, POINTFLOAT point, float speed)
-{//¤±¤¤¤·
+HRESULT Rogue::init(const char * imgName, POINTFLOAT point,int index)
+{
 	sprintf_s(str, "%s", imgName);
-	sprintf_s(str2, "image/monster/%s.bmp", imgName);
-
-
-	_image = IMAGEMANAGER->addFrameImage(str, str2, 0, 0, 280 * 2, 200 * 2, 10, 4, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->findImage("SummonMonster");
+	_form = CARD;
+	//_image = IMAGEMANAGER->findImage(str);
 
 	_RogueDirection = ROGUE_RIGHT_STAND;
-	_attackRange = 100;
-	_bottomX = point.x;
-	_bottomY = point.y;
-	_x = _bottomX;
-	_y = _bottomY - _image->getFrameHeight() / 2;
-	_speed = speed;
-	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
+	_attackRange = 200;
+	_monsterHP = 250;
+	_bottomPosition = point;
+	_position.x = point.x;
+	_position.y = point.y - _image->getFrameHeight() / 2;
+	_speed = 4.0F;
+	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
 		_image->getFrameHeight());
+
+
+	sprintf_s(_motionName1, "RogueMonsterSummon%d", index);
+	sprintf_s(_motionName2, "RogueRightAttack%d", index);
+	sprintf_s(_motionName3, "RogueLeftAttack%d", index);
+	sprintf_s(_motionName4, "RogueRightHit%d", index);
+	sprintf_s(_motionName5, "RogueLeftHit%d", index);
+
+	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
 
 
 	int rightStand[] = { 0 };
@@ -42,25 +51,25 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point, float speed)
 	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftMove", str, leftMove, 5, 1, true);
 
 	int rightAttack[] = { 6,7 };
-	KEYANIMANAGER->addArrayFrameAnimation("RogueRightAttack", str, rightAttack, 2, 1, false, rightStop, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, str, rightAttack, 2, 1, false, rightStop, this);
 	int leftAttack[] = { 16,17 };
-	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftAttack", str, leftAttack, 2, 1, false, leftStop, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, str, leftAttack, 2, 1, false, leftStop, this);
 
 	int rightHit[] = { 9,8 };
-	KEYANIMANAGER->addArrayFrameAnimation("RogueRightHit", str, rightHit, 2, 2, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName4, str, rightHit, 2, 2, false, rightStop, this);
 	int leftHit[] = { 19,18 };
-	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftHit", str, leftHit, 2, 2, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName5, str, leftHit, 2, 2, false, leftStop, this);
 
 
 	int rightDie[] = { 20,21,22,23,24,25,26 };
-	KEYANIMANAGER->addArrayFrameAnimation("RogueRightDie", str, rightDie, 7, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("RogueRightDie", str, rightDie, 7, 6, false);
 	int leftDie[] = { 30,31,32,33,34,35,36};
-	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftDie", str, leftDie, 7, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftDie", str, leftDie, 7, 6, false);
 
 
 
 
-	_RogueMotion = KEYANIMANAGER->findAnimation("RogueRightStand");
+	_RogueMotion = KEYANIMANAGER->findAnimation(_motionName1);
 
 	return S_OK;
 }
@@ -108,53 +117,34 @@ void Rogue::leftStop(void * obj)
 	_MonsterRogue->getRogueMotion()->start();
 }
 
+
+void Rogue::summonOn(void * obj)
+{
+	Rogue* _MonsterRogue = (Rogue*)obj;
+
+	_MonsterRogue->setImage(IMAGEMANAGER->findImage(_MonsterRogue->str));
+	_MonsterRogue->setForm(BATTLE);
+	_MonsterRogue->setRogueDirection(ROGUE_LEFT_STAND);
+	_MonsterRogue->setRogueMotion(KEYANIMANAGER->findAnimation("RogueLeftStand"));
+	_MonsterRogue->getRogueMotion()->start();
+
+}
+
 void Rogue::Test()
 {
 
-	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
-		_image->getFrameHeight());
-
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-	{
-		_RogueDirection = ROGUE_RIGHT_MOVE;
-		_RogueMotion = KEYANIMANAGER->findAnimation("RogueRightMove");
-		_RogueMotion->start();
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		_RogueDirection = ROGUE_LEFT_MOVE;
-		_RogueMotion = KEYANIMANAGER->findAnimation("RogueLeftMove");
-		_RogueMotion->start();
-	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		if (_RogueDirection == ROGUE_RIGHT_MOVE || _RogueDirection == ROGUE_RIGHT_STAND)
-		{
-			_RogueDirection = ROGUE_RIGHT_ATTACK;
-			_RogueMotion = KEYANIMANAGER->findAnimation("RogueRightAttack");
-			_RogueMotion->start();
-		}
-		else if (_RogueDirection == ROGUE_LEFT_MOVE || _RogueDirection == ROGUE_LEFT_STAND)
-		{
-			_RogueDirection = ROGUE_LEFT_ATTACK;
-			_RogueMotion = KEYANIMANAGER->findAnimation("RogueLeftAttack");
-			_RogueMotion->start();
-		}
-	}
-
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
-		if (_RogueDirection == ROGUE_RIGHT_MOVE || _RogueDirection == ROGUE_RIGHT_HIT || _RogueDirection == ROGUE_RIGHT_STAND)
+		if (_RogueDirection == ROGUE_RIGHT_MOVE || _RogueDirection == ROGUE_RIGHT_HIT || _RogueDirection == ROGUE_RIGHT_STAND || _RogueDirection == ROGUE_RIGHT_ATTACK)
 		{
 			_RogueDirection = ROGUE_RIGHT_HIT;
-			_RogueMotion = KEYANIMANAGER->findAnimation("RogueRightHit");
+			_RogueMotion = KEYANIMANAGER->findAnimation(_motionName4);
 			_RogueMotion->start();
 		}
-		else if (_RogueDirection == ROGUE_LEFT_MOVE || _RogueDirection == ROGUE_LEFT_HIT || _RogueDirection == ROGUE_LEFT_STAND)
+		else if (_RogueDirection == ROGUE_LEFT_MOVE || _RogueDirection == ROGUE_LEFT_HIT || _RogueDirection == ROGUE_LEFT_STAND || _RogueDirection == ROGUE_LEFT_ATTACK)
 		{
 			_RogueDirection = ROGUE_LEFT_HIT;
-			_RogueMotion = KEYANIMANAGER->findAnimation("RogueLeftHit");
+			_RogueMotion = KEYANIMANAGER->findAnimation(_motionName5);
 			_RogueMotion->start();
 		}
 	}

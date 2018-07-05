@@ -151,6 +151,7 @@
     <ClInclude Include="animation.h" />
     <ClInclude Include="Astar.h" />
     <ClInclude Include="boss.h" />
+    <ClInclude Include="bossProgressBar.h" />
     <ClInclude Include="button.h" />
     <ClInclude Include="cameraManager.h" />
     <ClInclude Include="commonMacroFunction.h" />
@@ -222,6 +223,7 @@
     <ClCompile Include="animation.cpp" />
     <ClCompile Include="Astar.cpp" />
     <ClCompile Include="boss.cpp" />
+    <ClCompile Include="bossProgressBar.cpp" />
     <ClCompile Include="button.cpp" />
     <ClCompile Include="cameraManager.cpp" />
     <ClCompile Include="current.cpp" />

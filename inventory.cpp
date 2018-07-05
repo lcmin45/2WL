@@ -8,8 +8,8 @@ HRESULT inventory::init()
 {
 	//초기값 설정
 	_image = new image;
-	_image = IMAGEMANAGER->addImage("inventory", "image/item/inventory.bmp", 400, 500, true, RGB(255, 0, 255));
-	_inventoryRect = RectMakeCenter(WINSIZEX / 4, WINSIZEY / 2, 400, 500);
+	_image = IMAGEMANAGER->findImage("inventory");
+	_inventoryRect = RectMakeCenter(WINSIZEX / 5, WINSIZEY / 2, 400, 500);
 	_selectedItemIndex = -1;
 	_isOpen = false;
 
@@ -31,16 +31,17 @@ void inventory::render()
 
 		for (int i = 0; i < _vItem.size(); i++)
 		{
-			_itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
+			if (_selectedItemIndex == i) _itemRect[_selectedItemIndex] = RectMakeCenter(_ptMouse.x, _ptMouse.y, 50, 50);
+			else _itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
 			_vItem[i]->getImage()->render(CAMERAMANAGER->getCameraDC(), _itemRect[i].left, _itemRect[i].top);
 			if (PtInRect(&_itemRect[i], _ptMouse))
 			{
-				//아이템 이름, 설명을 위한 폰드 작업
+				//아이템 이름, 설명을 위한 폰트 작업
 				HFONT font, oldFont;
 				RECT itemText;
 				font = CreateFont(25, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("맑은 고딕"));
 				oldFont = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font);
-				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(0, 0, 0));
+				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
 				SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
 				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 250, 300, 50);
 				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_vItem[i]->getName()), strlen(_vItem[i]->getName()), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
@@ -81,7 +82,7 @@ void inventory::keyProcess(POINTFLOAT position)
 		{
 			for (int i = 0; i < _vItem.size(); i++)
 			{
-				if (PtInRect(&_itemRect[i], _ptMouse))
+				if (PtInRect(&_itemRect[i], _ptMouse) && _selectedItemIndex == -1)
 				{
 					_selectedItemIndex = i;
 				}
@@ -92,8 +93,8 @@ void inventory::keyProcess(POINTFLOAT position)
 			if (!PtInRect(&_inventoryRect, _ptMouse))
 			{
 				if (_selectedItemIndex != -1) dumpItem(_selectedItemIndex, position);
-				_selectedItemIndex = -1;
 			}
+			_selectedItemIndex = -1;
 		}
 	}
 }
