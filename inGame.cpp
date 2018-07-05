@@ -53,6 +53,7 @@ void inGame::update()
 	_ptM->update();
 	_enemyManager->update();
 	_stage->update();			//플레이어 업데이트 여기 안에 있음!
+	KEYANIMANAGER->update();
 }
 
 void inGame::render()

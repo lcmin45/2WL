@@ -3,6 +3,9 @@
 #include "item.h"
 #include "skill.h"
 
+#define PLAYER_MOVE_ANI_SPEED 10
+#define PLAYER_ACTION_ANI_SPEED 20
+
 #define PLAYER_HP 500.0f
 #define PLAYER_DAMAGE 1.0f
 #define PLAYER_SPEED 3.0f

@@ -8,7 +8,7 @@ HRESULT inventory::init()
 {
 	//초기값 설정
 	_image = new image;
-	_image = IMAGEMANAGER->addImage("inventory", "image/item/inventory.bmp", 400, 500, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->findImage("inventory");
 	_inventoryRect = RectMakeCenter(WINSIZEX / 5, WINSIZEY / 2, 400, 500);
 	_selectedItemIndex = -1;
 	_isOpen = false;

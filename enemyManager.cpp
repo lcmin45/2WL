@@ -21,7 +21,6 @@ void enemyManager::update()
 
 	BossUpdate();
 	monsterUpdate();
-	KEYANIMANAGER->update();
 
 }
 

@@ -7,14 +7,12 @@ item::~item() {}
 HRESULT item::init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char * imageName, const char * name, const char * info)
 {
 	//초기값 설정
-	char directory[128];
 	_position = position;
 	_status = status;
 	_effect[0] = effect0;
 	_effect[1] = effect1;
-	sprintf_s(directory, "image/item/%s.bmp", imageName);
-	if (_effect[0].type == COIN) { _image = IMAGEMANAGER->findImage("coin"); _animation = KEYANIMANAGER->findAnimation("coin"); _animation->start(); }
-	else _image = IMAGEMANAGER->addImage(imageName, directory, 25, 25, true, RGB(255, 0, 255));
+	if (_effect[0].type == COIN) { _image = IMAGEMANAGER->findImage("coinFrame"); _animation = KEYANIMANAGER->findAnimation("coin"); _animation->start(); }
+	else _image = IMAGEMANAGER->findImage(imageName);
 	_name = name;
 	_info = info;
 	_speed = 0.0f;
