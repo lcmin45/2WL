@@ -13,18 +13,19 @@ void skill::release() {}
 
 void skill::update()
 {
-
+	
 }
 
 void skill::render()
 {
-
+	
 }
 
-void skill::fire(const char * skillName, int amount, POINTFLOAT pt, float angle, float speed, float range, float damage, float coolTime)
+void skill::fire(const char * skillName, int amount, POINTFLOAT pt, float angle, float speed, float range, float damage, float coolTime,SUBJECT subject)
 {
 	if (!_img)
 	{
+		_subject = subject;
 		sprintf_s(_str, "%s", skillName);
 		_img = IMAGEMANAGER->findImage(_str);
 		_amount = amount;
@@ -38,7 +39,7 @@ void skill::fire(const char * skillName, int amount, POINTFLOAT pt, float angle,
 		_range = range;
 		_damage = damage;
 		_coolTime = coolTime;
-		_frameIndex = 0;
+		
 	}
 }
 

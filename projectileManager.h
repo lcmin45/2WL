@@ -6,6 +6,10 @@
 #include "흙주먹.h"
 #include "화염구.h"
 #include "불타는올가미.h"
+#include "맹렬회오리.h"
+#include "사이클론부메랑.h"
+#include "몬스터근접.h"
+#include "몬스터총알.h"
 
 
 class projectileManager : public gameNode
@@ -26,6 +30,7 @@ public:
 	virtual void render();
 
 	void fire(const char * skillName);
+	void fire(const char * skillName, POINTFLOAT pt);
 	void vectorCheck();
 	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }

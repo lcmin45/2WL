@@ -72,7 +72,7 @@ void 불타는올가미::render()
 	}
 }
 
-void 불타는올가미::fire(const char * skillName, int amount, POINTFLOAT pt, float speed, float range, float damage, float coolTime)
+void 불타는올가미::fire(const char * skillName, int amount, POINTFLOAT pt, float speed, float range, float damage, float coolTime, SUBJECT subject)
 {
 	if (!_img)
 	{
