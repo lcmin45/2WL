@@ -20,6 +20,19 @@ private:
 	typedef vector<Ghoul*>					vGhoul;
 	typedef vector<Ghoul*>::iterator		viGhoul;
 
+	typedef vector<Knight*>					vKnight;
+	typedef vector<Knight*>::iterator		viKnight;
+
+	typedef vector<Mage*>					vMage;
+	typedef vector<Mage*>::iterator			viMage;
+
+	typedef vector<Rogue*>					vRogue;
+	typedef vector<Rogue*>::iterator		viRogue;
+
+	typedef vector<Scarecrow*>				vScarecrow;
+	typedef vector<Scarecrow*>::iterator	viScarecrow;
+
+
 
 
 	//보스 클래스 소환
@@ -29,8 +42,21 @@ private:
 	//보스 좌표설정
 	POINTFLOAT _woodposition, _iceposition, _fireposition;
 
-	vGhoul		_vGhoul;
-	viGhoul		_viGhoul;
+
+	vGhoul			_vGhoul;
+	viGhoul			_viGhoul;
+
+	vKnight			 _vKnight;
+	viKnight		 _viKnight;
+
+	vMage			 _vMage;
+	viMage			 _viMage;
+
+	vRogue			 _vRogue;
+	viRogue			 _viRogue;
+
+	vScarecrow		 _vScarecrow;
+	viScarecrow		 _viScarecrow;
 
 
 public:
@@ -42,7 +68,11 @@ public:
 	virtual void update();
 	virtual void render();
 
-	virtual void setBoss();
+	void setBoss();
+	void BossUpdate();
+	void BossRender();
 
 	void settingMonster();
+	void monsterUpdate();
+	void monsterRender();
 };

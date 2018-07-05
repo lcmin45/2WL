@@ -25,7 +25,7 @@ public:
 	~Scarecrow();
 
 
-	virtual HRESULT init(POINTFLOAT point);
+	virtual HRESULT init(POINTFLOAT point, int index);
 	virtual void release();
 	virtual void update();
 	virtual void render();

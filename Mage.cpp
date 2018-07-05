@@ -11,26 +11,34 @@ Mage::~Mage()
 {
 }
 
-HRESULT Mage::init(const char* imgName, POINTFLOAT point, float speed)
+HRESULT Mage::init(const char* imgName, POINTFLOAT point,int index)
 {
-
 	sprintf_s(str, "%s", imgName);
-	sprintf_s(str2, "image/monster/%s.bmp", imgName);
 
-
-	_image = IMAGEMANAGER->addFrameImage(str, str2, 0, 0,280*2, 200*2, 10, 4, true, RGB(255, 0, 255));
+	_image = IMAGEMANAGER->findImage("SummonMonster");
+	_form = CARD;
+	//_image = IMAGEMANAGER->findImage(str);
 
 	_MageDirection = MAGE_RIGHT_STAND;
-	_attackRange = 100;
-	_bottomX = point.x;
-	_bottomY = point.y;
-	_x = _bottomX;
-	_y = _bottomY - _image->getFrameHeight() / 2;
-	_speed = speed;
-	_Zrc = RectMakeCenter(_bottomX, _bottomY, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
+	_attackRange = 300;
+	_monsterHP = 200;
+	_bottomPosition = point;
+	_position.x = point.x;
+	_position.y = point.y - _image->getFrameHeight() / 2;
+	_speed = 4.0F;
+	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
 		_image->getFrameHeight());
 
+
+	sprintf_s(_motionName1, "MageMonsterSummon%d", index);
+	sprintf_s(_motionName2, "MageRightAttack%d", index);
+	sprintf_s(_motionName3, "MageLeftAttack%d", index);
+	sprintf_s(_motionName4, "MageRightHit%d", index);
+	sprintf_s(_motionName5, "MageLeftHit%d", index);
+
+	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
 
 	int rightStand[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("MageRightStand", str, rightStand, 1, 6, false);
@@ -43,25 +51,25 @@ HRESULT Mage::init(const char* imgName, POINTFLOAT point, float speed)
 	KEYANIMANAGER->addArrayFrameAnimation("MageLeftMove", str, leftMove, 5, 1, true);
 
 	int rightAttack[] = { 6,7 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageRightAttack", str, rightAttack, 2,1, false, rightStop, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, str, rightAttack, 2,1, false, rightStop, this);
 	int leftAttack[] = { 16,17 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageLeftAttack", str, leftAttack, 2, 1, false, leftStop, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, str, leftAttack, 2, 1, false, leftStop, this);
 
 	int rightHit[] = { 9,8 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageRightHit", str, rightHit, 2, 2, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName4, str, rightHit, 2, 2, false, rightStop, this);
 	int leftHit[] = { 19,18 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageLeftHit", str, leftHit, 2, 2, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName5, str, leftHit, 2, 2, false, leftStop, this);
 
 
 	int rightDie[] = { 20,21,22,23,24,25,26,27 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageRightDie", str, rightDie, 8, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("MageRightDie", str, rightDie, 8, 6, false);
 	int leftDie[] = { 30,31,32,33,34,35,36,37 };
-	KEYANIMANAGER->addArrayFrameAnimation("MageLeftDie", str, leftDie, 8, 1, false);
+	KEYANIMANAGER->addArrayFrameAnimation("MageLeftDie", str, leftDie, 8, 6, false);
 
 
 
 
-	_MageMotion = KEYANIMANAGER->findAnimation("MageRightStand");
+	_MageMotion = KEYANIMANAGER->findAnimation(_motionName1);
 
 	return S_OK;
 }
@@ -110,53 +118,36 @@ void Mage::leftStop(void * obj)
 	_MonsterMage->getMageMotion()->start();
 }
 
+void Mage::summonOn(void * obj)
+{
+
+
+	Mage* _MonsterMage = (Mage*)obj;
+	_MonsterMage->setImage(IMAGEMANAGER->findImage(_MonsterMage->str));
+	_MonsterMage->setForm(BATTLE);
+	_MonsterMage->setMageDirection(MAGE_LEFT_STAND);
+	_MonsterMage->setMageMotion(KEYANIMANAGER->findAnimation("MageLeftStand"));
+	_MonsterMage->getMageMotion()->start();
+
+
+}
+
 void Mage::Test()
 {
 
-	_rc = RectMakeCenter(_x, _y, _image->getFrameWidth(),
-		_image->getFrameHeight());
-
-	if (KEYMANAGER->isOnceKeyDown(VK_RIGHT))
-	{
-		_MageDirection = MAGE_RIGHT_MOVE;
-		_MageMotion = KEYANIMANAGER->findAnimation("MageRightMove");
-		_MageMotion->start();
-	}
-	if (KEYMANAGER->isOnceKeyDown(VK_LEFT))
-	{
-		_MageDirection = MAGE_LEFT_MOVE;
-		_MageMotion = KEYANIMANAGER->findAnimation("MageLeftMove");
-		_MageMotion->start();
-	}
-
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
-	{
-		if (_MageDirection == MAGE_RIGHT_MOVE || _MageDirection == MAGE_RIGHT_STAND)
-		{
-			_MageDirection = MAGE_RIGHT_ATTACK;
-			_MageMotion = KEYANIMANAGER->findAnimation("MageRightAttack");
-			_MageMotion->start();
-		}
-		else if (_MageDirection == MAGE_LEFT_MOVE || _MageDirection == MAGE_LEFT_STAND)
-		{
-			_MageDirection = MAGE_LEFT_ATTACK;
-			_MageMotion = KEYANIMANAGER->findAnimation("MageLeftAttack");
-			_MageMotion->start();
-		}
-	}
 
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
-		if (_MageDirection == MAGE_RIGHT_MOVE || _MageDirection == MAGE_RIGHT_HIT || _MageDirection == MAGE_RIGHT_STAND)
+		if (_MageDirection == MAGE_RIGHT_MOVE || _MageDirection == MAGE_RIGHT_HIT || _MageDirection == MAGE_RIGHT_STAND || _MageDirection == MAGE_RIGHT_ATTACK)
 		{
 			_MageDirection = MAGE_RIGHT_HIT;
-			_MageMotion = KEYANIMANAGER->findAnimation("MageRightHit");
+			_MageMotion = KEYANIMANAGER->findAnimation(_motionName4);
 			_MageMotion->start();
 		}
-		else if (_MageDirection == MAGE_LEFT_MOVE || _MageDirection == MAGE_LEFT_HIT || _MageDirection == MAGE_LEFT_STAND)
+		else if (_MageDirection == MAGE_LEFT_MOVE || _MageDirection == MAGE_LEFT_HIT || _MageDirection == MAGE_LEFT_STAND || _MageDirection == MAGE_LEFT_ATTACK)
 		{
 			_MageDirection = MAGE_LEFT_HIT;
-			_MageMotion = KEYANIMANAGER->findAnimation("MageLeftHit");
+			_MageMotion = KEYANIMANAGER->findAnimation(_motionName5);
 			_MageMotion->start();
 		}
 	}

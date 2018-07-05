@@ -1,5 +1,6 @@
 #pragma once
 #include "monster.h"
+#include "Astar.h"
 
 
 enum MAGEDIRECTION
@@ -23,24 +24,26 @@ class Mage :
 	MAGEDIRECTION _MageDirection;
 	animation* _MageMotion;
 
-	char str[256], str2[256];
 
 public:
 	Mage();
 	~Mage();
 	
 
-	virtual HRESULT init(const char* imgName, POINTFLOAT point, float speed);
+	virtual HRESULT init(const char* imgName, POINTFLOAT point,int index);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 
 
 	void MageMove();
+	inline void HitHP(float att) { _monsterHP -= att; }
+	inline float getHP() { return _monsterHP; }
 
 	//콜백 함수 사용
 	static void rightStop(void* obj);
 	static void leftStop(void* obj);
+	static void summonOn(void * obj);
 
 	//=====================================테스트용=======================
 	void Test();	//이미지 테스트용 함수 나중에 지우자
@@ -50,7 +53,12 @@ public:
 
 
 
-	//구울의 상태에 대한 접근자, 설정자
+	// 상태에 대한 접근자, 설정자
+	char getImageName() { return str[256]; }
+
+	void setImage(image* img) { _image = img; }
+	void setForm(MONSTERFORM form) { _form = form; }
+
 	MAGEDIRECTION getMageDirection() { return _MageDirection; }
 	void setMageDirection(MAGEDIRECTION direction) { _MageDirection = direction; }
 
