@@ -194,7 +194,7 @@ void mapTile::terrainRender(void)
 	{
 		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
 		{
-			if (_tile[i * MAXTILEX + j].imageIndex == NULL || i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (i >= MAXTILEY || j >= MAXTILEX || _tile[i * MAXTILEX + j].imageIndex == NULL) continue;
 
 			switch (_tile[i * MAXTILEX + j].imageIndex)
 			{
@@ -241,7 +241,7 @@ void mapTile::objectRender(void)
 	{
 		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
 		{
-			if (_tile[i * MAXTILEX + j].objectIndex == NULL || i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (i >= MAXTILEY || j >= MAXTILEX || _tile[i * MAXTILEX + j].imageIndex == NULL) continue;
 
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
