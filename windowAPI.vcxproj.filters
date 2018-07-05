@@ -112,6 +112,9 @@
     <Filter Include="playGround\mapTool\current">
       <UniqueIdentifier>{8e2ec1e8-8ffd-47f1-9a57-3ad2896e315d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="2DFramework\bossProgressBar">
+      <UniqueIdentifier>{1366b4e3-b2f2-4b78-acc7-1a843a4d429c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -321,6 +324,9 @@
     <ClInclude Include="current.h">
       <Filter>playGround\mapTool\current</Filter>
     </ClInclude>
+    <ClInclude Include="bossProgressBar.h">
+      <Filter>2DFramework\bossProgressBar</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -517,6 +523,9 @@
     </ClCompile>
     <ClCompile Include="current.cpp">
       <Filter>playGround\mapTool\current</Filter>
+    </ClCompile>
+    <ClCompile Include="bossProgressBar.cpp">
+      <Filter>2DFramework\bossProgressBar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

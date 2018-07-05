@@ -1,5 +1,6 @@
 #pragma once
 #include "singletonBase.h"
+#include <vector>
 #include <map>
 
 class image;
@@ -8,12 +9,23 @@ class animation;
 class keyAniManager : public singletonBase<keyAniManager>
 {
 private:
-	typedef map<string, animation*>				arrAnimation;
-	typedef map<string, animation*>::iterator	iterAnimation;
+
+	//생산
+	typedef vector<animation*>								arrAnimations;
+	typedef vector<animation*>::iterator					iterAnimations;
+	//가공
+	typedef map<string, arrAnimations>						arrAnimation;
+	typedef map<string, arrAnimations>::iterator			iterAnimation;
+	//포장
+	typedef vector<map<string, arrAnimations>>				arrTotalAnimation;
+	typedef vector<map<string, arrAnimations>>::iterator	iterTotalAnimation;
+
 
 private:
-	arrAnimation _mTotalAnimation;
-	
+
+	arrTotalAnimation	_vTotalAnimation; //포장만 전역변수 , 생산과 가공은 지역변수
+
+
 public:
 	keyAniManager();
 	~keyAniManager();

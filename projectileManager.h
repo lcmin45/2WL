@@ -7,21 +7,14 @@
 #include "화염구.h"
 #include "불타는올가미.h"
 
-class player;
 
-class projectileManager:public gameNode
+class projectileManager : public gameNode
 {
 private:
-	불꽃타격 * firePunchAtt;
-	바람베기 * windCutterAtt;
-	흙주먹 * earthPunchAtt;
+	player * _player;
 
-	화염구 * fireBallAtt;
-
-
-	불타는올가미* fireSword;
-
-	player* _player;
+	vector<skill*>				vSkill;
+	vector<skill*>::iterator	viSkill;
 
 public:
 	projectileManager();
@@ -33,6 +26,8 @@ public:
 	virtual void render();
 
 	void fire(const char * skillName);
+	void vectorCheck();
+	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
 };
 

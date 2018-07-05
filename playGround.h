@@ -11,6 +11,9 @@ public:
 	virtual void update(void);
 	virtual void render(void);
 
+
+	void settingAddImage(void);
+
 	playGround();
 	~playGround();
 }; 

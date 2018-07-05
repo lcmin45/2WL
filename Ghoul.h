@@ -1,5 +1,6 @@
 #pragma once
 #include "monster.h"
+#include "Astar.h"
 
 class player;
 
@@ -22,25 +23,25 @@ class Ghoul : public monster
 {
 	GHOULDIRECTION _ghoulDirection;
 	animation* _ghoulMotion;
+	Astar* _Astar;
 
 public:
 	Ghoul();
 	~Ghoul();
-
-
-
-	virtual HRESULT init(POINTFLOAT point, float speed);
+	
+	virtual HRESULT init(POINTFLOAT point, int index);
 	virtual void release();
 	virtual void update();
 	virtual void render();
 
 
 	void ghoulMove();
+	inline void HitHP(float att) { _monsterHP -= att; }
+	inline float getHP() { return _monsterHP; }
 
 	//콜백 함수 사용
 	static void rightStop(void* obj);
 	static void leftStop(void* obj);
-
 	static void summonOn(void * obj);
 
 	//=====================================테스트용=======================
