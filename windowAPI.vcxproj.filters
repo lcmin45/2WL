@@ -324,9 +324,6 @@
     <ClInclude Include="current.h">
       <Filter>playGround\mapTool\current</Filter>
     </ClInclude>
-    <ClInclude Include="맹렬회오리.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
     <ClInclude Include="bossProgressBar.h">
       <Filter>2DFramework\bossProgressBar</Filter>
     </ClInclude>
@@ -526,9 +523,6 @@
     </ClCompile>
     <ClCompile Include="current.cpp">
       <Filter>playGround\mapTool\current</Filter>
-    </ClCompile>
-    <ClCompile Include="맹렬회오리.cpp">
-      <Filter>playGround\skill</Filter>
     </ClCompile>
     <ClCompile Include="bossProgressBar.cpp">
       <Filter>2DFramework\bossProgressBar</Filter>

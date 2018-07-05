@@ -16,7 +16,7 @@ HRESULT enemyManager::init()
 
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
-	_woodBoss->setting("唱公家券", { _woodposition.x, _woodposition.y });
+	_woodBoss->setting("唱公家券", { _woodposition.x, _woodposition.y })
 
 	_iceBoss = new iceBoss;
 	_iceBoss->init();
