@@ -3,6 +3,9 @@
 #include "item.h"
 #include "skill.h"
 
+#define PLAYER_MOVE_ANI_SPEED 10
+#define PLAYER_ACTION_ANI_SPEED 20
+
 #define PLAYER_HP 500.0f
 #define PLAYER_DAMAGE 1.0f
 #define PLAYER_SPEED 3.0f
@@ -31,6 +34,7 @@ private:
 	float _speed; //스피드
 	float _critical; //치명타율
 	float _dashSpeed; //대쉬 스피드
+	int _coin;
 	itemManager* _itemManager; //인벤토리
 	projectileManager* _ptM; // 투사체 매니저 호환
 	bool _canTakeItem;
@@ -55,6 +59,7 @@ public:
 	DIRECTION getDirection() { return _direction; }
 	float getMaxHp() { return _maxHp; }
 	float getCurrentHp() { return _currentHp; }
+	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
 	void setAction(ACTION action) { _action = action; }
 	void setAnimation(animation* animation) { _animation = animation; }

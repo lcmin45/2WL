@@ -25,5 +25,6 @@ public:
 	bool addItem(item* item); //아이템 추가 함수
 	void dumpItem(int index, POINTFLOAT position); //아이템 버리는 함수
 
+	bool getIsOpen() { return _isOpen; }
 	vector<item*> getVItem() { return _vItem; }
 };
