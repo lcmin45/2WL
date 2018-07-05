@@ -1,4 +1,4 @@
-5#include "stdafx.h"
+#include "stdafx.h"
 #include "UI.h"
 #include "player.h"
 
