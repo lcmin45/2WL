@@ -31,11 +31,12 @@ void inventory::render()
 
 		for (int i = 0; i < _vItem.size(); i++)
 		{
-			_itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
+			if (_selectedItemIndex == i) _itemRect[_selectedItemIndex] = RectMakeCenter(_ptMouse.x, _ptMouse.y, 50, 50);
+			else _itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
 			_vItem[i]->getImage()->render(CAMERAMANAGER->getCameraDC(), _itemRect[i].left, _itemRect[i].top);
 			if (PtInRect(&_itemRect[i], _ptMouse))
 			{
-				//아이템 이름, 설명을 위한 폰드 작업
+				//아이템 이름, 설명을 위한 폰트 작업
 				HFONT font, oldFont;
 				RECT itemText;
 				font = CreateFont(25, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("맑은 고딕"));
@@ -81,7 +82,7 @@ void inventory::keyProcess(POINTFLOAT position)
 		{
 			for (int i = 0; i < _vItem.size(); i++)
 			{
-				if (PtInRect(&_itemRect[i], _ptMouse))
+				if (PtInRect(&_itemRect[i], _ptMouse) && _selectedItemIndex == -1)
 				{
 					_selectedItemIndex = i;
 				}
@@ -92,8 +93,8 @@ void inventory::keyProcess(POINTFLOAT position)
 			if (!PtInRect(&_inventoryRect, _ptMouse))
 			{
 				if (_selectedItemIndex != -1) dumpItem(_selectedItemIndex, position);
-				_selectedItemIndex = -1;
 			}
+			_selectedItemIndex = -1;
 		}
 	}
 }

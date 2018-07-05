@@ -11,6 +11,7 @@ HRESULT UI::init()
 	IMAGEMANAGER->addImage("playerIcon", "image/UI/playerIcon.bmp", 75, 75, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("playerFrontHp", "image/UI/playerFrontHp.bmp", 230, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("playerBackHp", "image/UI/playerBackHp.bmp", 250, 25, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("playerCoin", "image/UI/playerCoin.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("buttonF", "image/UI/buttonF.bmp", 40, 40, true, RGB(255, 0, 255));
 
 	_progressBar = new progressBar;
@@ -34,6 +35,8 @@ void UI::render()
 	_image = IMAGEMANAGER->findImage("playerIcon");
 	_image->render(CAMERAMANAGER->getCameraDC(), 25, 25);
 	_progressBar->render();
+	_image = IMAGEMANAGER->findImage("playerCoin");
+	_image->render(CAMERAMANAGER->getCameraDC(), 100, 65);
 
 	HFONT font, oldFont;
 	RECT itemText;
@@ -44,6 +47,9 @@ void UI::render()
 	char info[128];
 	sprintf_s(info, "%d / %d", int(_player->getCurrentHp()), int(_player->getMaxHp()));
 	itemText = RectMakeCenter(290, 30, 250, 25);
+	DrawText(CAMERAMANAGER->getCameraDC(), TEXT(info), strlen(info), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+	sprintf_s(info, "%d", _player->getCoin());
+	itemText = RectMakeCenter(160, 77, 50, 25);
 	DrawText(CAMERAMANAGER->getCameraDC(), TEXT(info), strlen(info), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 	SelectObject(CAMERAMANAGER->getCameraDC(), oldFont);

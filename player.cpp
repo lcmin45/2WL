@@ -81,6 +81,7 @@ HRESULT player::init() //초기화
 	_damage = PLAYER_DAMAGE;
 	_speed = PLAYER_SPEED;
 	_critical = PLAYER_CRITICAL;
+	_coin = 0;
 
 	_canTakeItem = false;
 
@@ -98,11 +99,16 @@ void player::update()
 	KEYANIMANAGER->update();
 	CAMERAMANAGER->setCameraPoint(_position);
 
-	//임시
+	//////////////////////////////////////////////임시
 	if (KEYMANAGER->isStayKeyDown('K'))
 	{
 		_currentHp -= 5.0f;
 	}
+	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
+	{
+		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
+	}
+	/////////////////////////////////////////////////
 }
 
 void player::render()
@@ -117,6 +123,8 @@ void player::render()
 
 void player::keyProcess()
 {
+	if (_itemManager->getInventory()->getIsOpen()) return;
+
 	//이동 키 입력시
 	if ((KEYMANAGER->isStayKeyDown('W') || KEYMANAGER->isStayKeyDown('S') || KEYMANAGER->isStayKeyDown('A') || KEYMANAGER->isStayKeyDown('D')) && (_action == IDLE || _action == MOVE))
 	{
@@ -279,13 +287,17 @@ void player::collisionProcess()
 	{
 		if (_itemManager->getVItem()[i]->getStatus() != ON_FIELD) continue;
 
-		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 50)
+		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 25)
 		{
-			_canTakeItem = true;
-			if (KEYMANAGER->isOnceKeyDown('F'))
+			if (_itemManager->getVItem()[i]->getEffect()[0].type == COIN)
 			{
-				if (_itemManager->addItem(_itemManager->getVItem()[i]));
-				break;
+				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
+				_itemManager->takeCoin(i);
+			}
+			else
+			{
+				_canTakeItem = true;
+				if (KEYMANAGER->isOnceKeyDown('F')) if (_itemManager->addItem(_itemManager->getVItem()[i])) break;
 			}
 		}
 	}
