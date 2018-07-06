@@ -187,7 +187,7 @@ void page4::setIndex(int index)
 			_box[7].autoCheck = AUTO_NONE;
 			_box[7].terrain = TR_WAY;
 			break;
-	}
+	} 
 }
 
 void page4::setCenterPoint(POINT point)
