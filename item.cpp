@@ -4,7 +4,7 @@
 item::item() {}
 item::~item() {}
 
-HRESULT item::init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char * imageName, const char * name, const char * info)
+HRESULT item::init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char * imageName, const char * name, const char * info, int price)
 {
 	//초기값 설정
 	_position = position;
@@ -15,6 +15,7 @@ HRESULT item::init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT ef
 	else _image = IMAGEMANAGER->findImage(imageName);
 	_name = name;
 	_info = info;
+	_price = price;
 	_speed = 0.0f;
 
 	return S_OK;
@@ -26,8 +27,8 @@ void item::update() {}
 
 void item::render()
 {
-	//아이템의 상태가 필드에 있을 때만 랜더
-	if (_status == ON_FIELD)
+	//아이템의 상태가 필드 혹은 상점에 있을 때만 랜더
+	if (_status == ON_FIELD || _status == IN_STORE)
 	{
 		if (_effect[0].type == COIN) _image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
 		else _image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);

@@ -644,6 +644,15 @@ void animation::frameUpdate(float elapsedTime)
 			}
 		}
 	}
+
+	// 악마가... 살고있어요..... 열어보지 마시오.... TO NOT TRY THIS AT HOME !
+	{
+		if (_nowPlayIndex > 100000000)
+		{
+			_nowPlayIndex = 0;
+		}
+	}	
+	// 안돼요..
 }
 
 void animation::start()

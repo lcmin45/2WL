@@ -6,8 +6,9 @@
 class store : public gameNode
 {
 private:
+	POINTFLOAT _position;
 	vector<item*> _vItem;
-	vector<item*>::iterator _viItem;
+	image* _image;
 public:
 	store();
 	~store();
@@ -16,4 +17,7 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+
+	void addItem(item* item);
+	void sellItem(item* item);
 };
