@@ -41,7 +41,7 @@ void playGround::update(void)
 		SCENEMANAGER->changeScene("inGame");
 	}
 
-	SCENEMANAGER->update();
+	SCENEMANAGER->update(); 
 }
 
 void playGround::render(void)
