@@ -44,6 +44,7 @@ void playGround::update(void)
 	if (KEYMANAGER->isOnceKeyDown(VK_ESCAPE))
 	{
 		SCENEMANAGER->changeScene("intro");
+		CAMERAMANAGER->setCameraPoint({ 0, 0 });
 	}
 
 

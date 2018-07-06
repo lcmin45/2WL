@@ -46,8 +46,8 @@ void intro::update()
 	else if (_setScene == 1)
 	{
 		_buttonAlpha = 0;
-		if (_titleY > -100) --_titleY;
-		else (_sceneAlpha >= 255) ? _setScene = 2 : ++_sceneAlpha;
+		if (_titleY > -100)	{--_titleY;	}
+		else (_sceneAlpha >= 255) ? _setScene = 2 : _sceneAlpha += 5;
 	}
 	else if (_setScene == 2)
 	{
