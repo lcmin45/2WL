@@ -284,8 +284,6 @@ void player::collisionProcess()
 	_canTakeItem = false;
 	for (int i = 0; i < _itemManager->getVItem().size(); i++)
 	{
-		if (_itemManager->getVItem()[i]->getStatus() != ON_FIELD) continue;
-
 		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 25)
 		{
 			if (_itemManager->getVItem()[i]->getEffect()[0].type == COIN)
@@ -296,7 +294,20 @@ void player::collisionProcess()
 			else
 			{
 				_canTakeItem = true;
-				if (KEYMANAGER->isOnceKeyDown('F')) if (_itemManager->addItem(_itemManager->getVItem()[i])) break;
+				if (KEYMANAGER->isOnceKeyDown('F'))
+				{
+					if (_itemManager->getVItem()[i]->getStatus() == IN_STORE)
+					{
+						if (_itemManager->sellItem(_itemManager->getVItem()[i]))
+						{
+							_coin -= _itemManager->getVItem()[i]->getPrice(); break;
+						}
+					}
+					else if (_itemManager->getVItem()[i]->getStatus() == ON_FIELD)
+					{
+						if (_itemManager->addItem(_itemManager->getVItem()[i])) break;
+					}
+				}
 			}
 		}
 	}

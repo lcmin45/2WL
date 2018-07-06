@@ -132,6 +132,8 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("item8", "image/item/item8.bmp", 25, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("item9", "image/item/item9.bmp", 25, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory", "image/item/inventory.bmp", 400, 500, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("storeNpc", "image/store/storeNpc.bmp", 50, 75, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("storeTable", "image/store/storeTable.bmp", 160, 64, true, RGB(255, 0, 255));
 
 	//===================================================== PLAYER ===================================================
 	IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 1600, 1800, 16, 18, true, RGB(255, 0, 255));

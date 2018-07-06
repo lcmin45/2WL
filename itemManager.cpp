@@ -13,6 +13,7 @@ HRESULT itemManager::init()
 	char imageName[128];
 	const char* name[10] = { "사우스페이스 패딩", "돌안 검", "악센트의 발톱", "아담의 나뭇잎", "드레의 반지", "나락의 성벽", "양샘의 피부", "탈골의 등뼈", "도르마무의 눈", "경일의 땀" };
 	const char* info[10] = { "남쪽 장인 난쟁이 장인 곰털 패딩", "유명한 대장장이 돌안이 만든 검", "죽음의 음유시인 악센트의 발톱", "최후의 인간 아담의 그 곳 가리개", "공포의 귀 의사 닥터 드레의 반지", "폐허 도시 나락의 성벽 조각", "대도시 경일을 망친 대악마 양샘의 피부", "비운의 칼슘왕 탈골의 등뼈", "제 3우주의 기원 도르마무의 눈", "대도시 경일의 천년 지하수 결정" };
+	int price[10] = { 100, 100, 100, 100, 250, 125, 125, 125, 125, 250 };
 	//코인 아이템용 설정
 	int coinAni[] = { 0, 1, 2, 3, 4, 5 };
 	KEYANIMANAGER->addArrayFrameAnimation("coin", "coinFrame", coinAni, 6, 5, true);
@@ -21,19 +22,21 @@ HRESULT itemManager::init()
 	{
 		sprintf_s(imageName, "item%d", i);
 		item* tempItem = new item;
-		tempItem->init({ 0, 0 }, NOWHERE, effect[i][0], effect[i][1], imageName, name[i], info[i]);
+		tempItem->init({ 0, 0 }, NOWHERE, effect[i][0], effect[i][1], imageName, name[i], info[i], price[i]);
 		_vItem.push_back(tempItem);
 	}
 
 	_inventory = new inventory;
 	_inventory->init();
 
-	///////////////////////////////////////////////임시
-	setItem(_vItem[0], ON_FIELD, { 500, 500 });
-	setItem(_vItem[4], ON_FIELD, { 600, 600 });
-	setItem(_vItem[7], ON_FIELD, { 500, 600 });
-	setItem(_vItem[9], ON_FIELD, { 500, 700 });
-	/////////////////////////////////////////////////
+	_store = new store;
+	_store->init();
+	for (int i = 0; i < 4;)
+	{
+		int rand = RND->getInt(10);
+		if (_vItem[rand]->getStatus() == IN_STORE) continue;
+		else _store->addItem(_vItem[rand]); i++;
+	}
 
 	return S_OK;
 }
@@ -54,6 +57,7 @@ void itemManager::update()
 void itemManager::render()
 {
 	_inventory->render();
+	_store->render();
 
 	for (_viItem = _vItem.begin(); _viItem != _vItem.end(); _viItem++)
 	{
@@ -75,6 +79,13 @@ bool itemManager::addItem(item * item)
 	return false;
 }
 
+bool itemManager::sellItem(item * item)
+{
+	if (_player->getCoin() >= item->getPrice()) { if (addItem(item)) { _store->sellItem(item); return true; } }
+
+	return false;
+}
+
 void itemManager::dropCoin(POINTFLOAT position)
 {
 	int randCount = RND->getInt(4) + 1;
@@ -87,7 +98,7 @@ void itemManager::dropCoin(POINTFLOAT position)
 		const char* info = "금으로 된 마법사의 인장이다";
 
 		item* tempItem = new item;
-		tempItem->init(randPosition, ON_FIELD, effect[0], effect[1], "coin", name, info);
+		tempItem->init(randPosition, ON_FIELD, effect[0], effect[1], "coin", name, info, 0);
 		_vItem.push_back(tempItem);
 	}
 }
