@@ -17,7 +17,7 @@ HRESULT playGround::init(void)
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
-	SCENEMANAGER->changeScene("mapTool");
+	SCENEMANAGER->changeScene("intro");
 
 	return S_OK;
 }
@@ -31,15 +31,21 @@ void playGround::update(void)
 {
 	gameNode::update();
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F5))
+
+	//if (KEYMANAGER->isOnceKeyDown(VK_F5))
+	//{
+	//	SCENEMANAGER->changeScene("mapTool");
+	//}
+	//
+	//if (KEYMANAGER->isOnceKeyDown(VK_F6))
+	//{
+	//	SCENEMANAGER->changeScene("inGame");
+	//}
+	if (KEYMANAGER->isOnceKeyDown(VK_ESCAPE))
 	{
-		SCENEMANAGER->changeScene("mapTool");
+		SCENEMANAGER->changeScene("intro");
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F6))
-	{
-		SCENEMANAGER->changeScene("inGame");
-	}
 
 	SCENEMANAGER->update(); 
 }
@@ -122,6 +128,16 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("playerBackHp", "image/UI/playerBackHp.bmp", 250, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("playerCoin", "image/UI/playerCoin.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("buttonF", "image/UI/buttonF.bmp", 40, 40, true, RGB(255, 0, 255));
+
+	IMAGEMANAGER->addImage("TitleScreen", "image/UI/TitleScreen.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("TitleLogo", "image/UI/TitleLogo.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("PRESS ANY BUTTON", "image/UI/PRESS ANY BUTTON.bmp", 300, 20, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("GameStart", "image/UI/GameStart.bmp", 320, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Load", "image/UI/Load.bmp", 180, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("MapTool", "image/UI/MapTool.bmp", 280, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
+
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
