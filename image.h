@@ -69,6 +69,7 @@ private:
 	BOOL			_trans;			//특정 칼라 지울지여부
 	COLORREF		_transColor;	//제외할 칼라 값
 
+	BOOL			_blend;
 	BLENDFUNCTION	_blendFunc;		//알파블렌드 관련 함수를 사용할수있음.
 	LPIMAGE_INFO	_blendImage;	//알파블렌드 먹일 이미지
 
@@ -113,7 +114,13 @@ public:
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
 
+	void alphaFrameRender(HDC hdc, int destX, int destY, BYTE alpha);
+	void alphaFrameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, BYTE alpha);
+
+	void alphaLoopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY, BYTE alpha);
+
 	void aniRender(HDC hdc, int destX, int destY, animation* ani);
+	void alphaAniRender(HDC hdc, int destX, int destY, animation* ani, BYTE alpha);
 
 	inline HDC getMemDC() { return _imageInfo->hMemDC; }
 

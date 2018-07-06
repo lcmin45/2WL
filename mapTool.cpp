@@ -9,18 +9,18 @@ mapTool::~mapTool() {}
 
 HRESULT mapTool::init(void)
 {
-	imageInit();
+	static int index = 0;
+	index += 1;
 
 	_mapTile = new mapTile;
 	_mapTile->init();
 
 	_book = new mapToolBook;
-	_book->init();
+	_book->init(index);
 
 	_miniMap = new miniMap;
 	_miniMap->init();
 
-	_isMiniMapView = false;
 	_moveSpeed = 10;
 
 	_mapTile->setMiniMapMemoryAddressLink(_miniMap);
@@ -31,34 +31,40 @@ HRESULT mapTool::init(void)
 
 void mapTool::release(void)
 {
-	SAFE_DELETE(_mapTile);
-	SAFE_DELETE(_book);
-	SAFE_DELETE(_miniMap);
-	SAFE_DELETE(_book);
+	SAFE_RELEASE(_book);
+	SAFE_RELEASE(_mapTile);
+	SAFE_RELEASE(_miniMap);
 }
 
 void mapTool::update(void)
 {
-	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _mapTile->getIsMiniMap())
-	{
-		_isMiniMapView = false;
-		_mapTile->setIsMiniMap(false);
-	}
-
-	if (_isMiniMapView) return;
-
-	KEYANIMANAGER->update();
-	_mapTile->setIsMouseBook(_book->getIsMouseBook());
-	_mapTile->update();
-	_book->update();
-
-	inputKey();
+	miniMapViewUpdate();
+	mapToolUpdate();
 }
 
 void mapTool::render(void)
 {
 	miniMapRender();
 	mapToolRender();
+}
+
+void mapTool::miniMapViewUpdate(void)
+{
+	if (KEYMANAGER->isOnceKeyDown(VK_SPACE) && _mapTile->getIsMiniMap())
+	{
+		_mapTile->setIsMiniMap(false);
+	}
+}
+
+void mapTool::mapToolUpdate(void)
+{
+	if (_mapTile->getIsMiniMap()) return;
+
+	KEYANIMANAGER->update();
+	_mapTile->setIsMouseBook(_book->getIsMouseBook());
+	_mapTile->update();
+	_book->update();
+	inputKey();
 }
 
 void mapTool::inputKey(void)
@@ -77,14 +83,14 @@ void mapTool::inputKey(void)
 
 void mapTool::miniMapRender(void)
 {
-	if (!_isMiniMapView) return;
+	if (!_mapTile->getIsMiniMap()) return;
 
 	_miniMap->render();
 }
 
 void mapTool::mapToolRender(void)
 {
-	if (_isMiniMapView) return;
+	if (_mapTile->getIsMiniMap()) return;
 
 	_mapTile->render();
 	_book->render();

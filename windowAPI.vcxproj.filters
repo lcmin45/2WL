@@ -527,9 +527,6 @@
     <ClCompile Include="Astar.cpp">
       <Filter>playGround\enemyManager\monster</Filter>
     </ClCompile>
-    <ClCompile Include="mapToolImage.cpp">
-      <Filter>playGround\mapTool</Filter>
-    </ClCompile>
     <ClCompile Include="miniMap.cpp">
       <Filter>playGround\mapTool\miniMap</Filter>
     </ClCompile>
