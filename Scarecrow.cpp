@@ -11,9 +11,8 @@ Scarecrow::~Scarecrow()
 {
 }
 
-HRESULT Scarecrow::init(POINTFLOAT point, int index)
+HRESULT Scarecrow::init(POINTFLOAT point)
 {
-	//_image = IMAGEMANAGER->findImage("SummonMonster");
 	_image = IMAGEMANAGER->findImage("Scarecrow");
 	_scarecrowDirection = SCARECROW_STAND;
 	_bottomPosition = point;
@@ -22,8 +21,6 @@ HRESULT Scarecrow::init(POINTFLOAT point, int index)
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
 		_image->getFrameHeight());
-
-	 
 
 
 	int Stand[] = { 0 };
@@ -44,7 +41,6 @@ void Scarecrow::release()
 void Scarecrow::update()
 {
 	Test();
-	KEYANIMANAGER->update();
 }
 
 void Scarecrow::render()

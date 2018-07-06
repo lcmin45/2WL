@@ -2,7 +2,6 @@
 //========================================
 // ## 18.05.14 ## image Class ## 취업합시다
 //========================================
-
 #include "animation.h"
 
 class image
@@ -78,18 +77,18 @@ public:
 	~image();
 
 	//백버퍼를 옮겨와야겠다 + 이미지 초기화
-	HRESULT init(int width, int height);
+	HRESULT init(int width, int height, BOOL blend = FALSE);
 	HRESULT init(const char* fileName, int width, int height,
-		BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0));
+		BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0), BOOL blend = FALSE);
 	HRESULT init(const char* fileName, float x, float y, int width, int height,
-		BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0));
+		BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0), BOOL blend = FALSE);
 
 	//프레임 이미지 초기화
 	HRESULT init(const char* fileName, float x, float y, int width, int height,
-		int frameX, int frameY, BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0));
+		int frameX, int frameY, BOOL trans = FALSE, COLORREF transColor = RGB(0, 0, 0), BOOL blend = FALSE);
 
 	HRESULT init(const char* fileName, int width, int height, int frameX, int frameY,
-		BOOL trans = FALSE, COLORREF transColor = FALSE);
+		BOOL trans = FALSE, COLORREF transColor = FALSE, BOOL blend = FALSE);
 
 	void release(void);
 
