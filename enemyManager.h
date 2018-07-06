@@ -5,6 +5,7 @@
 #include "fireBoss.h"
 #include "iceBoss.h"
 #include "woodBoss.h"
+#include "stage.h"
 
 #include <vector>
 #include "Ghoul.h"
@@ -58,6 +59,11 @@ private:
 	vScarecrow		 _vScarecrow;
 	viScarecrow		 _viScarecrow;
 
+	stage*			_stage;
+	
+
+	POINTFLOAT		_playerPoint;
+	int				_playerIndex;
 
 public:
 	enemyManager();
@@ -75,4 +81,8 @@ public:
 	void settingMonster();
 	void monsterUpdate();
 	void monsterRender();
+
+	void setStage(stage* stage) { _stage = stage; }
+	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
+	void setPlayerIndex(int index) { _playerIndex = index; }
 };

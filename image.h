@@ -2,7 +2,6 @@
 //========================================
 // ## 18.05.14 ## image Class ## 취업합시다
 //========================================
-
 #include "animation.h"
 
 class image
@@ -113,7 +112,13 @@ public:
 	void alphaRender(HDC hdc, int destX, int destY, BYTE alpha);
 	void alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha);
 
+	void alphaFrameRender(HDC hdc, int destX, int destY, BYTE alpha);
+	void alphaFrameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, BYTE alpha);
+
+	void alphaLoopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY, BYTE alpha);
+
 	void aniRender(HDC hdc, int destX, int destY, animation* ani);
+	void alphaAniRender(HDC hdc, int destX, int destY, animation* ani, BYTE alpha);
 
 	inline HDC getMemDC() { return _imageInfo->hMemDC; }
 

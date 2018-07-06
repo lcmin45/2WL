@@ -7,13 +7,18 @@
 class mapTile : public gameNode
 {
 private:
+	struct tagAutoPoint
+	{
+		POINT	_startPoint;
+		POINT	_endPoint;
+	};
 
 private:
 	tagMapToolTile		_tile[MAXTILEX * MAXTILEY];
 	miniMap*			_miniMap;
 
-	bool				_isMouseBook;
-	bool				_isCheck;
+	bool				_isMouseBook;		// 마우스가 책위에 있는지 체크
+	tagAutoPoint		_autoPoint;
 	POINT				_startPoint;
 	POINT				_endPoint;
 
@@ -35,6 +40,7 @@ public:
 	void checkTerrain(void);		// 박스에 지형 체크
 	void checkObject(void);			// 박스에 오브젝트 체크
 	void checkAuto(void);			// 박스에 자동타일 체크
+	void checkRoomIndex(void);		// 몬스터 등장용 인덱스 설정
 
 	void terrainRender(void);		// 지형 렌더
 	void objectRender(void);		// 오브젝트 렌더

@@ -37,36 +37,12 @@ struct tagBox
 	POINT	renderPoint;
 };
 
-//==========================================================//
-//==========    현재 선택된 타일 정보 관련 부분     ==========//
-//==========================================================//
-
-enum currentCheck
-{
-	CH_TERRAIN,
-	CH_OBJECT,
-	CH_AUTO
-};
-
-struct tagCurrentTerrain
-{
-	int		imageIndex;
-	int		frameX;
-	int		frameY;
-};
-
-struct tagCurrentObject
-{
-	int		objectIndex;
-	POINT	renderPoint;
-};
-
-struct tagCurrentAuto
-{
-	int		imageIndex;
-	POINT	startPoint;
-	POINT	endPoint;
-};
+#define CAMERADC		CAMERAMANAGER->getCameraDC()
+#define CAMERASTARTY	(CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE
+#define CAMERAENDY		(CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1
+#define CAMERASTARTX	(CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE
+#define CAMERAENDX		(CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1
+#define CAMERAMAXCHECK	i >= MAXTILEY || j >= MAXTILEX
 
 //==========================================================//
 //==========    맵에 사용될 타일 정보 관련 부분     ==========//
@@ -89,23 +65,25 @@ enum OBJECT
 
 struct tagMapToolTile
 {
-	POINT		center;
-	POINT		renderPoint;
-	RECT		rc;
-	TERRAIN		terrain;
-	OBJECT		object;
-	int			tileIndexX;
-	int			tileIndexY;
-	int			imageIndex;
-	int			terrainFrameX;
-	int			terrainFrameY;
-	int			objectIndex;
-	tileObject*	objectClass;
+	POINT			center;
+	POINT			renderPoint;
+	RECT			rc;
+	TERRAIN			terrain;
+	OBJECT			object;
+	int				tileIndexX;
+	int				tileIndexY;
+	int				imageIndex;
+	int				imageObjectIndex;
+	int				objectIndex;
+	int				terrainFrameX;
+	int				terrainFrameY;
+	tileObject*		objectClass;
+	int				roomIndex;
 };
 
 struct tagTile
 {
-	image*		img;
+	POINT		center;
 	TERRAIN		terrain;
 	OBJECT		object;
 	int			tileIndexX;
@@ -114,4 +92,52 @@ struct tagTile
 	int			terrainFrameX;
 	int			terrainFrameY;
 	tileObject*	objectClass;
+};
+
+//==========================================================//
+//==========    현재 선택된 타일 정보 관련 부분     ==========//
+//==========================================================//
+
+enum currentCheck
+{
+	CH_TERRAIN,
+	CH_IMAGE_OBJECT,
+	CH_OBJECT,
+	CH_AUTO_WAY,
+	CH_AUTO_WALL,
+	CH_AUTO,
+	CH_AUTO_DELETE_WAY,
+	CH_AUTO_DELETE_WALL,
+	CH_AUTO_DELETE_OBJECT,
+	CH_ROOM_INDEX
+};
+
+enum AUTOCHECK
+{
+	AUTO_NONE,
+	AUTO_ALL,
+	AUTO_UP_DOWN
+};
+
+struct tagCurrentTerrain
+{
+	int		imageIndex;
+	int		frameX;
+	int		frameY;
+};
+
+struct tagCurrentObject
+{
+	int		objectIndex;
+	POINT	renderPoint;
+};
+
+struct tagCurrentAuto
+{
+	int			imageIndex;
+	POINT		startPoint;
+	POINT		endPoint;
+	AUTOCHECK	autoCheck;
+	TERRAIN		terrain;
+	int			roomIndex;
 };

@@ -7,11 +7,9 @@ miniMap::~miniMap() { }
 
 HRESULT miniMap::init(void)
 {
-	_totalMap = IMAGEMANAGER->addImage("TOTALMAP", TOTALSIZEX, TOTALSIZEY);
-	_miniMap = IMAGEMANAGER->addImage("MINIMAP", WINSIZEY, WINSIZEY);
+	_miniMap = IMAGEMANAGER->addImage("MINIMAP", WINSIZEX, WINSIZEY);
 
-	PatBlt(_totalMap->getMemDC(), 0, 0, TOTALSIZEX, TOTALSIZEY, BLACKNESS);
-	PatBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, BLACKNESS);
+	PatBlt(_miniMap->getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
 	return S_OK;
 }
@@ -33,10 +31,7 @@ void miniMap::render(void)
 
 void miniMap::setMiniMap(HDC hdc)
 {
-	PatBlt(_totalMap->getMemDC(), 0, 0, TOTALSIZEX, TOTALSIZEY, BLACKNESS);
-	BitBlt(_totalMap->getMemDC(), 0, 0, TOTALSIZEX, TOTALSIZEY, hdc, 0, 0, SRCCOPY);
+	PatBlt(_miniMap->getMemDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
-	PatBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, BLACKNESS);
-
-	StretchBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, _totalMap->getMemDC(), 0, 0, TOTALSIZEX, TOTALSIZEY, SRCCOPY);
+	StretchBlt(_miniMap->getMemDC(), 0, 0, WINSIZEX, WINSIZEY, hdc, 0, 0, TOTALSIZEX, TOTALSIZEY, SRCCOPY);
 }

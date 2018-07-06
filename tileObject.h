@@ -4,7 +4,7 @@
 class tileObject : public gameNode
 {
 private:
-	image * _img;
+	image *		_img;
 	animation*	_animation;
 	POINT		_tileCenterPoint;
 	POINT		_renderPoint;
