@@ -22,5 +22,6 @@ public:
 
 	void stageLoad(int stage);
 
+	tagMapToolTile* getTileinfo() { return _tile; }
 	void setPlayerMemoryAdressLink(player* player) { _player = player; }
 };

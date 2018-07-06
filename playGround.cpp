@@ -11,6 +11,9 @@ HRESULT playGround::init(void)
 
 	settingAddImage();
 
+	SCENEMANAGER->addScene("intro", new intro);
+	SCENEMANAGER->addScene("ending", new ending);
+	SCENEMANAGER->addScene("loading", new loading);
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
