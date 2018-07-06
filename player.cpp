@@ -107,7 +107,7 @@ void player::update()
 	{
 		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
 	}
-	/////////////////////////////////////////////////
+	////////////////////////////////////////////////
 }
 
 void player::render()
