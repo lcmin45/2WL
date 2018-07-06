@@ -13,8 +13,9 @@ projectileManager::~projectileManager()
 
 HRESULT projectileManager::init()
 {
-	IMAGEMANAGER->addFrameImage("ºÒ²ÉÅ¸°Ý", "image/skill/ºÒ²ÉÅ¸°Ý.bmp", 896, 64, 16, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("ºÒ²ÉÆÄÆ¼Å¬", "image/skill/ºÒ²ÉÆÄÆ¼Å¬.bmp", 666, 94, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ºÒ²ÉÅ¸°Ý", "image/skill/ºÒ²ÉÅ¸°Ý.bmp", 50, 250, 1, 5, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ºÒ²ÉÆÄÆ¼Å¬", "image/skill/ºÒ²ÉÆÄÆ¼Å¬.bmp", 700, 400, 7, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("ºÒ²ÉÆÄÆ¼Å¬2", "image/skill/ºÒ²ÉÆÄÆ¼Å¬.bmp", 350, 200, 7, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("È­¿°±¸", "image/skill/È­¿°±¸.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("ÈëÁÖ¸Ô", "image/skill/ÈëÁÖ¸Ô.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("¹Ù¶÷º£±â", "image/skill/¹Ù¶÷º£±â.bmp", 480, 1920, 4, 16, true, RGB(255, 0, 255));
