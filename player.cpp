@@ -73,6 +73,12 @@ HRESULT player::init() //초기화
 	int playerBangDown[] = { 272, 273, 274, 275, 276, 277, 278, 279, 279, 279, 279, 279, 280, 281 };
 	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 14, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
 
+	int playerStormDown[] = { 80, 97, 66, 115, 84, 100, 68, 116, 85, 86, 87 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerStormDown", "player", playerStormDown, 11, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+
+	int playerDeadDown[] = { 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301 };
+	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 2, false);
+
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
@@ -188,29 +194,44 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("불꽃타격");
-	}
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
-		attackAngleProcess();
-		animationProcess();
 		_ptM->fire("흙주먹");
 	}
-	if (KEYMANAGER->isOnceKeyDown('C'))
+	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
 		_action = FIREBALL;
 		attackAngleProcess();
 		animationProcess();
 		_ptM->fire("화염구");
 	}
+	if (KEYMANAGER->isOnceKeyDown('C'))
+	{
+		_action = WINDSTORM;
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("맹렬회오리");
+	}
 	if (KEYMANAGER->isOnceKeyDown('V'))
+	{
+		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("사이클론부메랑");
+	}
+	if (KEYMANAGER->isOnceKeyDown('B'))
 	{
 		_action = FIRESWORD;
 		attackAngleProcess();
 		animationProcess();
 		_ptM->fire("불타는올가미");
 	}
+	/////////////////////////////////////////////////////임시
+	if (KEYMANAGER->isOnceKeyDown('U'))
+	{
+		_action = DEAD;
+		attackAngleProcess();
+		animationProcess();
+	}
+	/////////////////////////////////////////////////////
 }
 
 void player::attackAngleProcess()
@@ -224,6 +245,7 @@ void player::attackAngleProcess()
 	else if (tempAngle <= PI / 4 * 7) { _direction = DOWN; _angle = ANGLE6; }
 
 	if (_action == FIRESWORD) { if (tempAngle >= 0 && tempAngle < PI) _direction = UP; else _direction = DOWN; }
+	else if (_action == WINDSTORM || _action == DEAD) _direction = DOWN;
 }
 
 void player::animationProcess()
@@ -239,6 +261,8 @@ void player::animationProcess()
 	case DASH: strcat_s(temp, "Dash"); break;
 	case FIREBALL: strcat_s(temp, "Kick"); break;
 	case FIRESWORD: strcat_s(temp, "Bang"); break;
+	case WINDSTORM: strcat_s(temp, "Storm"); break;
+	case DEAD: strcat_s(temp, "Dead"); break;
 	}
 	//방향에 맞게 에니매이션 이름 추가
 	switch (_direction)

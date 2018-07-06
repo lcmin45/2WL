@@ -13,6 +13,7 @@ HRESULT playGround::init(void)
 
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
+
 	SCENEMANAGER->changeScene("mapTool");
 
 	return S_OK;
@@ -136,5 +137,5 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("storeTable", "image/store/storeTable.bmp", 160, 64, true, RGB(255, 0, 255));
 
 	//===================================================== PLAYER ===================================================
-	IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 1600, 1800, 16, 18, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 1600, 1900, 16, 19, true, RGB(255, 0, 255));
 }
