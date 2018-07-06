@@ -256,7 +256,6 @@
     <ClCompile Include="mapTile.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
-    <ClCompile Include="mapToolImage.cpp" />
     <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="page0.cpp" />

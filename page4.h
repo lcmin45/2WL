@@ -12,24 +12,27 @@ private:
 #define MAXBOX 12
 #define	MAXBOXX 2
 #define MAXBOXY 3
-
+	
 	struct tagAutoBox
 	{
-		image*	baseImg;
-		RECT	rc;
-		POINT	center;
-		int		imageIndex;
-		int		ojbectIndex;
-		POINT	startPoint;
-		POINT	endPoint;
+		string		imageName;
+		string		boxName;
+		RECT		rc;
+		POINT		center;
+		int			imageIndex;
+		POINT		startPoint;
+		POINT		endPoint;
+		AUTOCHECK	autoCheck;
+		image*		autoTileImg;
+		TERRAIN		terrain;
 	};
 
 private:
-	POINT	_startPoint[MAXBOX];
-	image*	_titleImage[2];
-	tagBox	_box[MAXBOX];
+	POINT		_startPoint[MAXBOX];
+	image*		_titleImage[2];
+	tagAutoBox	_box[MAXBOX];
 
-	POINT	_center;
+	POINT		_center;
 
 public:
 	page4();

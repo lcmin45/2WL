@@ -1,12 +1,16 @@
 #include "stdafx.h"
 #include "mapToolBook.h"
 
-mapToolBook::mapToolBook() {}
+mapToolBook::mapToolBook()
+{
+	_mapToolBookIndex += 1;
+}
 
 mapToolBook::~mapToolBook() {}
 
-HRESULT mapToolBook::init(void)
+HRESULT mapToolBook::init(int index)
 {
+	_mapToolBookIndex = index;
 	bookInit();
 	pageInit();
 	animationInit();
@@ -15,13 +19,16 @@ HRESULT mapToolBook::init(void)
 	return S_OK;
 }
 
-void mapToolBook::release(void) { }
+void mapToolBook::release(void) 
+{
+	SAFE_RELEASE(_pageManager);
+}
 
 void mapToolBook::update(void)
 {
 	inputKey();
 	checkPageIndexCenter();
-	_pageManager->update();
+	pageUpdate();
 	checkMouseOnBook();
 }
 
@@ -62,8 +69,11 @@ void mapToolBook::pageInit(void)
 void mapToolBook::animationInit(void)
 {
 	// 책
-	KEYANIMANAGER->addCoordinateFrameAnimation("MAIN_BOOK_OPEN_ANI", "MAIN_BOOK", 0, 34, 15, false, false, openBookC, this);
-	KEYANIMANAGER->addCoordinateFrameAnimation("MAIN_BOOK_CLOSE_ANI", "MAIN_BOOK", 34, 0, 15, false, false, closeBookC, this);
+	char str[128];
+	sprintf_s(str, "MAIN_BOOK_OPEN_ANI_%d", _mapToolBookIndex);
+	KEYANIMANAGER->addCoordinateFrameAnimation(str, "MAIN_BOOK", 0, 34, 15, false, false, openBookC, this);
+	sprintf_s(str, "MAIN_BOOK_CLOSE_ANI_%d", _mapToolBookIndex);
+	KEYANIMANAGER->addCoordinateFrameAnimation(str, "MAIN_BOOK", 34, 0, 15, false, false, closeBookC, this);
 
 	// 아이콘
 	KEYANIMANAGER->addCoordinateFrameAnimation("MINI_ICON_BOOK_ANI", "MINI_ICON_BOOK", 0, 14, 6, false, true);
@@ -72,10 +82,12 @@ void mapToolBook::animationInit(void)
 
 	// 페이지 변경
 	int nextPage[] = { 10, 8, 6, 4, 2, 0 };
-	KEYANIMANAGER->addArrayFrameAnimation("MAIN_BOOK_CHANGE_NEXT_ANI", "MAIN_BOOK_CHANGE", nextPage, 6, 10, false, changePageC, this);
+	sprintf_s(str, "MAIN_BOOK_CHANGE_NEXT_ANI_%d", _mapToolBookIndex);
+	KEYANIMANAGER->addArrayFrameAnimation(str, "MAIN_BOOK_CHANGE", nextPage, 6, 10, false, changePageC, this);
 
 	int beforPage[] = { 11, 9, 7, 5, 3, 1 };
-	KEYANIMANAGER->addArrayFrameAnimation("MAIN_BOOK_CHANGE_BEFORE_ANI", "MAIN_BOOK_CHANGE", beforPage, 6, 10, false, changePageC, this);
+	sprintf_s(str, "MAIN_BOOK_CHANGE_BEFORE_ANI_%d", _mapToolBookIndex);
+	KEYANIMANAGER->addArrayFrameAnimation(str, "MAIN_BOOK_CHANGE", beforPage, 6, 10, false, changePageC, this);
 }
 
 void mapToolBook::inputKey(void)
@@ -133,6 +145,13 @@ void mapToolBook::checkPageIndexCenter(void)
 
 	_pageManager->setPageIndex(_mainBook.pageIndex);
 	_pageManager->setCenterPoint(_mainBook.center);
+}
+
+void mapToolBook::pageUpdate()
+{
+	if (!_mainBook.isOpen) return;
+
+	_pageManager->update();
 }
 
 void mapToolBook::checkMouseOnBook(void)
@@ -209,21 +228,27 @@ void mapToolBook::pageChangeRender(void)
 
 void mapToolBook::openBook(void)
 {
+	char str[128];
+	sprintf_s(str, "MAIN_BOOK_OPEN_ANI_%d", _mapToolBookIndex);
 	_mainBook.isView = true;
-	_mainBook.ani = KEYANIMANAGER->findAnimation("MAIN_BOOK_OPEN_ANI");
+	_mainBook.ani = KEYANIMANAGER->findAnimation(str);
 	_mainBook.ani->start();
 }
 
 void mapToolBook::closeBook(void)
 {
+	char str[128];
+	sprintf_s(str, "MAIN_BOOK_CLOSE_ANI_%d", _mapToolBookIndex);
 	_mainBook.isOpen = false;
-	_mainBook.ani = KEYANIMANAGER->findAnimation("MAIN_BOOK_CLOSE_ANI");
+	_mainBook.ani = KEYANIMANAGER->findAnimation(str);
 	_mainBook.ani->start();
 }
 
 void mapToolBook::nextPage(void)
 {
-	_pageChange.ani = KEYANIMANAGER->findAnimation("MAIN_BOOK_CHANGE_NEXT_ANI");
+	char str[128];
+	sprintf_s(str, "MAIN_BOOK_CHANGE_NEXT_ANI_%d", _mapToolBookIndex);
+	_pageChange.ani = KEYANIMANAGER->findAnimation(str);
 	_mainBook.pageIndex += 1;
 	_pageChange.isView = true;
 	_pageChange.ani->start();
@@ -231,7 +256,9 @@ void mapToolBook::nextPage(void)
 
 void mapToolBook::beforePage(void)
 {
-	_pageChange.ani = KEYANIMANAGER->findAnimation("MAIN_BOOK_CHANGE_BEFORE_ANI");
+	char str[128];
+	sprintf_s(str, "MAIN_BOOK_CHANGE_BEFORE_ANI_%d", _mapToolBookIndex);
+	_pageChange.ani = KEYANIMANAGER->findAnimation(str);
 	_mainBook.pageIndex -= 1;
 	_pageChange.isView = true;
 	_pageChange.ani->start();
