@@ -19,13 +19,14 @@ private:
 	image* _image; //이미지
 	const char* _name; //이름
 	const char* _info; //설명
+	int _price;
 	float _speed; //코인용 스피드
 	animation* _animation; //코인용 애니메이션
 public:
 	item();
 	~item();
 
-	virtual HRESULT init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char* imageName, const char* name, const char* info);
+	virtual HRESULT init(POINTFLOAT position, STATUS status, EFFECT effect0, EFFECT effect1, const char* imageName, const char* name, const char* info, int price);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -37,6 +38,7 @@ public:
 	image* getImage() { return _image; }
 	const char* getName() { return _name; }
 	const char* getInfo() { return _info; }
+	int getPrice() { return _price; }
 	void setPosition(POINTFLOAT position) { _position = position; }
 	void setStatus(STATUS status) { _status = status; }
 };

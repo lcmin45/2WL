@@ -55,7 +55,7 @@ void page0::checkBox(void)
 					break;
 				case 1: _currentCheck = CH_TERRAIN;
 					break;
-				case 2:	_currentCheck = CH_OBJECT;
+				case 2:	_currentCheck = CH_ROOM_INDEX;
 					break;
 				case 3: _mapTile->save();
 					break;

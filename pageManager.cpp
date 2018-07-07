@@ -34,24 +34,33 @@ void pageManager::render(void)
 {
 	switch (_pageIndex)
 	{
-	case 0:	_page0->render();
-		break;
-	case 1: _page1->render();
-		break;
-	case 2: _page2->render();
-		break;
-	case 3: _page3->render();
-		break;
-	case 4: _page4->render();
-		break;
-	case 5: _page5->render();
-		break;
-	case 6: _page6->render();
-		break;
-	case 7: _page7->render();
-		break;
-	case 8: _page8->render();
-		break;
+		case 0:
+			_page0->render();
+			break;
+		case 1:
+			_page1->render();
+			break;
+		case 2:
+			_page2->render();
+			break;
+		case 3:
+			_page3->render();
+			break;
+		case 4:
+			_page4->render();
+			break;
+		case 5:
+			_page5->render();
+			break;
+		case 6:
+			_page6->render();
+			break;
+		case 7:
+			_page7->render();
+			break;
+		case 8:
+			_page8->render();
+			break;
 	}
 }
 
@@ -90,24 +99,33 @@ void pageManager::pageUpdate(void)
 {
 	switch (_pageIndex)
 	{
-	case 0:	_page0->update();
-		break;
-	case 1: _page1->update();
-		break;
-	case 2: _page2->update();
-		break;
-	case 3: _page3->update();
-		break;
-	case 4: _page4->update();
-		break;
-	case 5: _page5->update();
-		break;
-	case 6: _page6->update();
-		break;
-	case 7: _page7->update();
-		break;
-	case 8: _page8->update();
-		break;
+		case 0:
+			_page0->update();
+			break;
+		case 1:
+			_page1->update();
+			break;
+		case 2:
+			_page2->update();
+			break;
+		case 3:
+			_page3->update();
+			break;
+		case 4:
+			_page4->update();
+			break;
+		case 5:
+			_page5->update();
+			break;
+		case 6:
+			_page6->update();
+			break;
+		case 7:
+			_page7->update();
+			break;
+		case 8:
+			_page8->update();
+			break;
 	}
 }
 
@@ -115,23 +133,32 @@ void pageManager::setCenterPoint(POINT center)
 {
 	switch (_pageIndex)
 	{
-	case 0:	_page0->setCenterPoint(center);
-		break;
-	case 1: _page1->setCenterPoint(center);
-		break;
-	case 2: _page2->setCenterPoint(center);
-		break;
-	case 3: _page3->setCenterPoint(center);
-		break;
-	case 4: _page4->setCenterPoint(center);
-		break;
-	case 5: _page5->setCenterPoint(center);
-		break;
-	case 6: _page6->setCenterPoint(center);
-		break;
-	case 7: _page7->setCenterPoint(center);
-		break;
-	case 8: _page8->setCenterPoint(center);
-		break;
+		case 0:
+			_page0->setCenterPoint(center);
+			break;
+		case 1:
+			_page1->setCenterPoint(center);
+			break;
+		case 2:
+			_page2->setCenterPoint(center);
+			break;
+		case 3:
+			_page3->setCenterPoint(center);
+			break;
+		case 4:
+			_page4->setCenterPoint(center);
+			break;
+		case 5:
+			_page5->setCenterPoint(center);
+			break;
+		case 6:
+			_page6->setCenterPoint(center);
+			break;
+		case 7:
+			_page7->setCenterPoint(center);
+			break;
+		case 8:
+			_page8->setCenterPoint(center);
+			break;
 	}
 }

@@ -206,6 +206,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="store.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tile.h" />
     <ClInclude Include="tileObject.h" />
     <ClInclude Include="timeManager.h" />
     <ClInclude Include="timer.h" />
@@ -213,9 +214,13 @@
     <ClInclude Include="UI.h" />
     <ClInclude Include="utils.h" />
     <ClInclude Include="woodBoss.h" />
+    <ClInclude Include="맹렬회오리.h" />
+    <ClInclude Include="몬스터근접.h" />
+    <ClInclude Include="몬스터총알.h" />
     <ClInclude Include="바람베기.h" />
     <ClInclude Include="불꽃타격.h" />
     <ClInclude Include="불타는올가미.h" />
+    <ClInclude Include="사이클론부메랑.h" />
     <ClInclude Include="화염구.h" />
     <ClInclude Include="흙주먹.h" />
   </ItemGroup>
@@ -251,7 +256,6 @@
     <ClCompile Include="mapTile.cpp" />
     <ClCompile Include="mapTool.cpp" />
     <ClCompile Include="mapToolBook.cpp" />
-    <ClCompile Include="mapToolImage.cpp" />
     <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
     <ClCompile Include="page0.cpp" />
@@ -278,6 +282,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="store.cpp" />
+    <ClCompile Include="tile.cpp" />
     <ClCompile Include="tileObject.cpp" />
     <ClCompile Include="timeManager.cpp" />
     <ClCompile Include="timer.cpp" />
@@ -286,9 +291,13 @@
     <ClCompile Include="utils.cpp" />
     <ClCompile Include="windowAPI.cpp" />
     <ClCompile Include="woodBoss.cpp" />
+    <ClCompile Include="맹렬회오리.cpp" />
+    <ClCompile Include="몬스터근접.cpp" />
+    <ClCompile Include="몬스터총알.cpp" />
     <ClCompile Include="바람베기.cpp" />
     <ClCompile Include="불꽃타격.cpp" />
     <ClCompile Include="불타는올가미.cpp" />
+    <ClCompile Include="사이클론부메랑.cpp" />
     <ClCompile Include="화염구.cpp" />
     <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>

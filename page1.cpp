@@ -126,25 +126,21 @@ void page1::setIndex(int index)
 {
 	switch (index)
 	{
-	case 0:
-	{
-		_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_WAY");
-		_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_WAY");
+		case 0:
+			_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_WAY");
+			_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_WAY");
 
-		for (int i = 0; i < 70; ++i)
-		{
-			_box[i].imageIndex = 1;
-			_box[i].frameX = i % 10;
-			_box[i].frameY = i / 10;
-		}
-	}
-	break;
-	case 1:
-	{
-		_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_WALL");
-		_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_WALL");
-	}
-	break;
+			for (int i = 0; i < 70; ++i)
+			{
+				_box[i].imageIndex = 1;
+				_box[i].frameX = i % 10;
+				_box[i].frameY = i / 10;
+			}
+			break;
+		case 1:
+			_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_WALL");
+			_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_WALL");
+			break;
 	}
 }
 

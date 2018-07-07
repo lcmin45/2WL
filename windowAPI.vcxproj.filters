@@ -115,6 +115,9 @@
     <Filter Include="2DFramework\bossProgressBar">
       <UniqueIdentifier>{1366b4e3-b2f2-4b78-acc7-1a843a4d429c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\enemyManager\monster\Astar">
+      <UniqueIdentifier>{c06a58b5-ac50-431b-9baf-9700ab5750fd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -315,9 +318,6 @@
     <ClInclude Include="불타는올가미.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
-    <ClInclude Include="Astar.h">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClInclude>
     <ClInclude Include="miniMap.h">
       <Filter>playGround\mapTool\miniMap</Filter>
     </ClInclude>
@@ -326,6 +326,24 @@
     </ClInclude>
     <ClInclude Include="bossProgressBar.h">
       <Filter>2DFramework\bossProgressBar</Filter>
+    </ClInclude>
+    <ClInclude Include="맹렬회오리.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="몬스터근접.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="몬스터총알.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="사이클론부메랑.h">
+      <Filter>playGround\skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Astar.h">
+      <Filter>playGround\enemyManager\monster\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="tile.h">
+      <Filter>playGround\enemyManager\monster\Astar</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,9 +530,6 @@
     <ClCompile Include="불타는올가미.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
-    <ClCompile Include="Astar.cpp">
-      <Filter>playGround\enemyManager\monster</Filter>
-    </ClCompile>
     <ClCompile Include="mapToolImage.cpp">
       <Filter>playGround\mapTool</Filter>
     </ClCompile>
@@ -526,6 +541,24 @@
     </ClCompile>
     <ClCompile Include="bossProgressBar.cpp">
       <Filter>2DFramework\bossProgressBar</Filter>
+    </ClCompile>
+    <ClCompile Include="맹렬회오리.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="몬스터근접.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="몬스터총알.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="사이클론부메랑.cpp">
+      <Filter>playGround\skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Astar.cpp">
+      <Filter>playGround\enemyManager\monster\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="tile.cpp">
+      <Filter>playGround\enemyManager\monster\Astar</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

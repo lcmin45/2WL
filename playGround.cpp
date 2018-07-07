@@ -11,9 +11,13 @@ HRESULT playGround::init(void)
 
 	settingAddImage();
 
+	SCENEMANAGER->addScene("intro", new intro);
+	SCENEMANAGER->addScene("ending", new ending);
+	SCENEMANAGER->addScene("loading", new loading);
 	SCENEMANAGER->addScene("inGame", new inGame);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
-	SCENEMANAGER->changeScene("mapTool");
+
+	SCENEMANAGER->changeScene("intro");
 
 	return S_OK;
 }
@@ -27,17 +31,24 @@ void playGround::update(void)
 {
 	gameNode::update();
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F5))
+
+	//if (KEYMANAGER->isOnceKeyDown(VK_F5))
+	//{
+	//	SCENEMANAGER->changeScene("mapTool");
+	//}
+	//
+	//if (KEYMANAGER->isOnceKeyDown(VK_F6))
+	//{
+	//	SCENEMANAGER->changeScene("inGame");
+	//}
+	if (KEYMANAGER->isOnceKeyDown(VK_ESCAPE))
 	{
-		SCENEMANAGER->changeScene("mapTool");
+		SCENEMANAGER->changeScene("intro");
+		CAMERAMANAGER->setCameraPoint({ 0, 0 });
 	}
 
-	if (KEYMANAGER->isOnceKeyDown(VK_F6))
-	{
-		SCENEMANAGER->changeScene("inGame");
-	}
 
-	SCENEMANAGER->update();
+	SCENEMANAGER->update(); 
 }
 
 void playGround::render(void)
@@ -119,6 +130,16 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("playerCoin", "image/UI/playerCoin.bmp", 30, 30, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("buttonF", "image/UI/buttonF.bmp", 40, 40, true, RGB(255, 0, 255));
 
+	IMAGEMANAGER->addImage("TitleScreen", "image/UI/TitleScreen.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("TitleLogo", "image/UI/TitleLogo.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("PRESS ANY BUTTON", "image/UI/PRESS ANY BUTTON.bmp", 300, 20, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("GameStart", "image/UI/GameStart.bmp", 320, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Load", "image/UI/Load.bmp", 180, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("MapTool", "image/UI/MapTool.bmp", 280, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
+
+
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("item0", "image/item/item0.bmp", 25, 25, true, RGB(255, 0, 255));
@@ -132,7 +153,68 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("item8", "image/item/item8.bmp", 25, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("item9", "image/item/item9.bmp", 25, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("inventory", "image/item/inventory.bmp", 400, 500, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("storeNpc", "image/store/storeNpc.bmp", 50, 75, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("storeTable", "image/store/storeTable.bmp", 160, 64, true, RGB(255, 0, 255));
 
 	//===================================================== PLAYER ===================================================
-	IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 1600, 1800, 16, 18, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("player", "image/player/player.bmp", 1600, 1900, 16, 19, true, RGB(255, 0, 255));
+
+	//========================================================================================================================//
+	//==================================== MAP TOOL IMAGE && TILE, OBJECT IMAGE ==============================================//
+	//========================================================================================================================//
+
+	// 페이지 폰트 이미지
+	IMAGEMANAGER->addImage("FONT_BOX", "image/mapTool/font/font_box.bmp", 171, 42, true, RGBMAGENTA);
+	// 0 페이지 폰트 이미지
+	IMAGEMANAGER->addImage("FONT_PAGE0", "image/mapTool/font/font_page0.bmp", 960, 558, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_WAY", "image/mapTool/font/font_way.bmp", 61, 22, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_WALL", "image/mapTool/font/font_wall.bmp", 72, 22, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_OBJECT", "image/mapTool/font/font_object.bmp", 101, 23, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_SAVE", "image/mapTool/font/font_save.bmp", 66, 22, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_LOAD", "image/mapTool/font/font_load.bmp", 69, 22, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_MINIMAP", "image/mapTool/font/font_minimap.bmp", 124, 22, true, RGBMAGENTA);
+	// 페이지별 타일틀 폰드 이미지
+	IMAGEMANAGER->addImage("FONT_TITLE_WAY", "image/mapTool/font/font_title_way.bmp", 155, 64, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_TITLE_WALL", "image/mapTool/font/font_title_wall.bmp", 182, 64, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_TITLE_OBJECT", "image/mapTool/font/font_title_object.bmp", 253, 66, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_TITLE_AUTOWAY", "image/mapTool/font/font_title_auto_way.bmp", 344, 65, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_TITLE_AUTOWALL", "image/mapTool/font/font_title_auto_wall.bmp", 350, 65, true, RGBMAGENTA);
+
+	// 페이지별 타일 박스 이미지
+	IMAGEMANAGER->addImage("PAGE_BOX_1_1", "image/mapTool/book/view_1_1.bmp", 42, 42, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("PAGE_BOX_1_2", "image/mapTool/book/view_1_2.bmp", 42, 97, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("PAGE_BOX_2_1", "image/mapTool/book/view_2_1.bmp", 93, 42, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("PAGE_BOX_2_2", "image/mapTool/book/view_2_2.bmp", 93, 97, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("PAGE_BOX_3_2", "image/mapTool/book/view_3_2.bmp", 144, 97, true, RGBMAGENTA);
+
+	// 책 관련 이미지
+	IMAGEMANAGER->addFrameImage("MINI_ICON_BOOK", "image/mapTool/book/miniIconBook.bmp", 1200, 104, 15, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("MAIN_BOOK", "image/mapTool/book/mainBook.bmp", 960, 18900, 1, 35, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("MAIN_BOOK_MARK", "image/mapTool/book/mainBookMark.bmp", 90, 324, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("MAIN_BOOK_CHANGE", "image/mapTool/book/mainBookChange.bmp", 1920, 3240, 2, 6, true, RGBMAGENTA);
+
+	// 맵 타일 이미지
+	IMAGEMANAGER->addImage("TILE_BLACK", "image/mapTool/tile/tileBlack.bmp", TILESIZE, TILESIZE, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("TILE_BLUE", "image/mapTool/tile/tileBlue.bmp", TILESIZE, TILESIZE, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("TILE_RED", "image/mapTool/tile/tileRed.bmp", TILESIZE, TILESIZE, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("TILE_WHITE", "image/mapTool/tile/tileWhite.bmp", TILESIZE, TILESIZE, true, RGBMAGENTA);
+
+	// 셈플 타일 이미지
+	IMAGEMANAGER->addFrameImage("SAMPLETILE_ICE", "image/mapTool/tile/sampleTile.bmp", 320, 224, 10, 7, false, RGBNONE);
+	IMAGEMANAGER->addFrameImage("SAMPLETILE_AUTO_ICE", "image/mapTool/tile/autoTile_ice.bmp", 480, 224, 15, 7, false, RGBNONE);
+
+	// 오브젝트 이미지
+	IMAGEMANAGER->addFrameImage("OBJECT_CANDLE", "image/mapTool/object/object1.bmp", 60, 34, 6, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object/object_5.bmp", 192, 96, 6, 1, true, RGBMAGENTA);
+
+
+	//============================================================//
+	//======== 2018 - 07 - 06 ~ 2018 - 07 - 08 추가 이미지 ========//
+	//============================================================//
+
+	IMAGEMANAGER->addFrameImage("OBJECT_10", "image/mapTool/object/object_10.bmp", 320, 64, 5, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("OBJECT_11", "image/mapTool/object/object_11.bmp", 256, 64, 4, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("OBEJCT_12", "image/mapTool/object/object_12.bmp", 256, 96, 4, 1, true, RGBMAGENTA);
+
+	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBMAGENTA);
 }
