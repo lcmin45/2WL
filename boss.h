@@ -17,6 +17,11 @@ protected:
 	//플레이어 위치를 알기 위한 클래스 선언
 	player _player;
 
+	//보스 없애주는 변수
+	bool _woodBossDie;
+	bool _iceBossDie;
+	bool _fireBossDie;
+
 	//보스 이동 시간 변수
 	int _bossMoveCount;
 

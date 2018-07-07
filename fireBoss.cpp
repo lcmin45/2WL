@@ -13,85 +13,109 @@ fireBoss::~fireBoss()
 
 void fireBoss::render()
 {
-	char str[256];
-
-	_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _fireindex, 0);
-
-	_fireHpBar->render();
-
-	if (_fireDialogue == true)
+	if (_fireBossDie == false)//보스가 살아 있을때
 	{
-		////////대사 그려주기
-		IMAGEMANAGER->findImage("불대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+		char str[256];
 
-		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
-		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+		_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _fireindex, 0);
 
-		HFONT font2, oldFont2;
-		font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
-		oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
-		sprintf_s(str, "아직 몸이 안덥혀졌나? 그럼 내가 열을 선사하지!");
-		TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
-		SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
-		DeleteObject(font2);
+		_fireHpBar->render();
+
+		//보스 등장 할때 대사 띄워주기
+		if (_fireDialogue == true)
+		{
+			IMAGEMANAGER->findImage("불대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font2, oldFont2;
+			font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
+			sprintf_s(str, "아직 몸이 안덥혀졌나? 그럼 내가 열을 선사하지!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
+			DeleteObject(font2);
+		}
+		//보스 죽을때 대사 띄워주기
+		if (_bossImg == IMAGEMANAGER->findImage("불죽음"))
+		{
+			IMAGEMANAGER->findImage("불대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font3, oldFont3;
+			font3 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont3 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font3);
+			sprintf_s(str, "이번엔 불이 제대로 붙었군! 스테이크라도 갖고 있길 바란다!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont3);
+			DeleteObject(font3);
+		}
 	}
 }
 
 void fireBoss::update()
 {
-	//프래임 이미지 카운트
-	_frameCount++;
-	if (_frameCount % 10 == 0)
+	if (_fireBossDie == false)//보스가 살아있을때
 	{
-		++_fireindex;
-		//보스 체력이 0보다 클때
-		if (_fireCurrentHP > 0)
+		//프래임 이미지 카운트
+		_frameCount++;
+		if (_frameCount % 10 == 0)
 		{
-			//소환 모션이 끝나면 등장 모션띄우고 대화창 띄우기
-			if (_bossImg == IMAGEMANAGER->findImage("불소환"))
+			++_fireindex;
+			//보스 체력이 0보다 클때
+			if (_fireCurrentHP > 0)
 			{
-				if (_fireindex > _bossImg->getMaxFrameX())
+				//소환 모션이 끝나면 등장 모션띄우고 대화창 띄우기
+				if (_bossImg == IMAGEMANAGER->findImage("불소환"))
 				{
-					_bossImg = IMAGEMANAGER->findImage("불등장");
-					_fireindex = 0;
-					_fireDialogue = true;
+					if (_fireindex > _bossImg->getMaxFrameX())
+					{
+						_bossImg = IMAGEMANAGER->findImage("불등장");
+						_fireindex = 0;
+						_fireDialogue = true;
+					}
 				}
-			}
 
-			if (_fireDialogue == true)
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				if (_fireDialogue == true)
 				{
-					_fireMove = true;
-					_fireDialogue = false;
+					if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+					{
+						_fireMove = true;
+						_fireDialogue = false;
+					}
 				}
-			}
 
-			if (_bossImg == IMAGEMANAGER->findImage("불등장"))
-			{
-				if (_fireindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("불등장"))
 				{
-					_fireindex = 0;
+					if (_fireindex > _bossImg->getMaxFrameX())
+					{
+						_fireindex = 0;
+					}
 				}
-			}
-			if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽") || _bossImg == IMAGEMANAGER->findImage("불스킬왼쪽")
-				|| _bossImg == IMAGEMANAGER->findImage("불스킬2") || _bossImg == IMAGEMANAGER->findImage("불오른쪽") || _bossImg == IMAGEMANAGER->findImage("불왼쪽"))
-			{
-				if (_fireindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽") || _bossImg == IMAGEMANAGER->findImage("불스킬왼쪽")
+					|| _bossImg == IMAGEMANAGER->findImage("불스킬2") || _bossImg == IMAGEMANAGER->findImage("불오른쪽") || _bossImg == IMAGEMANAGER->findImage("불왼쪽"))
 				{
-					_fireindex = _bossImg->getMaxFrameX();
+					if (_fireindex > _bossImg->getMaxFrameX())
+					{
+						_fireindex = _bossImg->getMaxFrameX();
+					}
 				}
+				_frameCount = 0;
 			}
-			_frameCount = 0;
+			//보스 체력이 0일때 죽는 모션
+			else if (_fireCurrentHP <= 0)
+			{
+				_bossImg = IMAGEMANAGER->findImage("불죽음");
+				_fireindex = 0;
+				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
+				if (_bossImg == IMAGEMANAGER->findImage("불죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_fireBossDie = true;
+			}
 		}
-		//보스 체력이 0일때 죽는 모션
-		else if (_fireCurrentHP <= 0)
-		{
-			_bossImg = IMAGEMANAGER->findImage("불죽음");
-			_fireindex = 0;
-		}
+		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 	}
-	_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 }
 
 

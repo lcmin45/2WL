@@ -12,6 +12,11 @@ HRESULT boss::init()
 	_iceindex = 0;
 	_fireindex = 0;
 
+	//보스 생사확인 변수
+	_woodBossDie = false;
+	_iceBossDie = false;
+	_fireBossDie = false;
+
 	//보스 이미지 변환을 위한 카운트변수
 	_bossMoveCount = 0;
 
