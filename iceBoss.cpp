@@ -15,85 +15,109 @@ iceBoss::~iceBoss()
 
 void iceBoss::render()
 {
-	char str[256];
-
-	_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _iceindex, 0);
-
-	_iceHpBar->render();
-
-	if (_iceDialogue == true)
+	if (_iceBossDie == false)//보스가 죽지 않았을때
 	{
-		////////대사 그려주기
-		IMAGEMANAGER->findImage("얼음대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+		char str[256];
 
-		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
-		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+		_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _iceindex, 0);
 
-		HFONT font2, oldFont2;
-		font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
-		oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
-		sprintf_s(str, "그렇게 떨어봐야 이미 늦었다..그 자리에 그대로 얼려주마!!");
-		TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
-		SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
-		DeleteObject(font2);
+		_iceHpBar->render();
+
+		//보스 등장 할때 대사 띄워주기
+		if (_iceDialogue == true)
+		{
+			IMAGEMANAGER->findImage("얼음대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font2, oldFont2;
+			font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
+			sprintf_s(str, "그렇게 떨어봐야 이미 늦었다..그 자리에 그대로 얼려주마!!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
+			DeleteObject(font2);
+		}
+		//보스 죽었을때 대사 띄워주기
+		if (_bossImg == IMAGEMANAGER->findImage("얼음죽음"))
+		{
+			IMAGEMANAGER->findImage("얼음대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font3, oldFont3;
+			font3 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont3 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font3);
+			sprintf_s(str, "제법인데. 쉽게 냉정을 잃지 않는군. 그럼 계속 얼어 있거라!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont3);
+			DeleteObject(font3);
+		}
 	}
 }
 
 void iceBoss::update()
 {
-	//프래임 이미지 카운트
-	_frameCount++;
-	if (_frameCount % 10 == 0)
+	if (_iceBossDie == false)//보스가 죽지 않았을때
 	{
-		++_iceindex;
-		//보스체력이 0보다 클때
-		if (_iceCurrentHP > 0)
+		//프래임 이미지 카운트
+		_frameCount++;
+		if (_frameCount % 10 == 0)
 		{
-			//소환 이미지지가 끝나면 등장 모션 띄우고 대화창 띄우기
-			if (_bossImg == IMAGEMANAGER->findImage("얼음소환"))
+			++_iceindex;
+			//보스체력이 0보다 클때
+			if (_iceCurrentHP > 0)
 			{
-				if (_iceindex > _bossImg->getMaxFrameX())
+				//소환 이미지지가 끝나면 등장 모션 띄우고 대화창 띄우기
+				if (_bossImg == IMAGEMANAGER->findImage("얼음소환"))
 				{
-					_bossImg = IMAGEMANAGER->findImage("얼음등장");
-					_iceindex = 0;
-					_iceDialogue = true;
+					if (_iceindex > _bossImg->getMaxFrameX())
+					{
+						_bossImg = IMAGEMANAGER->findImage("얼음등장");
+						_iceindex = 0;
+						_iceDialogue = true;
+					}
 				}
-			}
 
-			//스페이스키를 눌러 대화창 넘어가기
-			if (_iceDialogue == true)
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				//스페이스키를 눌러 대화창 넘어가기
+				if (_iceDialogue == true)
 				{
-					_iceMove = true;
-					_iceDialogue = false;
+					if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+					{
+						_iceMove = true;
+						_iceDialogue = false;
+					}
 				}
-			}
-			if (_bossImg == IMAGEMANAGER->findImage("얼음등장"))
-			{
-				if (_iceindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("얼음등장"))
 				{
-					_iceindex = 0;
+					if (_iceindex > _bossImg->getMaxFrameX())
+					{
+						_iceindex = 0;
+					}
 				}
-			}
 
-			if (_bossImg == IMAGEMANAGER->findImage("얼음스킬") || _bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
-			{
-				if (_iceindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("얼음스킬") || _bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
 				{
-					_iceindex = _bossImg->getMaxFrameX();
+					if (_iceindex > _bossImg->getMaxFrameX())
+					{
+						_iceindex = _bossImg->getMaxFrameX();
+					}
 				}
+				_frameCount = 0;
 			}
-			_frameCount = 0;
+			//보스체력이 0 일때 죽는 모션
+			else if (_iceCurrentHP <= 0)
+			{
+				_bossImg = IMAGEMANAGER->findImage("얼음죽음");
+				_iceindex = 0;
+				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
+				if (_bossImg == IMAGEMANAGER->findImage("얼음죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_iceBossDie = true;
+			}
 		}
-		//보스체력이 0 일때 죽는 모션
-		else if (_iceCurrentHP <= 0)
-		{
-			_bossImg = IMAGEMANAGER->findImage("얼음죽음");
-			_iceindex = 0;
-		}
+		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 	}
-	_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 }
 
 
