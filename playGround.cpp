@@ -87,6 +87,10 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("GreenRogue", "image/monster/GreenRogue.bmp", 0, 0, 300 * 2, 160 * 2, 10, 4, true, RGB(255, 0, 255));
 
 	//========================================== BOSS ===============================================
+	//보스 체력바
+	IMAGEMANAGER->addImage("bossfrontBar", "image/boss/bossHpBarTop.bmp", 360, 25, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("bossbackBar", "image/boss/bossHpBarBottom.bmp", 450, 60, true, RGB(255, 0, 255));
+
 	//나무 보스 이미지
 	IMAGEMANAGER->addFrameImage("나무소환", "image/boss/나무보스/나무보스소환.bmp", 0, 0, 3200, 129, 25, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무등장", "image/boss/나무보스/나무보스등장.bmp", 0, 0, 294 * 2, 58 * 2, 7, 1, true, RGB(255, 0, 255));

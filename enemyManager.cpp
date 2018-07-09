@@ -59,6 +59,7 @@ void enemyManager::BossUpdate()
 {
 
 	//조건 추가하기
+	_woodBoss->setPlayerPoint(_playerPoint);
 	_woodBoss->update();
 	_woodBoss->woodMove();
 	_woodBoss->woodSkill();

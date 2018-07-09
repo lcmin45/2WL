@@ -51,6 +51,14 @@ protected:
 
 	float _x, _y;
 
+	float _angle;
+	float _speed;
+	float _distance;
+
+	float _jump;
+
+	POINTFLOAT _playerPosition;
+
 public:
 	boss();
 	~boss();
@@ -66,5 +74,8 @@ public:
 	inline RECT getbossRect() { return _bossRc; }
 	inline void setbossimage(image* bossimg) { _bossImg = bossimg; }
 	inline image * getbossimage() { return  _bossImg; }
-
+	void setPlayerPoint(POINTFLOAT playerPosition)
+	{
+		_playerPosition = playerPosition;
+	}
 };
