@@ -35,6 +35,8 @@ public:
 
 	void setIndex(int index);
 	void setCenterPoint(POINT point);
+
+	void setBox(int index, int frameX, int frameY);
 };
 
 

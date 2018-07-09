@@ -48,7 +48,7 @@ private:
 
 	bool			_isMouseOnBook;			// 현재 마우스가 책위에 있느냐
 	int				_mapToolBookIndex;
-public:	
+public:
 	mapToolBook();
 	~mapToolBook();
 

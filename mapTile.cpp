@@ -29,7 +29,8 @@ void mapTile::render(void)
 {
 	tileBoxRender();
 	terrainRender();
-	objectRender();
+	imageObjectRender();
+	classObjectRender();
 
 	pointRender();
 	mouseBoxRender();
@@ -82,6 +83,7 @@ void mapTile::inputKey(void)
 void mapTile::checkTile(void)
 {
 	checkTerrain();
+	checkImageObject();
 	checkObject();
 	checkAuto();
 	checkRoomIndex();
@@ -113,6 +115,46 @@ void mapTile::checkTerrain(void)
 	}
 }
 
+void mapTile::checkImageObject(void)
+{
+	if (_isMouseBook || _currentCheck != CH_OBJECT_IMAGE) return;
+
+	if (!KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) return;
+
+	int temp;
+
+	for (int i = getMousePoint().y / TILESIZE; i < getMousePoint().y / TILESIZE + WINSIZEY / TILESIZE; ++i)
+	{
+		for (int j = getMousePoint().x / TILESIZE; j < getMousePoint().x / TILESIZE + WINSIZEX / TILESIZE; ++j)
+		{
+			if (i >= MAXTILEY || j >= MAXTILEX || _tile[i * MAXTILEX + j].object != OBJ_NONE) continue;
+
+			temp = i * MAXTILEX + j;
+
+			if (PtInRect(&_tile[i * MAXTILEX + j].rc, getMousePoint()))
+			{
+				for (int i = 0; i < _currentObject.objectCheckSize.x; ++i)
+				{
+					if (_tile[temp + i].object != OBJ_NONE || _tile[temp + i].objectIndex != NULL) return;
+				}
+
+				for (int i = 0; i < _currentObject.objectCheckSize.x; ++i)
+				{
+					_tile[temp + i].object = OBJ_WAY;
+				}
+
+				_tile[temp].imageObjectIndex = _currentObject.imageObjectIndex;
+				_tile[temp].imageObjectFrameX = _currentObject.frameX;
+				_tile[temp].imageObjectFrameY = _currentObject.frameY;
+				_tile[temp].renderPoint = _currentObject.renderPoint;
+				_tile[temp].objectSetPoint = _currentObject.objectSetpoint;
+				_tile[temp].objectCheckSize = _currentObject.objectCheckSize;
+				_tile[temp].objectTerrain = _currentObject.terrain;
+			}
+		}
+	}
+}
+
 void mapTile::checkObject(void)
 {
 	if (_isMouseBook || _currentCheck != CH_OBJECT) return;
@@ -130,12 +172,16 @@ void mapTile::checkObject(void)
 			if (PtInRect(&_tile[i * MAXTILEX + j].rc, getMousePoint()))
 			{
 				temp = i * MAXTILEX + j;
-				_tile[temp].objectClass = new tileObject;
-				_tile[temp].objectIndex = _currentObject.objectIndex;
-				_tile[temp].renderPoint = _currentObject.renderPoint;
-				_tile[temp].objectClass->init(_tile[temp].objectIndex);
-				_tile[temp].objectClass->setRenderPoint(_tile[temp].renderPoint);
-				_tile[temp].objectClass->setCenterPoint(_tile[temp].center);
+
+				if (_tile[temp].objectIndex == NULL || _tile[temp].object == OBJ_NONE)
+				{
+					_tile[temp].objectClass = new tileObject;
+					_tile[temp].objectIndex = _currentObject.objectIndex;
+					_tile[temp].renderPoint = _currentObject.renderPoint;
+					_tile[temp].objectClass->init(_tile[temp].objectIndex);
+					_tile[temp].objectClass->setRenderPoint(_tile[temp].renderPoint);
+					_tile[temp].objectClass->setCenterPoint(_tile[temp].center);
+				}
 				break;
 			}
 		}
@@ -182,11 +228,23 @@ void mapTile::checkAuto(void)
 				_tile[temp].terrain = _currentAuto.terrain;
 				_tile[temp].imageIndex = _currentAuto.imageIndex;
 
-				if (_currentAuto.endPoint.x - _currentAuto.startPoint.x <= 2)	_tile[temp].terrainFrameX = _currentAuto.startPoint.x + 1;
-				else _tile[temp].terrainFrameX = _currentAuto.startPoint.x + 1 + RND->getInt(_currentAuto.endPoint.x - _currentAuto.startPoint.x - 2);
+				if (_currentAuto.autoCheck == AUTO_NONE)
+				{
+					_tile[temp].terrainFrameX = _currentAuto.startPoint.x + RND->getInt(_currentAuto.endPoint.x - _currentAuto.startPoint.x);
+					_tile[temp].terrainFrameY = _currentAuto.startPoint.y + RND->getInt(_currentAuto.endPoint.y - _currentAuto.startPoint.y);
+				}
+				else
+				{
+					if (_currentAuto.endPoint.x - _currentAuto.startPoint.x <= 2)
+						_tile[temp].terrainFrameX = _currentAuto.startPoint.x;
+					else
+						_tile[temp].terrainFrameX = _currentAuto.startPoint.x + 1 + RND->getInt(_currentAuto.endPoint.x - _currentAuto.startPoint.x - 2);
 
-				if (_currentAuto.endPoint.y - _currentAuto.startPoint.y <= 2)	_tile[temp].terrainFrameY = _currentAuto.startPoint.y + 1;
-				else _tile[temp].terrainFrameY = _currentAuto.startPoint.y + 1 + RND->getInt(_currentAuto.endPoint.y - _currentAuto.startPoint.y - 2);
+					if (_currentAuto.endPoint.y - _currentAuto.startPoint.y <= 2)
+						_tile[temp].terrainFrameY = _currentAuto.startPoint.y;
+					else
+						_tile[temp].terrainFrameY = _currentAuto.startPoint.y + 1 + RND->getInt(_currentAuto.endPoint.y - _currentAuto.startPoint.y - 2);
+				}
 
 				if (_currentAuto.autoCheck == AUTO_NONE) continue;
 
@@ -275,24 +333,9 @@ void mapTile::terrainRender(void)
 
 			switch (_tile[i * MAXTILEX + j].imageIndex)
 			{
-				case 1:
-					IMAGEMANAGER->findImage("SAMPLETILE_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
-				case 2:
-
-					break;
-				case 3:
-
-					break;
-				case 4:
-
-					break;
-				case 10:
-					IMAGEMANAGER->findImage("SAMPLETILE_AUTO_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
-				case 11:
-					IMAGEMANAGER->findImage("SAMPLE_TILE_AUTO_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
+			case 10:
+				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
 			}
 
 			if (KEYMANAGER->isToggleKey(VK_F3))
@@ -305,7 +348,28 @@ void mapTile::terrainRender(void)
 	}
 }
 
-void mapTile::objectRender(void)
+void mapTile::imageObjectRender(void)
+{
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
+	{
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
+		{
+			if (CAMERAMAXCHECK || _currentObject.imageObjectIndex == NULL) continue;
+
+			switch (_tile[i * MAXTILEX + j].imageObjectIndex)
+			{
+			case 13:
+				IMAGEMANAGER->findImage("IMAGE_OBJECT_1_3")->frameRender(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			case 23:
+				IMAGEMANAGER->findImage("IMAGE_OBJECT_2_3")->frameRender(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			}
+		}
+	}
+}
+
+void mapTile::classObjectRender(void)
 {
 	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
 	{
@@ -485,18 +549,19 @@ void mapTile::minimap(void)
 
 			switch (_tile[i * MAXTILEX + j].imageIndex)
 			{
-				case 0:
-					IMAGEMANAGER->findImage("SAMPLETILE_ICE")->frameRender(tempImg->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
-				case 10:
-					IMAGEMANAGER->findImage("SAMPLETILE_AUTO_ICE")->frameRender(tempImg->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
-				case 11:
-					IMAGEMANAGER->findImage("SAMPLE_TILE_AUTO_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
+			case 0:
+				IMAGEMANAGER->findImage("SAMPLETILE_ICE")->frameRender(tempImg->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
+			case 10:
+				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE")->frameRender(tempImg->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
+			case 11:
+				IMAGEMANAGER->findImage("SAMPLE_TILE_AUTO_ICE")->frameRender(tempImg->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
 			}
 		}
 	}
 
 	_miniMap->setMiniMap(tempImg->getMemDC());
+	//_miniMap->setMiniMap(getMemDC());
 }

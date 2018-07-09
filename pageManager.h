@@ -19,6 +19,8 @@ private:
 	page3*	_page6;
 	page4*	_page7;
 	page4*	_page8;
+	page4*	_page9;
+	page4*  _page10;
 
 	int		_pageIndex;				// 현재 페이지
 
@@ -39,4 +41,3 @@ public:
 
 	void setMapTileClass(mapTile* mapTile) { _page0->setMapTileClass(mapTile); }
 };
-

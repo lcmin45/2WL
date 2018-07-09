@@ -195,6 +195,8 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("FONT_LOAD", "image/mapTool/font/font_load.bmp", 69, 22, true, RGBMAGENTA);
 	IMAGEMANAGER->addImage("FONT_MINIMAP", "image/mapTool/font/font_minimap.bmp", 124, 22, true, RGBMAGENTA);
 	// 페이지별 타일틀 폰드 이미지
+	IMAGEMANAGER->addImage("FONT_TITLE_TILE", "image/mapTool/font/font_title_tile.bmp", 143, 57, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("FONT_TITLE_AUTO", "image/mapTool/font/font_title_auto.bmp", 190, 65, true, RGBMAGENTA);
 	IMAGEMANAGER->addImage("FONT_TITLE_WAY", "image/mapTool/font/font_title_way.bmp", 155, 64, true, RGBMAGENTA);
 	IMAGEMANAGER->addImage("FONT_TITLE_WALL", "image/mapTool/font/font_title_wall.bmp", 182, 64, true, RGBMAGENTA);
 	IMAGEMANAGER->addImage("FONT_TITLE_OBJECT", "image/mapTool/font/font_title_object.bmp", 253, 66, true, RGBMAGENTA);
@@ -211,7 +213,9 @@ void playGround::settingAddImage(void)
 	// 책 관련 이미지
 	IMAGEMANAGER->addFrameImage("MINI_ICON_BOOK", "image/mapTool/book/miniIconBook.bmp", 1200, 104, 15, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("MAIN_BOOK", "image/mapTool/book/mainBook.bmp", 960, 18900, 1, 35, true, RGBMAGENTA);
-	IMAGEMANAGER->addImage("MAIN_BOOK_MARK", "image/mapTool/book/mainBookMark.bmp", 90, 324, true, RGBMAGENTA);
+	IMAGEMANAGER->addImage("MAIN_BOOK_MARK", "image/mapTool/book/bookMark.bmp", 90, 396, true, RGBMAGENTA);
+
+
 	IMAGEMANAGER->addFrameImage("MAIN_BOOK_CHANGE", "image/mapTool/book/mainBookChange.bmp", 1920, 3240, 2, 6, true, RGBMAGENTA);
 
 	// 맵 타일 이미지
@@ -225,7 +229,10 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("SAMPLETILE_AUTO_ICE", "image/mapTool/tile/autoTile_ice.bmp", 480, 224, 15, 7, false, RGBNONE);
 
 	// 오브젝트 이미지
-	IMAGEMANAGER->addFrameImage("OBJECT_CANDLE", "image/mapTool/object/object1.bmp", 60, 34, 6, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_1_3", "image/mapTool/object/imageObject_1_3.bmp", 384, 96, 12, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_2", "image/mapTool/object/imageObject_2_2.bmp", 384, 128, 12, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_3", "image/mapTool/object/imageObject_2_3.bmp", 576, 192, 9, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_3_2", "image/mapTool/object/imageObject_3_2.bmp", 576, 64, 6, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object/object_5.bmp", 192, 96, 6, 1, true, RGBMAGENTA);
 
 
@@ -235,7 +242,10 @@ void playGround::settingAddImage(void)
 
 	IMAGEMANAGER->addFrameImage("OBJECT_10", "image/mapTool/object/object_10.bmp", 320, 64, 5, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_11", "image/mapTool/object/object_11.bmp", 256, 64, 4, 1, true, RGBMAGENTA);
-	IMAGEMANAGER->addFrameImage("OBEJCT_12", "image/mapTool/object/object_12.bmp", 256, 96, 4, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("OBJECT_12", "image/mapTool/object/object_12.bmp", 256, 96, 4, 1, true, RGBMAGENTA);
 
 	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBMAGENTA);
+
+	// 오토 타일 이미지
+	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBMAGENTA);
 }
