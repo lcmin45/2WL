@@ -69,11 +69,14 @@ protected:
 	int _monsterIndex;					//몬스터가 가지고 있는 인덱스 (플레이어와 같으면 소환)
 	int _attackCount;					//공격 쿨타임
 	bool _attackReady;					//공격 준비해 버렸나?
+	bool _isDie;						//삭제 될 준비 되었나
 	char _motionName1[128];				//콜백함수를 위한 모션 네임
 	char _motionName2[128];				//콜백함수를 위한 모션 네임
 	char _motionName3[128];				//콜백함수를 위한 모션 네임
 	char _motionName4[128];				//콜백함수를 위한 모션 네임
 	char _motionName5[128];				//콜백함수를 위한 모션 네임
+	char _motionName6[128];				//콜백함수를 위한 모션 네임
+	char _motionName7[128];				//콜백함수를 위한 모션 네임
 	char str[256];						//이미지의 키값
 	char str2[256];						//몬스터 공격이미지의 키값
 

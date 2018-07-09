@@ -1,60 +1,42 @@
 #include "stdafx.h"
 #include "soundManager.h"
 
+soundManager::soundManager() 
+	:_system(NULL), 
+	_channel(NULL)
+{}
 
-soundManager::soundManager()
-	:_system(NULL),
-	_channel(NULL),
-	_sound(NULL)
-{
-}
-
-
-soundManager::~soundManager()
-{
-
-}
+soundManager::~soundManager() {}
 
 HRESULT soundManager::init()
 {
-	//FMOD 사운드 엔진을 사용하겠다고 선언
 	System_Create(&_system);
 
 	_system->init(TOTALSOUNDBUFFER, FMOD_INIT_NORMAL, NULL);
 
-	_sound = new Sound*[TOTALSOUNDBUFFER];
-	_channel = new Channel*[TOTALSOUNDBUFFER];
+	_channel = new tagChannel[TOTALSOUNDBUFFER];
 
-	memset(_sound, 0, sizeof(Sound*) * (TOTALSOUNDBUFFER));
-	memset(_channel, 0, sizeof(Channel*) * (TOTALSOUNDBUFFER));
-
-
+	ZeroMemory(_channel, sizeof(_channel));
 
 	return S_OK;
 }
 
 void soundManager::release()
 {
-	//사운드 삭제
-	if (_channel != NULL || _sound != NULL)
+	// 사운드 삭제
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		for (int i = 0; i < TOTALSOUNDBUFFER; i++)
-		{
-			if (_channel != NULL)
-			{
-				if (_channel[i]) _channel[i]->stop();
-			}
+		if (_channel[index].keyName != "\0") _channel[index].channel->stop();
+	}
 
-			if (_sound != NULL)
-			{
-				if (_sound != NULL) _sound[i]->release();
-			}
-		}
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		_viSound->sound->release();
 	}
 
 	//메모리 지우기
 	SAFE_DELETE_ARRAY(_channel);
-	SAFE_DELETE_ARRAY(_sound);
+	_vSound.clear();
 
 	//시스템 닫기 
 	if (_system != NULL)
@@ -74,64 +56,129 @@ void soundManager::update()
 	//작업을 자동으로 해준다
 }
 
-
 void soundManager::addSound(string keyName, string soundName, bool bgm, bool loop)
 {
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (_viSound->keyName == keyName) return;
+	}
+
+	tagSound sound;
+	ZeroMemory(&sound, sizeof(tagSound));
+	sound.keyName = (string)keyName;
+
 	if (loop)
 	{
 		if (bgm)
 		{
-			_system->createStream(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
+			_system->createStream(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &sound.sound);
 		}
 		else
 		{
-			_system->createSound(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &_sound[_mTotalSounds.size()]);
+			_system->createSound(soundName.c_str(), FMOD_LOOP_NORMAL, NULL, &sound.sound);
 		}
 	}
 	else
 	{
 		if (bgm)
 		{
-			_system->createStream(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
+			_system->createStream(soundName.c_str(), FMOD_DEFAULT, NULL, &sound.sound);
 		}
 		else
 		{
-			_system->createSound(soundName.c_str(), FMOD_DEFAULT, NULL, &_sound[_mTotalSounds.size()]);
+			_system->createSound(soundName.c_str(), FMOD_DEFAULT, NULL, &sound.sound);
 		}
 	}
 
-	_mTotalSounds.insert(make_pair(keyName, &_sound[_mTotalSounds.size()]));
+	_vSound.push_back(sound);
 }
 
-void soundManager::play(string keyName, float volume)// 0.0 ~ 1.0f -> 0 ~ 255
+void soundManager::addPlayList(void)
 {
-	arrSoundsIter iter = _mTotalSounds.begin();
+	//대강 사용하는 형태
+	OPENFILENAME ofn;
+	char filePathSize[1028] = "";
+	ZeroMemory(&ofn, sizeof(OPENFILENAME));
 
-	int count = 0;
+	ofn.lStructSize = sizeof(OPENFILENAME);
+	ofn.hwndOwner = NULL;
+	ofn.lpstrFile = filePathSize;
+	ofn.nMaxFile = sizeof(filePathSize);
+	ofn.nFilterIndex = true;
+	ofn.nMaxFileTitle = NULL;
+	ofn.lpstrFileTitle = NULL;
+	ofn.lpstrInitialDir = NULL;
+	ofn.lpstrFilter = ("*.mp3,*.wav,*.wmv");
+	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST;
 
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	//예외처리
+	if (GetOpenFileName(&ofn) == FALSE) return;
+
+	char temp[1028];
+	strncpy_s(temp, strlen(ofn.lpstrFile) + 1, ofn.lpstrFile, strlen(ofn.lpstrFile));
+
+	char* context = NULL;
+	char* token = strtok_s(temp, "\\", &context);
+
+	while (strlen(context))
 	{
-		if (keyName == iter->first)
-		{
-			_system->playSound(FMOD_CHANNEL_FREE,*iter->second, false, &_channel[count]);
+		token = strtok_s(NULL, "\\", &context);
+	}
+	
+	SOUNDMANAGER->addSound(token, ofn.lpstrFile, true, false);
+}
 
-			_channel[count]->setVolume(volume);
+void soundManager::removePlayList(string keyName)
+{
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); )
+	{
+		if (keyName == _viSound->keyName)
+		{
+			_viSound = _vSound.erase(_viSound);
 			break;
+		}
+		else ++_viSound;
+	}
+}
+
+void soundManager::play(string KeyName, float volume)
+{
+	bool isCheck;
+
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (KeyName == _viSound->keyName)
+		{
+			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+			{
+				if (_channel[index].keyName == "\0" || _channel[index].keyName == KeyName)
+				{
+					_system->playSound(FMOD_CHANNEL_FREE, _viSound->sound, false, &_channel[index].channel);
+					_channel[index].keyName = _viSound->keyName;
+					_channel[index].channel->setVolume(volume);
+					break;
+				}				
+			}			
+			break;	
 		}
 	}
 }
 
 void soundManager::stop(string keyName)
 {
-	arrSoundsIter iter = _mTotalSounds.begin();
-
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
 	{
-		if (keyName == iter->first)
+		if (keyName == _viSound->keyName)
 		{
-			_channel[count]->stop();
+			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+			{
+				if (keyName == _channel[index].keyName)
+				{
+					_channel[index].channel->stop();
+					_channel[index].keyName = "\0";
+					break;
+				}
+			}
 			break;
 		}
 	}
@@ -139,15 +186,11 @@ void soundManager::stop(string keyName)
 
 void soundManager::pause(string keyName)
 {
-	arrSoundsIter iter = _mTotalSounds.begin();
-
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		if (keyName == iter->first)
+		if (keyName == _channel[index].keyName)
 		{
-			_channel[count]->setPaused(true);
+			_channel[index].channel->setPaused(true);
 			break;
 		}
 	}
@@ -155,33 +198,25 @@ void soundManager::pause(string keyName)
 
 void soundManager::resume(string keyName)
 {
-	arrSoundsIter iter = _mTotalSounds.begin();
-
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		if (keyName == iter->first)
+		if (keyName == _channel[index].keyName)
 		{
-			_channel[count]->setPaused(false);
+			_channel[index].channel->setPaused(false);
 			break;
 		}
 	}
 }
 
-
 bool soundManager::isPlaySound(string keyName)
 {
 	bool isPlay;
-	arrSoundsIter iter = _mTotalSounds.begin();
 
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		if (keyName == iter->first)
+		if (keyName == _channel[index].keyName)
 		{
-			_channel[count]->isPlaying(&isPlay);
+			_channel[index].channel->isPlaying(&isPlay);
 			break;
 		}
 	}
@@ -192,15 +227,12 @@ bool soundManager::isPlaySound(string keyName)
 bool soundManager::isPauseSound(string keyName)
 {
 	bool isPause;
-	arrSoundsIter iter = _mTotalSounds.begin();
 
-	int count = 0;
-
-	for (iter; iter != _mTotalSounds.end(); ++iter, count++)
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		if (keyName == iter->first)
+		if (keyName == _channel[index].keyName)
 		{
-			_channel[count]->getPaused(&isPause);
+			_channel[index].channel->getPaused(&isPause);
 			break;
 		}
 	}
@@ -208,3 +240,119 @@ bool soundManager::isPauseSound(string keyName)
 	return isPause;
 }
 
+void soundManager::singleChannelPlay(string keyName)
+{
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (keyName == _viSound->keyName)
+		{
+			_system->playSound(FMOD_CHANNEL_FREE, _viSound->sound, false, &_singleChannel);
+			break;
+		}
+	}	
+}
+
+void soundManager::singleChannelPause(void)
+{
+	_singleChannel->setPaused(true);
+}
+
+void soundManager::singleChannelResume(void)
+{
+	_singleChannel->setPaused(false);
+}
+
+void soundManager::singleChannelChangeVolume(float volume)
+{
+	_singleChannel->setVolume(volume);
+}
+
+bool soundManager::singleChannelIsPlay(void)
+{
+	bool isPlay;
+
+	_singleChannel->isPlaying(&isPlay);
+
+	return isPlay;
+}
+
+bool soundManager::singleChannelIsPause(void)
+{
+	bool isPause;
+
+	_singleChannel->getPaused(&isPause);
+
+	return isPause;
+}
+
+int soundManager::getLength(string keyName)
+{
+	unsigned int length = 0;
+
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (keyName == _viSound->keyName)
+		{
+			_viSound->sound->getLength(&length, FMOD_TIMEUNIT_MS);
+			break;
+		}
+	}
+
+	return length;
+}
+
+int soundManager::getPlayTime(string keyName)
+{
+	unsigned int time = 0;
+
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (keyName == _viSound->keyName)
+		{
+			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+			{
+				if (_channel[index].keyName == keyName)
+				{
+					_channel[index].channel->getPosition(&time, FMOD_TIMEUNIT_MS);
+					break;
+				}
+			}
+			break;
+		}
+	}
+
+	return time;
+}
+
+void soundManager::setPlayTime(string keyName, unsigned int time)
+{
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (keyName == _viSound->keyName)
+		{
+			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+			{
+				if (_channel[index].keyName == keyName)
+				{
+					_channel[index].channel->setPosition(time, FMOD_TIMEUNIT_MS);
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+
+int  soundManager::singleChannelPlayTime(void)
+{
+	unsigned int time = 0;
+
+	_singleChannel->getPosition(&time, FMOD_TIMEUNIT_MS);
+
+	return time;	
+}
+
+void soundManager::singleChannelSetPlayTime(unsigned int time)
+{
+	_singleChannel->setPosition(time, FMOD_TIMEUNIT_MS);
+}

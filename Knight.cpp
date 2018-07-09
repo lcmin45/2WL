@@ -36,6 +36,8 @@ HRESULT Knight::init(const char * imgName, POINTFLOAT point,int index, int monst
 	sprintf_s(_motionName3, "KnightLeftAttack%d", index);
 	sprintf_s(_motionName4, "KnightRightHit%d", index);
 	sprintf_s(_motionName5, "KnightLeftHit%d", index);
+	sprintf_s(_motionName6, "KnightRightDie%d", index);
+	sprintf_s(_motionName7, "KnightLeftDie%d", index);
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
@@ -62,9 +64,9 @@ HRESULT Knight::init(const char * imgName, POINTFLOAT point,int index, int monst
 
 
 	int rightDie[] = { 20,21,22,23,24,25,26 };
-	KEYANIMANAGER->addArrayFrameAnimation("KnightRightDie", str, rightDie, 7, 6, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName6, str, rightDie, 7, 6, false,MonsterDie,this);
 	int leftDie[] = { 30,31,32,33,34,35,36 };
-	KEYANIMANAGER->addArrayFrameAnimation("KnightLeftDie", str, leftDie, 7, 6, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName7, str, leftDie, 7, 6, false, MonsterDie, this);
 
 
 	_Motion = KEYANIMANAGER->findAnimation(_motionName1);
@@ -84,6 +86,7 @@ void Knight::update()
 
 	if (_playerIndex == _monsterIndex && _form == CARD)
 	{
+		SOUNDMANAGER->play("EnemySummon", _effectSound);
 		_form = SUMMOM;
 		getMotion()->start();
 	}
@@ -141,6 +144,7 @@ void Knight::KnightMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
 				_Motion->start();
 				_PM->fire(str2, _position);
+				SOUNDMANAGER->play("KnightAttack", _effectSound);
 				_attackReady = false;
 			}
 		}
@@ -152,6 +156,7 @@ void Knight::KnightMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
 				_Motion->start();
 				_PM->fire(str2, _position);
+				SOUNDMANAGER->play("KnightAttack", _effectSound);
 				_attackReady = false;
 			}
 		}
@@ -222,7 +227,13 @@ void Knight::summonOn(void * obj)
 	_MonsterKnight->setMotion(KEYANIMANAGER->findAnimation("KnightLeftStand"));
 	_MonsterKnight->getMotion()->start();
 
-}	
+}
+void Knight::MonsterDie(void * obj)
+{
+	Knight* _MonsterKnight = (Knight*)obj;
+	_MonsterKnight->_isDie = true;
+}
+
 
 void Knight::Test()
 {
@@ -233,12 +244,14 @@ void Knight::Test()
 		if (_Direction == RIGHT_HIT  || _Direction == LEFT_HIT) return;
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
 		{
+			SOUNDMANAGER->play("EnemyHurt", _effectSound);
 			_Direction = RIGHT_HIT;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
 			_Motion->start();
 		}
 		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
 		{
+			SOUNDMANAGER->play("EnemyHurt", _effectSound);
 			_Direction = LEFT_HIT;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
 			_Motion->start();
@@ -251,14 +264,16 @@ void Knight::Test()
 		if (_Direction == RIGHT_DIE  || _Direction == LEFT_DIE) return;
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT)
 		{
+			SOUNDMANAGER->play("KnightDie", _effectSound);
 			_Direction = RIGHT_DIE;
-			_Motion = KEYANIMANAGER->findAnimation("KnightRightDie");
+			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
 			_Motion->start();
 		}
 		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT)
 		{
+			SOUNDMANAGER->play("KnightDie", _effectSound);
 			_Direction = LEFT_DIE;
-			_Motion = KEYANIMANAGER->findAnimation("KnightLeftDie");
+			_Motion = KEYANIMANAGER->findAnimation(_motionName7);
 			_Motion->start();
 		}
 	}
