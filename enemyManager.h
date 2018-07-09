@@ -6,6 +6,7 @@
 #include "iceBoss.h"
 #include "woodBoss.h"
 #include "stage.h"
+#include "projectileManager.h"
 
 #include <vector>
 #include "Ghoul.h"
@@ -60,6 +61,7 @@ private:
 	viScarecrow		 _viScarecrow;
 
 	stage*			_stage;
+	projectileManager* _PM;
 	
 
 	POINTFLOAT		_playerPoint;
@@ -85,4 +87,5 @@ public:
 	void setStage(stage* stage) { _stage = stage; }
 	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
 	void setPlayerIndex(int index) { _playerIndex = index; }
+	void setProjectileManagerAddressLink(projectileManager * PM) { _PM = PM; }
 };

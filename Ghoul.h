@@ -4,7 +4,7 @@
 
 class Ghoul : public monster
 {
-	
+
 public:
 	Ghoul();
 	~Ghoul();
