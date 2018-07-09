@@ -14,94 +14,118 @@ woodBoss::~woodBoss()
 
 void woodBoss::render()
 {
-	char str[256];
-
-	_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _woodindex, 0);
-
-	_woodHpBar->render();
-
-	if (_woodDialogue == true)
+	if (_woodBossDie == false)//보스가 죽지 않았을때
 	{
-		////////대사 그려주기
-		IMAGEMANAGER->findImage("나무대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+		char str[256];
 
-		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
-		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+		_bossImg->frameRender(getMemDC(), _bossRc.left, _bossRc.top, _woodindex, 0);
 
-		HFONT font2, oldFont2;
-		font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
-		oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
-		sprintf_s(str, "오면서 흙구덩이에는 안 빠졌기를 바란다...이제 내가 빠트릴 거니까!!");
-		TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
-		SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
-		DeleteObject(font2);
+		_woodHpBar->render();
+
+		//보스 등장 할때 대사 띄워주기
+		if (_woodDialogue == true)
+		{
+			IMAGEMANAGER->findImage("나무대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font2, oldFont2;
+			font2 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont2 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font2);
+			sprintf_s(str, "오면서 흙구덩이에는 안 빠졌기를 바란다...이제 내가 빠트릴 거니까!!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont2);
+			DeleteObject(font2);
+		}
+		//죽었을때 대사 띄어주기
+		if (_bossImg == IMAGEMANAGER->findImage("나무죽음"))
+		{
+			IMAGEMANAGER->findImage("나무대화")->render(CAMERAMANAGER->getCameraDC(), 200, 600);
+
+			SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
+			SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+
+			HFONT font3, oldFont3;
+			font3 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
+			oldFont3 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font3);
+			sprintf_s(str, "다이아몬드보다 강한 의지를 지녔군..잘 가길,고난의 땅을 건너야 할 테니!");
+			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
+			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont3);
+			DeleteObject(font3);
+		}
 	}
 }
 
 void woodBoss::update()
 {
-	//프래임 이미지 카운트
-	_frameCount++;
-	if (_frameCount % 10 == 0)
+	if (_woodBossDie == false)//보스가 죽지 않았을때
 	{
-		++_woodindex;
-		//보스체력이 0이 아닐때
-		if (_woodCurrentHP > 0)
+		//프래임 이미지 카운트
+		_frameCount++;
+		if (_frameCount % 10 == 0)
 		{
-			//소환 모션이 끝나면 등장모션과 대화창 띄우기
-			if (_bossImg == IMAGEMANAGER->findImage("나무소환"))
+			++_woodindex;
+			//보스체력이 0이 아닐때
+			if (_woodCurrentHP > 0)
 			{
-				if (_woodindex > _bossImg->getMaxFrameX())
+				//소환 모션이 끝나면 등장모션과 대화창 띄우기
+				if (_bossImg == IMAGEMANAGER->findImage("나무소환"))
 				{
-					_bossImg = IMAGEMANAGER->findImage("나무등장");
-					_woodindex = 0;
-					_woodDialogue = true;
+					if (_woodindex > _bossImg->getMaxFrameX())
+					{
+						_bossImg = IMAGEMANAGER->findImage("나무등장");
+						_woodindex = 0;
+						_woodDialogue = true;
+					}
 				}
-			}
-			//스페이스키를 누르면 대화창 넘어가기
-			if (_woodDialogue == true)
-			{
-				if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				//스페이스키를 누르면 대화창 넘어가기
+				if (_woodDialogue == true)
 				{
-					_woodMove = true;
-					_woodDialogue = false;
+					if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+					{
+						_woodMove = true;
+						_woodDialogue = false;
+					}
 				}
-			}
 
-			if (_bossImg == IMAGEMANAGER->findImage("나무등장"))
-			{
-				if (_woodindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("나무등장"))
 				{
-					_woodindex = 0;
+					if (_woodindex > _bossImg->getMaxFrameX())
+					{
+						_woodindex = 0;
+					}
 				}
-			}
 
-			if (_bossImg == IMAGEMANAGER->findImage("나무오른쪽") || _bossImg == IMAGEMANAGER->findImage("나무왼쪽"))
-			{
-				if (_woodindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("나무오른쪽") || _bossImg == IMAGEMANAGER->findImage("나무왼쪽"))
 				{
-					_woodindex = 0;
+					if (_woodindex > _bossImg->getMaxFrameX())
+					{
+						_woodindex = 0;
+					}
 				}
-			}
-			if (_bossImg == IMAGEMANAGER->findImage("나무점프") || _bossImg == IMAGEMANAGER->findImage("나무스킬") || _bossImg == IMAGEMANAGER->findImage("나무스킬2오른쪽") ||
-				_bossImg == IMAGEMANAGER->findImage("나무스킬2왼쪽") || _bossImg == IMAGEMANAGER->findImage("나무죽음") || _bossImg == IMAGEMANAGER->findImage("나무오른쪽피격") || _bossImg == IMAGEMANAGER->findImage("왼쪽피격"))
-			{
-				if (_woodindex > _bossImg->getMaxFrameX())
+				if (_bossImg == IMAGEMANAGER->findImage("나무점프") || _bossImg == IMAGEMANAGER->findImage("나무스킬") || _bossImg == IMAGEMANAGER->findImage("나무스킬2오른쪽") ||
+					_bossImg == IMAGEMANAGER->findImage("나무스킬2왼쪽") || _bossImg == IMAGEMANAGER->findImage("나무죽음") || _bossImg == IMAGEMANAGER->findImage("나무오른쪽피격") || _bossImg == IMAGEMANAGER->findImage("왼쪽피격"))
 				{
-					_woodindex = _bossImg->getMaxFrameX();
+					if (_woodindex > _bossImg->getMaxFrameX())
+					{
+						_woodindex = _bossImg->getMaxFrameX();
+					}
 				}
-			}
 
-			_frameCount = 0;
+				_frameCount = 0;
+			}
+			//보스 체력이 0일떄 죽는 모션
+			else if (_woodCurrentHP <= 0)
+			{
+				_bossImg = IMAGEMANAGER->findImage("나무죽음");
+				_woodindex = 0;
+				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
+				if (_bossImg == IMAGEMANAGER->findImage("나무죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_woodBossDie = true;
+			}
 		}
-		//보스 체력이 0일떄 죽는 모션
-		else if (_woodCurrentHP <= 0)
-		{
-			_bossImg = IMAGEMANAGER->findImage("나무죽음");
-			_woodindex = 0;
-		}
+		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 	}
-	_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
 }
 
 

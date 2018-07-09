@@ -3,13 +3,6 @@
 
 #define MAXPARTICLE 5
 
-struct PARTICLE 
-{
-	image* img;
-	POINTFLOAT pt;
-	RECT rc;
-	int index;
-};
 
 class 불타는올가미 : public skill
 {
@@ -20,10 +13,14 @@ private:
 	image * pImg[MAXPARTICLE];
 	POINTFLOAT sword[MAXPARTICLE];
 	RECT sRect[MAXPARTICLE];
-	int swordIndex[MAXPARTICLE];
+	int swordIndexX[MAXPARTICLE];
+	int swordIndexY[MAXPARTICLE];
 	int count;
 	int count2;
 	int spin;
+
+	int indexX;
+	int indexY;
 
 	bool erase = false;
 public:

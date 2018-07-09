@@ -4,6 +4,7 @@ class 몬스터총알 : public skill
 {
 private:
 
+	int _count;
 public:
 	몬스터총알();
 	~몬스터총알();

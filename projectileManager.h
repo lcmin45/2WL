@@ -33,6 +33,8 @@ public:
 	void fire(const char * skillName, POINTFLOAT pt);
 	void vectorCheck();
 	void vectorDraw();
-	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
+	void setPlayerAddressLink(player* getPlayer) { 
+		_player = getPlayer; 
+	}
 };
 

@@ -118,7 +118,9 @@ LRESULT gameNode::MainProc(HWND hWnd, UINT iMessage, WPARAM wParam, LPARAM lPara
 			_ptMouse.x = LOWORD(lParam);
 			_ptMouse.y = HIWORD(lParam);
 		break;
-
+		case WM_KEYDOWN:
+			if (_introStart == 0) _introStart = 1;
+			break;
 		case WM_DESTROY:
 			PostQuitMessage(0);
 		break;

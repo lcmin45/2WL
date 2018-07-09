@@ -32,10 +32,10 @@ void 불타는올가미::update()
 	{
 		for (viParticle = vParticle.begin(); viParticle != vParticle.end();)
 		{
-			viParticle->img->setFrameX(viParticle->index);
-			viParticle->index++;
+			viParticle->img->setFrameX(viParticle->indexX);
+			viParticle->indexX++;
 
-			if (viParticle->index > viParticle->img->getMaxFrameX())
+			if (viParticle->indexX > viParticle->img->getMaxFrameX())
 			{
 				viParticle = vParticle.erase(viParticle);
 
@@ -62,12 +62,12 @@ void 불타는올가미::render()
 		_img->frameRender(getMemDC(), _rc.left, _rc.top);		
 		for (int i = 0; i < MAXPARTICLE; i++)
 		{
-			pImg[i]->frameRender(getMemDC(), sRect[i].left, sRect[i].top);
+			pImg[i]->frameRender(getMemDC(), sRect[i].left, sRect[i].top, swordIndexX[i], swordIndexY[i]);
 		}
 
 		for (viParticle = vParticle.begin(); viParticle != vParticle.end(); viParticle++)
 		{
-			viParticle->img->frameRender(getMemDC(), viParticle->rc.left, viParticle->rc.top, viParticle->index, 0);
+			viParticle->img->frameRender(getMemDC(), viParticle->rc.left, viParticle->rc.top, viParticle->indexX, viParticle->indexY);
 		}
 	}
 }
@@ -90,7 +90,7 @@ void 불타는올가미::fire(const char * skillName, int amount, POINTFLOAT pt, float
 		_range = range;
 		_damage = damage;
 		_coolTime = coolTime;
-		_frameIndex = 0;
+		_frameIndex = RND->getInt(2);
 
 		string str[MAXPARTICLE];
 
@@ -100,8 +100,8 @@ void 불타는올가미::fire(const char * skillName, int amount, POINTFLOAT pt, float
 			sword[i].x = _firePt.x + cosf(_angle) * (50 + (i + 1) * 30);
 			sword[i].y = _firePt.y - sinf(_angle) * (50 + (i + 1) * 30);
 			sRect[i] = RectMakeCenter(sword[i].x, sword[i].y, pImg[i]->getFrameWidth(), pImg[i]->getFrameHeight());
-			swordIndex[i] = (i % 2 == 0 ? 0 : 1);
-			pImg[i]->setFrameX(swordIndex[i]);
+			swordIndexX[i] = RND->getInt(3);
+			swordIndexY[i] = RND->getInt(4);
 		}
 		count = 0;
 		spin = 0;
@@ -116,8 +116,8 @@ void 불타는올가미::move()
 	{
 		for (int i = 0; i < MAXPARTICLE; i++)
 		{
-			swordIndex[i]++;
-			pImg[i]->setFrameX(swordIndex[i]);
+			swordIndexX[i]++;
+			pImg[i]->setFrameX(swordIndexX[i]);
 		}
 		_frameIndex++;
 		_img->setFrameX(_frameIndex);
@@ -148,13 +148,23 @@ void 불타는올가미::move()
 		sRect[i] = RectMakeCenter(sword[i].x, sword[i].y, pImg[i]->getFrameWidth(), pImg[i]->getFrameHeight());
 	}
 
-	_img->setFrameX(_frameIndex);
+	_img->setFrameX(indexX);
 	
 	PARTICLE particle;
 	ZeroMemory(&particle, sizeof(PARTICLE));
 	particle.img = IMAGEMANAGER->findImage("불꽃파티클");
+	particle.indexX = RND->getInt(2);
+	particle.indexY = RND->getInt(4);
 	
 	particle.pt = sword[MAXPARTICLE - 1];
 	particle.rc = RectMakeCenter(particle.pt.x, particle.pt.y, particle.img->getFrameWidth(), particle.img->getFrameHeight());
-	vParticle.push_back(particle);			
+	vParticle.push_back(particle);
+
+	particle.indexX = RND->getInt(2);
+	particle.indexY = RND->getInt(4);
+	vParticle.push_back(particle);
+
+	particle.indexX = RND->getInt(2);
+	particle.indexY = RND->getInt(4);
+	vParticle.push_back(particle);
 }

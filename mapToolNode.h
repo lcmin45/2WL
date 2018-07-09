@@ -13,7 +13,7 @@
 #define BOOKSIZEY 484
 
 // 책 페이지 최대값
-#define MAXPAGE	8
+#define MAXPAGE	10
 
 // 이미지 색상정보
 #define RGBMAGENTA RGB(255, 0, 255)
@@ -22,55 +22,6 @@
 // 특정 좌표
 #define WINCENTER PointMake(WINSIZEX / 2, WINSIZEY / 2)
 #define ZEROPOINT PointMake(NULL, NULL)
-
-// 페이지에 사용되는 박스 정보
-struct tagBox
-{
-	string	imageName;
-	string	boxName;
-	RECT	rc;
-	POINT	center;
-	int		imageIndex;
-	int		frameX;
-	int		frameY;
-	int		objectIndex;
-	POINT	renderPoint;
-};
-
-//==========================================================//
-//==========    현재 선택된 타일 정보 관련 부분     ==========//
-//==========================================================//
-
-enum currentCheck
-{
-	CH_TERRAIN,
-	CH_OBJECT,
-	CH_AUTO
-};
-
-struct tagCurrentTerrain
-{
-	int		imageIndex;
-	int		frameX;
-	int		frameY;
-};
-
-struct tagCurrentObject
-{
-	int		objectIndex;
-	POINT	renderPoint;
-};
-
-struct tagCurrentAuto
-{
-	int		imageIndex;
-	POINT	startPoint;
-	POINT	endPoint;
-};
-
-//==========================================================//
-//==========    맵에 사용될 타일 정보 관련 부분     ==========//
-//==========================================================//
 
 enum TERRAIN
 {
@@ -84,34 +35,137 @@ enum OBJECT
 	OBJ_NONE,
 	OBJ_ATTACK,
 	OBJ_WAY,
-	OBJ_WALL
+	OBJ_WALL,
+	OBJ_FALL
 };
+
+enum OBJECTSETPOINT
+{
+	LEFT_TOP,
+	LEFT_BOTTOM
+};
+
+enum currentCheck
+{
+	CH_TERRAIN,
+	CH_IMAGE_OBJECT,
+	CH_OBJECT,
+	CH_OBJECT_IMAGE,
+	CH_AUTO_WAY,
+	CH_AUTO_WALL,
+	CH_AUTO,
+	CH_AUTO_DELETE_WAY,
+	CH_AUTO_DELETE_WALL,
+	CH_AUTO_DELETE_OBJECT,
+	CH_ROOM_INDEX
+};
+
+enum AUTOCHECK
+{
+	AUTO_NONE,
+	AUTO_ALL,
+	AUTO_UP_DOWN
+};
+
+// 페이지에 사용되는 박스 정보
+struct tagBox
+{
+	string			boxImageName;
+	string			tileImageName;
+	string			objectImageName;
+	int				imageObjectIndex;
+	RECT			rc;
+	int				frameX, frameY;
+	OBJECTSETPOINT	objectSetPoint;
+	POINT			objectCheckSize;
+	POINT			center;
+	int				imageIndex;
+	POINT			startPoint;
+	POINT			endPoint;
+	AUTOCHECK		autoCheck;
+	image*			autoTileImg;
+	TERRAIN			terrain;
+	int				objectIndex;
+	POINT			renderPoint;
+};
+
+#define CAMERADC		CAMERAMANAGER->getCameraDC()
+#define CAMERASTARTY	(CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE
+#define CAMERAENDY		(CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1
+#define CAMERASTARTX	(CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE
+#define CAMERAENDX		(CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1
+#define CAMERAMAXCHECK	i >= MAXTILEY || j >= MAXTILEX
+
+//==========================================================//
+//==========    맵에 사용될 타일 정보 관련 부분     ==========//
+//==========================================================//
 
 struct tagMapToolTile
 {
-	POINT		center;
-	POINT		renderPoint;
-	RECT		rc;
-	TERRAIN		terrain;
-	OBJECT		object;
-	int			tileIndexX;
-	int			tileIndexY;
-	int			imageIndex;
-	int			terrainFrameX;
-	int			terrainFrameY;
-	int			objectIndex;
-	tileObject*	objectClass;
+	POINT			center;
+	POINT			renderPoint;
+	OBJECTSETPOINT	objectSetPoint;
+	POINT			objectCheckSize;
+	RECT			rc;
+	TERRAIN			terrain;
+	TERRAIN			objectTerrain;
+	OBJECT			object;
+	int				tileIndexX;
+	int				tileIndexY;
+	int				imageIndex;
+	int				imageObjectIndex;
+	int				objectIndex;
+	int				terrainFrameX;
+	int				terrainFrameY;
+	int				imageObjectFrameX;
+	int				imageObjectFrameY;
+	tileObject*		objectClass;
+	int				roomIndex;
 };
 
 struct tagTile
 {
-	image*		img;
+	POINT		center;
 	TERRAIN		terrain;
 	OBJECT		object;
+	int			imageIndex;
 	int			tileIndexX;
 	int			tileIndexY;
-	int			imageIndex;
 	int			terrainFrameX;
 	int			terrainFrameY;
 	tileObject*	objectClass;
+};
+
+//==========================================================//
+//==========    현재 선택된 타일 정보 관련 부분     ==========//
+//==========================================================//
+
+struct tagCurrentTerrain
+{
+	int		imageIndex;
+	int		frameX;
+	int		frameY;
+};
+
+struct tagCurrentObject
+{
+	string			imageName;
+	int				imageObjectIndex;
+	int				frameX;
+	int				frameY;
+	OBJECTSETPOINT	objectSetpoint;
+	POINT			objectCheckSize;
+	TERRAIN			terrain;
+	int				objectIndex;
+	POINT			renderPoint;
+};
+
+struct tagCurrentAuto
+{
+	int			imageIndex;
+	POINT		startPoint;
+	POINT		endPoint;
+	AUTOCHECK	autoCheck;
+	TERRAIN		terrain;
+	int			roomIndex;
 };

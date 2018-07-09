@@ -47,12 +47,12 @@ private:
 	pageManager*	_pageManager;			// 각 페이지를 관리하는 클래스
 
 	bool			_isMouseOnBook;			// 현재 마우스가 책위에 있느냐
-
+	int				_mapToolBookIndex;
 public:
 	mapToolBook();
 	~mapToolBook();
 
-	virtual HRESULT init(void);
+	virtual HRESULT init(int index);
 	virtual void release(void);
 	virtual void update(void);
 	virtual void render(void);
@@ -67,6 +67,7 @@ public:
 	void changePageKey(void);				// 페이지 변경 키 처리
 	void checkPageIndexCenter(void);		// 현재 페이와 중점 좌표 설정
 	void checkMouseOnBook(void);			// 마이수 포인트가 책 위에 있는지 체크
+	void pageUpdate(void);					// 페이지 업데이트
 
 	void iconRender(void);					// 아이콘 책 랜더
 	void bookRender(void);					// 메인 책 랜더
@@ -84,7 +85,7 @@ public:
 	static void closeBookC(void* obj);		// 책 닫기 후
 	static void changePageC(void* obj);		// 페이지 변화 후
 
-	bool getIsMoveBook(void) { return _mainBook.isMove; }		// 현재 마우스가 책 위에 있는지
+	bool getIsMoveBook(void) { return _mainBook.isMove; }		// 현재 책을 움직이는 상태인지
 	bool getIsMouseBook(void) { return _isMouseOnBook; }		// 현재 마우스가 책 위에 있는지
 
 	void setMapTileMemoryAddressLink(mapTile* mapTile) { _pageManager->setMapTileClass(mapTile); }

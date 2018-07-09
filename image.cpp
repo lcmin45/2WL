@@ -592,10 +592,164 @@ void image::alphaRender(HDC hdc, int destX, int destY, BYTE alpha)
 
 void image::alphaRender(HDC hdc, int destX, int destY, int sourX, int sourY, int sourWidth, int sourHeight, BYTE alpha)
 {
+	_blendFunc.SourceConstantAlpha = alpha;
 
+	if (_trans)
+	{
+		//알파 블렌드 먹일 이미지를 복사한다
+		BitBlt(_blendImage->hMemDC, 0, 0, sourWidth, sourHeight,
+			hdc, sourX, sourY, SRCCOPY);
+
+		//특정 색상을 제외할 -> 마젠타 색 벗겨주는 역할
+		GdiTransparentBlt(_blendImage->hMemDC, 0, 0, sourWidth, sourHeight,
+			_imageInfo->hMemDC, sourX, sourY, sourWidth, sourHeight, _transColor);
+
+		//최종적으로 알파블렌드를 먹인다
+		AlphaBlend(hdc, destX, destY, sourWidth, sourHeight,
+			_blendImage->hMemDC, 0, 0, sourWidth, sourHeight, _blendFunc);
+	}
+	else
+	{
+		AlphaBlend(hdc, destX, destY,
+			sourWidth, sourHeight,
+			_imageInfo->hMemDC,
+			sourX, sourY,
+			sourWidth, sourHeight, _blendFunc);
+	}
+}
+
+void image::alphaFrameRender(HDC hdc, int destX, int destY, BYTE alpha)
+{
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	if (_trans)
+	{
+		//알파 블렌드 먹일 이미지를 복사한다
+		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			hdc, destX, destY, SRCCOPY);
+
+		GdiTransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC, _imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, _transColor);
+
+		AlphaBlend(hdc, destX, destY,
+			_imageInfo->frameWidth, _imageInfo->frameHeight,
+			_blendImage->hMemDC, 0, 0,
+			_imageInfo->frameWidth, _imageInfo->frameHeight, _blendFunc);
+	}
+	else
+	{
+		AlphaBlend(hdc, destX, destY,
+			_imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC,
+			_imageInfo->currentFrameX * _imageInfo->frameWidth, _imageInfo->currentFrameY * _imageInfo->frameHeight,
+			_imageInfo->frameWidth, _imageInfo->frameHeight, _blendFunc);
+	}
+}
+
+void image::alphaFrameRender(HDC hdc, int destX, int destY, int currentFrameX, int currentFrameY, BYTE alpha)
+{
+	_imageInfo->currentFrameX = currentFrameX;
+	_imageInfo->currentFrameY = currentFrameY;
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	if (_trans)
+	{
+		//알파 블렌드 먹일 이미지를 복사한다
+		BitBlt(_blendImage->hMemDC, 0, 0, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			hdc, destX, destY, SRCCOPY);
+
+		GdiTransparentBlt(_blendImage->hMemDC, 0, 0, _imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC, currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight, _imageInfo->frameWidth, _imageInfo->frameHeight, _transColor);
+
+		AlphaBlend(hdc, destX, destY,
+			_imageInfo->frameWidth, _imageInfo->frameHeight,
+			_blendImage->hMemDC, 0, 0,
+			_imageInfo->frameWidth, _imageInfo->frameHeight, _blendFunc);
+	}
+	else
+	{
+		AlphaBlend(hdc, destX, destY,
+			_imageInfo->frameWidth, _imageInfo->frameHeight,
+			_imageInfo->hMemDC,
+			currentFrameX * _imageInfo->frameWidth, currentFrameY * _imageInfo->frameHeight,
+			_imageInfo->frameWidth, _imageInfo->frameHeight, _blendFunc);
+	}
+
+}
+
+void image::alphaLoopRender(HDC hdc, const LPRECT drawArea, int offSetX, int offSetY, BYTE alpha)
+{
+	_blendFunc.SourceConstantAlpha = alpha;
+
+	//방향이 음수이면 
+	if (offSetX < 0) offSetX = _imageInfo->width + (offSetX % _imageInfo->width);
+	if (offSetY < 0) offSetY = _imageInfo->height + (offSetY % _imageInfo->height);
+
+	int sourWidth;
+	int sourHeight;
+
+	RECT rcDest;
+	RECT rcSour;
+
+	//화면에 루프이미지 그려줄 영역 셋팅
+	int drawAreaX = drawArea->left;
+	int drawAreaY = drawArea->top;
+	int drawAreaW = drawArea->right - drawAreaX;		//그려질 가로크기(Width)
+	int drawAreaH = drawArea->bottom - drawAreaY;		//그려질 세로크기(height)
+
+														//세로부터 해봅시다
+	for (int y = 0; y < drawAreaH; y += sourHeight)
+	{
+		rcSour.top = (y + offSetY) % _imageInfo->height;
+		rcSour.bottom = _imageInfo->height;
+
+		//밀려올라간 간격
+		sourHeight = rcSour.bottom - rcSour.top;
+
+		//화면밖으로 나갔다면~
+		if (y + sourHeight > drawAreaH)
+		{
+			// - 연산때문에 실제 오프셋 값의 반대방향으로 작동한다
+			rcSour.bottom -= (y + sourHeight) - drawAreaH;
+			sourHeight = rcSour.bottom - rcSour.top;
+		}
+
+		//화면밖으로 나간영역을 다시 밀어올려줄 위치 선정
+		rcDest.top = y + drawAreaY;
+		rcDest.bottom = rcDest.top + sourHeight;
+
+		//가로 루프 연산
+		for (int x = 0; x < drawAreaW; x += sourWidth)
+		{
+			rcSour.left = (x + offSetX) % _imageInfo->width;
+			rcSour.right = _imageInfo->width;
+
+			sourWidth = rcSour.right - rcSour.left;
+
+			//가로로 화면밖으로 나간 영역 계산
+			if (x + sourWidth > drawAreaW)
+			{
+				rcSour.right -= (x + sourWidth) - drawAreaW;
+				sourWidth = rcSour.right - rcSour.left;
+			}
+
+			rcDest.left = x + drawAreaX;
+			rcDest.right = rcDest.left + sourWidth;
+
+			alphaRender(hdc, rcDest.left, rcDest.top,
+				rcSour.left, rcSour.top,
+				rcSour.right - rcSour.left,
+				rcSour.bottom - rcSour.top, alpha);
+		}
+	}
 }
 
 void image::aniRender(HDC hdc, int destX, int destY, animation * ani)
 {
 	render(hdc, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight());
+}
+
+void image::alphaAniRender(HDC hdc, int destX, int destY, animation* ani, BYTE alpha)
+{
+	alphaRender(hdc, destX, destY, ani->getFramePos().x, ani->getFramePos().y, ani->getFrameWidth(), ani->getFrameHeight(), alpha);
 }

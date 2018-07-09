@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "Ghoul.h"
-#include "player.h"
 
 
 Ghoul::Ghoul()
@@ -12,22 +11,22 @@ Ghoul::~Ghoul()
 {
 }
 
-HRESULT Ghoul::init(POINTFLOAT point,int index)
+HRESULT Ghoul::init(POINTFLOAT point,int index, int monsterRoomIndex)
 {
 	_Astar = new Astar;
-
 	_image = IMAGEMANAGER->findImage("SummonMonster");
 	_form = CARD;
-	_ghoulDirection = GHOUL_RIGHT_STAND; 
-	_attackRange = 30;
+	_Direction = RIGHT_STAND; 
+	_attackRange = 64;
 	_monsterHP = 100;
 	_bottomPosition = point;
 	_position.x = point.x;
 	_position.y = point.y - _image->getFrameHeight() / 2;
-	_speed = 4.0F;
+	_timecnt = 32;
+	_speed = 1.0F;
+	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(),10);
-	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
-		_image->getFrameHeight());
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
 
 	sprintf_s(_motionName1, "GhoulMonsterSummon%d", index);
 	sprintf_s(_motionName2, "GhoulRightAttack%d", index);
@@ -48,10 +47,10 @@ HRESULT Ghoul::init(POINTFLOAT point,int index)
 	int leftMove[] = { 13,14,15,16,17,18 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftMove", "Ghoul", leftMove, 6, 3, true);
 
-	int rightAttack[] = { 1 ,2, 2 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, "Ghoul", rightAttack, 3, 1, false, rightStop, this);
-	int leftAttack[] = { 11 ,12, 12 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, "Ghoul", leftAttack, 3, 1, false, leftStop, this);
+	int rightAttack[] = { 1 , 2 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, "Ghoul", rightAttack, 2, 8, false, rightStop, this);
+	int leftAttack[] = { 11 , 12 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, "Ghoul", leftAttack, 2, 8, false, leftStop, this);
 
 	int rightHit[] = { 20 ,9 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName4, "Ghoul", rightHit, 2, 3, false , rightStop, this);
@@ -63,14 +62,8 @@ HRESULT Ghoul::init(POINTFLOAT point,int index)
 	int leftDie[] = { 31,32,33,34,35,36,37,38,39 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftDie", "Ghoul", leftDie, 9, 6, false);
 
-	_ghoulMotion = KEYANIMANAGER->findAnimation(_motionName1);
+	_Motion = KEYANIMANAGER->findAnimation(_motionName1);
 
-
-	//=====================================테스트용=======================
-	PX = WINSIZEX / 2 + 200;
-	PY = WINSIZEY / 2 + 200;
-	PRC = RectMakeCenter(PX, PY, 30, 30);
-	//=====================================테스트용=======================
 	return S_OK;
 }
 
@@ -80,29 +73,13 @@ void Ghoul::release()
 
 void Ghoul::update()
 {
-	if (KEYMANAGER->isStayKeyDown(VK_RIGHT))
-	{
-		PX += 5;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_LEFT))
-	{
-		PX -= 5;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_UP))
-	{
-		PY -= 5;
-	}
-	if (KEYMANAGER->isStayKeyDown(VK_DOWN))
-	{
-		PY += 5;
-	}
-	PRC = RectMakeCenter(PX, PY, 30, 30);
+	_distance = getDistance(_position.x, _position.y, _playerPosition.x, _playerPosition.y);
+	_angle = getAngle(_position.x, _position.y, _playerPosition.x, _playerPosition.y);
 
-
-	if (getDistance(_position.x, _position.y, PX, PY) < 100 && _form == CARD)
+	if (_playerIndex == _monsterIndex && _form == CARD)
 	{
 		_form = SUMMOM;
-		getGhoulMotion()->start();
+		getMotion()->start();
 	}
 
 	if (_form == BATTLE)
@@ -115,8 +92,7 @@ void Ghoul::update()
 void Ghoul::render()
 {
 
-	Rectangle(getMemDC(), PRC.left, PRC.top, PRC.right, PRC.bottom);
-	_image->aniRender(getMemDC(), _rc.left, _rc.top, _ghoulMotion);
+	_image->aniRender(getMemDC(), _rc.left, _rc.top, _Motion);
 	if (KEYMANAGER->isToggleKey(VK_TAB))
 	{
 		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
@@ -127,99 +103,87 @@ void Ghoul::render()
 void Ghoul::ghoulMove()
 {
 
-	if (_ghoulDirection == GHOUL_RIGHT_HIT || _ghoulDirection == GHOUL_LEFT_HIT ||
-		_ghoulDirection == GHOUL_RIGHT_DIE || _ghoulDirection == GHOUL_LEFT_DIE) return;
+	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT ||
+		_Direction == RIGHT_DIE || _Direction == LEFT_DIE ||
+		_Direction == RIGHT_ATTACK || _Direction == LEFT_ATTACK) return;
 
 	++_timecnt;
 
-	_angle = getAngle(_position.x, _position.y, PX, PY);
-	_bottomPosition.x = _position.x;
-	_bottomPosition.y = _position.y + _image->getFrameHeight() / 2;
+	_position.x = _bottomPosition.x;
+	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
-		_image->getFrameHeight());
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
 
-	if (_attackRange  > getDistance(_position.x, _position.y, PX, PY))
+
+	if (_attackReady == false)
 	{
-
-		if (_position.x < PX)
+		if (_attackCount >= 100)
 		{
-			if (_ghoulDirection == GHOUL_RIGHT_MOVE || _ghoulDirection == GHOUL_RIGHT_STAND)
+			_attackReady = true;
+			_attackCount = 0;
+		}
+		else ++_attackCount;
+	}
+
+	if (_attackRange  > _distance )
+	{
+		if (!_attackReady) return;
+		if (_bottomPosition.x < _playerPosition.x)
+		{
+			if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND)
 			{
-				_ghoulDirection = GHOUL_RIGHT_ATTACK;
-				_ghoulMotion = KEYANIMANAGER->findAnimation(_motionName2);
-				_ghoulMotion->start();
+				_Direction = RIGHT_ATTACK;
+				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
+				_Motion->start();
+				_PM->fire("GhoulBullet", _position);
+				_attackReady = false;
 			}
 		}
-		else if (_position.x > PX)
+		else if (_bottomPosition.x > _playerPosition.x)
 		{
 
-			if (_ghoulDirection == GHOUL_LEFT_MOVE || _ghoulDirection == GHOUL_LEFT_STAND)
+			if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND)
 			{
-				_ghoulDirection = GHOUL_LEFT_ATTACK;
-				_ghoulMotion = KEYANIMANAGER->findAnimation(_motionName3);
-				_ghoulMotion->start();
+				_Direction = LEFT_ATTACK;
+				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
+				_Motion->start();
+				_PM->fire("GhoulBullet", _position);
+				_attackReady = false;
 			}
 		}
 	}
-	//=====================================테스트용=======================
-	else //맵 완성 되면 에이스타로 움직이기!
-	{		
-		//if (KEYMANAGER->isOnceKeyDown(VK_SPACE))
+	else //에이스타 움직임
+	{
+		if (_timecnt % 33 == 0)
 		{
-			
-			if (_timecnt % (TILESIZE / (int)_speed) == 0)
-			{
-				//_Astar->readyPath(_Zrc);
-				//pathFinder(_currentTile);
-				_timecnt = 0;
-			}
-			//if (_Astar->getEndPosition().x > _position.x) { _dir = DIR_RIGHT; }
-			//else if (_Astar->getEndPosition().x < _position.x) { _dir = DIR_LEFT; }
-			//else if (_Astar->getEndPosition().y > _position.y) { _dir = DIR_DOWN; }
-			//else if (_Astar->getEndPosition().y < _position.y) { _dir = DIR_UP; }
-
-			if (PX > _position.x) { _dir = DIR_RIGHT; }
-			else if (PX < _position.x) { _dir = DIR_LEFT; }
-			else if (PY > _position.y) { _dir = DIR_DOWN; }
-			else if (PY < _position.y) { _dir = DIR_UP; }
-
-			switch (_dir)
-			{
-			case DIR_LEFT:
-				_position.x -= _speed;
-				break;
-			case DIR_UP:
-				_position.y -= _speed;
-				break;
-			case DIR_RIGHT:
-				_position.x += _speed;
-				break;
-			case DIR_DOWN:
-				_position.y += _speed;
-				break;
-			}
-
+			_endPosition = _Astar->readyPath(_bottomPosition);
+			_timecnt = 0;
+		}
+		else
+		{
+			if (_endPosition.x > _bottomPosition.x) { _bottomPosition.x += (int)_speed; }
+			if (_endPosition.x < _bottomPosition.x) { _bottomPosition.x -= (int)_speed; }
+			if (_endPosition.y > _bottomPosition.y) { _bottomPosition.y += (int)_speed; }
+			if (_endPosition.y < _bottomPosition.y) { _bottomPosition.y -= (int)_speed; }
 		}
 
 
-		if (_position.x < PX)
+		if (_bottomPosition.x < _playerPosition.x)
 		{
-			if (_ghoulDirection == GHOUL_RIGHT_MOVE) return;
-			_ghoulDirection = GHOUL_RIGHT_MOVE;
-			_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulRightMove");
-			_ghoulMotion->start();
+			if (_Direction == RIGHT_MOVE) return;
+			_Direction = RIGHT_MOVE;
+			_Motion = KEYANIMANAGER->findAnimation("GhoulRightMove");
+			_Motion->start();
 
 		}
-		else if (_position.x > PX)
+		else if (_bottomPosition.x > _playerPosition.x)
 		{
-			if (_ghoulDirection == GHOUL_LEFT_MOVE) return;
-			_ghoulDirection = GHOUL_LEFT_MOVE;
-			_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulLeftMove");
-			_ghoulMotion->start();
+			if (_Direction == LEFT_MOVE) return;
+			_Direction = LEFT_MOVE;
+			_Motion = KEYANIMANAGER->findAnimation("GhoulLeftMove");
+			_Motion->start();
 		}
 	}
-	//=====================================테스트용=======================
 
 }
 
@@ -227,9 +191,9 @@ void Ghoul::rightStop(void * obj)
 {
 	Ghoul* _MonsterGhoul = (Ghoul*)obj;
 
-	_MonsterGhoul->setGhoulDirection(GHOUL_RIGHT_STAND);
-	_MonsterGhoul->setGhoulMotion(KEYANIMANAGER->findAnimation("GhoulRightStand"));
-	_MonsterGhoul->getGhoulMotion()->start();
+	_MonsterGhoul->setMonsterDirection(RIGHT_STAND);
+	_MonsterGhoul->setMotion(KEYANIMANAGER->findAnimation("GhoulRightStand"));
+	_MonsterGhoul->getMotion()->start();
 }
 
 void Ghoul::leftStop(void * obj)
@@ -237,9 +201,9 @@ void Ghoul::leftStop(void * obj)
 
 	Ghoul* _MonsterGhoul = (Ghoul*)obj;
 
-	_MonsterGhoul->setGhoulDirection(GHOUL_LEFT_STAND);
-	_MonsterGhoul->setGhoulMotion(KEYANIMANAGER->findAnimation("GhoulLeftStand"));
-	_MonsterGhoul->getGhoulMotion()->start();
+	_MonsterGhoul->setMonsterDirection(LEFT_STAND);
+	_MonsterGhoul->setMotion(KEYANIMANAGER->findAnimation("GhoulLeftStand"));
+	_MonsterGhoul->getMotion()->start();
 }
 
 
@@ -250,48 +214,48 @@ void Ghoul::summonOn(void * obj)
 
 	_MonsterGhoul->setImage(IMAGEMANAGER->findImage("Ghoul"));
 	_MonsterGhoul->setForm(BATTLE);
-	_MonsterGhoul->setGhoulDirection(GHOUL_LEFT_STAND);
-	_MonsterGhoul->setGhoulMotion(KEYANIMANAGER->findAnimation("GhoulLeftStand"));
-	_MonsterGhoul->getGhoulMotion()->start();
+	_MonsterGhoul->setMonsterDirection(LEFT_STAND);
+	_MonsterGhoul->setMotion(KEYANIMANAGER->findAnimation("GhoulLeftStand"));
+	_MonsterGhoul->getMotion()->start();
 }
 
 
-//=====================================테스트용=======================
 void Ghoul::Test()
 {
 
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
-		if (_ghoulDirection == GHOUL_RIGHT_HIT || _ghoulDirection == GHOUL_LEFT_HIT) return;
-		if (_ghoulDirection == GHOUL_RIGHT_MOVE || _ghoulDirection == GHOUL_RIGHT_HIT || _ghoulDirection == GHOUL_RIGHT_STAND || _ghoulDirection == GHOUL_RIGHT_ATTACK)
+		if (_Direction == RIGHT_HIT  || _Direction ==LEFT_HIT) return;
+		if (_Direction == RIGHT_MOVE || _Direction ==RIGHT_HIT || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
 		{
-			_ghoulDirection = GHOUL_RIGHT_HIT;
-			_ghoulMotion = KEYANIMANAGER->findAnimation(_motionName4);
-			_ghoulMotion->start();
+			_Direction = RIGHT_HIT;
+			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
+			_Motion->start();
 		}
-		else if (_ghoulDirection == GHOUL_LEFT_MOVE || _ghoulDirection == GHOUL_LEFT_HIT || _ghoulDirection == GHOUL_LEFT_STAND || _ghoulDirection == GHOUL_LEFT_ATTACK)
+		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
 		{
-			_ghoulDirection = GHOUL_LEFT_HIT;
-			_ghoulMotion = KEYANIMANAGER->findAnimation(_motionName5);
-			_ghoulMotion->start();
+			_Direction = LEFT_HIT;
+			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
+			_Motion->start();
 		}
 	}
 
 
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
-		if (_ghoulDirection == GHOUL_RIGHT_DIE || _ghoulDirection == GHOUL_LEFT_DIE) return;
-		if (_ghoulDirection == GHOUL_RIGHT_MOVE || _ghoulDirection == GHOUL_RIGHT_HIT)
+		if (_Direction == RIGHT_DIE  || _Direction ==LEFT_DIE) return;
+		if (_Direction == RIGHT_MOVE || _Direction ==RIGHT_HIT)
 		{
-			_ghoulDirection = GHOUL_RIGHT_DIE;
-			_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulRightDie");
-			_ghoulMotion->start();
+			_Direction = RIGHT_DIE;
+			_Motion = KEYANIMANAGER->findAnimation("GhoulRightDie");
+			_Motion->start();
 		}
-		else if (_ghoulDirection == GHOUL_LEFT_MOVE || _ghoulDirection == GHOUL_LEFT_HIT)
+		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT)
 		{
-			_ghoulDirection = GHOUL_LEFT_DIE;
-			_ghoulMotion = KEYANIMANAGER->findAnimation("GhoulLeftDie");
-			_ghoulMotion->start();
+			_Direction = LEFT_DIE;
+			_Motion = KEYANIMANAGER->findAnimation("GhoulLeftDie");
+			_Motion->start();
 		}
 	}
 }
+

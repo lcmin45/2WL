@@ -32,7 +32,11 @@ public:
 	void checkBox(void);
 
 	void titleRender(void);
+	void tileRender(void);
+	void boxRender(void);
 
 	void setIndex(int index);
 	void setCenterPoint(POINT point);
+
+	void setBox(int index, int startX, int startY, int endX, int endY, AUTOCHECK autoCheck, TERRAIN terrain);
 };

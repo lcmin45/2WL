@@ -35,9 +35,9 @@ void page0::boxInit(void)
 
 	for (int i = 0; i < MAXBOX; ++i)
 	{
-		_box[i].boxName = "FONT_BOX";
-		_box[i].center = PointMake(_center.x + BOOKSIZEX / 4 - IMAGEMANAGER->findImage(_box[i].boxName)->getWidth() / 2 + IMAGEMANAGER->findImage(_box[i].boxName)->getWidth() / 2, _center.y + BOOKSIZEY / 2 - 50 * (5 - i) - 100 + IMAGEMANAGER->findImage(_box[i].boxName)->getHeight() / 2);
-		_box[i].rc = RectMakeCenter(_box[i].center.x, _box[i].center.y, IMAGEMANAGER->findImage(_box[i].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[i].boxName)->getHeight());
+		_box[i].boxImageName = "FONT_BOX";
+		_box[i].center = PointMake(_center.x + BOOKSIZEX / 4 - IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth() / 2 + IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth() / 2, _center.y + BOOKSIZEY / 2 - 50 * (5 - i) - 100 + IMAGEMANAGER->findImage(_box[i].boxImageName)->getHeight() / 2);
+		_box[i].rc = RectMakeCenter(_box[i].center.x, _box[i].center.y, IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth(), IMAGEMANAGER->findImage(_box[i].boxImageName)->getHeight());
 	}
 }
 
@@ -55,7 +55,7 @@ void page0::checkBox(void)
 					break;
 				case 1: _currentCheck = CH_TERRAIN;
 					break;
-				case 2:	_currentCheck = CH_OBJECT;
+				case 2:	_currentCheck = CH_ROOM_INDEX;
 					break;
 				case 3: _mapTile->save();
 					break;
@@ -74,7 +74,7 @@ void page0::boxRender(void)
 {
 	for (int i = 0; i < MAXBOX; ++i)
 	{
-		IMAGEMANAGER->findImage(_box[i].boxName)->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top);
+		IMAGEMANAGER->findImage(_box[i].boxImageName)->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top);
 	}
 }
 
@@ -102,7 +102,7 @@ void page0::setCenterPoint(POINT point)
 
 	for (int i = 0; i < MAXBOX; ++i)
 	{
-		_box[i].center = PointMake(_center.x + BOOKSIZEX / 4 - IMAGEMANAGER->findImage(_box[i].boxName)->getWidth() / 2 + IMAGEMANAGER->findImage(_box[i].boxName)->getWidth() / 2, _center.y + BOOKSIZEY / 2 - 50 * (5 - i) - 100 + IMAGEMANAGER->findImage(_box[i].boxName)->getHeight() / 2);
-		_box[i].rc = RectMakeCenter(_box[i].center.x, _box[i].center.y, IMAGEMANAGER->findImage(_box[i].boxName)->getWidth(), IMAGEMANAGER->findImage(_box[i].boxName)->getHeight());
+		_box[i].center = PointMake(_center.x + BOOKSIZEX / 4 - IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth() / 2 + IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth() / 2, _center.y + BOOKSIZEY / 2 - 50 * (5 - i) - 100 + IMAGEMANAGER->findImage(_box[i].boxImageName)->getHeight() / 2);
+		_box[i].rc = RectMakeCenter(_box[i].center.x, _box[i].center.y, IMAGEMANAGER->findImage(_box[i].boxImageName)->getWidth(), IMAGEMANAGER->findImage(_box[i].boxImageName)->getHeight());
 	}
 }

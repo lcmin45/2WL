@@ -6,6 +6,17 @@ enum SUBJECT
 	PLAYER, ENEMY
 };
 
+struct PARTICLE
+{
+	image* img;
+	POINTFLOAT pt;
+	RECT rc;
+	int indexX;
+	int indexY;
+	float angle;
+	float startTime;
+};
+
 class skill : public gameNode
 {
 protected:
