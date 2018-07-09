@@ -19,7 +19,7 @@ private:
 	image* _image; //이미지
 	const char* _name; //이름
 	const char* _info; //설명
-	int _price;
+	int _price; //아이템 가격
 	float _speed; //코인용 스피드
 	animation* _animation; //코인용 애니메이션
 public:

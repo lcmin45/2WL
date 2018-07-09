@@ -2,14 +2,15 @@
 #include "player.h"
 #include "itemManager.h"
 #include "projectileManager.h"
+#include "mapToolNode.h"
 
 player::player() {}
 player::~player() {}
 
 HRESULT player::init() //초기화
 {
-	_position.x = WINSIZEX / 2;
-	_position.y = WINSIZEY / 2;
+	_position.x = _beforePosition.x = WINSIZEX / 2;
+	_position.y = _beforePosition.y = WINSIZEY / 2;
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
@@ -81,7 +82,8 @@ HRESULT player::init() //초기화
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
-	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
+	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 2);
+	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 3, _image->getFrameWidth() / 4, _image->getFrameHeight() / 8);
 
 	_maxHp = _currentHp = PLAYER_HP;
 	_damage = PLAYER_DAMAGE;
@@ -90,7 +92,6 @@ HRESULT player::init() //초기화
 	_coin = 0;
 
 	_canTakeItem = false;
-
 	return S_OK;
 }
 
@@ -99,8 +100,9 @@ void player::release() {}
 void player::update()
 {
 	keyProcess();
-	actionProcess();
-	collisionProcess();
+	moveProcess();
+	collisionCheckWithTile();
+	collisionCheckWithItem();
 	inventoryProcess();
 	CAMERAMANAGER->setCameraPoint(_position);
 
@@ -120,10 +122,16 @@ void player::render()
 {
 	_image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
 
-	//임시
+	////////////////////////////////////////////////////////////////////임시
 	char temp[128];
 	sprintf_s(temp, "HP : %f / %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _currentHp, _maxHp, _damage, _speed, _critical);
 	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 50, temp, strlen(temp));
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _body.left, _body.top, _body.right, _body.bottom);
+		Rectangle(getMemDC(), _tileCheck.left, _tileCheck.top, _tileCheck.right, _tileCheck.bottom);
+	}
+	////////////////////////////////////////////////////////////////////
 }
 
 void player::keyProcess()
@@ -278,7 +286,7 @@ void player::animationProcess()
 	_animation->start();
 }
 
-void player::actionProcess()
+void player::moveProcess()
 {
 	//이동 혹은 대쉬
 	if (_action == MOVE || _action == DASH)
@@ -298,11 +306,33 @@ void player::actionProcess()
 		if (_action == DASH) _dashSpeed -= 0.1f;
 	}
 
-	//바디 갱신
-	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 2, _image->getFrameHeight() / 2);
+	//바디, 충돌용 렉트 갱신
+	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 2);
+	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 3, _image->getFrameWidth() / 4, _image->getFrameHeight() / 8);
 }
 
-void player::collisionProcess()
+void player::collisionCheckWithTile()
+{
+	for (int i = (CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE; i < (CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1; ++i)
+	{
+		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
+		{
+			if (i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
+
+			RECT temp;
+			if ((_tile[i * MAXTILEX + j].terrain == TR_WALL || (_tile[i * MAXTILEX + j].object != OBJ_NONE)) && IntersectRect(&temp, &_tile[i * MAXTILEX + j].rc, &_tileCheck))
+			{
+				_position = _beforePosition;
+				break;
+			}
+		}
+	}
+
+	_beforePosition = _position;
+}
+
+void player::collisionCheckWithItem()
 {
 	//아이템 줍기 가능 여부 체크
 	_canTakeItem = false;
@@ -310,7 +340,7 @@ void player::collisionProcess()
 	{
 		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 25)
 		{
-			if (_itemManager->getVItem()[i]->getEffect()[0].type == COIN)
+			if (_itemManager->getVItem()[i]->getEffect()[0].type == COIN) //코인이면 코인에 습득
 			{
 				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
 				_itemManager->takeCoin(i);
@@ -318,7 +348,7 @@ void player::collisionProcess()
 			else
 			{
 				_canTakeItem = true;
-				if (KEYMANAGER->isOnceKeyDown('F'))
+				if (KEYMANAGER->isOnceKeyDown('F')) //아이템 습득 가능 위치에 있을 시
 				{
 					if (_itemManager->getVItem()[i]->getStatus() == IN_STORE)
 					{
@@ -344,7 +374,7 @@ void player::inventoryProcess()
 	_speed = PLAYER_SPEED;
 	_critical = PLAYER_CRITICAL;
 
-	for (int i = 0; i < _itemManager->getInventory()->getVItem().size(); i++)
+	for (int i = 0; i < _itemManager->getInventory()->getVItem().size(); i++) //인벤토리에 들어있는 아이템 효과 적용
 	{
 		item* item = _itemManager->getInventory()->getVItem()[i];
 		for (int j = 0; j < 2; j++)
@@ -369,7 +399,7 @@ void player::inventoryProcess()
 		}
 	}
 
-	if (_currentHp > _maxHp) _currentHp = _maxHp;
+	if (_currentHp > _maxHp) _currentHp = _maxHp; //체력 아이템 습득 시 최대 체력에 맞게 현재 체력 보정
 }
 
 void player::afterAction(void* obj)

@@ -43,9 +43,9 @@ void inventory::render()
 				oldFont = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font);
 				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
 				SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
-				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 250, 300, 50);
+				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 250, 400, 50);
 				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_vItem[i]->getName()), strlen(_vItem[i]->getName()), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
-				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 300, 300, 50);
+				itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 300, 400, 50);
 				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_vItem[i]->getInfo()), strlen(_vItem[i]->getInfo()), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 				char info[128];
@@ -59,7 +59,7 @@ void inventory::render()
 					else sprintf_s(c, "%d", temp.amount);
 					strcat_s(c, "\%");
 					sprintf_s(info, (temp.type == HP ? "HP %s" : (temp.type == DAMAGE ? "DAMAGE %s" : (temp.type == SPEED ? "SPEED %s" : "CRITICAL %s"))), c);
-					itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 325 + j * 20, 300, 50);
+					itemText = RectMakeCenter(_inventoryRect.left + 200, _inventoryRect.top + 325 + j * 20, 400, 50);
 					DrawText(CAMERAMANAGER->getCameraDC(), TEXT(info), strlen(info), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 				}
 
@@ -84,7 +84,7 @@ void inventory::keyProcess(POINTFLOAT position)
 			{
 				if (PtInRect(&_itemRect[i], _ptMouse) && _selectedItemIndex == -1)
 				{
-					_selectedItemIndex = i;
+					_selectedItemIndex = i; //선택한 아이템 인덱스
 				}
 			}
 		}
@@ -94,7 +94,7 @@ void inventory::keyProcess(POINTFLOAT position)
 			{
 				if (_selectedItemIndex != -1) dumpItem(_selectedItemIndex, position);
 			}
-			_selectedItemIndex = -1;
+			_selectedItemIndex = -1; //선택 취소 시 인덱스 -1으로 초기화
 		}
 	}
 }

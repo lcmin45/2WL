@@ -33,6 +33,7 @@ HRESULT inGame::init()
 	_Astar->setStageMemoryAdressLink(_stage);
 
 	_UI->setPlayerAddressLink(_player);
+	_player->setTileAddressLink(_stage->getTile());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
 	_itemManager->setPlayerAddressLink(_player);

@@ -57,7 +57,6 @@ void stage::render()
 
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
-	
 	}
 
 	char str[128];

@@ -14,7 +14,7 @@ private:
 	vector<item*>::iterator _viItem; //아이템 백터 이터레이터
 	player* _player; //플레이어
 	inventory* _inventory; //인벤토리
-	store* _store;
+	store* _store; //상점
 public:
 	itemManager();
 	~itemManager();
