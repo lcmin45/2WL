@@ -21,7 +21,7 @@ public:
 	virtual void update(POINTFLOAT position);
 	virtual void render();
 
-	void keyProcess(POINTFLOAT position);
+	void keyProcess(POINTFLOAT position); //키 프로세스
 	bool addItem(item* item); //아이템 추가 함수
 	void dumpItem(int index, POINTFLOAT position); //아이템 버리는 함수
 

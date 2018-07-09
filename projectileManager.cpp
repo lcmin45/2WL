@@ -13,24 +13,6 @@ projectileManager::~projectileManager()
 
 HRESULT projectileManager::init()
 {
-	IMAGEMANAGER->addFrameImage("불꽃타격", "image/skill/불꽃타격.bmp", 50, 250, 1, 5, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("불꽃파티클", "image/skill/불꽃파티클.bmp", 700, 400, 7, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("불꽃파티클2", "image/skill/불꽃파티클.bmp", 350, 200, 7, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("화염구", "image/skill/화염구.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("흙주먹", "image/skill/흙주먹.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("바람베기", "image/skill/바람베기.bmp", 480, 1920, 4, 16, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("바람파티클", "image/skill/바람파티클.bmp", 900, 750, 6, 5, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("BlueKnightBullet", "image/skill/monsterBullet/BlueKnightBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("GreenKnightBullet", "image/skill/monsterBullet/GreenKnightBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("RedKnightBullet", "image/skill/monsterBullet/RedKnightBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("BlueMageBullet", "image/skill/monsterBullet/BlueMageBullet.bmp", 160, 256, 5, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("GreenMageBullet", "image/skill/monsterBullet/GreenMageBullet.bmp", 160, 256, 5, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("RedMageBullet", "image/skill/monsterBullet/RedMageBullet.bmp", 160, 256, 5, 8, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("BlueRogueBullet", "image/skill/monsterBullet/BlueRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("GreenRogueBullet", "image/skill/monsterBullet/GreenRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("RedRogueBullet", "image/skill/monsterBullet/RedRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("GhoulBullet", "image/skill/monsterBullet/GhoulBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
-
 
 
 	return S_OK;
@@ -105,31 +87,35 @@ void projectileManager::fire(const char * skillName)
 
 void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 {
-	float tempAngle = getAngle(pt.x, pt.y, _player->getPosition().x, _player->getPosition().y);
-
-	if (skillName == "BlueKnightBullet" || skillName == "GreenKnightBullet" || skillName == "RedKnightBullet" || skillName == "GhoulBullet")
+	float tempAngle = 0;
+	tempAngle = getAngle(
+		pt.x, 
+		pt.y, 
+		_player->getPosition().x, 
+		_player->getPosition().y);
+	if (!strcmp(skillName, "BlueKnightBullet") || !strcmp(skillName, "GreenKnightBullet")|| !strcmp(skillName, "RedKnightBullet") || !strcmp(skillName, "GhoulBullet"))
 	{
 		몬스터근접* monsterAtt = new 몬스터근접;
 		monsterAtt->fire(skillName, 1, pt, tempAngle, 15, 350, 50, 1.0f, ENEMY);
 		vSkill.push_back(monsterAtt);
 	}
 
-	if (skillName == "BlueMageBullet" || skillName == "GreenMageBullet" || skillName == "RedMageBullet")
+	if (!strcmp(skillName, "BlueMageBullet") || !strcmp(skillName, "GreenMageBullet") || !strcmp(skillName, "RedMageBullet"))
 	{
 		몬스터총알* monsterBullet = new 몬스터총알;
 		몬스터총알* monsterBullet2 = new 몬스터총알;
 		몬스터총알* monsterBullet3 = new 몬스터총알;
 		monsterBullet->fire(skillName, 1, pt, tempAngle - PI/6, 8, 850, 50, 1.0f, ENEMY);
-		monsterBullet->fire(skillName, 1, pt, tempAngle, 8, 850, 50, 1.0f, ENEMY);
-		monsterBullet->fire(skillName, 1, pt, tempAngle + PI/6, 8, 850, 50, 1.0f, ENEMY);
+		monsterBullet2->fire(skillName, 1, pt, tempAngle, 8, 850, 50, 1.0f, ENEMY);
+		monsterBullet3->fire(skillName, 1, pt, tempAngle + PI/6, 8, 850, 50, 1.0f, ENEMY);
 		vSkill.push_back(monsterBullet);
 		vSkill.push_back(monsterBullet2);
 		vSkill.push_back(monsterBullet3);
 	}
-	if (skillName == "BlueRogueBullet" || skillName == "GreenRogueBullet" || skillName == "RedRogueBullet")
+	if (!strcmp(skillName, "BlueRogueBullet") || !strcmp(skillName, "GreenRogueBullet") || !strcmp(skillName, "RedRogueBullet"))
 	{
 		몬스터총알* monsterBullet4 = new 몬스터총알;
-		monsterBullet4->fire(skillName, 1, pt, tempAngle, 16, 850, 50, 1.0f, ENEMY);
+		monsterBullet4->fire(skillName, 1, pt, tempAngle, 8, 850, 50, 1.0f, ENEMY);
 		vSkill.push_back(monsterBullet4);
 	}
 }

@@ -21,7 +21,6 @@ HRESULT inGame::init()
 	_itemManager->init();
 
 	_ptM = new projectileManager;
-	_ptM->init();
 
 
 	_enemyManager = new enemyManager;
@@ -31,8 +30,10 @@ HRESULT inGame::init()
 	_Astar = new Astar;
 
 	_UI->setPlayerAddressLink(_player);
+	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
+	_enemyManager->setProjectileManagerAddressLink(_ptM);
 	_itemManager->setPlayerAddressLink(_player);
 	_ptM->setPlayerAddressLink(_player);
 	_stage->setPlayerMemoryAdressLink(_player);
@@ -58,7 +59,7 @@ void inGame::update()
 	_enemyManager->setStage(_stage);
 	_enemyManager->setPlayerPoint(_player->getPosition());
 	//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
-	_enemyManager->setPlayerIndex(1);
+	_enemyManager->setPlayerIndex(4);
 	_Astar->setPlayerPositionLink(_player->getPosition());
 
 	KEYANIMANAGER->update();

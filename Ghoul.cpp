@@ -47,10 +47,10 @@ HRESULT Ghoul::init(POINTFLOAT point,int index, int monsterRoomIndex)
 	int leftMove[] = { 13,14,15,16,17,18 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulLeftMove", "Ghoul", leftMove, 6, 3, true);
 
-	int rightAttack[] = { 1 ,2, 2 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, "Ghoul", rightAttack, 3,3, false, rightStop, this);
-	int leftAttack[] = { 11 ,12, 12 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, "Ghoul", leftAttack, 3, 3, false, leftStop, this);
+	int rightAttack[] = { 1 , 2 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, "Ghoul", rightAttack, 2, 8, false, rightStop, this);
+	int leftAttack[] = { 11 , 12 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, "Ghoul", leftAttack, 2, 8, false, leftStop, this);
 
 	int rightHit[] = { 20 ,9 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName4, "Ghoul", rightHit, 2, 3, false , rightStop, this);
@@ -98,25 +98,36 @@ void Ghoul::render()
 		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
 		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 	}
-
 }
 
 void Ghoul::ghoulMove()
 {
 
 	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT ||
-		_Direction == RIGHT_DIE || _Direction == LEFT_DIE) return;
+		_Direction == RIGHT_DIE || _Direction == LEFT_DIE ||
+		_Direction == RIGHT_ATTACK || _Direction == LEFT_ATTACK) return;
 
 	++_timecnt;
 
 	_position.x = _bottomPosition.x;
 	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
 
-	if (_attackRange  > _distance)
+
+	if (_attackReady == false)
 	{
+		if (_attackCount >= 100)
+		{
+			_attackReady = true;
+			_attackCount = 0;
+		}
+		else ++_attackCount;
+	}
 
+	if (_attackRange  > _distance )
+	{
+		if (!_attackReady) return;
 		if (_bottomPosition.x < _playerPosition.x)
 		{
 			if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND)
@@ -124,6 +135,8 @@ void Ghoul::ghoulMove()
 				_Direction = RIGHT_ATTACK;
 				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
 				_Motion->start();
+				_PM->fire("GhoulBullet", _position);
+				_attackReady = false;
 			}
 		}
 		else if (_bottomPosition.x > _playerPosition.x)
@@ -134,6 +147,8 @@ void Ghoul::ghoulMove()
 				_Direction = LEFT_ATTACK;
 				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
 				_Motion->start();
+				_PM->fire("GhoulBullet", _position);
+				_attackReady = false;
 			}
 		}
 	}

@@ -96,29 +96,28 @@ void enemyManager::settingMonster()
 		Knight* _Knight;
 		_Knight = new Knight;
 		_Knight->init("BlueKnight", { 128 + i * 128,128*2 }, i,2);
-
 		_vKnight.push_back(_Knight);
 	}
 
-	for (float i = 0; i < 2; ++i)
+	for (float i = 0; i < 1; ++i)
 	{
 		Mage* _Mage;
 		_Mage = new Mage;
-		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 2);
+		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 4);
 
 		_vMage.push_back(_Mage);
 	}
 
-	for (float i = 0; i < 2; ++i)
+	for (float i = 0; i < 1; ++i)
 	{
 		Rogue* _Rogue;
 		_Rogue = new Rogue;
-		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i, 2);
+		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i,2);
 
 		_vRogue.push_back(_Rogue);
 	}
 
-	for (float i = 0; i < 2; ++i)
+	for (float i = 0; i < 1; ++i)
 	{
 		Scarecrow* _Scarecrow;
 		_Scarecrow = new Scarecrow;
@@ -133,6 +132,7 @@ void enemyManager::monsterUpdate()
 	
 	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
 	{
+		(*_viGhoul)->setSkillLink(_PM);
 		(*_viGhoul)->setStageLink(_stage);
 		(*_viGhoul)->setPlayerPoint(_playerPoint);
 		(*_viGhoul)->setPlayerIndex(_playerIndex);
@@ -140,6 +140,7 @@ void enemyManager::monsterUpdate()
 	}
 	for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); ++_viKnight)
 	{
+		(*_viKnight)->setSkillLink(_PM);
 		(*_viKnight)->setStageLink(_stage);
 		(*_viKnight)->setPlayerPoint(_playerPoint);
 		(*_viKnight)->setPlayerIndex(_playerIndex);
@@ -147,6 +148,7 @@ void enemyManager::monsterUpdate()
 	}
 	for (_viMage = _vMage.begin(); _viMage != _vMage.end(); ++_viMage)
 	{
+		(*_viMage)->setSkillLink(_PM);
 		(*_viMage)->setStageLink(_stage);
 		(*_viMage)->setPlayerPoint(_playerPoint);
 		(*_viMage)->setPlayerIndex(_playerIndex);
@@ -154,6 +156,7 @@ void enemyManager::monsterUpdate()
 	}
 	for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); ++_viRogue)
 	{
+		(*_viRogue)->setSkillLink(_PM);
 		(*_viRogue)->setStageLink(_stage);
 		(*_viRogue)->setPlayerPoint(_playerPoint);
 		(*_viRogue)->setPlayerIndex(_playerIndex);

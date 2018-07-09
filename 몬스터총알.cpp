@@ -22,7 +22,11 @@ void ¸ó½ºÅÍÃÑ¾Ë::release()
 
 void ¸ó½ºÅÍÃÑ¾Ë::update()
 {
-	move();
+	if (_img)
+	{
+		move();
+		frameCount();
+	}
 }
 
 void ¸ó½ºÅÍÃÑ¾Ë::render()
@@ -41,8 +45,8 @@ void ¸ó½ºÅÍÃÑ¾Ë::fire(const char * skillName, int amount, POINTFLOAT pt, float a
 		_firePt = pt;
 		_pt = pt;
 		_angle = angle;
-		_pt.x = _pt.x + cosf(_angle) * 100;
-		_pt.y = _pt.y - sinf(_angle) * 100;
+		_pt.x = _pt.x + cosf(_angle) * 50;
+		_pt.y = _pt.y - sinf(_angle) * 50;
 		_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_speed = speed;
 		_range = range;
@@ -50,6 +54,8 @@ void ¸ó½ºÅÍÃÑ¾Ë::fire(const char * skillName, int amount, POINTFLOAT pt, float a
 		_coolTime = coolTime;
 
 		_startTime = TIMEMANAGER->getWorldTime();
+		if (!strcmp(skillName, "BlueRogueBullet") || !strcmp(skillName, "GreenRogueBullet") || !strcmp(skillName, "RedRogueBullet"))
+			_startTime = 1;
 	}
 }
 
@@ -68,4 +74,18 @@ void ¸ó½ºÅÍÃÑ¾Ë::move()
 
 void ¸ó½ºÅÍÃÑ¾Ë::frameCount()
 {
+	_count++;
+	if (_count % 3 == 0)
+	{
+		int angle = _angle / (PI2 / 8);
+
+		_img->setFrameY(angle);
+		_img->setFrameX(_frameIndex);
+		_frameIndex++;
+		_count = 0;
+	}
+
+	if (_frameIndex > _img->getMaxFrameX()) _frameIndex = 0;
+	if (_range < getDistance(_firePt.x, _firePt.y, _pt.x, _pt.y)) _img = NULL;
+
 }

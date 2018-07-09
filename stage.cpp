@@ -23,36 +23,44 @@ void stage::render()
 {
 	if (_stage == 0) return;
 
-	for (int i = (CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE; i < (CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1; ++i)
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
 	{
-		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
 		{
-			if (i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (CAMERAMAXCHECK) continue;
 
 			switch (_tile[i * MAXTILEX + j].imageIndex)
 			{
-				case 1:
-				{
-					IMAGEMANAGER->findImage("SAMPLETILE_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-				}
-					break;
-				case 10:
-				{
-					IMAGEMANAGER->findImage("SAMPLETILE_AUTO_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-				}
-					break;
-				case 11:
-					IMAGEMANAGER->findImage("SAMPLE_TILE_AUTO_ICE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-					break;
+			case 10:
+				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
 			}
 		}
 	}
 
-	for (int i = (CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE; i < (CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1; ++i)
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
 	{
-		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
 		{
-			if (i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (CAMERAMAXCHECK) continue;
+
+			switch (_tile[i * MAXTILEX + j].imageObjectIndex)
+			{
+			case 13:
+				IMAGEMANAGER->findImage("IMAGE_OBJECT_1_3")->frameRender(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			case 23:
+				IMAGEMANAGER->findImage("IMAGE_OBJECT_2_3")->frameRender(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			}
+		}
+	}
+
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
+	{
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
+		{
+			if (CAMERAMAXCHECK) continue;
 
 			if ((int)(_player->getPosition().y / TILESIZE) == i) _player->render();
 
@@ -60,7 +68,7 @@ void stage::render()
 
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
-	
+
 	}
 
 	char str[128];

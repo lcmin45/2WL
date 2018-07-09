@@ -6,9 +6,9 @@
 class store : public gameNode
 {
 private:
-	POINTFLOAT _position;
-	vector<item*> _vItem;
-	image* _image;
+	POINTFLOAT _position; //상점 위치
+	vector<item*> _vItem; //상점 아이템
+	image* _image; //이미지
 public:
 	store();
 	~store();
@@ -18,6 +18,6 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void addItem(item* item);
-	void sellItem(item* item);
+	void addItem(item* item); //상점에 아이템 추가 함수
+	void sellItem(item* item); //아이템 판매 함수
 };

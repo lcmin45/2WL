@@ -17,11 +17,13 @@ void store::update() {}
 
 void store::render()
 {
+	//상점 좌표에 따라 이미지 렌더
 	_image = IMAGEMANAGER->findImage("storeNpc");
 	_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2 - 75);
 	_image = IMAGEMANAGER->findImage("storeTable");
 	_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);
 
+	//아이템 판매 정보
 	HFONT font, oldFont;
 	RECT priceText;
 	font = CreateFont(15, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("맑은 고딕"));
@@ -41,6 +43,7 @@ void store::render()
 
 void store::addItem(item * item)
 {
+	//아이템 추가 될 시 상태를 IN_STORE로 변경
 	item->setStatus(IN_STORE);
 	_vItem.push_back(item);
 
@@ -49,6 +52,7 @@ void store::addItem(item * item)
 
 void store::sellItem(item * item)
 {
+	//아이템 판매
 	for (int i = 0; i < _vItem.size(); i++) { if (_vItem[i] == item) _vItem.erase(_vItem.begin() + i); }
 
 	item->setStatus(IN_INVENTORY);

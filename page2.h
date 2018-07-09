@@ -28,7 +28,12 @@ public:
 	void boxInit(void);
 
 	void titleRender(void);
+	void tileRender(void);
+	void boxRender(void);
+
+	void checkBox(void);
 
 	void setIndex(int index);
 	void setCenterPoint(POINT point);
+
 };

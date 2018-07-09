@@ -17,8 +17,6 @@ private:
 	player* _player;
 	itemManager* _itemManager;
 	projectileManager* _ptM;
-
-
 	enemyManager* _enemyManager;
 	stage * _stage;
 	Astar* _Astar;

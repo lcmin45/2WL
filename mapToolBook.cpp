@@ -19,7 +19,7 @@ HRESULT mapToolBook::init(int index)
 	return S_OK;
 }
 
-void mapToolBook::release(void) 
+void mapToolBook::release(void)
 {
 	SAFE_RELEASE(_pageManager);
 }
@@ -53,8 +53,8 @@ void mapToolBook::bookInit(void)
 	_iconBook.center = PointMake(WINSIZEX - _iconBook.iconImg->getFrameWidth() / 2, _iconBook.iconImg->getFrameHeight() / 2);
 
 	_bookMark.markImg = IMAGEMANAGER->findImage("MAIN_BOOK_MARK");
-	_bookMark.leftPoint = PointMake(_mainBook.center.x - BOOKSIZEX / 2 - _bookMark.markImg->getWidth() / 2, _mainBook.center.y - BOOKSIZEY / 2 + 50);
-	_bookMark.rightPoint = PointMake(_mainBook.center.x + BOOKSIZEX / 2, _mainBook.center.y - BOOKSIZEY / 2 + 50);
+	_bookMark.leftPoint = PointMake(_mainBook.center.x - BOOKSIZEX / 2 - _bookMark.markImg->getWidth() / 2, _mainBook.center.y - BOOKSIZEY / 2 + 25);
+	_bookMark.rightPoint = PointMake(_mainBook.center.x + BOOKSIZEX / 2, _mainBook.center.y - BOOKSIZEY / 2 + 25);
 
 	_pageChange.pageChangeImg = IMAGEMANAGER->findImage("MAIN_BOOK_CHANGE");
 	_pageChange.isView = false;
@@ -127,8 +127,8 @@ void mapToolBook::moveBookKey(void)
 	if (_mainBook.center.y < 0)			_mainBook.center.y = 0;
 	if (_mainBook.center.y > WINSIZEY)	_mainBook.center.y = WINSIZEY;
 
-	_bookMark.leftPoint = PointMake(_mainBook.center.x - BOOKSIZEX / 2 - _bookMark.markImg->getWidth() / 2, _mainBook.center.y - BOOKSIZEY / 2 + 50);
-	_bookMark.rightPoint = PointMake(_mainBook.center.x + BOOKSIZEX / 2, _mainBook.center.y - BOOKSIZEY / 2 + 50);
+	_bookMark.leftPoint = PointMake(_mainBook.center.x - BOOKSIZEX / 2 - _bookMark.markImg->getWidth() / 2, _mainBook.center.y - BOOKSIZEY / 2 + 25);
+	_bookMark.rightPoint = PointMake(_mainBook.center.x + BOOKSIZEX / 2, _mainBook.center.y - BOOKSIZEY / 2 + 25);
 }
 
 void mapToolBook::changePageKey(void)

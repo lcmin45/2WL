@@ -18,7 +18,7 @@ HRESULT itemManager::init()
 	int coinAni[] = { 0, 1, 2, 3, 4, 5 };
 	KEYANIMANAGER->addArrayFrameAnimation("coin", "coinFrame", coinAni, 6, 5, true);
 
-	for (int i = 0; i < 10; i++)
+	for (int i = 0; i < 10; i++) //아이템 초기화
 	{
 		sprintf_s(imageName, "item%d", i);
 		item* tempItem = new item;
@@ -31,7 +31,8 @@ HRESULT itemManager::init()
 
 	_store = new store;
 	_store->init();
-	for (int i = 0; i < 4;)
+
+	for (int i = 0; i < 4;) //랜덤으로 상점에 아이템 4개 배치
 	{
 		int rand = RND->getInt(10);
 		if (_vItem[rand]->getStatus() == IN_STORE) continue;
@@ -79,6 +80,7 @@ bool itemManager::addItem(item * item)
 	return false;
 }
 
+//상점에서 아이템 판매 함수
 bool itemManager::sellItem(item * item)
 {
 	if (_player->getCoin() >= item->getPrice()) { if (addItem(item)) { _store->sellItem(item); return true; } }
@@ -86,6 +88,7 @@ bool itemManager::sellItem(item * item)
 	return false;
 }
 
+//코인 드랍 함수
 void itemManager::dropCoin(POINTFLOAT position)
 {
 	int randCount = RND->getInt(4) + 1;
@@ -103,6 +106,7 @@ void itemManager::dropCoin(POINTFLOAT position)
 	}
 }
 
+//코인 회수 함수
 void itemManager::takeCoin(int index)
 {
 	_vItem.erase(_vItem.begin() + index);

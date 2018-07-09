@@ -3,6 +3,7 @@
 #include "stage.h"
 #include "tile.h"
 #include "Astar.h"
+#include "projectileManager.h"
 
 enum MONSTERDIRECTION
 {
@@ -46,7 +47,7 @@ protected:
 	stage* _stage;
 	Astar* _Astar;
 
-
+	projectileManager* _PM;
 	MONSTERDIRECTION _Direction;		//몬스터 상태정의
 	animation* _Motion;					//몬스터 에니메이션
 	MONDIRECTION _dir;					//몬스터가 움직일 방향
@@ -66,12 +67,15 @@ protected:
 	int _timecnt;						//플레이어의 위치를 받아올 시간
 	int _playerIndex;					//몬스터가 알고있는 플레이어 인덱스
 	int _monsterIndex;					//몬스터가 가지고 있는 인덱스 (플레이어와 같으면 소환)
+	int _attackCount;					//공격 쿨타임
+	bool _attackReady;					//공격 준비해 버렸나?
 	char _motionName1[128];				//콜백함수를 위한 모션 네임
 	char _motionName2[128];				//콜백함수를 위한 모션 네임
 	char _motionName3[128];				//콜백함수를 위한 모션 네임
 	char _motionName4[128];				//콜백함수를 위한 모션 네임
 	char _motionName5[128];				//콜백함수를 위한 모션 네임
 	char str[256];						//이미지의 키값
+	char str2[256];						//몬스터 공격이미지의 키값
 
 
 public:
@@ -97,6 +101,7 @@ public:
 
 	//상태에 대한 접근자, 설정자
 
+	int getMonsterIndex() { return _monsterIndex; }
 	MONSTERDIRECTION getMonsterDirection() { return _Direction; }
 	void setMonsterDirection(MONSTERDIRECTION direction) { _Direction = direction; }
 
@@ -104,6 +109,7 @@ public:
 	void setMotion(animation* ani) { _Motion = ani; }
 
 
+	void setSkillLink(projectileManager* PM) { _PM = PM; }
 	void setStageLink(stage* sta)	{_Astar->setStageMemoryAdressLink(sta);}
 	void setPlayerIndex(int index)	{_playerIndex = index; }
 	void setPlayerPoint(POINTFLOAT playerPosition) 

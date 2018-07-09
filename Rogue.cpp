@@ -15,6 +15,7 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point,int index, int monste
 {
 	_Astar = new Astar;
 	sprintf_s(str, "%s", imgName);
+	sprintf_s(str2, "%sBullet", imgName);
 	_image = IMAGEMANAGER->findImage("SummonMonster");
 	_form = CARD;
 	_Direction = RIGHT_STAND;
@@ -50,10 +51,10 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point,int index, int monste
 	int leftMove[] = { 11,12,13,14,15 };
 	KEYANIMANAGER->addArrayFrameAnimation("RogueLeftMove", str, leftMove, 5, 3, true);
 
-	int rightAttack[] = { 6,7,7 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, str, rightAttack, 3, 3, false, rightStop, this);
-	int leftAttack[] = { 16,17,17 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, str, leftAttack, 3, 3, false, leftStop, this);
+	int rightAttack[] = { 6,7 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName2, str, rightAttack, 2, 8, false, rightStop, this);
+	int leftAttack[] = { 16,17 };
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName3, str, leftAttack, 2, 8, false, leftStop, this);
 
 	int rightHit[] = { 9,8 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName4, str, rightHit, 2, 3, false, rightStop, this);
@@ -109,7 +110,8 @@ void Rogue::RogueMove()
 {
 
 	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT ||
-		_Direction == RIGHT_DIE || _Direction == LEFT_DIE) return;
+		_Direction == RIGHT_DIE || _Direction == LEFT_DIE ||
+		_Direction == RIGHT_ATTACK || _Direction == LEFT_ATTACK) return;
 
 	++_timecnt;
 
@@ -118,8 +120,20 @@ void Rogue::RogueMove()
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
 
+
+	if (_attackReady == false)
+	{
+		if (_attackCount >= 100)
+		{
+			_attackReady = true;
+			_attackCount = 0;
+		}
+		else ++_attackCount;
+	}
+
 	if (_attackRange  > _distance)
 	{
+		if (!_attackReady) return;
 		if (_position.x < _playerPosition.x)
 		{
 			if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND)
@@ -127,6 +141,8 @@ void Rogue::RogueMove()
 				_Direction = RIGHT_ATTACK;
 				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
 				_Motion->start();
+				_PM->fire(str2, _position);
+				_attackReady = false;
 			}
 		}
 		else if (_position.x > _playerPosition.x)
@@ -137,6 +153,8 @@ void Rogue::RogueMove()
 				_Direction = LEFT_ATTACK;
 				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
 				_Motion->start();
+				_PM->fire(str2, _position);
+				_attackReady = false;
 			}
 		}
 	}
