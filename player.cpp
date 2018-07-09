@@ -311,13 +311,13 @@ void player::moveProcess()
 	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 3, _image->getFrameWidth() / 4, _image->getFrameHeight() / 8);
 }
 
-void player::collisionCheckWithTile()
+void player::collisionCheckWithTile() //타일 충돌 임시 -> 수정 예정
 {
-	for (int i = (CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2) / TILESIZE; i < (CAMERAMANAGER->getCameraPoint().y + WINSIZEY / 2) / TILESIZE + 1; ++i)
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
 	{
-		for (int j = (CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2) / TILESIZE; j < (CAMERAMANAGER->getCameraPoint().x + WINSIZEX / 2) / TILESIZE + 1; ++j)
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
 		{
-			if (i >= MAXTILEY || j >= MAXTILEX) continue;
+			if (CAMERAMAXCHECK) continue;
 			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
 
 			RECT temp;

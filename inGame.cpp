@@ -30,7 +30,7 @@ HRESULT inGame::init()
 	_Astar = new Astar;
 
 	_UI->setPlayerAddressLink(_player);
-	_player->setTileAddressLink(_stage->getTile());
+	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
 	_enemyManager->setProjectileManagerAddressLink(_ptM);
