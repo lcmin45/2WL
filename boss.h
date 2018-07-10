@@ -59,6 +59,7 @@ protected:
 	float _jump;
 
 	POINTFLOAT _playerPosition;
+	projectileManager* _ptM;
 	bool _skill;
 
 public:
