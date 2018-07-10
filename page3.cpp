@@ -79,12 +79,38 @@ void page3::tileRender(void)
 					_box[i].center.y - IMAGEMANAGER->findImage(_box[i].objectImageName)->getFrameHeight() / 2,
 					_box[i].frameX, _box[i].frameY);
 			}
+
+			if (_box[i].imageObjectIndex == 32)
+			{
+				IMAGEMANAGER->findImage(_box[i].objectImageName)->frameRender(CAMERAMANAGER->getCameraDC(),
+					_box[i].center.x - IMAGEMANAGER->findImage(_box[i].objectImageName)->getFrameWidth() / 2,
+					_box[i].center.y - IMAGEMANAGER->findImage(_box[i].objectImageName)->getFrameHeight() / 2,
+					_box[i].frameX, _box[i].frameY);
+			}
+
+			if (_box[i].imageObjectIndex == 24)
+			{
+				IMAGEMANAGER->findImage(_box[i].objectImageName)->frameRender(CAMERAMANAGER->getCameraDC(),
+					_box[i].center.x - IMAGEMANAGER->findImage(_box[i].objectImageName)->getFrameWidth() / 2,
+					_box[i].center.y - IMAGEMANAGER->findImage(_box[i].objectImageName)->getFrameHeight() / 2,
+					_box[i].frameX, _box[i].frameY);
+			}
 		}
 		else
 			_box[i].autoTileImg->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left + 5, _box[i].rc.top + 5);
-	}
 
-	if (_box[34].objectIndex != NULL) IMAGEMANAGER->findImage(_box[34].tileImageName)->frameRender(CAMERAMANAGER->getCameraDC(), _box[34].center.x - IMAGEMANAGER->findImage(_box[34].tileImageName)->getFrameWidth() / 2, _box[34].center.y - IMAGEMANAGER->findImage(_box[34].tileImageName)->getFrameHeight() / 2, 0, 0);
+		if (_box[i].objectIndex != NULL)
+		{
+			if (i == 34)
+			{
+				if (_box[34].objectIndex != NULL) IMAGEMANAGER->findImage(_box[34].tileImageName)->frameRender(CAMERAMANAGER->getCameraDC(), _box[34].center.x - IMAGEMANAGER->findImage(_box[34].tileImageName)->getFrameWidth() / 2, _box[34].center.y - IMAGEMANAGER->findImage(_box[34].tileImageName)->getFrameHeight() / 2, 0, 0);
+			}
+			else
+			{
+				IMAGEMANAGER->findImage(_box[i].tileImageName)->frameRender(CAMERAMANAGER->getCameraDC(), _box[i].center.x - IMAGEMANAGER->findImage(_box[i].tileImageName)->getFrameWidth() / 2, _box[i].center.y - IMAGEMANAGER->findImage(_box[i].tileImageName)->getFrameHeight() / 2, 0, _box[i].objectIndex - 1);
+			}
+		}
+	}
 }
 
 void page3::boxRender(void)
@@ -103,11 +129,11 @@ void page3::checkBox(void)
 		{
 			if (PtInRect(&_box[i].rc, getCameraPoint()))
 			{
-				if (_box[i].objectIndex == 5)
+				if (_box[i].objectIndex != NULL)
 				{
 					_currentCheck = CH_OBJECT;
-					_currentObject.objectIndex = _box[34].objectIndex;
-					_currentObject.renderPoint = _box[34].renderPoint;
+					_currentObject.objectIndex = _box[i].objectIndex;
+					_currentObject.renderPoint = _box[i].renderPoint;
 				}
 
 				if (_box[i].imageObjectIndex == 13)
@@ -122,6 +148,47 @@ void page3::checkBox(void)
 					_currentObject.renderPoint = _box[i].renderPoint;
 					_currentObject.objectCheckSize = _box[i].objectCheckSize;
 					_currentObject.terrain = _box[i].terrain;
+				}
+
+				if (_box[i].imageObjectIndex == 32)
+				{
+					_currentCheck = CH_OBJECT_IMAGE;
+
+					_currentObject.imageName = _box[i].objectImageName;
+					_currentObject.imageObjectIndex = _box[i].imageObjectIndex;
+					_currentObject.frameX = _box[i].frameX;
+					_currentObject.frameY = _box[i].frameY;
+					_currentObject.objectSetpoint = _box[i].objectSetPoint;
+					_currentObject.renderPoint = _box[i].renderPoint;
+					_currentObject.objectCheckSize = _box[i].objectCheckSize;
+					_currentObject.terrain = _box[i].terrain;
+					break;
+				}
+
+				if (_box[i].imageObjectIndex == 24)
+				{
+					_currentCheck = CH_OBJECT_IMAGE;
+
+					_currentObject.imageName = _box[i].objectImageName;
+					_currentObject.imageObjectIndex = _box[i].imageObjectIndex;
+					_currentObject.frameX = _box[i].frameX;
+					_currentObject.frameY = _box[i].frameY;
+					_currentObject.objectSetpoint = _box[i].objectSetPoint;
+					_currentObject.renderPoint = _box[i].renderPoint;
+					_currentObject.objectCheckSize = _box[i].objectCheckSize;
+					_currentObject.terrain = _box[i].terrain;
+					break;
+				}
+
+				if (_box[i].imageIndex == 11)
+				{
+					_currentCheck = CH_AUTO;
+					_currentAuto.imageIndex = _box[i].imageIndex;
+					_currentAuto.startPoint = _box[i].startPoint;
+					_currentAuto.endPoint = _box[i].endPoint;
+					_currentAuto.autoCheck = _box[i].autoCheck;
+					_currentAuto.terrain = _box[i].terrain;
+					break;
 				}
 
 				if (_box[i].imageIndex != 10) continue;
@@ -150,6 +217,25 @@ void page3::setIndex(int index)
 		_titleImage[0] = IMAGEMANAGER->findImage("FONT_TITLE_OBJECT");
 		_titleImage[1] = IMAGEMANAGER->findImage("FONT_TITLE_OBJECT");
 
+		for (int i = 0; i < 6; ++i)
+		{
+			_box[i].objectImageName = "IMAGE_OBJECT_3_2";
+			_box[i].imageObjectIndex = 32;
+			_box[i].frameX = i % 6;
+			_box[i].frameY = 0;
+			_box[i].objectSetPoint = LEFT_BOTTOM;
+			_box[i].renderPoint = PointMake(16, 48);
+			_box[i].objectCheckSize = PointMake(3, 2);
+			_box[i].terrain = TR_WAY;
+		}
+		for (int i = 0; i < 6; ++i) _box[6 + i].imageIndex = 11;
+		setBox(6, 0, 0, 3, 4, AUTO_ALL, TR_WALL);
+		setBox(7, 0, 5, 3, 9, AUTO_ALL, TR_WALL);
+		setBox(8, 4, 0, 7, 4, AUTO_ALL, TR_WALL);
+		setBox(9, 4, 5, 7, 9, AUTO_ALL, TR_WALL);
+		setBox(10, 8, 0, 11, 4, AUTO_ALL, TR_WALL);
+		setBox(11, 8, 5, 11, 9, AUTO_ALL, TR_WALL);
+
 		for (int i = 0; i < 12; ++i)
 		{
 			_box[MAXBOX / 2 + i].objectImageName = "IMAGE_OBJECT_1_3";
@@ -160,6 +246,18 @@ void page3::setIndex(int index)
 			_box[MAXBOX / 2 + i].renderPoint = PointMake(16, 80);
 			_box[MAXBOX / 2 + i].objectCheckSize = PointMake(1, 3);
 			_box[MAXBOX / 2 + i].terrain = TR_WAY;
+		}
+
+		for (int i = 0; i < 6; ++i)
+		{
+			_box[MAXBOX / 2 + 12 + i].objectImageName = "IMAGE_OBJECT_2_4";
+			_box[MAXBOX / 2 + 12 + i].imageObjectIndex = 24;
+			_box[MAXBOX / 2 + 12 + i].frameX = i;
+			_box[MAXBOX / 2 + 12 + i].frameY = 0;
+			_box[MAXBOX / 2 + 12 + i].objectSetPoint = LEFT_BOTTOM;
+			_box[MAXBOX / 2 + 12 + i].renderPoint = PointMake(16, 114);
+			_box[MAXBOX / 2 + 12 + i].objectCheckSize = PointMake(2, 4);
+			_box[MAXBOX / 2 + 12 + i].terrain = TR_WAY;
 		}
 	}
 	break;
@@ -178,6 +276,17 @@ void page3::setIndex(int index)
 		setBox(5, 20, 21, 23, 21, AUTO_ALL, TR_WAY);
 		setBox(6, 20, 22, 23, 22, AUTO_ALL, TR_WAY);
 		setBox(7, 20, 23, 23, 23, AUTO_ALL, TR_WAY);
+
+		_box[9].tileImageName = "FRAME_OBJECT";
+		_box[9].objectIndex = 1;
+		_box[9].renderPoint = PointMake(16, 48);
+		_box[10].tileImageName = "FRAME_OBJECT";
+		_box[10].objectIndex = 2;
+		_box[10].renderPoint = PointMake(16, 48);
+		_box[11].tileImageName = "FRAME_OBJECT";
+		_box[11].objectIndex = 3;
+		_box[11].renderPoint = PointMake(16, 48);
+
 
 		for (int i = MAXBOX / 2; i < MAXBOX / 2 + 16; ++i)
 			_box[i].imageIndex = 10;
@@ -202,6 +311,10 @@ void page3::setIndex(int index)
 		_box[34].tileImageName = "OBJECT_5";
 		_box[34].objectIndex = 5;
 		_box[34].renderPoint = PointMake(16, 80);
+
+		_box[35].tileImageName = "FRAME_OBJECT";
+		_box[35].objectIndex = 1;
+		_box[35].renderPoint = PointMake(16, 80);
 
 		for (int i = 0; i < MAXBOX; ++i)
 		{

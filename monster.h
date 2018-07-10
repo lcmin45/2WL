@@ -67,6 +67,7 @@ protected:
 	int _timecnt;						//플레이어의 위치를 받아올 시간
 	int _playerIndex;					//몬스터가 알고있는 플레이어 인덱스
 	int _monsterIndex;					//몬스터가 가지고 있는 인덱스 (플레이어와 같으면 소환)
+	int _keyIndex;						//몬스터 콜백함수를 위한 키값
 	int _attackCount;					//공격 쿨타임
 	bool _attackReady;					//공격 준비해 버렸나?
 	bool _isDie;						//삭제 될 준비 되었나
@@ -90,8 +91,8 @@ public:
 	virtual void update();
 	virtual void render();
 
-
-	inline void HitHP(float att) { _monsterHP -= att; }
+	
+	inline void HitHP(float att, float angle) { _monsterHP -= att; _bottomPosition.x += cos(angle) * 3; _bottomPosition.y += -sin(angle) * 3;}
 	inline float getHP() { return _monsterHP; }
 
 	MONSTERFORM getForm() { return _form; }

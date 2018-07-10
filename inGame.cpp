@@ -43,7 +43,9 @@ HRESULT inGame::init()
 	return S_OK;
 }
 
-void inGame::release() {}
+void inGame::release() 
+{
+}
 
 void inGame::update()
 {
@@ -68,7 +70,8 @@ void inGame::update()
 		_enemyManager->setStage(_stage);
 		_enemyManager->setPlayerPoint(_player->getPosition());
 		//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
-		_enemyManager->setPlayerIndex(8);
+		_enemyManager->setPlayerIndex(20);
+		//_enemyManager->setPlayerIndex(_player->getPlayerIndex());
 		_Astar->setPlayerPositionLink(_player->getPosition());
 	}
 	KEYANIMANAGER->update();

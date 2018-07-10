@@ -6,7 +6,7 @@ store::~store() {}
 
 HRESULT store::init()
 {
-	_position = { 3280.0f, 2912.0f };
+	_position = { 3312.0f, 2912.0f };
 
 	return S_OK;
 }

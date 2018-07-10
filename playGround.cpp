@@ -51,6 +51,7 @@ void playGround::render(void)
 	SCENEMANAGER->render();
 	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, _BlackAalpha);
 
+	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
@@ -228,9 +229,11 @@ void playGround::settingAddImage(void)
 
 	// 오브젝트 이미지
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_1_3", "image/mapTool/object/imageObject_1_3.bmp", 384, 96, 12, 1, true, RGBMAGENTA);
-	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_2", "image/mapTool/object/imageObject_2_2.bmp", 384, 128, 12, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_2", "image/mapTool/object/imageObject_2_2.bmp", 384, 128, 6, 2, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_3", "image/mapTool/object/imageObject_2_3.bmp", 576, 192, 9, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_4", "image/mapTool/object/imageObject_2_4.bmp", 384, 128, 6, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_3_2", "image/mapTool/object/imageObject_3_2.bmp", 576, 64, 6, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_3_4", "image/mapTool/object/imageObject_3_4.bmp", 576, 128, 6, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object/object_5.bmp", 192, 96, 6, 1, true, RGBMAGENTA);
 
 
@@ -242,10 +245,13 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("OBJECT_11", "image/mapTool/object/object_11.bmp", 256, 64, 4, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_12", "image/mapTool/object/object_12.bmp", 256, 96, 4, 1, true, RGBMAGENTA);
 
-	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBNONE);
 
 	// 오토 타일 이미지
-	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBNONE);
+	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE_2", "image/mapTool/tile/autoTile_2.bmp", 384, 320, 12, 10, false, RGBNONE);
+
+	IMAGEMANAGER->addFrameImage("FRAME_OBJECT", "image/mapTool/object/frameObject.bmp", 192, 192, 6, 3, true, RGBMAGENTA);
 }
 
 void playGround::settingAddSound(void)
