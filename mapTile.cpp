@@ -340,9 +340,12 @@ void mapTile::terrainRender(void)
 
 			if (KEYMANAGER->isToggleKey(VK_F3))
 			{
-				char str[128];
-				sprintf_s(str, "%d, %d", _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-				TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
+				if (_tile[i * MAXTILEX + j].terrain == TR_WALL)
+				{
+					char str[128];
+					sprintf_s(str, "1");
+					TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
+				}				
 			}
 		}
 	}

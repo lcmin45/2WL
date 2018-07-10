@@ -6,11 +6,11 @@ intro::~intro() {}
 
 HRESULT intro::init()
 {
-	_GameStart	= IMAGEMANAGER->findImage("GameStart");
-	_Load		= IMAGEMANAGER->findImage("Load");
-	_MapTool	= IMAGEMANAGER->findImage("MapTool");
-	_Setting	= IMAGEMANAGER->findImage("Setting");
-	_EXIT		= IMAGEMANAGER->findImage("EXIT");
+	_GameStart = IMAGEMANAGER->findImage("GameStart");
+	_Load = IMAGEMANAGER->findImage("Load");
+	_MapTool = IMAGEMANAGER->findImage("MapTool");
+	_Setting = IMAGEMANAGER->findImage("Setting");
+	_EXIT = IMAGEMANAGER->findImage("EXIT");
 
 	_rc[0] = RectMake(WINSIZEX / 2 - 160, WINSIZEY / 2 + 50, _GameStart->getFrameWidth(), _GameStart->getFrameHeight());
 	_rc[1] = RectMake(WINSIZEX / 2 - 90, WINSIZEY / 2 + 115, _Load->getFrameWidth(), _Load->getFrameHeight());
@@ -45,7 +45,7 @@ void intro::update()
 	else if (_setScene == 1)
 	{
 		_buttonAlpha = 0;
-		if (_titleY > -100)	{--_titleY;	}
+		if (_titleY > -100) { --_titleY; }
 		else (_sceneAlpha >= 255) ? _setScene = 2 : _sceneAlpha += 5;
 	}
 	else if (_setScene == 2)
@@ -142,6 +142,4 @@ void intro::render()
 	_MapTool->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 140, WINSIZEY / 2 + 180, _sceneAlpha);
 	_Setting->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 130, WINSIZEY / 2 + 245, _sceneAlpha);
 	_EXIT->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 75, WINSIZEY / 2 + 310, _sceneAlpha);
-	
 }
-

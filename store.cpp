@@ -6,7 +6,7 @@ store::~store() {}
 
 HRESULT store::init()
 {
-	_position = { WINSIZEX / 2, WINSIZEY / 4 };
+	_position = { 3280.0f, 2912.0f };
 
 	return S_OK;
 }
