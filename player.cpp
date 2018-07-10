@@ -9,8 +9,8 @@ player::~player() {}
 
 HRESULT player::init() //초기화
 {
-	_position.x = _beforePosition.x = WINSIZEX / 2;
-	_position.y = _beforePosition.y = WINSIZEY / 2;
+	_position.x = 3280.0f;
+	_position.y = 3080.0f;
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
@@ -78,12 +78,12 @@ HRESULT player::init() //초기화
 	KEYANIMANAGER->addArrayFrameAnimation("playerStormDown", "player", playerStormDown, 11, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
 
 	int playerDeadDown[] = { 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 2, false);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 2, false, playerDead, this);
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 2);
-	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 3, _image->getFrameWidth() / 4, _image->getFrameHeight() / 8);
+	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 4, _image->getFrameWidth() / 4, _image->getFrameHeight() / 4);
 
 	_maxHp = _currentHp = PLAYER_HP;
 	_damage = PLAYER_DAMAGE;
@@ -92,6 +92,8 @@ HRESULT player::init() //초기화
 	_coin = 0;
 
 	_canTakeItem = false;
+	_isDead = false;
+
 	return S_OK;
 }
 
@@ -104,12 +106,13 @@ void player::update()
 	collisionCheckWithTile();
 	collisionCheckWithItem();
 	inventoryProcess();
+	playerHpCheck();
 	CAMERAMANAGER->setCameraPoint(_position);
 
 	//////////////////////////////////////////////임시
 	if (KEYMANAGER->isStayKeyDown('K'))
 	{
-		_currentHp -= 5.0f;
+		_currentHp = 0.0f;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
@@ -120,23 +123,28 @@ void player::update()
 
 void player::render()
 {
+	////////////////////////////////////////////////////////////////////임시
+	if (KEYMANAGER->isToggleKey(VK_TAB))
+	{
+		Rectangle(getMemDC(), _tileCheck.left, _tileCheck.top, _tileCheck.right, _tileCheck.bottom);
+		Rectangle(getMemDC(), _body.left, _body.top, _body.right, _body.bottom);
+	}
+	////////////////////////////////////////////////////////////////////
+
 	_image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
 
 	////////////////////////////////////////////////////////////////////임시
 	char temp[128];
 	sprintf_s(temp, "HP : %f / %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _currentHp, _maxHp, _damage, _speed, _critical);
 	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 50, temp, strlen(temp));
-	if (KEYMANAGER->isToggleKey(VK_TAB))
-	{
-		Rectangle(getMemDC(), _body.left, _body.top, _body.right, _body.bottom);
-		Rectangle(getMemDC(), _tileCheck.left, _tileCheck.top, _tileCheck.right, _tileCheck.bottom);
-	}
+	sprintf_s(temp, "%f, %f", _position.x, _position.y);
+	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 300, temp, strlen(temp));
 	////////////////////////////////////////////////////////////////////
 }
 
 void player::keyProcess()
 {
-	if (_itemManager->getInventory()->getIsOpen()) return;
+	if (_itemManager->getInventory()->getIsOpen() || _action == DEAD) return;
 
 	//이동 키 입력시
 	if ((KEYMANAGER->isStayKeyDown('W') || KEYMANAGER->isStayKeyDown('S') || KEYMANAGER->isStayKeyDown('A') || KEYMANAGER->isStayKeyDown('D')) && (_action == IDLE || _action == MOVE))
@@ -192,17 +200,16 @@ void player::keyProcess()
 		if (_angle == ANGLE1 || _angle == ANGLE3) _direction = UP;
 		else if (_angle == ANGLE5 || _angle == ANGLE7) _direction = DOWN;
 		_action = DASH;
-		_dashSpeed = 4;
+		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
 	}
-
 	//스킬 사용
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("흙주먹");
+		_ptM->fire("불꽃타격");
 	}
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
@@ -232,14 +239,6 @@ void player::keyProcess()
 		animationProcess();
 		_ptM->fire("불타는올가미");
 	}
-	/////////////////////////////////////////////////////임시
-	if (KEYMANAGER->isOnceKeyDown('U'))
-	{
-		_action = DEAD;
-		attackAngleProcess();
-		animationProcess();
-	}
-	/////////////////////////////////////////////////////
 }
 
 void player::attackAngleProcess()
@@ -303,33 +302,42 @@ void player::moveProcess()
 		else if (_angle == ANGLE6) _position.y += (_action == MOVE ? _speed : _speed * _dashSpeed);
 		else if (_angle == ANGLE7) { _position.x += (_action == MOVE ? _speed * temp : _speed * _dashSpeed * temp); _position.y += (_action == MOVE ? _speed * temp : _speed * _dashSpeed * temp); }
 		//대쉬일 경우 미끄러지는 속도 구현용
-		if (_action == DASH) _dashSpeed -= 0.1f;
+		if (_action == DASH) _dashSpeed -= (_dashSpeed > 0 ? 0.1f : 0.0f);
 	}
-
 	//바디, 충돌용 렉트 갱신
 	_body = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth() / 4, _image->getFrameHeight() / 2);
-	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 3, _image->getFrameWidth() / 4, _image->getFrameHeight() / 8);
+	_tileCheck = RectMakeCenter(_position.x, _position.y + _image->getFrameHeight() / 4, TILESIZE, TILESIZE);
 }
 
-void player::collisionCheckWithTile() //타일 충돌 임시 -> 수정 예정
+void player::collisionCheckWithTile()
 {
-	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	{
-		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-		{
-			if (CAMERAMAXCHECK) continue;
-			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
+	int playerTileX = int(_position.x / TILESIZE);
+	int playerTileY = int((_position.y + _image->getFrameHeight() / 4) / TILESIZE);
+	int playerTileIndex = playerTileY * MAXTILEX + playerTileX;
+	int checkTileIndex[4] = { playerTileIndex - MAXTILEX, playerTileIndex + MAXTILEX, playerTileIndex - 1, playerTileIndex + 1 };
 
-			RECT temp;
-			if ((_tile[i * MAXTILEX + j].terrain == TR_WALL || (_tile[i * MAXTILEX + j].object != OBJ_NONE)) && IntersectRect(&temp, &_tile[i * MAXTILEX + j].rc, &_tileCheck))
+	for (int i = 0; i < 4; i++)
+	{
+		RECT temp;
+		if ((_tile[checkTileIndex[i]].terrain == TR_WALL || _tile[checkTileIndex[i]].object != OBJ_NONE) && IntersectRect(&temp, &_tile[checkTileIndex[i]].rc, &_tileCheck))
+		{
+			switch (i)
 			{
-				_position = _beforePosition;
+			case 0:
+				_position.y += (_tile[checkTileIndex[i]].rc.bottom - _tileCheck.top);
+				break;
+			case 1:
+				_position.y -= (_tileCheck.bottom - _tile[checkTileIndex[i]].rc.top);
+				break;
+			case 2:
+				_position.x += (_tile[checkTileIndex[i]].rc.right - _tileCheck.left);
+				break;
+			case 3:
+				_position.x -= (_tileCheck.right - _tile[checkTileIndex[i]].rc.left);
 				break;
 			}
 		}
 	}
-
-	_beforePosition = _position;
 }
 
 void player::collisionCheckWithItem()
@@ -402,10 +410,28 @@ void player::inventoryProcess()
 	if (_currentHp > _maxHp) _currentHp = _maxHp; //체력 아이템 습득 시 최대 체력에 맞게 현재 체력 보정
 }
 
+void player::playerHpCheck()
+{
+	if (_currentHp <= 0 && _action != DEAD)
+	{
+		_action = DEAD;
+		_currentHp = 0;
+		attackAngleProcess();
+		animationProcess();
+	}
+}
+
 void player::afterAction(void* obj)
 {
 	player* temp = (player*)obj;
 	temp->setAction(IDLE);
 	temp->keyProcess();
 	temp->animationProcess();
+}
+
+void player::playerDead(void * obj)
+{
+	player* temp = (player*)obj;
+	temp->setIsDead(true);
+	_BlackAalpha = 0;
 }

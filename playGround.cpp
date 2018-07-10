@@ -49,6 +49,7 @@ void playGround::render(void)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
 	SCENEMANAGER->render();
+	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, _BlackAalpha);
 
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
@@ -126,6 +127,7 @@ void playGround::settingAddImage(void)
 
 	IMAGEMANAGER->addImage("TitleScreen", "image/UI/TitleScreen.bmp", 1200, 900, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleLogo", "image/UI/TitleLogo.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Black", "image/UI/Black.bmp", 1200, 900, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("PRESS ANY BUTTON", "image/UI/PRESS ANY BUTTON.bmp", 300, 20, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("GameStart", "image/UI/GameStart.bmp", 320, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("Load", "image/UI/Load.bmp", 180, 100, 1, 2, true, RGB(255, 0, 255));
@@ -156,9 +158,9 @@ void playGround::settingAddImage(void)
 
 	//===================================================== SKILL ===================================================
 
-	IMAGEMANAGER->addFrameImage("불꽃타격", "image/skill/불꽃타격.bmp", 50, 250, 1, 5, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("불꽃파티클", "image/skill/불꽃파티클.bmp", 700, 400, 7, 4, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("불꽃파티클2", "image/skill/불꽃파티클.bmp", 350, 200, 7, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불꽃타격", "image/skill/불꽃타격.bmp", 750, 600, 5, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불꽃파티클", "image/skill/불꽃파티클.bmp", 300, 200, 6, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불꽃파티클2", "image/skill/불꽃파티클2.bmp", 700, 400, 7, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("화염구", "image/skill/화염구.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("흙주먹", "image/skill/흙주먹.bmp", 2048, 256, 16, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("바람베기", "image/skill/바람베기.bmp", 480, 1920, 4, 16, true, RGB(255, 0, 255));
@@ -173,6 +175,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("GreenRogueBullet", "image/skill/monsterBullet/GreenRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("RedRogueBullet", "image/skill/monsterBullet/RedRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("GhoulBullet", "image/skill/monsterBullet/GhoulBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("얼음던지기", "image/skill/bossSkill/얼음던지기.bmp", 88, 24, 4, 1, true, RGB(255, 0, 255));
 
 
 	//========================================================================================================================//

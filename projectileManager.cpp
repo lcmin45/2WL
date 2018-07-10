@@ -13,8 +13,6 @@ projectileManager::~projectileManager()
 
 HRESULT projectileManager::init()
 {
-
-
 	return S_OK;
 }
 
@@ -115,15 +113,22 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 	if (!strcmp(skillName, "BlueRogueBullet") || !strcmp(skillName, "GreenRogueBullet") || !strcmp(skillName, "RedRogueBullet"))
 	{
 		몬스터총알* monsterBullet4 = new 몬스터총알;
-		monsterBullet4->fire(skillName, 1, pt, tempAngle, 8, 850, 50, 1.0f, ENEMY);
+		monsterBullet4->fire(skillName, 1, pt, tempAngle, 16, 850, 50, 1.0f, ENEMY);
 		vSkill.push_back(monsterBullet4);
+	}
+	if (!strcmp(skillName, "얼음던지기"))
+	{
+		얼음던지기매니저* IceM = new 얼음던지기매니저;
+		IceM->fire(skillName, 1, pt, 10.0f, 850, 50, 1.0f, ENEMY);
+		IceM->getPlayerAddressLink(_player);
+		vSkill.push_back(IceM);
 	}
 }
 
 void projectileManager::vectorCheck()
 {
-	if (vSkill.size() != 0)
-	{
+	if (vSkill.size() == 0) return;
+
 		for (viSkill = vSkill.begin(); viSkill != vSkill.end();)
 		{
 			if (!(*viSkill)->getImage())
@@ -136,7 +141,6 @@ void projectileManager::vectorCheck()
 				viSkill++;
 			}
 		}
-	}
 }
 
 void projectileManager::vectorDraw()

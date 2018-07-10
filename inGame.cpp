@@ -39,7 +39,7 @@ HRESULT inGame::init()
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 
-
+	_BlackAalpha = 255;
 	return S_OK;
 }
 
@@ -47,22 +47,30 @@ void inGame::release() {}
 
 void inGame::update()
 {
+	if (_player->getIsDead())
+	{
+		if (_BlackAalpha < 255) _BlackAalpha += 3;
+		else
+		{
+			SCENEMANAGER->changeScene("intro");
+			CAMERAMANAGER->setCameraPoint({ 0, 0 });
+		}
+	}
+	else if (_BlackAalpha > 0) _BlackAalpha -= 3;
+	else
+	{
+		_UI->update();
+		_itemManager->update();
+		_ptM->update();
+		_enemyManager->update();
+		_stage->update();			//플레이어 업데이트 여기 안에 있음!
 
-
-
-	_UI->update();
-	_itemManager->update();
-	_ptM->update();
-	_enemyManager->update();
-	_stage->update();			//플레이어 업데이트 여기 안에 있음!
-
-
-	_enemyManager->setStage(_stage);
-	_enemyManager->setPlayerPoint(_player->getPosition());
-	//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
-	_enemyManager->setPlayerIndex(8);
-	_Astar->setPlayerPositionLink(_player->getPosition());
-
+		_enemyManager->setStage(_stage);
+		_enemyManager->setPlayerPoint(_player->getPosition());
+		//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
+		_enemyManager->setPlayerIndex(8);
+		_Astar->setPlayerPositionLink(_player->getPosition());
+	}
 	KEYANIMANAGER->update();
 }
 

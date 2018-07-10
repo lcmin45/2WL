@@ -10,6 +10,7 @@
 #include "사이클론부메랑.h"
 #include "몬스터근접.h"
 #include "몬스터총알.h"
+#include "얼음던지기매니저.h"
 
 
 class projectileManager : public gameNode
@@ -19,7 +20,6 @@ private:
 
 	vector<skill*>				vSkill;
 	vector<skill*>::iterator	viSkill;
-
 public:
 	projectileManager();
 	~projectileManager();
@@ -33,8 +33,6 @@ public:
 	void fire(const char * skillName, POINTFLOAT pt);
 	void vectorCheck();
 	void vectorDraw();
-	void setPlayerAddressLink(player* getPlayer) { 
-		_player = getPlayer; 
-	}
+	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
 };
 

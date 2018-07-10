@@ -10,6 +10,7 @@
 #define PLAYER_DAMAGE 1.0f
 #define PLAYER_SPEED 3.0f
 #define PLAYER_CRITICAL 10.0f
+#define PLAYER_DASH_SPEED 4.0f
 
 enum DIRECTION { UP, DOWN, LEFT, RIGHT }; //방향
 enum ACTION { IDLE, MOVE, ATTACK1, ATTACK2, DASH, FIREBALL, FIRESWORD, WINDSTORM, DEAD }; //행동
@@ -23,7 +24,6 @@ class player : public gameNode
 {
 private:
 	POINTFLOAT _position; //좌표
-	POINTFLOAT _beforePosition; //타일 충돌 체크용 이전 좌표
 	DIRECTION _direction; //방향
 	ACTION _action; //행동
 	ANGLE _angle; //각도
@@ -42,6 +42,7 @@ private:
 	itemManager* _itemManager; //인벤토리
 	projectileManager* _ptM; // 투사체 매니저 호환
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
+	bool _isDead;
 public:
 	player();
 	~player();
@@ -58,7 +59,9 @@ public:
 	void collisionCheckWithTile(); //타일 충돌 처리
 	void collisionCheckWithItem(); //아이템 충돌 처리
 	void inventoryProcess(); //인벤토리 처리
+	void playerHpCheck(); //플레이어 체력 체크
 	static void afterAction(void* obj); //에니매이션 콜백용
+	static void playerDead(void* obj); //플레이어 죽음 콜백용
 
 	POINTFLOAT getPosition() { return _position; }
 	DIRECTION getDirection() { return _direction; }
@@ -66,7 +69,9 @@ public:
 	float getCurrentHp() { return _currentHp; }
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
+	bool getIsDead() { return _isDead; }
 	void setAction(ACTION action) { _action = action; }
+	void setIsDead(bool isDead) { _isDead = isDead; }
 	void setAnimation(animation* animation) { _animation = animation; }
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
