@@ -33,17 +33,20 @@ HRESULT boss::init()
 	//보스 체력
 	//위치 조건 추가해주기
 	_woodHpBar = new bossProgressBar;
-	_woodHpBar->init(150, 30, 450, 70);
+	_woodHpBar->init(380, 0, "bossfrontBar", 360, 25, "bossbackBar", 450, 60);
 
 	_iceHpBar = new bossProgressBar;
-	_iceHpBar->init(150, 30, 450, 70);
+	_iceHpBar->init(380, 0, "bossfrontBar", 360, 25, "bossbackBar", 450, 60);
 
 	_fireHpBar = new bossProgressBar;
-	_fireHpBar->init(150, 30, 450, 70);
+	_fireHpBar->init(380, 0, "bossfrontBar", 360, 25, "bossbackBar", 450, 60);
 
 	_woodCurrentHP = _woodMaxHP = 150;
 	_iceCurrentHP = _iceMaxHP = 150;
 	_fireCurrentHP = _fireMaxHP = 150;
+
+	_speed = 5.0f;
+	_jump = 0.0f;
 
 	return S_OK;
 }

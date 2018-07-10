@@ -125,6 +125,7 @@ void woodBoss::update()
 			}
 		}
 		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
+
 	}
 }
 
@@ -135,79 +136,72 @@ void woodBoss::woodMove()
 	if (_woodMove == true)
 	{
 		++_bossMoveCount;
-		//플레이어 좌표 받아와서 좌우로 이동하기
+
 		if (_bossMoveCount < 100)
 		{
 			if (!_isCheck)
 			{
 				_isCheck = true;
-				_bossImg = IMAGEMANAGER->findImage("나무왼쪽");
+				if (_x > _playerPosition.x)_bossImg = IMAGEMANAGER->findImage("나무왼쪽");
+				else if (_x < _playerPosition.x)_bossImg = IMAGEMANAGER->findImage("나무오른쪽");
 				_woodindex = 0;
+				_angle = getAngle(_x, _y, _playerPosition.x, _playerPosition.y);
+				_distance = getDistance(_x, _y, _playerPosition.x, _playerPosition.y);
 			}
-			if (_player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 < _bossRc.left && _player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 > _bossRc.top)
+			if (_distance < 10)
 			{
-				_x -= 5;
-				_y += 3;
 			}
-			if (_player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 < _bossRc.left && _player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 < _bossRc.top)
+			else
 			{
-				_x -= 5;
-				_y -= 3;
+				_x += cos(_angle) * _speed;
+				_y += -sin(_angle) * _speed;
 			}
 		}
-		else if (_bossMoveCount < 400 && _bossMoveCount >= 300)
+
+		else if (_bossMoveCount >= 100 && _bossMoveCount < 300)
 		{
-			if (!_isCheck)
+			if (_isCheck)
 			{
-				_isCheck = true;
-				_bossImg = IMAGEMANAGER->findImage("나무오른쪽");
+				_isCheck = false;
+				if (_bossImg == IMAGEMANAGER->findImage("나무왼쪽"))_bossImg = IMAGEMANAGER->findImage("나무스킬2오른쪽");
+				else if (_bossImg == IMAGEMANAGER->findImage("나무오른쪽"))_bossImg = IMAGEMANAGER->findImage("나무스킬2왼쪽");
 				_woodindex = 0;
-			}
-
-			if (_player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 > _bossRc.left && _player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 > _bossRc.top)
-			{
-				_x += 5;
-				_y += 3;
-			}
-			if (_player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 > _bossRc.left && _player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 < _bossRc.top)
-			{
-				_x += 5;
-				_y -= 3;
 			}
 		}
 
-		//플레이어 위치에 점프하기 
-		else if (_bossMoveCount < 700 && _bossMoveCount >= 600)
+		else if (_bossMoveCount >= 300 && _bossMoveCount<360)
 		{
 			if (!_isCheck)
 			{
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("나무점프");
 				_woodindex = 0;
+				_angle = getAngle(_x, _y, _playerPosition.x, _playerPosition.y);
+				_distance = getDistance(_x, _y, _playerPosition.x, _playerPosition.y);
 			}
-			if (_player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 > _bossRc.top && _player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 < _bossRc.left)
+			if (_distance < 10)
 			{
-				_x -= 5;
-				_y += 3;
 			}
-			if (_player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 > _bossRc.top && _player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 > _bossRc.left)
+			else
 			{
-				_x += 5;
-				_y += 3;
-			}
-			if (_player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 < _bossRc.top && _player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 < _bossRc.left)
-			{
-				_x -= 5;
-				_y -= 3;
-			}
-			if (_player.getBody().top + (_player.getBody().bottom - _player.getBody().top) / 2 < _bossRc.top && _player.getBody().left + (_player.getBody().right - _player.getBody().left) / 2 > _bossRc.left)
-			{
-				_x += 5;
-				_y -= 3;
+				_jump += 0.18f;
+				_x += cos(_angle) * _speed;
+				if (_y >_playerPosition.y)_y += -sin(_angle) * 13 + _jump;
+				else if (_y <_playerPosition.y)_y += -sin(-_angle) * 10 + _jump;
 			}
 		}
 
-		else if (_bossMoveCount >= 900 && _bossMoveCount < 1100)
+		else if (_bossMoveCount >= 360 && _bossMoveCount < 560)
+		{
+			if (_isCheck)
+			{
+				_isCheck = false;
+				_bossImg = IMAGEMANAGER->findImage("나무스킬");
+				_woodindex = 0;
+			}
+		}
+
+		else if (_bossMoveCount >= 560 && _bossMoveCount<760)
 		{
 			if (!_isCheck)
 			{
@@ -217,43 +211,16 @@ void woodBoss::woodMove()
 			}
 		}
 
-		else if (_bossMoveCount >= 1100)
+		else if (_bossMoveCount >= 760)
 		{
 			if (_isCheck)
 			{
 				_isCheck = false;
 				_bossMoveCount = 0;
+				_jump = 0.0f;
 			}
 		}
 
-		/////////////////스킬모션/////////////////////
-		else if (_bossMoveCount >= 100 && _bossMoveCount < 300)
-		{
-			if (_isCheck)
-			{
-				_isCheck = false;
-				_bossImg = IMAGEMANAGER->findImage("나무스킬2오른쪽");
-				_woodindex = 0;
-			}
-		}
-		else if (_bossMoveCount < 600 && _bossMoveCount >= 400)
-		{
-			if (_isCheck)
-			{
-				_isCheck = false;
-				_bossImg = IMAGEMANAGER->findImage("나무스킬2왼쪽");
-				_woodindex = 0;
-			}
-		}
-		else if (_bossMoveCount >= 700 && _bossMoveCount < 900)
-		{
-			if (_isCheck)
-			{
-				_isCheck = false;
-				_bossImg = IMAGEMANAGER->findImage("나무스킬");
-				_woodindex = 0;
-			}
-		}
 	}
 }
 

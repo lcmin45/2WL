@@ -118,6 +118,15 @@
     <Filter Include="playGround\enemyManager\monster\Astar">
       <UniqueIdentifier>{c06a58b5-ac50-431b-9baf-9700ab5750fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\skill\playerSkill">
+      <UniqueIdentifier>{3d845b65-3f39-4c13-a5b9-267817561444}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\skill\enemySkill">
+      <UniqueIdentifier>{d8b043de-8224-4fd5-a01a-915e97fc8ddf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\skill\bossSkill">
+      <UniqueIdentifier>{652dc0d2-8e30-45fa-a11f-9f1b374cdd45}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -300,23 +309,8 @@
     <ClInclude Include="projectileManager.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
-    <ClInclude Include="바람베기.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="불꽃타격.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="화염구.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="흙주먹.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
     <ClInclude Include="inventory.h">
       <Filter>playGround\itemManager</Filter>
-    </ClInclude>
-    <ClInclude Include="불타는올가미.h">
-      <Filter>playGround\skill</Filter>
     </ClInclude>
     <ClInclude Include="miniMap.h">
       <Filter>playGround\mapTool\miniMap</Filter>
@@ -327,23 +321,44 @@
     <ClInclude Include="bossProgressBar.h">
       <Filter>2DFramework\bossProgressBar</Filter>
     </ClInclude>
-    <ClInclude Include="맹렬회오리.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="몬스터근접.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="몬스터총알.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
-    <ClInclude Include="사이클론부메랑.h">
-      <Filter>playGround\skill</Filter>
-    </ClInclude>
     <ClInclude Include="Astar.h">
       <Filter>playGround\enemyManager\monster\Astar</Filter>
     </ClInclude>
     <ClInclude Include="tile.h">
       <Filter>playGround\enemyManager\monster\Astar</Filter>
+    </ClInclude>
+    <ClInclude Include="맹렬회오리.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="바람베기.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="불꽃타격.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="불타는올가미.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="화염구.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="흙주먹.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="사이클론부메랑.h">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="몬스터근접.h">
+      <Filter>playGround\skill\enemySkill</Filter>
+    </ClInclude>
+    <ClInclude Include="몬스터총알.h">
+      <Filter>playGround\skill\enemySkill</Filter>
+    </ClInclude>
+    <ClInclude Include="얼음던지기.h">
+      <Filter>playGround\skill\bossSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="얼음던지기매니저.h">
+      <Filter>playGround\skill\bossSkill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -512,26 +527,8 @@
     <ClCompile Include="projectileManager.cpp">
       <Filter>playGround\skill</Filter>
     </ClCompile>
-    <ClCompile Include="바람베기.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="불꽃타격.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="화염구.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="흙주먹.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
     <ClCompile Include="inventory.cpp">
       <Filter>playGround\itemManager</Filter>
-    </ClCompile>
-    <ClCompile Include="불타는올가미.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="mapToolImage.cpp">
-      <Filter>playGround\mapTool</Filter>
     </ClCompile>
     <ClCompile Include="miniMap.cpp">
       <Filter>playGround\mapTool\miniMap</Filter>
@@ -542,23 +539,44 @@
     <ClCompile Include="bossProgressBar.cpp">
       <Filter>2DFramework\bossProgressBar</Filter>
     </ClCompile>
-    <ClCompile Include="맹렬회오리.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="몬스터근접.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="몬스터총알.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
-    <ClCompile Include="사이클론부메랑.cpp">
-      <Filter>playGround\skill</Filter>
-    </ClCompile>
     <ClCompile Include="Astar.cpp">
       <Filter>playGround\enemyManager\monster\Astar</Filter>
     </ClCompile>
     <ClCompile Include="tile.cpp">
       <Filter>playGround\enemyManager\monster\Astar</Filter>
+    </ClCompile>
+    <ClCompile Include="맹렬회오리.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="바람베기.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="불꽃타격.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="불타는올가미.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="화염구.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="흙주먹.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="사이클론부메랑.cpp">
+      <Filter>playGround\skill\playerSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="몬스터근접.cpp">
+      <Filter>playGround\skill\enemySkill</Filter>
+    </ClCompile>
+    <ClCompile Include="몬스터총알.cpp">
+      <Filter>playGround\skill\enemySkill</Filter>
+    </ClCompile>
+    <ClCompile Include="얼음던지기.cpp">
+      <Filter>playGround\skill\bossSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="얼음던지기매니저.cpp">
+      <Filter>playGround\skill\bossSkill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
