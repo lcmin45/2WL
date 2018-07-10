@@ -176,6 +176,9 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("RedRogueBullet", "image/skill/monsterBullet/RedRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("GhoulBullet", "image/skill/monsterBullet/GhoulBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음던지기", "image/skill/bossSkill/얼음던지기.bmp", 88, 24, 4, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("스킬범위", "image/skill/bossSkill/스킬범위.bmp", 3200, 129, 25, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("우박", "image/skill/bossSkill/우박.bmp", 128, 128, 4, 4, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("얼음효과", "image/skill/bossSkill/얼음효과.bmp", 120, 40, 3, 1, true, RGB(255, 0, 255));
 
 
 	//========================================================================================================================//
