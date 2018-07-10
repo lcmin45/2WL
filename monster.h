@@ -92,6 +92,10 @@ public:
 	virtual void render();
 
 	
+
+
+	inline bool getIsDie() { return _isDie; }
+
 	inline void HitHP(float att, float angle) { _monsterHP -= att; _bottomPosition.x += cos(angle) * 3; _bottomPosition.y += -sin(angle) * 3;}
 	inline float getHP() { return _monsterHP; }
 

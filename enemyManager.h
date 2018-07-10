@@ -83,6 +83,7 @@ public:
 	void settingMonster();
 	void monsterUpdate();
 	void monsterRender();
+	void monsterRemove();
 
 	void setStage(stage* stage) { _stage = stage; }
 	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
