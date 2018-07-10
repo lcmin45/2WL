@@ -22,15 +22,17 @@ public:
 
 	void RogueMove();
 
+
 	//콜백 함수 사용
 	static void rightStop(void* obj);
 	static void leftStop(void* obj);
 	static void summonOn(void * obj);
 	static void MonsterDie(void*obj);
 	
-
 	void Test();
 
+	void HitMotion();
+	void Die();
 	
 };
 

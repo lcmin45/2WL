@@ -110,6 +110,8 @@ void player::release() {}
 void player::update()
 {
 
+	if (KEYMANAGER->isStayKeyDown('P')) _playerTileIndex = 6;
+
 	keyProcess();
 	moveProcess();
 	collisionCheckWithTile();

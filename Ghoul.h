@@ -26,6 +26,8 @@ public:
 
 	void Test();	
 	
-	
+
+	void HitMotion();
+	void Die();
 };
 

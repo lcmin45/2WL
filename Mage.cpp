@@ -94,6 +94,7 @@ void Mage::update()
 	if (_form == BATTLE)
 	{
 		MageMove();
+		Die();
 		Test();
 	}
 }
@@ -243,6 +244,7 @@ void Mage::MonsterDie(void * obj)
 void Mage::Test()
 {
 
+	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
 
@@ -264,8 +266,33 @@ void Mage::Test()
 		}
 	}
 
+	
+}
 
-	if (KEYMANAGER->isOnceKeyDown('X'))
+void Mage::HitMotion()
+{
+	if (_form == DIE) return;
+	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
+	if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = RIGHT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName4);
+		_Motion->start();
+	}
+	else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = LEFT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName5);
+		_Motion->start();
+	}
+}
+
+void Mage::Die()
+{
+
+	if (_monsterHP <= 0)
 	{
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
 		{
