@@ -13,13 +13,12 @@ HRESULT playGround::init(void)
 	settingAddSound();
 
 	SCENEMANAGER->addScene("intro", new intro);
-	SCENEMANAGER->addScene("ending", new ending);
-	SCENEMANAGER->addScene("loading", new loading);
 	SCENEMANAGER->addScene("inGame", new inGame);
+	SCENEMANAGER->addScene("loading", new loading);
+	SCENEMANAGER->addScene("ending", new ending);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
 	SCENEMANAGER->changeScene("intro");
-	
 
 	return S_OK;
 }
@@ -39,8 +38,7 @@ void playGround::update(void)
 		CAMERAMANAGER->setCameraPoint({ 0, 0 });
 	}
 
-
-	SCENEMANAGER->update(); 
+	SCENEMANAGER->update();
 }
 
 void playGround::render(void)
@@ -51,13 +49,11 @@ void playGround::render(void)
 	SCENEMANAGER->render();
 	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, _BlackAalpha);
 
-	TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
+	TIMEMANAGER->render(CAMERADC);
+
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
-
-
-
 
 void playGround::settingAddImage(void)
 {

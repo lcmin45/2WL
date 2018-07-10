@@ -196,6 +196,7 @@
     <ClInclude Include="randomFunction.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="Rogue.h" />
+    <ClInclude Include="saveAndLoad.h" />
     <ClInclude Include="Scarecrow.h" />
     <ClInclude Include="sceneManager.h" />
     <ClInclude Include="scenePart.h" />
@@ -272,6 +273,7 @@
     <ClCompile Include="progressBar.cpp" />
     <ClCompile Include="projectileManager.cpp" />
     <ClCompile Include="Rogue.cpp" />
+    <ClCompile Include="saveAndLoad.cpp" />
     <ClCompile Include="Scarecrow.cpp" />
     <ClCompile Include="sceneManager.cpp" />
     <ClCompile Include="scenePart.cpp" />

@@ -21,6 +21,14 @@ HRESULT gameNode::init(void)
 	return S_OK;
 }
 
+HRESULT gameNode::init(void * obj)
+{
+	_hdc = GetDC(_hWnd);
+	_managerInit = false;
+
+	return S_OK;
+}
+
 HRESULT gameNode::init(bool managerInit)
 {
 	_hdc = GetDC(_hWnd);

@@ -17,7 +17,7 @@ HRESULT player::init() //초기화
 
 	_direction = DOWN;
 	_action = IDLE;
-	_angle = ANGLE3;
+	_angle = ANGLE6;
 	_image = IMAGEMANAGER->findImage("player");
 
 	int playerIdleUp[] = { 0 };
@@ -99,6 +99,9 @@ HRESULT player::init() //초기화
 	_canTakeItem = false;
 	_isDead = false;
 
+	_saveAndLoad = new saveAndLoad;
+	_saveAndLoad->init();
+
 	return S_OK;
 }
 
@@ -123,6 +126,11 @@ void player::update()
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('Y'))
+	{
+		saveData();
 	}
 	////////////////////////////////////////////////
 }
@@ -373,7 +381,7 @@ void player::collisionCheckWithItem()
 					}
 					else if (_itemManager->getVItem()[i]->getStatus() == ON_FIELD)
 					{
-						if (_itemManager->addItem(_itemManager->getVItem()[i])) break;
+						if (_itemManager->addItemToInventory(_itemManager->getVItem()[i])) break;
 					}
 				}
 			}
@@ -427,6 +435,22 @@ void player::playerHpCheck()
 	}
 }
 
+void player::saveData()
+{
+	tagSaveInfo* temp = new tagSaveInfo;
+	temp->playerPosition = _position;
+	temp->currnetHp = _currentHp;
+	temp->coin = _coin;
+
+	for (int i = 0; i < _itemManager->getVItem().size(); i++)
+	{
+		temp->status[i] = _itemManager->getVItem()[i]->getStatus();
+		temp->itemPosition[i] = _itemManager->getVItem()[i]->getPosition();
+	}
+
+	_saveAndLoad->save(temp);
+}
+
 void player::afterAction(void* obj)
 {
 	player* temp = (player*)obj;
@@ -440,4 +464,11 @@ void player::playerDead(void * obj)
 	player* temp = (player*)obj;
 	temp->setIsDead(true);
 	_BlackAalpha = 0;
+}
+
+void player::setSaveInfo(POINTFLOAT position, float currentHp, int coin)
+{
+	_position = position;
+	_currentHp = currentHp;
+	_coin = coin;
 }

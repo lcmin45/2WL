@@ -23,11 +23,14 @@ public:
 	virtual void release();
 	virtual void update();
 	virtual void render();
+	
+	void setStoreItem();
 
 	vector<item*> getVItem() { return _vItem; }
 	inventory* getInventory() { return _inventory; }
 	void setItem(item* item, STATUS status, POINTFLOAT position);
-	bool addItem(item* item);
+	bool addItemToInventory(item* item);
+	bool addItemToStore(item* item);
 	bool sellItem(item* item);
 	void dropCoin(POINTFLOAT position);
 	void takeCoin(int index);

@@ -41,13 +41,18 @@ void store::render()
 	DeleteObject(font);
 }
 
-void store::addItem(item * item)
+bool store::addItem(item * item)
 {
-	//아이템 추가 될 시 상태를 IN_STORE로 변경
-	item->setStatus(IN_STORE);
-	_vItem.push_back(item);
+	if (_vItem.size() != 4)
+	{
+		_vItem.push_back(item);
 
-	for (int i = 0; i < _vItem.size(); i++) _vItem[i]->setPosition({ _position.x - 60 + i * 40, _position.y - 15 });
+		for (int i = 0; i < _vItem.size(); i++) _vItem[i]->setPosition({ _position.x - 60 + i * 40, _position.y - 15 });
+
+		return true;
+	}
+
+	return false;
 }
 
 void store::sellItem(item * item)

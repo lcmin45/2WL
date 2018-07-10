@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "item.h"
 #include "skill.h"
+#include "saveAndLoad.h"
 
 #define PLAYER_MOVE_ANI_SPEED 10
 #define PLAYER_ACTION_ANI_SPEED 20
@@ -44,6 +45,8 @@ private:
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
 	bool _isDead;
 	int _playerTileIndex;
+
+	saveAndLoad* _saveAndLoad;
 public:
 	player();
 	~player();
@@ -61,6 +64,7 @@ public:
 	void collisionCheckWithItem(); //아이템 충돌 처리
 	void inventoryProcess(); //인벤토리 처리
 	void playerHpCheck(); //플레이어 체력 체크
+	void saveData();
 	static void afterAction(void* obj); //에니매이션 콜백용
 	static void playerDead(void* obj); //플레이어 죽음 콜백용
 
@@ -78,5 +82,6 @@ public:
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
-	RECT getBody() { return _body; }
+
+	void setSaveInfo(POINTFLOAT position, float currentHp, int coin);
 };
