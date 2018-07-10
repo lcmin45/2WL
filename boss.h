@@ -3,6 +3,7 @@
 #include "skill.h"
 #include "bossProgressBar.h"
 #include "player.h"
+#include "projectileManager.h"
 
 class player;
 
@@ -79,4 +80,5 @@ public:
 	{
 		_playerPosition = playerPosition;
 	}
+	void setProjectileAddressLink(projectileManager* ptM) { _ptM = ptM; }
 };

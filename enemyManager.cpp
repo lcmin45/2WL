@@ -6,10 +6,8 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-
 	setBoss();
 	settingMonster();
-
 
 	return S_OK;
 }
