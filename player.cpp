@@ -239,6 +239,13 @@ void player::keyProcess()
 		attackAngleProcess();
 		animationProcess();
 	}
+	if (KEYMANAGER->isOnceKeyDown('K'))
+	{
+		_action = FIRESWORD;
+		attackAngleProcess();
+		animationProcess();
+		_ptM->fire("얼음던지기");
+	}
 	/////////////////////////////////////////////////////
 }
 

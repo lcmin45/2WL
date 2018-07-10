@@ -49,6 +49,7 @@ void playGround::render(void)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
 	SCENEMANAGER->render();
+	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), _BlackAalpha);
 
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
@@ -126,6 +127,7 @@ void playGround::settingAddImage(void)
 
 	IMAGEMANAGER->addImage("TitleScreen", "image/UI/TitleScreen.bmp", 1200, 900, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleLogo", "image/UI/TitleLogo.bmp", 1200, 900, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("Black", "image/UI/Black.bmp", 1200, 900, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("PRESS ANY BUTTON", "image/UI/PRESS ANY BUTTON.bmp", 300, 20, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("GameStart", "image/UI/GameStart.bmp", 320, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("Load", "image/UI/Load.bmp", 180, 100, 1, 2, true, RGB(255, 0, 255));
@@ -133,6 +135,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
+	
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));

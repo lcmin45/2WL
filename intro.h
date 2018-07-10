@@ -1,6 +1,12 @@
 #pragma once
 #include "gameNode.h"
 
+
+struct chageScene
+{
+	bool isChanged;
+	int menuIndex;
+};
 class intro : public gameNode
 {
 	int _timer;
@@ -16,6 +22,7 @@ class intro : public gameNode
 	image* _EXIT;
 
 	RECT _rc[5];
+	chageScene _chageScene;
 
 	int _soundCheck;
 

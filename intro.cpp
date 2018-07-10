@@ -19,7 +19,8 @@ HRESULT intro::init()
 	_rc[4] = RectMake(WINSIZEX / 2 - 75, WINSIZEY / 2 + 310, _EXIT->getFrameWidth(), _EXIT->getFrameHeight());
 
 	_soundCheck = 0;
-
+	_BlackAalpha = 0;
+	_chageScene.isChanged = false;
 	SOUNDMANAGER->singleChannelPlay("TitleScreen");
 
 	return S_OK;
@@ -68,9 +69,10 @@ void intro::update()
 			_GameStart->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				_chageScene.isChanged = true;
+				_chageScene.menuIndex = 0;
 				SOUNDMANAGER->singleChannelPlay("Earth");
 				SOUNDMANAGER->play("MenuOpen", _effectSound);
-				SCENEMANAGER->changeScene("inGame");
 			}
 		}
 		else if (PtInRect(&_rc[1], _ptMouse))
@@ -90,9 +92,10 @@ void intro::update()
 			_MapTool->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
+				_chageScene.isChanged = true;
+				_chageScene.menuIndex = 2;
 				SOUNDMANAGER->singleChannelPlay("MapTool");
 				SOUNDMANAGER->play("MenuOpen", _effectSound);
-				SCENEMANAGER->changeScene("mapTool");
 			}
 		}
 		else if (PtInRect(&_rc[3], _ptMouse))
@@ -115,6 +118,16 @@ void intro::update()
 			}
 		}
 		else _soundCheck = 0;
+
+		if (_chageScene.isChanged)
+		{
+			_BlackAalpha += 3;
+
+			if (_BlackAalpha > 255)
+			{
+				SCENEMANAGER->changeScene((_chageScene.menuIndex == 0 ? "inGame" : (_chageScene.menuIndex == 1 ? "load" : "mapTool")));
+			}
+		}
 	}
 }
 
@@ -131,3 +144,4 @@ void intro::render()
 	_EXIT->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 75, WINSIZEY / 2 + 310, _sceneAlpha);
 	
 }
+
