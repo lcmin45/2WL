@@ -58,6 +58,7 @@ protected:
 	float _jump;
 
 	POINTFLOAT _playerPosition;
+	bool _skill;
 
 public:
 	boss();

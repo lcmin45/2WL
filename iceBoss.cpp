@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "iceBoss.h"
 
-
 iceBoss::iceBoss()
 {
 }
@@ -10,7 +9,6 @@ iceBoss::iceBoss()
 iceBoss::~iceBoss()
 {
 }
-
 
 
 void iceBoss::render()
@@ -138,6 +136,7 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount < 400 && _bossMoveCount >= 300)
@@ -149,6 +148,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = WINSIZEX / 2 + 50;
 				_y = WINSIZEY / 2 + 300;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount < 700 && _bossMoveCount >= 600)
@@ -160,6 +160,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = WINSIZEX / 2 + 50;
 				_y = WINSIZEY / 2 - 250;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount < 1000 && _bossMoveCount >= 900)
@@ -171,6 +172,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = WINSIZEX / 2 - 250;
 				_y = WINSIZEY / 2;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount < 1300 && _bossMoveCount >= 1200)
@@ -182,6 +184,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = WINSIZEX / 2 + 330;
 				_y = WINSIZEY / 2;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount < 1600 && _bossMoveCount >= 1500)
@@ -193,6 +196,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = 656;
 				_y = 464;
+				_skill = false;
 			}
 		}
 
@@ -205,6 +209,7 @@ void iceBoss::iceMove()
 				_woodindex = 0;
 				_x = 656;
 				_y = 464;
+				_skill = false;
 			}
 		}
 		else if (_bossMoveCount >= 1900)
@@ -242,9 +247,19 @@ void iceBoss::iceSkill()
 {
 	if (_bossImg == IMAGEMANAGER->findImage("얼음스킬"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("얼음던지기", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("우박", { _x, _y });
+			_skill = true;
+		}
 	}
 }

@@ -54,7 +54,7 @@ void 우박::fire(const char * skillName, int amount, float angle, float speed, fl
 	if (!_img)
 	{
 		_subject = subject;
-		sprintf_s(_str, "스킬범위");
+		sprintf_s(_str, "우박범위");
 		_img = IMAGEMANAGER->findImage(_str);
 		_amount = amount;
 		_firePt;
