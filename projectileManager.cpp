@@ -122,8 +122,8 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 
 void projectileManager::vectorCheck()
 {
-	if (vSkill.size() != 0)
-	{
+	if (vSkill.size() == 0) return;
+
 		for (viSkill = vSkill.begin(); viSkill != vSkill.end();)
 		{
 			if (!(*viSkill)->getImage())
@@ -136,7 +136,6 @@ void projectileManager::vectorCheck()
 				viSkill++;
 			}
 		}
-	}
 }
 
 void projectileManager::vectorDraw()
