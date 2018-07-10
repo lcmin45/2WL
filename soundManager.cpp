@@ -246,7 +246,7 @@ void soundManager::singleChannelPlay(string keyName)
 	{
 		if (keyName == _viSound->keyName)
 		{
-			_system->playSound(FMOD_CHANNEL_FREE, _viSound->sound, false, &_singleChannel);
+			_system->playSound(FMOD_CHANNEL_REUSE, _viSound->sound, false, &_singleChannel);
 			break;
 		}
 	}	

@@ -21,7 +21,7 @@ enum MONSTERDIRECTION
 
 
 enum MONDIRECTION	{ DIR_UP, DIR_DOWN, DIR_LEFT, DIR_RIGHT };
-enum MONSTERFORM	{ CARD, SUMMOM, BATTLE };
+enum MONSTERFORM	{ CARD, SUMMOM, BATTLE, DIE };
 
 class monster : public gameNode
 {
@@ -94,8 +94,9 @@ public:
 	inline void HitHP(float att) { _monsterHP -= att; }
 	inline float getHP() { return _monsterHP; }
 
-	void setImage(image* img) { _image = img; }
+	MONSTERFORM getForm() { return _form; }
 	void setForm(MONSTERFORM form) { _form = form; }
+	void setImage(image* img) { _image = img; }
 
 	POINTFLOAT getPosition() { return _position; }
 	POINTFLOAT getBottomPosition() { return _bottomPosition; }

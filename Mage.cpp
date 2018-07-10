@@ -244,9 +244,10 @@ void Mage::Test()
 
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
+
+		if (_form == DIE) return;
 		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
-		if (_Direction == RIGHT_DIE || _Direction == LEFT_DIE) return;
-		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
+		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
 		{
 			SOUNDMANAGER->play("EnemyHurt", _effectSound);
 			_Direction = RIGHT_HIT;
@@ -265,13 +266,13 @@ void Mage::Test()
 
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
-		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
-		if (_Direction == RIGHT_DIE || _Direction == LEFT_DIE) return;
+		if (_form == DIE) return;
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT)
 		{
 
 			SOUNDMANAGER->play("EnemyDie", _effectSound);
 			_Direction = RIGHT_DIE;
+			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
 			_Motion->start();
 		}
@@ -279,6 +280,7 @@ void Mage::Test()
 		{
 			SOUNDMANAGER->play("EnemyDie", _effectSound);
 			_Direction = LEFT_DIE;
+			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName7);
 			_Motion->start();
 		}

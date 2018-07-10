@@ -68,7 +68,6 @@ void intro::update()
 			_GameStart->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				SOUNDMANAGER->singleChannelPause();
 				SOUNDMANAGER->singleChannelPlay("Earth");
 				SOUNDMANAGER->play("MenuOpen", _effectSound);
 				SCENEMANAGER->changeScene("inGame");
@@ -91,7 +90,6 @@ void intro::update()
 			_MapTool->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				SOUNDMANAGER->singleChannelPause();
 				SOUNDMANAGER->singleChannelPlay("MapTool");
 				SOUNDMANAGER->play("MenuOpen", _effectSound);
 				SCENEMANAGER->changeScene("mapTool");
