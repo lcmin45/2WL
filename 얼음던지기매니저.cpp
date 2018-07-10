@@ -24,7 +24,7 @@ void 얼음던지기매니저::update()
 {
 	if (_img)
 	{
-		if (TIMEMANAGER->getWorldTime() - _startTime <= 0.7f)
+		if (TIMEMANAGER->getWorldTime() - _startTime <= 1.0f)
 		{
 			if (count % 3 == 0);
 			{얼음던지기* IceThrow = new 얼음던지기;

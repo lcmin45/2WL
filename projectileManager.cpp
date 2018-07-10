@@ -87,11 +87,11 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 {
 	float tempAngle = 0;
 	tempAngle = getAngle(
-		pt.x,
-		pt.y,
-		_player->getPosition().x,
+		pt.x, 
+		pt.y, 
+		_player->getPosition().x, 
 		_player->getPosition().y);
-	if (!strcmp(skillName, "BlueKnightBullet") || !strcmp(skillName, "GreenKnightBullet") || !strcmp(skillName, "RedKnightBullet") || !strcmp(skillName, "GhoulBullet"))
+	if (!strcmp(skillName, "BlueKnightBullet") || !strcmp(skillName, "GreenKnightBullet")|| !strcmp(skillName, "RedKnightBullet") || !strcmp(skillName, "GhoulBullet"))
 	{
 		몬스터근접* monsterAtt = new 몬스터근접;
 		monsterAtt->fire(skillName, 1, pt, tempAngle, 15, 350, 50, 1.0f, ENEMY);
@@ -103,9 +103,9 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 		몬스터총알* monsterBullet = new 몬스터총알;
 		몬스터총알* monsterBullet2 = new 몬스터총알;
 		몬스터총알* monsterBullet3 = new 몬스터총알;
-		monsterBullet->fire(skillName, 1, pt, tempAngle - PI / 6, 8, 850, 50, 1.0f, ENEMY);
+		monsterBullet->fire(skillName, 1, pt, tempAngle - PI/6, 8, 850, 50, 1.0f, ENEMY);
 		monsterBullet2->fire(skillName, 1, pt, tempAngle, 8, 850, 50, 1.0f, ENEMY);
-		monsterBullet3->fire(skillName, 1, pt, tempAngle + PI / 6, 8, 850, 50, 1.0f, ENEMY);
+		monsterBullet3->fire(skillName, 1, pt, tempAngle + PI/6, 8, 850, 50, 1.0f, ENEMY);
 		vSkill.push_back(monsterBullet);
 		vSkill.push_back(monsterBullet2);
 		vSkill.push_back(monsterBullet3);
@@ -119,22 +119,16 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 	if (!strcmp(skillName, "얼음던지기"))
 	{
 		얼음던지기매니저* IceM = new 얼음던지기매니저;
-		IceM->fire(skillName, 1, pt, 20.0f, 850, 50, 1.0f, ENEMY);
+		IceM->fire(skillName, 1, pt, 10.0f, 850, 50, 1.0f, ENEMY);
 		IceM->getPlayerAddressLink(_player);
 		vSkill.push_back(IceM);
-	}
-	if (!strcmp(skillName, "우박"))
-	{
-		우박* hail = new 우박;
-		hail->fire(skillName, 1, tempAngle, 16, 850, 50, 1.0f, ENEMY);
-		vSkill.push_back(hail);
 	}
 }
 
 void projectileManager::vectorCheck()
 {
-	if (vSkill.size() != 0)
-	{
+	if (vSkill.size() == 0) return;
+
 		for (viSkill = vSkill.begin(); viSkill != vSkill.end();)
 		{
 			if (!(*viSkill)->getImage())
@@ -147,7 +141,6 @@ void projectileManager::vectorCheck()
 				viSkill++;
 			}
 		}
-	}
 }
 
 void projectileManager::vectorDraw()
