@@ -17,6 +17,8 @@ class intro : public gameNode
 
 	RECT _rc[5];
 
+	int _soundCheck;
+
 
 
 public:

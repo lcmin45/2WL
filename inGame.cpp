@@ -39,6 +39,7 @@ HRESULT inGame::init()
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 
+
 	return S_OK;
 }
 

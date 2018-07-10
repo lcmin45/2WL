@@ -87,7 +87,7 @@ void enemyManager::settingMonster()
 	{
 		Ghoul* _ghoul;
 		_ghoul = new Ghoul;
-		_ghoul->init({ 128 + i * 128,128 }, i,2);
+		_ghoul->init({ 128 + i * 128,128 }, i,1);
 
 		_vGhoul.push_back(_ghoul);
 	}
@@ -103,7 +103,7 @@ void enemyManager::settingMonster()
 	{
 		Mage* _Mage;
 		_Mage = new Mage;
-		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 4);
+		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 3);
 
 		_vMage.push_back(_Mage);
 	}
@@ -112,7 +112,7 @@ void enemyManager::settingMonster()
 	{
 		Rogue* _Rogue;
 		_Rogue = new Rogue;
-		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i,2);
+		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i,4);
 
 		_vRogue.push_back(_Rogue);
 	}

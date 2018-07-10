@@ -10,6 +10,7 @@ HRESULT playGround::init(void)
 	gameNode::init(true);
 
 	settingAddImage();
+	settingAddSound();
 
 	SCENEMANAGER->addScene("intro", new intro);
 	SCENEMANAGER->addScene("ending", new ending);
@@ -18,6 +19,7 @@ HRESULT playGround::init(void)
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
 	SCENEMANAGER->changeScene("intro");
+	
 
 	return S_OK;
 }
@@ -31,16 +33,6 @@ void playGround::update(void)
 {
 	gameNode::update();
 
-
-	//if (KEYMANAGER->isOnceKeyDown(VK_F5))
-	//{
-	//	SCENEMANAGER->changeScene("mapTool");
-	//}
-	//
-	//if (KEYMANAGER->isOnceKeyDown(VK_F6))
-	//{
-	//	SCENEMANAGER->changeScene("inGame");
-	//}
 	if (KEYMANAGER->isOnceKeyDown(VK_ESCAPE))
 	{
 		SCENEMANAGER->changeScene("intro");
@@ -57,8 +49,6 @@ void playGround::render(void)
 	PatBlt(CAMERAMANAGER->getCameraDC(), 0, 0, WINSIZEX, WINSIZEY, BLACKNESS);
 
 	SCENEMANAGER->render();
-
-	//TIMEMANAGER->render(CAMERAMANAGER->getCameraDC());
 
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
@@ -252,4 +242,34 @@ void playGround::settingAddImage(void)
 
 	// 오토 타일 이미지
 	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBMAGENTA);
+}
+
+void playGround::settingAddSound(void)
+{
+	//================================================= MONSTER ===========================================
+
+	SOUNDMANAGER->addSound("EnemySummon", "sound/Monster/EnemySummon.WAV", false, false);
+	SOUNDMANAGER->addSound("EnemyHurt", "sound/Monster/EnemyHurt.WAV", false, false);
+	SOUNDMANAGER->addSound("GhoulAttack", "sound/Monster/GhoulAttack.WAV", false, false);
+	SOUNDMANAGER->addSound("KnightAttack", "sound/Monster/KnightAttack.WAV", false, false);
+	SOUNDMANAGER->addSound("MageAttack", "sound/Monster/MageAttack.WAV", false, false);
+	SOUNDMANAGER->addSound("MageAttackMove", "sound/Monster/MageAttackMove.WAV", false, false);
+	SOUNDMANAGER->addSound("RogueAttack", "sound/Monster/RogueAttack.WAV", false, false);
+	SOUNDMANAGER->addSound("GhoulDie", "sound/Monster/GhoulDie.WAV", false, false);
+	SOUNDMANAGER->addSound("KnightDie", "sound/Monster/KnightDie.WAV", false, false);
+	SOUNDMANAGER->addSound("EnemyDie", "sound/Monster/EnemyDie.WAV", false, false);
+
+	//================================================= UI ================================================
+
+	SOUNDMANAGER->addSound("MenuMove", "sound/UI/MenuMove.WAV", false, false);
+	SOUNDMANAGER->addSound("MenuOpen", "sound/UI/MenuOpen.WAV", false, false);
+
+	//================================================= BGM ===============================================
+
+	SOUNDMANAGER->addSound("TitleScreen", "sound/BGM/TitleScreen.WAV", true, true);
+	SOUNDMANAGER->addSound("MapTool", "sound/BGM/MapTool.mp3", true, true);		//이것만 mp3 ㅠㅠㅠㅠ 한참 찾았네
+	SOUNDMANAGER->addSound("Earth", "sound/BGM/Earth.WAV", true, true);
+	SOUNDMANAGER->addSound("Boss", "sound/BGM/Boss.WAV", true, true);
+	SOUNDMANAGER->addSound("Ending", "sound/BGM/Ending.WAV", true, true);
+
 }
