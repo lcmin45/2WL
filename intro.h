@@ -1,8 +1,8 @@
 #pragma once
 #include "gameNode.h"
+#include "saveAndLoad.h"
 
-
-struct chageScene
+struct changeScene
 {
 	bool isChanged;
 	int menuIndex;
@@ -22,12 +22,11 @@ class intro : public gameNode
 	image* _EXIT;
 
 	RECT _rc[5];
-	chageScene _chageScene;
+	changeScene _changeScene;
 
 	int _soundCheck;
 
-
-
+	saveAndLoad* _saveAndLoad;
 public:
 	intro();
 	~intro();

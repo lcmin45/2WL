@@ -19,15 +19,15 @@ public:
 	sceneManager();
 	~sceneManager();
 
-	HRESULT init();
-	void release();
-	void update();
-	void render();
+	virtual HRESULT init();
+	virtual void release();
+	virtual void update();
+	virtual void render();
 
 	//¾À Ãß°¡ ÇÔ¼ö
 	gameNode* addScene(string sceneName, gameNode* scene);
 
 	//¾À º¯°æ
 	HRESULT changeScene(string sceneName);
+	HRESULT changeScene(string sceneName, void* info);
 };
-

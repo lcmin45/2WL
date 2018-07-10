@@ -12,6 +12,7 @@ private:
 
 public:
 	virtual HRESULT init(void);
+	virtual HRESULT init(void* obj);
 	virtual HRESULT init(bool managerInit);
 	virtual void release(void);
 	virtual void update(void);

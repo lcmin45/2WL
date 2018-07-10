@@ -127,6 +127,9 @@
     <Filter Include="playGround\skill\bossSkill">
       <UniqueIdentifier>{652dc0d2-8e30-45fa-a11f-9f1b374cdd45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\saveAndLoad">
+      <UniqueIdentifier>{00f0136f-38b8-42d8-aa51-cfae140dc600}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -360,6 +363,9 @@
     <ClInclude Include="얼음던지기매니저.h">
       <Filter>playGround\skill\bossSkill</Filter>
     </ClInclude>
+    <ClInclude Include="saveAndLoad.h">
+      <Filter>playGround\saveAndLoad</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -577,6 +583,9 @@
     </ClCompile>
     <ClCompile Include="얼음던지기매니저.cpp">
       <Filter>playGround\skill\bossSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="saveAndLoad.cpp">
+      <Filter>playGround\saveAndLoad</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

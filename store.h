@@ -18,6 +18,6 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void addItem(item* item); //상점에 아이템 추가 함수
+	bool addItem(item* item); //상점에 아이템 추가 함수
 	void sellItem(item* item); //아이템 판매 함수
 };

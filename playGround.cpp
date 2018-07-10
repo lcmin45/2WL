@@ -13,13 +13,12 @@ HRESULT playGround::init(void)
 	settingAddSound();
 
 	SCENEMANAGER->addScene("intro", new intro);
-	SCENEMANAGER->addScene("ending", new ending);
-	SCENEMANAGER->addScene("loading", new loading);
 	SCENEMANAGER->addScene("inGame", new inGame);
+	SCENEMANAGER->addScene("loading", new loading);
+	SCENEMANAGER->addScene("ending", new ending);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
 	SCENEMANAGER->changeScene("intro");
-	
 
 	return S_OK;
 }
@@ -39,8 +38,7 @@ void playGround::update(void)
 		CAMERAMANAGER->setCameraPoint({ 0, 0 });
 	}
 
-
-	SCENEMANAGER->update(); 
+	SCENEMANAGER->update();
 }
 
 void playGround::render(void)
@@ -51,12 +49,11 @@ void playGround::render(void)
 	SCENEMANAGER->render();
 	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, _BlackAalpha);
 
+	TIMEMANAGER->render(CAMERADC);
+
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
-
-
-
 
 void playGround::settingAddImage(void)
 {
@@ -135,7 +132,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
-	
+
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
