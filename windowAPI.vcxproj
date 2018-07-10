@@ -224,6 +224,7 @@
     <ClInclude Include="사이클론부메랑.h" />
     <ClInclude Include="얼음던지기.h" />
     <ClInclude Include="얼음던지기매니저.h" />
+    <ClInclude Include="우박.h" />
     <ClInclude Include="화염구.h" />
     <ClInclude Include="흙주먹.h" />
   </ItemGroup>
@@ -304,6 +305,7 @@
     <ClCompile Include="사이클론부메랑.cpp" />
     <ClCompile Include="얼음던지기.cpp" />
     <ClCompile Include="얼음던지기매니저.cpp" />
+    <ClCompile Include="우박.cpp" />
     <ClCompile Include="화염구.cpp" />
     <ClCompile Include="흙주먹.cpp" />
   </ItemGroup>

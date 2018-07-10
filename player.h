@@ -44,6 +44,7 @@ private:
 	projectileManager* _ptM; // 투사체 매니저 호환
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
 	bool _isDead;
+	int _playerTileIndex;
 
 	saveAndLoad* _saveAndLoad;
 public:
@@ -71,6 +72,7 @@ public:
 	DIRECTION getDirection() { return _direction; }
 	float getMaxHp() { return _maxHp; }
 	float getCurrentHp() { return _currentHp; }
+	int getPlayerIndex() { return _playerTileIndex; }
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
 	bool getIsDead() { return _isDead; }

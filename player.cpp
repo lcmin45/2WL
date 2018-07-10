@@ -11,6 +11,10 @@ HRESULT player::init() //초기화
 {
 	_position.x = 3280.0f;
 	_position.y = 3080.0f;
+
+	//_position.x = 3296 + 16;		//게임 시작 위치!
+	//_position.y = 5664 + 16;
+
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE6;
@@ -90,6 +94,7 @@ HRESULT player::init() //초기화
 	_speed = PLAYER_SPEED;
 	_critical = PLAYER_CRITICAL;
 	_coin = 0;
+	_playerTileIndex = 0;
 
 	_canTakeItem = false;
 	_isDead = false;
@@ -104,6 +109,7 @@ void player::release() {}
 
 void player::update()
 {
+
 	keyProcess();
 	moveProcess();
 	collisionCheckWithTile();

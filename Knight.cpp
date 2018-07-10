@@ -11,7 +11,7 @@ Knight::~Knight()
 {
 }
 
-HRESULT Knight::init(const char * imgName, POINTFLOAT point,int index, int monsterRoomIndex)
+HRESULT Knight::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex)
 {
 
 	_Astar = new Astar;
@@ -30,14 +30,15 @@ HRESULT Knight::init(const char * imgName, POINTFLOAT point,int index, int monst
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	
-	sprintf_s(_motionName1, "KnightMonsterSummon%d", index);
-	sprintf_s(_motionName2, "KnightRightAttack%d", index);
-	sprintf_s(_motionName3, "KnightLeftAttack%d", index);
-	sprintf_s(_motionName4, "KnightRightHit%d", index);
-	sprintf_s(_motionName5, "KnightLeftHit%d", index);
-	sprintf_s(_motionName6, "KnightRightDie%d", index);
-	sprintf_s(_motionName7, "KnightLeftDie%d", index);
+	_keyIndex = int(point.x + point.y + monsterRoomIndex);
+
+	sprintf_s(_motionName1, "KnightMonsterSummon%d", _keyIndex);
+	sprintf_s(_motionName2, "KnightRightAttack%d", _keyIndex);
+	sprintf_s(_motionName3, "KnightLeftAttack%d", _keyIndex);
+	sprintf_s(_motionName4, "KnightRightHit%d", _keyIndex);
+	sprintf_s(_motionName5, "KnightLeftHit%d", _keyIndex);
+	sprintf_s(_motionName6, "KnightRightDie%d", _keyIndex);
+	sprintf_s(_motionName7, "KnightLeftDie%d", _keyIndex);
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
@@ -166,7 +167,7 @@ void Knight::KnightMove()
 
 		if (_timecnt % 33 == 0)
 		{
-			_endPosition = _Astar->readyPath(_bottomPosition);
+			_endPosition = _Astar->readyPath(_bottomPosition, _monsterIndex);
 			_timecnt = 0;
 		}
 		else
@@ -263,8 +264,7 @@ void Knight::Test()
 
 	if (KEYMANAGER->isOnceKeyDown('X'))
 	{
-		if (_form == DIE) return;
-		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT)
+		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
 		{
 			SOUNDMANAGER->play("KnightDie", _effectSound);
 			_Direction = RIGHT_DIE;
@@ -272,7 +272,7 @@ void Knight::Test()
 			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
 			_Motion->start();
 		}
-		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT)
+		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND)
 		{
 			SOUNDMANAGER->play("KnightDie", _effectSound);
 			_Direction = LEFT_DIE;

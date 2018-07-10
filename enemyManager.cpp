@@ -6,10 +6,8 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-
 	setBoss();
 	settingMonster();
-
 
 	return S_OK;
 }
@@ -33,12 +31,12 @@ void enemyManager::render()
 
 void enemyManager::setBoss()
 {
-	_woodposition.x = WINSIZEX / 2;
-	_woodposition.y = WINSIZEY / 2;
-	_iceposition.x = WINSIZEX / 2;
-	_iceposition.y = WINSIZEY / 2;
-	_fireposition.x = WINSIZEX / 2;
-	_fireposition.y = WINSIZEY / 2;
+	_woodposition.x = 5376;
+	_woodposition.y = 304;
+	_iceposition.x = 656;
+	_iceposition.y = 464;
+	_fireposition.x = 624;
+	_fireposition.y = 4224;
 
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
@@ -63,14 +61,19 @@ void enemyManager::BossUpdate()
 	_woodBoss->update();
 	_woodBoss->woodMove();
 	_woodBoss->woodSkill();
+	_woodBoss->setProjectileAddressLink(_PM);
 	//조건 추가하기
 	_iceBoss->update();
 	_iceBoss->iceMove();
 	_iceBoss->iceSkill();
+	_iceBoss->setPlayerPoint(_playerPoint);
+	_iceBoss->setProjectileAddressLink(_PM);
 	//조건 추가하기
 	_fireBoss->update();
 	_fireBoss->fireMove();
 	_fireBoss->fireSkill();
+	_fireBoss->setPlayerPoint(_playerPoint);
+	_fireBoss->setProjectileAddressLink(_PM);
 }
 
 void enemyManager::BossRender()
@@ -81,49 +84,143 @@ void enemyManager::BossRender()
 	_fireBoss->render();
 }
 
-void enemyManager::settingMonster()
+void enemyManager::settingMonster()			//주석은 타일 번호
 {
-	for (float i = 0; i < 1; ++i)
+	//훈련용 허수아비 이닛
+	for (float i = 0; i <2; ++i)
 	{
-		Ghoul* _ghoul;
-		_ghoul = new Ghoul;
-		_ghoul->init({ 128 + i * 128,128 }, i,1);
+		for (float j = 0; j < 3; ++j)
+		{
+			Scarecrow* _Scarecrow;
+			_Scarecrow = new Scarecrow;
+			_Scarecrow->init({ 2816 + i * 896 + 16 ,(4736 + j * 128 + 16) });	// 88.148 , 88.152 , 88.156 / 116.148 , 116.152 , 116.156
 
-		_vGhoul.push_back(_ghoul);
+			_vScarecrow.push_back(_Scarecrow);
+		}
 	}
-	for (float i = 0; i < 1; ++i)
+	//index 4 번 몬스터 이닛
 	{
-		Knight* _Knight;
-		_Knight = new Knight;
-		_Knight->init("BlueKnight", { 128 + i * 128,128*2 }, i,2);
-		_vKnight.push_back(_Knight);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4);		//102.118
+
+			_vGhoul.push_back(_ghoul);
+		}
+		for (float i = 0; i < 2; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4);	//93.123 , 116.123
+
+			_vGhoul.push_back(_ghoul);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 5 번 몬스터 이닛 (RED)
 	{
-		Mage* _Mage;
-		_Mage = new Mage;
-		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 3);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 1504 + 16, 3040 + 16 }, 5);	//47.95
 
-		_vMage.push_back(_Mage);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("RedMage", {1344+16,2720+16}, 5);	//42.85
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("RedKnight", { 1600 +16,2816 +16 }, 5);	//50.88
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("RedRogue", { 1408+16,3232+16 }, 5);	//44.101
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 6 번 몬스터 이닛 (BLUE)
 	{
-		Rogue* _Rogue;
-		_Rogue = new Rogue;
-		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i,4);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 3232 + 16, 1792 + 16 }, 6);	//101.56
 
-		_vRogue.push_back(_Rogue);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("BlueMage", { 3616 + 16,1504 + 16 }, 6);	//113.47
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("BlueKnight", { 3552 + 16,1856+ 16 }, 6);	//111.58
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("BlueRogue", { 3200 + 16,1440 + 16 }, 6);	//100.45
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 7 번 몬스터 이닛 (GREEN)
 	{
-		Scarecrow* _Scarecrow;
-		_Scarecrow = new Scarecrow;
-		_Scarecrow->init({ 128 + i * 128,128 * 5 });
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 4672 + 16, 2752 + 16 }, 7);	// 146.86
 
-		_vScarecrow.push_back(_Scarecrow);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("GreenMage", { 5088 + 16,2688 + 16 }, 7);	//159.84
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("GreenKnight", { 4800 + 16,3040 + 16 }, 7);	//150.95
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7);	//157.100
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
 }
 

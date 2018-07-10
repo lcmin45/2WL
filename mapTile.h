@@ -42,6 +42,7 @@ public:
 	void checkObject(void);			// 박스에 오브젝트 체크
 	void checkAuto(void);			// 박스에 자동타일 체크
 	void checkRoomIndex(void);		// 몬스터 등장용 인덱스 설정
+	void checkEraser(void);
 
 	void terrainRender(void);		// 지형 렌더
 	void imageObjectRender(void);	// 이미지 오브젝트 렌더

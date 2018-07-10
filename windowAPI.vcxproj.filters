@@ -366,6 +366,9 @@
     <ClInclude Include="saveAndLoad.h">
       <Filter>playGround\saveAndLoad</Filter>
     </ClInclude>
+    <ClInclude Include="우박.h">
+      <Filter>playGround\skill\bossSkill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -586,6 +589,9 @@
     </ClCompile>
     <ClCompile Include="saveAndLoad.cpp">
       <Filter>playGround\saveAndLoad</Filter>
+    </ClCompile>
+    <ClCompile Include="우박.cpp">
+      <Filter>playGround\skill\bossSkill</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
