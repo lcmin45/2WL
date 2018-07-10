@@ -35,7 +35,7 @@ void ºÒ²ÉÅ¸°Ý::render()
 	{
 		viParticle->img->frameRender(getMemDC(), viParticle->rc.left, viParticle->rc.top, viParticle->indexX, viParticle->indexY);
 	}
-	if (_img)_img->frameRender(getMemDC(), _rc.left, _rc.top,_frameIndex,_img->getFrameY());
+	if (_img)_img->frameRender(getMemDC(), _rc.left, _rc.top, _frameIndex, _img->getFrameY());
 }
 
 void ºÒ²ÉÅ¸°Ý::fire(const char * skillName, int amount, POINTFLOAT pt, float angle, float speed, float range, float damage, float coolTime, SUBJECT subject)
@@ -62,7 +62,7 @@ void ºÒ²ÉÅ¸°Ý::fire(const char * skillName, int amount, POINTFLOAT pt, float ang
 
 	PARTICLE particle;
 	ZeroMemory(&particle, sizeof(PARTICLE));
-	particle.img = IMAGEMANAGER->findImage("ºÒ²ÉÆÄÆ¼Å¬2");
+	particle.img = IMAGEMANAGER->findImage("ºÒ²ÉÆÄÆ¼Å¬");
 
 	for (int i = 0; i < 20; i++)
 	{
