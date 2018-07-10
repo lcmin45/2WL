@@ -42,6 +42,7 @@ private:
 	itemManager* _itemManager; //인벤토리
 	projectileManager* _ptM; // 투사체 매니저 호환
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
+	bool _isDead;
 public:
 	player();
 	~player();
@@ -68,7 +69,9 @@ public:
 	float getCurrentHp() { return _currentHp; }
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
+	bool getIsDead() { return _isDead; }
 	void setAction(ACTION action) { _action = action; }
+	void setIsDead(bool isDead) { _isDead = isDead; }
 	void setAnimation(animation* animation) { _animation = animation; }
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }

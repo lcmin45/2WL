@@ -9,8 +9,8 @@ player::~player() {}
 
 HRESULT player::init() //초기화
 {
-	_position.x = 1700.0f;
-	_position.y = 950.0f;
+	_position.x = 3280.0f;
+	_position.y = 3080.0f;
 	_direction = DOWN;
 	_action = IDLE;
 	_angle = ANGLE3;
@@ -92,6 +92,8 @@ HRESULT player::init() //초기화
 	_coin = 0;
 
 	_canTakeItem = false;
+	_isDead = false;
+
 	return S_OK;
 }
 
@@ -110,7 +112,7 @@ void player::update()
 	//////////////////////////////////////////////임시
 	if (KEYMANAGER->isStayKeyDown('K'))
 	{
-		_currentHp -= 5.0f;
+		_currentHp = 0.0f;
 	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
@@ -429,6 +431,7 @@ void player::afterAction(void* obj)
 
 void player::playerDead(void * obj)
 {
-	SCENEMANAGER->changeScene("intro");
-	CAMERAMANAGER->setCameraPoint({ 0, 0 });
+	player* temp = (player*)obj;
+	temp->setIsDead(true);
+	_BlackAalpha = 0;
 }
