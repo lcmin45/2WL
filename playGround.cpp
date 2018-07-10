@@ -8,7 +8,7 @@ playGround::~playGround() {}
 HRESULT playGround::init(void)
 {
 	gameNode::init(true);
-
+	 
 	settingAddImage();
 	settingAddSound();
 
