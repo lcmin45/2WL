@@ -135,7 +135,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
-	
+	IMAGEMANAGER->addImage("포탈", "image/UI/포탈.bmp", 26 * 2, 42 * 2, true, RGB(255, 0, 255));
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
@@ -275,5 +275,21 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("Earth", "sound/BGM/Earth.WAV", true, true);
 	SOUNDMANAGER->addSound("Boss", "sound/BGM/Boss.WAV", true, true);
 	SOUNDMANAGER->addSound("Ending", "sound/BGM/Ending.WAV", true, true);
+
+	//================================================= BOSS ===============================================
+
+	SOUNDMANAGER->addSound("firebossskill", "sound/boss/불/firebossskill.WAV", false, false);
+	SOUNDMANAGER->addSound("firebossskill2", "sound/boss/불/firebossskill2.WAV", false, false);
+	SOUNDMANAGER->addSound("firebossHurt", "sound/boss/불/firebossHurt.WAV", false, false);
+
+	SOUNDMANAGER->addSound("icebossskill", "sound/boss/얼음/icebossskill.WAV", false, false);
+	SOUNDMANAGER->addSound("icebossskillboom", "sound/boss/얼음/icebossskillboom.WAV", false, false);
+	SOUNDMANAGER->addSound("icebossskill2", "sound/boss/얼음/icebossskill2.WAV", false, false);
+	SOUNDMANAGER->addSound("icebossHurt", "sound/boss/얼음/icebossHurt.WAV", false, false);
+
+	SOUNDMANAGER->addSound("woodbossskill", "sound/boss/나무/woodbossskill.WAV", false, false);
+	SOUNDMANAGER->addSound("woodbossskillboom", "sound/boss/나무/woodbossskillboom.WAV", false, false);
+	SOUNDMANAGER->addSound("woodbossskill2", "sound/boss/나무/woodbossskill2.WAV", false, false);
+	SOUNDMANAGER->addSound("woodbossHurt", "sound/boss/나무/woddboosHurt.WAV", false, false);
 
 }

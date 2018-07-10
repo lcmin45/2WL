@@ -69,7 +69,7 @@ void woodBoss::update()
 			//보스체력이 0이 아닐때
 			if (_woodCurrentHP > 0)
 			{
-				//소환 모션이 끝나면 등장모션과 대화창 띄우기
+				//소환 모션이 끝나면 등장모션과 대화창 띄우기 bgm실행
 				if (_bossImg == IMAGEMANAGER->findImage("나무소환"))
 				{
 					if (_woodindex > _bossImg->getMaxFrameX())
@@ -77,6 +77,7 @@ void woodBoss::update()
 						_bossImg = IMAGEMANAGER->findImage("나무등장");
 						_woodindex = 0;
 						_woodDialogue = true;
+						SOUNDMANAGER->singleChannelPlay("Boss");
 					}
 				}
 				//스페이스키를 누르면 대화창 넘어가기
@@ -121,7 +122,11 @@ void woodBoss::update()
 				_bossImg = IMAGEMANAGER->findImage("나무죽음");
 				_woodindex = 0;
 				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
-				if (_bossImg == IMAGEMANAGER->findImage("나무죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_woodBossDie = true;
+				if (_bossImg == IMAGEMANAGER->findImage("나무죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				{
+					_woodBossDie = true;
+					SOUNDMANAGER->singleChannelPlay("Earth");
+				}
 			}
 		}
 		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());

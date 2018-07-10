@@ -9,6 +9,16 @@ HRESULT stage::init()
 {
 	_stage = 0;
 
+	///////¾óÀ½ Æ÷Å»
+	_potalRc[0] = RectMakeCenter(672, 1488, 52, 84);
+	_potalRc[1] = RectMakeCenter(2240, 1664, 52, 84);
+	//ºÒ Æ÷Å»
+	_potalRc[2] = RectMakeCenter(956, 2912, 52, 84);
+	_potalRc[3] = RectMakeCenter(656, 5504, 52, 84);
+	////³ª¹« Æ÷Å»
+	_potalRc[4] = RectMakeCenter(5632, 2944, 52, 84);
+	_potalRc[5] = RectMakeCenter(5376, 1328, 52, 84);
+
 	return S_OK;
 }
 
@@ -74,6 +84,13 @@ void stage::render()
 	char str[128];
 	sprintf_s(str, "%d, %d", _player->getPosition().x, _player->getPosition().y);
 	TextOut(CAMERAMANAGER->getCameraDC(), 100, 100, str, strlen(str));
+
+	////////////////Æ÷Å»//////////////////
+	for (int i = 0; i < 6; i++)
+	{
+		_potal[i] = IMAGEMANAGER->findImage("Æ÷Å»");
+		_potal[i]->render(getMemDC(), _potalRc[i].left, _potalRc[i].top);
+	}
 }
 
 void stage::stageLoad(int stage)

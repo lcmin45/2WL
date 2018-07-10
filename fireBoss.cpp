@@ -68,7 +68,7 @@ void fireBoss::update()
 			//보스 체력이 0보다 클때
 			if (_fireCurrentHP > 0)
 			{
-				//소환 모션이 끝나면 등장 모션띄우고 대화창 띄우기
+				//소환 모션이 끝나면 등장 모션띄우고 대화창 띄우기 bgm실행
 				if (_bossImg == IMAGEMANAGER->findImage("불소환"))
 				{
 					if (_fireindex > _bossImg->getMaxFrameX())
@@ -76,6 +76,7 @@ void fireBoss::update()
 						_bossImg = IMAGEMANAGER->findImage("불등장");
 						_fireindex = 0;
 						_fireDialogue = true;
+						SOUNDMANAGER->singleChannelPlay("Boss");
 					}
 				}
 
@@ -111,7 +112,11 @@ void fireBoss::update()
 				_bossImg = IMAGEMANAGER->findImage("불죽음");
 				_fireindex = 0;
 				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
-				if (_bossImg == IMAGEMANAGER->findImage("불죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_fireBossDie = true;
+				if (_bossImg == IMAGEMANAGER->findImage("불죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				{
+					_fireBossDie = true;
+					SOUNDMANAGER->singleChannelPlay("Earth");
+				}
 			}
 		}
 		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
@@ -145,7 +150,7 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 			}
 			_x += 4;
-			_y -= 3;
+			_y -= 2;
 		}
 		//중앙으로 순간이동
 		else if (_bossMoveCount < 800 && _bossMoveCount >= 700)
@@ -157,7 +162,7 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 			}
 			_x -= 4;
-			_y += 3;
+			_y += 2;
 		}
 
 		else if (_bossMoveCount < 1100 && _bossMoveCount >= 1000)
@@ -180,7 +185,7 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 			}
 			_x += 4;
-			_y += 3;
+			_y += 2;
 		}
 		//중앙으로 순간이동
 		else if (_bossMoveCount < 1800 && _bossMoveCount >= 1700)
@@ -192,7 +197,7 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 			}
 			_x -= 4;
-			_y -= 3;
+			_y -= 2;
 		}
 		else if (_bossMoveCount < 2200 && _bossMoveCount >= 2000)
 		{

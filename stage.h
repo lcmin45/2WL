@@ -11,6 +11,9 @@ private:
 	int		_stage;
 	player* _player;
 
+	image * _potal[6];
+	RECT _potalRc[6];
+
 public:
 	stage();
 	~stage();
