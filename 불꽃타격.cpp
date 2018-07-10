@@ -58,22 +58,23 @@ void ºÒ²ÉÅ¸°Ý::fire(const char * skillName, int amount, POINTFLOAT pt, float ang
 		_damage = damage;
 		_coolTime = coolTime;
 		_startTime = TIMEMANAGER->getWorldTime();
-	}
 
-	PARTICLE particle;
-	ZeroMemory(&particle, sizeof(PARTICLE));
-	particle.img = IMAGEMANAGER->findImage("ºÒ²ÉÆÄÆ¼Å¬");
 
-	for (int i = 0; i < 20; i++)
-	{
-		particle.startTime = TIMEMANAGER->getWorldTime();
-		particle.angle = RND->getFloat(PI2);
-		particle.indexX = RND->getInt(3);
-		particle.indexY = RND->getInt(4);
-		particle.pt.x = _rc.left + (_rc.right - _rc.left) / 2 + RND->getInt(40) - 10;
-		particle.pt.y = _rc.top + (_rc.bottom - _rc.top) / 2 + RND->getInt(40) - 10;
-		particle.rc = RectMakeCenter(particle.pt.x, particle.pt.y, particle.img->getFrameWidth(), particle.img->getFrameHeight());
-		vParticle.push_back(particle);
+		PARTICLE particle;
+		ZeroMemory(&particle, sizeof(PARTICLE));
+		particle.img = IMAGEMANAGER->findImage("ºÒ²ÉÆÄÆ¼Å¬");
+
+		for (int i = 0; i < 20; i++)
+		{
+			particle.startTime = TIMEMANAGER->getWorldTime();
+			particle.angle = RND->getFloat(PI2);
+			particle.indexX = RND->getInt(3);
+			particle.indexY = RND->getInt(4);
+			particle.pt.x = _rc.left + (_rc.right - _rc.left) / 2 + RND->getInt(40) - 10;
+			particle.pt.y = _rc.top + (_rc.bottom - _rc.top) / 2 + RND->getInt(40) - 10;
+			particle.rc = RectMakeCenter(particle.pt.x, particle.pt.y, particle.img->getFrameWidth(), particle.img->getFrameHeight());
+			vParticle.push_back(particle);
+		}
 	}
 }
 void ºÒ²ÉÅ¸°Ý::move()
