@@ -3,6 +3,7 @@
 #include "skill.h"
 #include "bossProgressBar.h"
 #include "player.h"
+#include "projectileManager.h"
 
 class player;
 
@@ -58,6 +59,8 @@ protected:
 	float _jump;
 
 	POINTFLOAT _playerPosition;
+	projectileManager* _ptM;
+	bool _skill;
 
 public:
 	boss();
@@ -78,4 +81,5 @@ public:
 	{
 		_playerPosition = playerPosition;
 	}
+	void setProjectileAddressLink(projectileManager* ptM) { _ptM = ptM; }
 };

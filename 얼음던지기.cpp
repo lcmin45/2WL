@@ -63,13 +63,13 @@ void 얼음던지기::move()
 	{
 		if (TIMEMANAGER->getWorldTime() - _startTime >= 2.0f)
 		{
-			_angle = getAngle(_pt.x, _pt.y, getMousePoint().x, getMousePoint().y);
 			_pt.x += cosf(_angle)*_speed;
 			_pt.y += -sinf(_angle)*_speed;
 			_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 		}
 		else
 		{
+			_angle = getAngle(_pt.x, _pt.y, getMousePoint().x, getMousePoint().y);
 			_pt.x = _firePt.x + cosf(_fireAngle) * 50;
 			_pt.y = _firePt.y - sinf(_fireAngle) * 50;
 			_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());

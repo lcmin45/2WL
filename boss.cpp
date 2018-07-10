@@ -48,6 +48,8 @@ HRESULT boss::init()
 	_speed = 5.0f;
 	_jump = 0.0f;
 
+	_skill = false;
+
 	return S_OK;
 }
 

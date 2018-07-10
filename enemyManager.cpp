@@ -6,10 +6,8 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-
 	setBoss();
 	settingMonster();
-
 
 	return S_OK;
 }
@@ -63,15 +61,19 @@ void enemyManager::BossUpdate()
 	_woodBoss->update();
 	_woodBoss->woodMove();
 	_woodBoss->woodSkill();
-
+	_woodBoss->setProjectileAddressLink(_PM);
 	//조건 추가하기
 	_iceBoss->update();
 	_iceBoss->iceMove();
 	_iceBoss->iceSkill();
+	_iceBoss->setPlayerPoint(_playerPoint);
+	_iceBoss->setProjectileAddressLink(_PM);
 	//조건 추가하기
 	_fireBoss->update();
 	_fireBoss->fireMove();
 	_fireBoss->fireSkill();
+	_fireBoss->setPlayerPoint(_playerPoint);
+	_fireBoss->setProjectileAddressLink(_PM);
 }
 
 void enemyManager::BossRender()
