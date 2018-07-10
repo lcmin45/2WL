@@ -33,12 +33,12 @@ void enemyManager::render()
 
 void enemyManager::setBoss()
 {
-	_woodposition.x = WINSIZEX / 2;
-	_woodposition.y = WINSIZEY / 2;
-	_iceposition.x = WINSIZEX / 2;
-	_iceposition.y = WINSIZEY / 2;
-	_fireposition.x = WINSIZEX / 2;
-	_fireposition.y = WINSIZEY / 2;
+	_woodposition.x = 5376;
+	_woodposition.y = 304;
+	_iceposition.x = 656;
+	_iceposition.y = 464;
+	_fireposition.x = 624;
+	_fireposition.y = 4224;
 
 	_woodBoss = new woodBoss;
 	_woodBoss->init();

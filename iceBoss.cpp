@@ -70,7 +70,7 @@ void iceBoss::update()
 			//보스체력이 0보다 클때
 			if (_iceCurrentHP > 0)
 			{
-				//소환 이미지지가 끝나면 등장 모션 띄우고 대화창 띄우기
+				//소환 이미지지가 끝나면 등장 모션 띄우고 대화창 띄우기 bgm실행
 				if (_bossImg == IMAGEMANAGER->findImage("얼음소환"))
 				{
 					if (_iceindex > _bossImg->getMaxFrameX())
@@ -78,6 +78,7 @@ void iceBoss::update()
 						_bossImg = IMAGEMANAGER->findImage("얼음등장");
 						_iceindex = 0;
 						_iceDialogue = true;
+						SOUNDMANAGER->singleChannelPlay("Boss");
 					}
 				}
 
@@ -113,7 +114,11 @@ void iceBoss::update()
 				_bossImg = IMAGEMANAGER->findImage("얼음죽음");
 				_iceindex = 0;
 				//만약 보스이미지가 죽는 모션이고 스페이스 키를 누르면 보스업데이트와 랜더를 그려주는 변수를 바꿔준다
-				if (_bossImg == IMAGEMANAGER->findImage("얼음죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))_iceBossDie = true;
+				if (_bossImg == IMAGEMANAGER->findImage("얼음죽음") && KEYMANAGER->isOnceKeyDown(VK_SPACE))
+				{
+					_iceBossDie = true;
+					SOUNDMANAGER->singleChannelPlay("Earth");
+				}
 			}
 		}
 		_bossRc = RectMakeCenter(_x, _y, _bossImg->getFrameWidth(), _bossImg->getFrameHeight());
@@ -142,7 +147,7 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2;
+				_x = WINSIZEX / 2 + 50;
 				_y = WINSIZEY / 2 + 300;
 			}
 		}
@@ -153,8 +158,8 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2;
-				_y = WINSIZEY / 2 - 300;
+				_x = WINSIZEX / 2 + 50;
+				_y = WINSIZEY / 2 - 250;
 			}
 		}
 		else if (_bossMoveCount < 1000 && _bossMoveCount >= 900)
@@ -164,7 +169,7 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2 - 300;
+				_x = WINSIZEX / 2 - 250;
 				_y = WINSIZEY / 2;
 			}
 		}
@@ -175,7 +180,7 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2 + 300;
+				_x = WINSIZEX / 2 + 330;
 				_y = WINSIZEY / 2;
 			}
 		}
@@ -186,8 +191,8 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2;
-				_y = WINSIZEY / 2;
+				_x = 656;
+				_y = 464;
 			}
 		}
 
@@ -198,8 +203,8 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
-				_x = WINSIZEX / 2;
-				_y = WINSIZEY / 2;
+				_x = 656;
+				_y = 464;
 			}
 		}
 		else if (_bossMoveCount >= 1900)
@@ -242,5 +247,4 @@ void iceBoss::iceSkill()
 	else if (_bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
 	{
 	}
-
 }

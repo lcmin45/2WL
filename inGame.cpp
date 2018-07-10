@@ -60,7 +60,7 @@ void inGame::update()
 	_enemyManager->setStage(_stage);
 	_enemyManager->setPlayerPoint(_player->getPosition());
 	//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
-	_enemyManager->setPlayerIndex(4);
+	_enemyManager->setPlayerIndex(8);
 	_Astar->setPlayerPositionLink(_player->getPosition());
 
 	KEYANIMANAGER->update();
