@@ -206,6 +206,7 @@ void mapTile::checkImageObject(void)
 				_tile[temp].objectSetPoint = _currentObject.objectSetpoint;
 				_tile[temp].objectCheckSize = _currentObject.objectCheckSize;
 				_tile[temp].objectTerrain = _currentObject.terrain;
+				if (_currentObject.imageObjectIndex == NULL) _tile[temp].object = OBJ_NONE;
 			}
 		}
 	}
@@ -425,8 +426,8 @@ void mapTile::checkEraser(void)
 				switch (_eraser)
 				{
 				case ER_WAY:
-					_tile[temp].terrain = TR_WAY;
-					//_tile[temp].terrain = TR_NONE;
+					//_tile[temp].terrain = TR_WAY;
+					_tile[temp].terrain = TR_NONE;
 					break;
 				case ER_WALL:
 					_tile[temp].terrain = TR_WALL;

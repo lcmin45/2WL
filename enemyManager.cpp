@@ -39,6 +39,10 @@ void enemyManager::setBoss()
 	_fireposition.x = 624;
 	_fireposition.y = 4224;
 
+	fireBossStart = false;
+	iceBossStart = false;
+	woodBossStart = false;
+
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
 	_woodBoss->setting("나무소환", { _woodposition.x, _woodposition.y });
@@ -58,23 +62,35 @@ void enemyManager::BossUpdate()
 {
 
 	//조건 추가하기
-	_woodBoss->setPlayerPoint(_playerPoint);
-	_woodBoss->update();
-	_woodBoss->woodMove();
-	_woodBoss->woodSkill();
-	_woodBoss->setProjectileAddressLink(_PM);
+	if (1 == _playerIndex) fireBossStart = true;
+	if (2 == _playerIndex) iceBossStart = true;
+	if (3 == _playerIndex) woodBossStart = true;
+	if (fireBossStart)
+	{
+		_fireBoss->update();
+		_fireBoss->fireMove();
+		_fireBoss->fireSkill();
+		_fireBoss->setPlayerPoint(_playerPoint);
+		_fireBoss->setProjectileAddressLink(_PM);
+	}
 	//조건 추가하기
-	_iceBoss->update();
-	_iceBoss->iceMove();
-	_iceBoss->iceSkill();
-	_iceBoss->setPlayerPoint(_playerPoint);
-	_iceBoss->setProjectileAddressLink(_PM);
+	if (iceBossStart)
+	{
+		_iceBoss->update();
+		_iceBoss->iceMove();
+		_iceBoss->iceSkill();
+		_iceBoss->setPlayerPoint(_playerPoint);
+		_iceBoss->setProjectileAddressLink(_PM);
+	}
 	//조건 추가하기
-	_fireBoss->update();
-	_fireBoss->fireMove();
-	_fireBoss->fireSkill();
-	_fireBoss->setPlayerPoint(_playerPoint);
-	_fireBoss->setProjectileAddressLink(_PM);
+	if (woodBossStart)
+	{
+		_woodBoss->setPlayerPoint(_playerPoint);
+		_woodBoss->update();
+		_woodBoss->woodMove();
+		_woodBoss->woodSkill();
+		_woodBoss->setProjectileAddressLink(_PM);
+	}
 }
 
 void enemyManager::BossRender()
@@ -223,43 +239,6 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 			_vRogue.push_back(_Rogue);
 		}
 	}
-
-	//for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
-	//{
-	//	(*_viGhoul)->setSkillLink(_PM);
-	//	(*_viGhoul)->setStageLink(_stage);
-	//	(*_viGhoul)->setPlayerPoint(_playerPoint);
-	//	(*_viGhoul)->setPlayerIndex(_playerIndex);
-	//}
-	//for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
-	//{
-	//	(*_viGhoul)->setSkillLink(_PM);
-	//	(*_viGhoul)->setStageLink(_stage);
-	//	(*_viGhoul)->setPlayerPoint(_playerPoint);
-	//	(*_viGhoul)->setPlayerIndex(_playerIndex);
-	//}
-	//for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); ++_viKnight)
-	//{
-	//	(*_viKnight)->setSkillLink(_PM);
-	//	(*_viKnight)->setStageLink(_stage);
-	//	(*_viKnight)->setPlayerPoint(_playerPoint);
-	//	(*_viKnight)->setPlayerIndex(_playerIndex);
-	//}
-	//for (_viMage = _vMage.begin(); _viMage != _vMage.end(); ++_viMage)
-	//{
-	//	(*_viMage)->setSkillLink(_PM);
-	//	(*_viMage)->setStageLink(_stage);
-	//	(*_viMage)->setPlayerPoint(_playerPoint);
-	//	(*_viMage)->setPlayerIndex(_playerIndex);
-	//}
-	//for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); ++_viRogue)
-	//{
-	//	(*_viRogue)->setSkillLink(_PM);
-	//	(*_viRogue)->setStageLink(_stage);
-	//	(*_viRogue)->setPlayerPoint(_playerPoint);
-	//	(*_viRogue)->setPlayerIndex(_playerIndex);
-	//}
-
 }
 
 void enemyManager::monsterUpdate()
@@ -330,35 +309,36 @@ void enemyManager::monsterRender()
 
 void enemyManager::monsterRemove()
 {
-	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
+	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); )
 	{
 		if ((*_viGhoul)->getIsDie())
 		{
 			_viGhoul = _vGhoul.erase(_viGhoul);
 		}
+		else ++_viGhoul;
 	}
-	for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); ++_viKnight)
+	for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); )
 	{
 		if ((*_viKnight)->getIsDie())
 		{
 			_viKnight = _vKnight.erase(_viKnight);
 		}
+		else ++_viKnight;
 	}
-	for (_viMage = _vMage.begin(); _viMage != _vMage.end(); ++_viMage)
+	for (_viMage = _vMage.begin(); _viMage != _vMage.end(); )
 	{
 		if ((*_viMage)->getIsDie())
 		{
 			_viMage = _vMage.erase(_viMage);
 		}
+		else ++_viMage;
 	}
-	for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); ++_viRogue)
+	for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); )
 	{
 		if ((*_viRogue)->getIsDie())
 		{
 			_viRogue = _vRogue.erase(_viRogue);
 		}
+		else ++_viRogue;
 	}
-
-
-
 }
