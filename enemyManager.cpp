@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "enemyManager.h"
+#include "itemManager.h"
 
 enemyManager::enemyManager() {}
 enemyManager::~enemyManager() {}
@@ -112,7 +113,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 			_vScarecrow.push_back(_Scarecrow);
 		}
 	}
-	//index 4 번 몬스터 이닛
+	//index 4 번 몬스터 이닛 (Ghoul)
 	{
 		for (float i = 0; i < 1; ++i)
 		{
@@ -131,17 +132,8 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 			_vGhoul.push_back(_ghoul);
 		}
 	}
-	//index 5 번 몬스터 이닛 (RED)
+	//index 5 번 몬스터 이닛 (Mage)
 	{
-		for (float i = 0; i < 1; ++i)
-		{
-			Ghoul* _ghoul;
-			_ghoul = new Ghoul;
-			_ghoul->init({ 1504 + 16, 3040 + 16 }, 5);	//47.95
-
-			_vGhoul.push_back(_ghoul);
-		}
-
 		for (float i = 0; i < 1; ++i)
 		{
 			Mage* _Mage;
@@ -152,38 +144,30 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		}
 		for (float i = 0; i < 1; ++i)
 		{
-			Knight* _Knight;
-			_Knight = new Knight;
-			_Knight->init("RedKnight", { 1600 +16,2816 +16 }, 5);	//50.88
-			_vKnight.push_back(_Knight);
-		}
-		for (float i = 0; i < 1; ++i)
-		{
-			Rogue* _Rogue;
-			_Rogue = new Rogue;
-			_Rogue->init("RedRogue", { 1408+16,3232+16 }, 5);	//44.101
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("BlueMage", { 1600 + 16,2816 + 16 }, 5);	//50.88
 
-			_vRogue.push_back(_Rogue);
+			_vMage.push_back(_Mage);
 		}
-	}
-	//index 6 번 몬스터 이닛 (BLUE)
-	{
-		for (float i = 0; i < 1; ++i)
-		{
-			Ghoul* _ghoul;
-			_ghoul = new Ghoul;
-			_ghoul->init({ 3232 + 16, 1792 + 16 }, 6);	//101.56
-
-			_vGhoul.push_back(_ghoul);
-		}
-
 		for (float i = 0; i < 1; ++i)
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("BlueMage", { 3616 + 16,1504 + 16 }, 6);	//113.47
+			_Mage->init("GreenMage", { 1408 + 16,3232 + 16 }, 5);	//44.101
 
 			_vMage.push_back(_Mage);
+		}
+
+	}
+	//index 6 번 몬스터 이닛 (Knight)
+	{
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("RedKnight", { 3616 + 16,1504 + 16 }, 6);	//113.47
+			_vKnight.push_back(_Knight);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
@@ -194,38 +178,29 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		}
 		for (float i = 0; i < 1; ++i)
 		{
-			Rogue* _Rogue;
-			_Rogue = new Rogue;
-			_Rogue->init("BlueRogue", { 3200 + 16,1440 + 16 }, 6);	//100.45
-
-			_vRogue.push_back(_Rogue);
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("GreenKnight", { 3200 + 16,1440 + 16 }, 6);	//100.45
+			_vKnight.push_back(_Knight);
 		}
 	}
-	//index 7 번 몬스터 이닛 (GREEN)
+	//index 7 번 몬스터 이닛 (Rogue)
 	{
 		for (float i = 0; i < 1; ++i)
 		{
-			Ghoul* _ghoul;
-			_ghoul = new Ghoul;
-			_ghoul->init({ 4672 + 16, 2752 + 16 }, 7);	// 146.86
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("RedRogue", { 5088 + 16,2688 + 16 }, 7);	//159.84
 
-			_vGhoul.push_back(_ghoul);
-		}
-
-		for (float i = 0; i < 1; ++i)
-		{
-			Mage* _Mage;
-			_Mage = new Mage;
-			_Mage->init("GreenMage", { 5088 + 16,2688 + 16 }, 7);	//159.84
-
-			_vMage.push_back(_Mage);
+			_vRogue.push_back(_Rogue);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
-			Knight* _Knight;
-			_Knight = new Knight;
-			_Knight->init("GreenKnight", { 4800 + 16,3040 + 16 }, 7);	//150.95
-			_vKnight.push_back(_Knight);
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("BlueRogue", { 4800 + 16,3040 + 16 }, 7);	//150.95
+
+			_vRogue.push_back(_Rogue);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
@@ -310,6 +285,7 @@ void enemyManager::monsterRemove()
 	{
 		if ((*_viGhoul)->getIsDie())
 		{
+			_itemManager->dropCoin((*_viGhoul)->getBottomPosition());
 			_viGhoul = _vGhoul.erase(_viGhoul);
 		}
 		else ++_viGhoul;
@@ -318,6 +294,7 @@ void enemyManager::monsterRemove()
 	{
 		if ((*_viKnight)->getIsDie())
 		{
+			_itemManager->dropCoin((*_viKnight)->getBottomPosition());
 			_viKnight = _vKnight.erase(_viKnight);
 		}
 		else ++_viKnight;
@@ -326,6 +303,7 @@ void enemyManager::monsterRemove()
 	{
 		if ((*_viMage)->getIsDie())
 		{
+			_itemManager->dropCoin((*_viMage)->getBottomPosition());
 			_viMage = _vMage.erase(_viMage);
 		}
 		else ++_viMage;
@@ -334,6 +312,7 @@ void enemyManager::monsterRemove()
 	{
 		if ((*_viRogue)->getIsDie())
 		{
+			_itemManager->dropCoin((*_viRogue)->getBottomPosition());
 			_viRogue = _vRogue.erase(_viRogue);
 		}
 		else ++_viRogue;

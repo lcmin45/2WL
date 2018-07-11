@@ -22,6 +22,7 @@ enum ANGLE { ANGLE0, ANGLE1, ANGLE2, ANGLE3, ANGLE4, ANGLE5, ANGLE6, ANGLE7 }; /
 class tagMapToolTile;
 class itemManager;
 class projectileManager;
+class enemyManager;
 
 class player : public gameNode
 {
@@ -49,6 +50,8 @@ private:
 	int _playerTileIndex;
 	skillSet* _skillSet;
 	saveAndLoad* _saveAndLoad;
+	enemyManager* _enemyManager;
+
 public:
 	player();
 	~player();
@@ -93,4 +96,6 @@ public:
 	void setSaveInfo(POINTFLOAT position, float currentHp, int coin);
 	RECT getPlayerRect() { return _body; }
 	void setPosition(POINTFLOAT position) { _position = position; }
+
+	void setEnemyManagerAddressLink(enemyManager* em) { _enemyManager = em; }
 };

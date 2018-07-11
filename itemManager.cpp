@@ -107,7 +107,7 @@ void itemManager::dropCoin(POINTFLOAT position)
 	for (int i = 0; i < randCount; i++)
 	{
 		POINTFLOAT randPosition = { position.x + (RND->getFloat(50.0f) - 25.0f), position.y + (RND->getFloat(50.0f) - 25.0f) };
-		EFFECT effect[2] = { { COIN, RND->getInt(9) + 1 }, { NONE, 0 } };
+		EFFECT effect[2] = { { COIN, RND->getInt(10) + 5 }, { NONE, 0 } };
 		const char* name = "마법사의 인장";
 		const char* info = "금으로 된 마법사의 인장이다";
 
