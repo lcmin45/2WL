@@ -2,20 +2,10 @@
 #include "skill.h"
 #include "player.h"
 
-struct FIRE
-{
-	image* img;
-	POINTFLOAT pt;
-	RECT rc;
-	int frameIndex;
-};
-
 class ºÒ±âµÕ : public skill
 {
 private:
 	player * _player;
-	vector<FIRE*>			vflamestrike;
-	vector<FIRE*>::iterator	viflamestrike;
 	int _fireCount;
 
 public:
@@ -32,7 +22,6 @@ public:
 
 	virtual void move();
 	virtual void frameCount();
-	void fireVector();
 	void getPlayerAddressLink(player* player) { _player = player; }
 };
 
