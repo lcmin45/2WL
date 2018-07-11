@@ -120,17 +120,17 @@ void inGame::update()
 	else if (_BlackAalpha > 0) _BlackAalpha -= 3;
 	else
 	{
+		collide();
 		_UI->update();
 		_itemManager->update();
 		_ptM->update();
-		_enemyManager->update();
 		_stage->update();			//플레이어 업데이트 여기 안에 있음!
+		_enemyManager->update();
 
 		_enemyManager->setStage(_stage);
 		_enemyManager->setPlayerPoint(_player->getPosition());
-		//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
 		_enemyManager->setPlayerIndex(_player->getPlayerIndex());
-		_Astar->setPlayerPositionLink(_player->getPosition());
+		//_Astar->setPlayerPositionLink(_player->getPosition());
 	}
 	KEYANIMANAGER->update();
 }
@@ -142,4 +142,112 @@ void inGame::render()
 	_itemManager->render();
 	_ptM->render();
 	_UI->render();
+}
+
+void inGame::collide()
+{
+	//================================= 에너미랑 플레이어 스킬 충돌체크 ============================
+	for (int i = 0; i < _enemyManager->getVGhoul().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) 
+				&& _enemyManager->getVGhoul()[i]->getForm()== BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getVGhoul()[i]->HitMotion();
+				_enemyManager->getVGhoul()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+			}
+		}
+	}
+	for (int i = 0; i < _enemyManager->getVKnight().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getVKnight()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVKnight()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getVKnight()[i]->HitMotion();
+				_enemyManager->getVKnight()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+			}
+		}
+	}
+	for (int i = 0; i < _enemyManager->getVMage().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getVMage()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVMage()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getVMage()[i]->HitMotion();
+				_enemyManager->getVMage()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+			}
+		}
+	}
+	for (int i = 0; i < _enemyManager->getVRogue().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getVRogue()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVRogue()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getVRogue()[i]->HitMotion();
+				_enemyManager->getVRogue()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+			}
+		}
+	}
+	for (int i = 0; i < _enemyManager->getVScarecrow().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getVScarecrow()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getVScarecrow()[i]->HitMotion();
+			}
+		}
+	}
+	//================================= 보스랑 플레이어 스킬 충돌체크 ============================
+
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+
+	//================================= 플레이어랑 적 스킬 충돌체크 ============================
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == ENEMY)
+		{
+			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+
+
+
+
 }

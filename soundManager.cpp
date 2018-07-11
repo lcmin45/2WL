@@ -10,6 +10,9 @@ soundManager::~soundManager() {}
 
 HRESULT soundManager::init()
 {
+	_bgmVolume = 0.5f;
+	_effVolume = 0.5f;
+
 	System_Create(&_system);
 
 	_system->init(TOTALSOUNDBUFFER, FMOD_INIT_NORMAL, NULL);
@@ -141,6 +144,29 @@ void soundManager::removePlayList(string keyName)
 	}
 }
 
+void soundManager::play(string KeyName)
+{
+	bool isCheck;
+
+	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
+	{
+		if (KeyName == _viSound->keyName)
+		{
+			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+			{
+				if (_channel[index].keyName == "\0" || _channel[index].keyName == KeyName)
+				{
+					_system->playSound(FMOD_CHANNEL_FREE, _viSound->sound, false, &_channel[index].channel);
+					_channel[index].keyName = _viSound->keyName;
+					_channel[index].channel->setVolume(_effVolume);
+					break;
+				}
+			}
+			break;
+		}
+	}
+}
+/*
 void soundManager::play(string KeyName, float volume)
 {
 	bool isCheck;
@@ -163,7 +189,7 @@ void soundManager::play(string KeyName, float volume)
 		}
 	}
 }
-
+*/
 void soundManager::stop(string keyName)
 {
 	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
@@ -242,18 +268,17 @@ bool soundManager::isPauseSound(string keyName)
 
 void  soundManager::setEffectVolume(float volume)
 {
+	_effVolume = volume;
+
 	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 	{
-		_channel[index].channel->setVolume(volume);
+		_channel[index].channel->setVolume(_effVolume);
 	}
 }
 
 float soundManager::getEffectVolume(void)
 {
-	float volume = 0.0f;
-	_channel[0].channel->getVolume(&volume);
-
-	return volume;
+	return _effVolume;
 }
 
 void soundManager::singleChannelPlay(string keyName)
@@ -263,6 +288,7 @@ void soundManager::singleChannelPlay(string keyName)
 		if (keyName == _viSound->keyName)
 		{
 			_system->playSound(FMOD_CHANNEL_REUSE, _viSound->sound, false, &_singleChannel);
+			_singleChannel->setVolume(_bgmVolume);
 			break;
 		}
 	}	
@@ -280,15 +306,13 @@ void soundManager::singleChannelResume(void)
 
 void soundManager::singleChannelChangeVolume(float volume)
 {
-	_singleChannel->setVolume(volume);
+	_bgmVolume = volume;
+	_singleChannel->setVolume(_bgmVolume);
 }
 
 float soundManager::singleChannelGetVolume(void)
 {
-	float _volume = 0.0f;
-	_singleChannel->getVolume(&_volume);
-
-	return _volume;
+	return _bgmVolume;
 }
 
 bool soundManager::singleChannelIsPlay(void)

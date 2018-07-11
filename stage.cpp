@@ -12,8 +12,8 @@ HRESULT stage::init()
 	_stage = 0;
 
 	///////얼음 포탈
-	_potalRc[0] = RectMakeCenter(672, 1488, 52, 84);
-	_potalRc[1] = RectMakeCenter(2240, 1664, 52, 84);
+	_potalRc[0] = RectMakeCenter(2240, 1664, 52, 84);
+	_potalRc[1] = RectMakeCenter(672, 1488, 52, 84);
 	//불 포탈
 	_potalRc[2] = RectMakeCenter(956, 2912, 52, 84);
 	_potalRc[3] = RectMakeCenter(656, 5504, 52, 84);
@@ -29,6 +29,7 @@ void stage::release() {}
 void stage::update()
 {
 	_player->update();
+	warp();
 
 	_potalCount++;
 	if (_potalCount % 10 == 0)
@@ -77,23 +78,20 @@ void stage::render()
 			case 34:
 				IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
 				break;
+			case 100:
+				IMAGEMANAGER->findImage("storeNpc")->render(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top);
+				break;
+			case 101:
+				IMAGEMANAGER->findImage("storeTable")->render(getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top);
+				break;
 			}
-		}
-	}
-	
-	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	{
-		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-		{
-			if (CAMERAMAXCHECK) continue;
-	
+
 			if ((int)(_player->getPosition().y / TILESIZE) == i) _player->render();
-	
+
 			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
-	
+
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
-	
 	}
 
 	char str[128];
@@ -152,4 +150,37 @@ void stage::stageLoad(int stage)
 			_tile[i * MAXTILEX + j].objectClass->setCenterPoint(_tile[i * MAXTILEX + j].center);
 		}
 	}
+}
+
+void stage::warp()
+{
+	RECT temp;
+	//불지역
+	if (IntersectRect(&temp, &_potalRc[0], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 672, 1488 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[1], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 2240, 1664 });
+	}
+	//얼음지역
+	else if (IntersectRect(&temp, &_potalRc[2], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 656, 5504 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[3], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 956, 2912 });
+	}
+	//나무지역
+	else if (IntersectRect(&temp, &_potalRc[4], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 5376, 1328 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[5], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 5632, 2944 });
+	}
+
 }

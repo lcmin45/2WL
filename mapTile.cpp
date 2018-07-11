@@ -206,6 +206,7 @@ void mapTile::checkImageObject(void)
 				_tile[temp].objectSetPoint = _currentObject.objectSetpoint;
 				_tile[temp].objectCheckSize = _currentObject.objectCheckSize;
 				_tile[temp].objectTerrain = _currentObject.terrain;
+				if (_currentObject.imageObjectIndex == NULL) _tile[temp].object = OBJ_NONE;
 			}
 		}
 	}
@@ -501,6 +502,12 @@ void mapTile::imageObjectRender(void)
 				break;
 			case 34:
 				IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			case 100:
+				IMAGEMANAGER->findImage("storeNpc")->render(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top);
+				break;
+			case 101:
+				IMAGEMANAGER->findImage("storeTable")->render(getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top);
 				break;
 			}
 		}

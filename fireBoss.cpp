@@ -60,6 +60,9 @@ void fireBoss::update()
 {
 	if (_fireBossDie == false)//보스가 살아있을때
 	{
+		fireSkill();
+		_fireHpBar->setGauge(_fireCurrentHP, _fireMaxHP);
+		_fireHpBar->update();
 		//프래임 이미지 카운트
 		_frameCount++;
 		if (_frameCount % 10 == 0)
@@ -259,14 +262,29 @@ void fireBoss::fireSkill()
 {
 	if (_bossImg == IMAGEMANAGER->findImage("불스킬왼쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("불기둥", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("불기둥", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("불스킬2"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("메테오", { _x, _y });
+			_skill = true;
+		}
 	}
 
 }

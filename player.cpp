@@ -209,7 +209,7 @@ void player::keyProcess()
 		_action = DASH;
 		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
-		SOUNDMANAGER->play("playerDash", _effectSound);
+		SOUNDMANAGER->play("playerDash" );
 	}
 	//스킬 사용
 	if (KEYMANAGER->isOnceKeyDown('Z') || (KEYMANAGER->isOnceKeyDown('X')) || (KEYMANAGER->isOnceKeyDown('C')))
@@ -335,7 +335,7 @@ void player::collisionCheckWithItem()
 			{
 				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
 				_itemManager->takeCoin(i);
-				SOUNDMANAGER->play("takeCoin", _effectSound);
+				SOUNDMANAGER->play("takeCoin" );
 			}
 			else
 			{
@@ -402,7 +402,7 @@ void player::playerHpCheck()
 		attackAngleProcess();
 		animationProcess();
 		SOUNDMANAGER->singleChannelPause();
-		SOUNDMANAGER->play("playerDead", _effectSound);
+		SOUNDMANAGER->play("playerDead" );
 	}
 
 	if (_action == DEAD) _currentHp = 0;

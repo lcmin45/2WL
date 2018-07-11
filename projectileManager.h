@@ -12,6 +12,10 @@
 #include "몬스터총알.h"
 #include "얼음던지기매니저.h"
 #include "우박.h"
+#include "돌던지기.h"
+#include "나무솟기.h"
+#include "메테오.h"
+#include "불기둥.h"
 
 
 class projectileManager : public gameNode
@@ -35,5 +39,10 @@ public:
 	void vectorCheck();
 	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
+
+
+	vector<skill*>				getVSkill() { return vSkill; };
+	vector<skill*>::iterator	getViSkill() { return viSkill; };
+	
 };
 

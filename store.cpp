@@ -19,9 +19,9 @@ void store::render()
 {
 	//상점 좌표에 따라 이미지 렌더
 	_image = IMAGEMANAGER->findImage("storeNpc");
-	_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2 - 75);
+	//_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2 - 75);
 	_image = IMAGEMANAGER->findImage("storeTable");
-	_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);
+	//_image->render(getMemDC(), _position.x - _image->getWidth() / 2, _position.y - _image->getHeight() / 2);
 
 	//아이템 판매 정보
 	HFONT font, oldFont;

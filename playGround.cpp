@@ -80,7 +80,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("bossbackBar", "image/boss/bossHpBarBottom.bmp", 450, 60, true, RGB(255, 0, 255));
 
 	//나무 보스 이미지
-	IMAGEMANAGER->addFrameImage("나무소환", "image/boss/나무보스/나무보스소환.bmp", 0, 0, 3200, 129, 25, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("나무소환", "image/boss/나무보스/나무보스소환.bmp", 0, 0, 3328, 129, 26, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무등장", "image/boss/나무보스/나무보스등장.bmp", 0, 0, 294 * 2, 58 * 2, 7, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무점프", "image/boss/나무보스/나무보스점프.bmp", 0, 0, 420 * 2, 69 * 2, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무오른쪽", "image/boss/나무보스/나무보스오른쪽이동.bmp", 0, 0, 138 * 2, 51 * 2, 3, 1, true, RGB(255, 0, 255));
@@ -94,7 +94,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("나무대화", "image/boss/나무보스/나무대화.bmp", 850, 200, false, RGB(0, 0, 0));
 
 	//얼음 보스 이미지
-	IMAGEMANAGER->addFrameImage("얼음소환", "image/boss/얼음보스/얼음보스소환.bmp", 0, 0, 500 * 2, 61 * 2, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("얼음소환", "image/boss/얼음보스/얼음보스소환.bmp", 0, 0, 550 * 2, 61 * 2, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음등장", "image/boss/얼음보스/얼음보스등장.bmp", 0, 0, 228 * 2, 54 * 2, 6, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음스킬", "image/boss/얼음보스/얼음보스스킬.bmp", 0, 0, 306 * 2, 52 * 2, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음스킬2", "image/boss/얼음보스/얼음보스스킬2.bmp", 0, 0, 96 * 2, 50 * 2, 3, 1, true, RGB(255, 0, 255));
@@ -103,7 +103,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("얼음대화", "image/boss/얼음보스/얼음대화.bmp", 850, 200, false, RGB(0, 0, 0));
 
 	//불꽃 보스 이미지
-	IMAGEMANAGER->addFrameImage("불소환", "image/boss/불보스/불보스소환.bmp", 0, 0, 350 * 2, 45 * 2, 7, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불소환", "image/boss/불보스/불보스소환.bmp", 0, 0, 400 * 2, 45 * 2, 8, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불등장", "image/boss/불보스/불보스등장.bmp", 0, 0, 350 * 2, 33 * 2, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불오른쪽", "image/boss/불보스/불보스오른쪽이동.bmp", 0, 0, 40 * 2, 28 * 2, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불왼쪽", "image/boss/불보스/불보스왼쪽이동.bmp", 0, 0, 40 * 2, 28 * 2, 1, 1, true, RGB(255, 0, 255));
@@ -150,7 +150,8 @@ void playGround::settingAddImage(void)
 
 	IMAGEMANAGER->addImage("option", "image/UI/option.bmp", 600, 400, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("optionBar", "image/UI/optionBar.bmp", 400, 30, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addImage("optionChoiceBar", "image/UI/optionChoiceBar.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("optionChoiceBar", "image/UI/optionChoiceBar.bmp", 40, 40, true, RGB(255, 0, 255)); 
+	IMAGEMANAGER->addFrameImage("optionIcon", "image/UI/optionIcon.bmp", 50, 100,1,2, true, RGB(255, 0, 255));
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
@@ -194,6 +195,13 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("우박범위", "image/skill/bossSkill/우박범위.bmp", 3200, 129, 25, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("우박", "image/skill/bossSkill/우박.bmp", 128, 128, 4, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음효과", "image/skill/bossSkill/얼음효과.bmp", 120, 40, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("나무솟기", "image/skill/bossSkill/나무솟기.bmp", 405, 70, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기", "image/skill/bossSkill/돌던지기.bmp", 27, 37, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기2", "image/skill/bossSkill/돌던지기2.bmp", 25, 28, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오", "image/skill/bossSkill/메테오.bmp", 1020, 175, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오효과", "image/skill/bossSkill/메테오효과.bmp", 1419, 129, 11, 1,true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불기둥", "image/skill/bossSkill/불기둥.bmp", 200, 134, 10, 1, true, RGB(255, 0, 255));
+
 
 
 	//========================================================================================================================//

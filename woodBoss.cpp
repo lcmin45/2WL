@@ -49,7 +49,7 @@ void woodBoss::render()
 			HFONT font3, oldFont3;
 			font3 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
 			oldFont3 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font3);
-			sprintf_s(str, "다이아몬드보다 강한 의지를 지녔군..잘 가길,고난의 땅을 건너야 할 테니!");
+			sprintf_s(str, "바위보다 강한 의지를 지녔군..잘 가길,고난의 땅을 건너야 할 테니!");
 			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
 			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont3);
 			DeleteObject(font3);
@@ -61,6 +61,9 @@ void woodBoss::update()
 {
 	if (_woodBossDie == false)//보스가 죽지 않았을때
 	{
+		woodSkill();
+		_woodHpBar->setGauge(_woodCurrentHP, _woodMaxHP);
+		_woodHpBar->update();
 		//프래임 이미지 카운트
 		_frameCount++;
 		if (_frameCount % 10 == 0)
@@ -172,8 +175,8 @@ void woodBoss::woodMove()
 			if (_isCheck)
 			{
 				_isCheck = false;
-				if (_bossImg == IMAGEMANAGER->findImage("나무왼쪽"))_bossImg = IMAGEMANAGER->findImage("나무스킬2오른쪽");
-				else if (_bossImg == IMAGEMANAGER->findImage("나무오른쪽"))_bossImg = IMAGEMANAGER->findImage("나무스킬2왼쪽");
+				if (_x < _playerPosition.x)_bossImg = IMAGEMANAGER->findImage("나무스킬2오른쪽");
+				else if (_x > _playerPosition.x)_bossImg = IMAGEMANAGER->findImage("나무스킬2왼쪽");
 				_woodindex = 0;
 			}
 		}
@@ -194,7 +197,7 @@ void woodBoss::woodMove()
 			}
 			else
 			{
-				_jump += 0.18f;
+				_jump += 0.1f;
 				_x += cos(_angle) * _speed;
 				if (_y >_playerPosition.y)_y += -sin(_angle) * 13 + _jump;
 				else if (_y < _playerPosition.y)
@@ -242,13 +245,28 @@ void woodBoss::woodSkill()
 {
 	if (_bossImg == IMAGEMANAGER->findImage("나무스킬"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("나무솟기", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2왼쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("돌던지기", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2오른쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("돌던지기", { _x, _y });
+			_skill = true;
+		}
 	}
 }

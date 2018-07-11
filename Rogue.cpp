@@ -87,7 +87,7 @@ void Rogue::update()
 
 	if (_playerIndex == _monsterIndex && _form == CARD)
 	{
-		SOUNDMANAGER->play("EnemySummon", _effectSound);
+		SOUNDMANAGER->play("EnemySummon" );
 		_form = SUMMOM;
 		getMotion()->start();
 	}
@@ -112,17 +112,17 @@ void Rogue::render()
 
 void Rogue::RogueMove()
 {
+	_position.x = _bottomPosition.x;
+	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
+	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
+
 
 	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT ||
 		_Direction == RIGHT_DIE || _Direction == LEFT_DIE ||
 		_Direction == RIGHT_ATTACK || _Direction == LEFT_ATTACK) return;
 
 	++_timecnt;
-
-	_position.x = _bottomPosition.x;
-	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
-	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
 
 
 	if (_attackReady == false)
@@ -146,7 +146,7 @@ void Rogue::RogueMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
 				_Motion->start();
 				_PM->fire(str2, _position);
-				SOUNDMANAGER->play("RogueAttack", _effectSound);
+				SOUNDMANAGER->play("RogueAttack" );
 				_attackReady = false;
 			}
 		}
@@ -159,7 +159,7 @@ void Rogue::RogueMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
 				_Motion->start();
 				_PM->fire(str2, _position);
-				SOUNDMANAGER->play("RogueAttack", _effectSound);
+				SOUNDMANAGER->play("RogueAttack" );
 				_attackReady = false;
 			}
 		}
@@ -206,7 +206,7 @@ void Rogue::RogueMove()
 void Rogue::rightStop(void * obj)
 {
 	Rogue* _MonsterRogue = (Rogue*)obj;
-
+	if (_MonsterRogue->getForm() == DIE) return;
 	_MonsterRogue->setMonsterDirection(RIGHT_STAND);
 	_MonsterRogue->setMotion(KEYANIMANAGER->findAnimation("RogueRightStand"));
 	_MonsterRogue->getMotion()->start();
@@ -215,7 +215,7 @@ void Rogue::rightStop(void * obj)
 void Rogue::leftStop(void * obj)
 {
 	Rogue* _MonsterRogue = (Rogue*)obj;
-
+	if (_MonsterRogue->getForm() == DIE) return;
 	_MonsterRogue->setMonsterDirection(LEFT_STAND);
 	_MonsterRogue->setMotion(KEYANIMANAGER->findAnimation("RogueLeftStand"));
 	_MonsterRogue->getMotion()->start();
@@ -242,27 +242,8 @@ void Rogue::MonsterDie(void * obj)
 
 void Rogue::Test()
 {
-	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-
-		if (_form == DIE) return;
-		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
-		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
-			_Direction = RIGHT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
-			_Motion->start();
-		}
-		else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
-			_Direction = LEFT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
-			_Motion->start();
-		}
-	}
+	if (KEYMANAGER->isOnceKeyDown('O')) _monsterHP = 0;
+	
 }
 
 void Rogue::HitMotion()
@@ -271,14 +252,14 @@ void Rogue::HitMotion()
 		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
 		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
+			SOUNDMANAGER->play("EnemyHurt" );
 			_Direction = RIGHT_HIT;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
 			_Motion->start();
 		}
 		else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
 		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
+			SOUNDMANAGER->play("EnemyHurt" );
 			_Direction = LEFT_HIT;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
 			_Motion->start();
@@ -289,9 +270,10 @@ void Rogue::Die()
 {
 	if (_monsterHP <= 0)
 	{
+		if (_form == DIE) return;
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
 		{
-			SOUNDMANAGER->play("EnemyDie", _effectSound);
+			SOUNDMANAGER->play("EnemyDie" );
 			_Direction = RIGHT_DIE;
 			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
@@ -299,7 +281,7 @@ void Rogue::Die()
 		}
 		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND)
 		{
-			SOUNDMANAGER->play("EnemyDie", _effectSound);
+			SOUNDMANAGER->play("EnemyDie" );
 			_Direction = LEFT_DIE;
 			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName7);

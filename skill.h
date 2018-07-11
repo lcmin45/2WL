@@ -56,6 +56,10 @@ public:
 
 	//충돌 판정용 사각형
 	RECT getRect() { return _rc; }
+	SUBJECT getSubject() { return _subject; }
+	float getSkillDamage() { return _damage; }
+	float getSkillAngle() { return _angle; }
+
 	image* getImage() { return _img; }
 	int getFrameIndex() { return _frameIndex; }
 };

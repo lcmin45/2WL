@@ -73,6 +73,10 @@ public:
 	virtual void render();
 	virtual void update();
 
+	void setFireBossHit(float att) { _fireCurrentHP -= att; }
+	void setIceBossHit(float att) { _iceCurrentHP -= att; }
+	void setWoodBossHit(float att) { _woodCurrentHP -= att; }
+
 	//Á¢±ÙÀÚ
 	inline RECT getbossRect() { return _bossRc; }
 	inline void setbossimage(image* bossimg) { _bossImg = bossimg; }

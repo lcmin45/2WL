@@ -87,7 +87,7 @@ void Knight::update()
 
 	if (_playerIndex == _monsterIndex && _form == CARD)
 	{
-		SOUNDMANAGER->play("EnemySummon", _effectSound);
+		SOUNDMANAGER->play("EnemySummon" );
 		_form = SUMMOM;
 		getMotion()->start();
 	}
@@ -113,17 +113,17 @@ void Knight::render()
 
 void Knight::KnightMove()
 {
+	_position.x = _bottomPosition.x;
+	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
+	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
+	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
+
 
 	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT ||
 		_Direction == RIGHT_DIE || _Direction == LEFT_DIE ||
 		_Direction == RIGHT_ATTACK || _Direction == LEFT_ATTACK) return;
 
 	++_timecnt;
-
-	_position.x = _bottomPosition.x;
-	_position.y = _bottomPosition.y - _image->getFrameHeight() / 2;
-	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
-	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(), _image->getFrameHeight());
 
 	if (_attackReady == false)
 	{
@@ -146,7 +146,7 @@ void Knight::KnightMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName2);
 				_Motion->start();
 				_PM->fire(str2, _position);
-				SOUNDMANAGER->play("KnightAttack", _effectSound);
+				SOUNDMANAGER->play("KnightAttack" );
 				_attackReady = false;
 			}
 		}
@@ -158,7 +158,7 @@ void Knight::KnightMove()
 				_Motion = KEYANIMANAGER->findAnimation(_motionName3);
 				_Motion->start();
 				_PM->fire(str2, _position);
-				SOUNDMANAGER->play("KnightAttack", _effectSound);
+				SOUNDMANAGER->play("KnightAttack" );
 				_attackReady = false;
 			}
 		}
@@ -203,7 +203,7 @@ void Knight::KnightMove()
 void Knight::rightStop(void * obj)
 {
 	Knight* _MonsterKnight = (Knight*)obj;
-
+	if (_MonsterKnight->getForm() == DIE) return;
 	_MonsterKnight->setMonsterDirection(RIGHT_STAND);
 	_MonsterKnight->setMotion(KEYANIMANAGER->findAnimation("KnightRightStand"));
 	_MonsterKnight->getMotion()->start();
@@ -212,7 +212,7 @@ void Knight::rightStop(void * obj)
 void Knight::leftStop(void * obj)
 {
 	Knight* _MonsterKnight = (Knight*)obj;
-
+	if (_MonsterKnight->getForm() == DIE) return;
 	_MonsterKnight->setMonsterDirection(LEFT_STAND);
 	_MonsterKnight->setMotion(KEYANIMANAGER->findAnimation("KnightLeftStand"));
 	_MonsterKnight->getMotion()->start();
@@ -241,27 +241,8 @@ void Knight::Test()
 {
 
 
-	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-
-		if (_form == DIE) return;
-		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
-		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
-			_Direction = RIGHT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
-			_Motion->start();
-		}
-		else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt", _effectSound);
-			_Direction = LEFT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
-			_Motion->start();
-		}
-	}
+	if (KEYMANAGER->isOnceKeyDown('O')) _monsterHP = 0;
+	
 }
 
 void Knight::HitMotion()
@@ -270,14 +251,14 @@ void Knight::HitMotion()
 	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
 	if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
 	{
-		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		SOUNDMANAGER->play("EnemyHurt" );
 		_Direction = RIGHT_HIT;
 		_Motion = KEYANIMANAGER->findAnimation(_motionName4);
 		_Motion->start();
 	}
 	else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
 	{
-		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		SOUNDMANAGER->play("EnemyHurt" );
 		_Direction = LEFT_HIT;
 		_Motion = KEYANIMANAGER->findAnimation(_motionName5);
 		_Motion->start();
@@ -290,7 +271,7 @@ void Knight::Die()
 	{
 		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
 		{
-			SOUNDMANAGER->play("KnightDie", _effectSound);
+			SOUNDMANAGER->play("KnightDie" );
 			_Direction = RIGHT_DIE;
 			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
@@ -298,7 +279,7 @@ void Knight::Die()
 		}
 		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND)
 		{
-			SOUNDMANAGER->play("KnightDie", _effectSound);
+			SOUNDMANAGER->play("KnightDie" );
 			_Direction = LEFT_DIE;
 			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName7);
