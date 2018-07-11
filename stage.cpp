@@ -92,6 +92,17 @@ void stage::render()
 
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
+		//Æ÷Å» fÅ° ¶ç¿öÁÖ±â
+		for (int i = 0; i < 6; i++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_potal[i], &_player->getPlayerRect()))
+			{
+				_image = IMAGEMANAGER->findImage("buttonF");
+				_image->render(getMemDC(), _potalRc[i].left + 5, _potalRc[i].top - 50);
+			}
+		}
+
 	}
 
 	char str[128];

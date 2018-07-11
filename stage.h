@@ -8,6 +8,7 @@ class stage : public gameNode
 {
 private:
 	image * _stage1;
+	image * _image;
 
 	tagMapToolTile		_tile[MAXTILEX * MAXTILEY];
 	int		_stage;
