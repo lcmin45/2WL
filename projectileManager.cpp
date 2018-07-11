@@ -132,27 +132,27 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 	if (!strcmp(skillName, "돌던지기"))
 	{
 		돌던지기* stonThrow = new 돌던지기;
-		stonThrow->fire(skillName, 1, pt, 16, 850, 50, 1.0f, ENEMY);
+		stonThrow->fire(skillName, 1, pt, 16, 850, 1, 1.0f, ENEMY);
 		stonThrow->getPlayerAddressLink(_player);
 		vSkill.push_back(stonThrow);
 	}
 	if (!strcmp(skillName, "나무솟기"))
 	{
 		나무솟기* woodUp = new 나무솟기;
-		woodUp->fire(skillName, 1, pt, tempAngle, 20, 850, 50, 1.0f, ENEMY);
+		woodUp->fire(skillName, 1, pt, tempAngle, 20, 850, 1, 1.0f, ENEMY);
 		woodUp->getPlayerAddressLink(_player);
 		vSkill.push_back(woodUp);
 	}
 	if (!strcmp(skillName, "메테오"))
 	{
 		메테오* meteor = new 메테오;
-		meteor->fire(skillName, 1, tempAngle, 50, 850, 50, 1.0f, ENEMY);
+		meteor->fire(skillName, 1, tempAngle, 50, 850, 1, 1.0f, ENEMY);
 		vSkill.push_back(meteor);
 	}
 	if (!strcmp(skillName, "불기둥"))
 	{
 		불기둥* flamestrike = new 불기둥;
-		flamestrike->fire(skillName, 1, pt, tempAngle, 20, 850, 50, 1.0f, ENEMY);
+		flamestrike->fire(skillName, 1, pt, tempAngle, 20, 850, 1, 1.0f, ENEMY);
 		flamestrike->getPlayerAddressLink(_player);
 		vSkill.push_back(flamestrike);
 	}

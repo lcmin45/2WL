@@ -152,11 +152,11 @@ void stage::warp()
 	//불지역
 	if (IntersectRect(&temp, &_potalRc[0], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
 	{
-		_player->setPosition({ 2240, 1664 });
+		_player->setPosition({ 672, 1488 });
 	}
 	else if (IntersectRect(&temp, &_potalRc[1], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
 	{
-		_player->setPosition({ 672, 1488 });
+		_player->setPosition({ 2240, 1664 });
 	}
 	//얼음지역
 	else if (IntersectRect(&temp, &_potalRc[2], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))

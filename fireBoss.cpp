@@ -261,14 +261,29 @@ void fireBoss::fireSkill()
 {
 	if (_bossImg == IMAGEMANAGER->findImage("불스킬왼쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("불기둥", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("불기둥", { _x, _y });
+			_skill = true;
+		}
 	}
 
 	else if (_bossImg == IMAGEMANAGER->findImage("불스킬2"))
 	{
+		if (_skill == false)
+		{
+			_ptM->fire("메테오", { _x, _y });
+			_skill = true;
+		}
 	}
 
 }

@@ -96,7 +96,7 @@ void Rogue::update()
 	{
 		RogueMove();
 		Die();
-		//Test();
+		Test();
 	}
 }
 
@@ -242,27 +242,8 @@ void Rogue::MonsterDie(void * obj)
 
 void Rogue::Test()
 {
-	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-
-		if (_form == DIE) return;
-		if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
-		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt" );
-			_Direction = RIGHT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName4);
-			_Motion->start();
-		}
-		else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
-		{
-			SOUNDMANAGER->play("EnemyHurt" );
-			_Direction = LEFT_HIT;
-			_Motion = KEYANIMANAGER->findAnimation(_motionName5);
-			_Motion->start();
-		}
-	}
+	if (KEYMANAGER->isOnceKeyDown('O')) _monsterHP = 0;
+	
 }
 
 void Rogue::HitMotion()
