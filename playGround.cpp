@@ -135,7 +135,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage("Æ÷Å»", "image/UI/Æ÷Å».bmp", 26 * 2, 42 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("Æ÷Å»", "image/UI/Æ÷Å».bmp", 52*2, 42*2, 2, 1, true, RGB(255, 0, 255));
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));

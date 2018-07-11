@@ -13,6 +13,8 @@ private:
 
 	image * _potal[6];
 	RECT _potalRc[6];
+	int _potalCount;
+	int _potalIndex;
 
 public:
 	stage();
