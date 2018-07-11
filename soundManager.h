@@ -39,6 +39,9 @@ private:
 	tagChannel*					_channel;
 	Channel*					_singleChannel;
 
+	float						_bgmVolume;
+	float						_effVolume;
+
 public:
 	HRESULT init();
 	void release();
@@ -47,7 +50,8 @@ public:
 	void addSound(string keyName, string soundName, bool bgm, bool loop);
 	void addPlayList(void);
 	void removePlayList(string keyName);
-	void play(string keyName, float volume = 1.0f); // 0.0 ~ 1.0f -> 0 ~ 255
+	void play(string keyName);
+	//void play(string keyName, float volume = 1.0f); // 0.0 ~ 1.0f -> 0 ~ 255
 	void stop(string keyName);
 	void pause(string keyName);
 	void resume(string keyName);

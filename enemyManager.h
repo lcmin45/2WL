@@ -45,8 +45,8 @@ private:
 	POINTFLOAT _woodposition, _iceposition, _fireposition;
 
 
-	vGhoul			_vGhoul;
-	viGhoul			_viGhoul;
+	vGhoul			 _vGhoul;
+	viGhoul			 _viGhoul;
 
 	vKnight			 _vKnight;
 	viKnight		 _viKnight;
@@ -93,4 +93,30 @@ public:
 	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
 	void setPlayerIndex(int index) { _playerIndex = index; }
 	void setProjectileManagerAddressLink(projectileManager * PM) { _PM = PM; }
+
+
+
+
+
+	vGhoul		getVGhoul()			{ return _vGhoul; }
+	viGhoul		getViGhoul()		{ return _viGhoul; }
+
+	vKnight		getVKnight()		{ return _vKnight; }
+	viKnight	getViKnight()		{ return _viKnight; }
+
+	vMage		getVMage()			{ return _vMage; }
+	viMage		getViMage()			{ return _viMage; }
+
+	vRogue		getVRogue()			{ return _vRogue; }
+	viRogue		getViRogue()		{ return _viRogue; }
+
+	vScarecrow	getVScarecrow()		{ return _vScarecrow; }
+	viScarecrow	getViScarecrow()	{ return _viScarecrow; }
+
+
+
+
+
+
+
 };

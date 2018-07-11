@@ -9,6 +9,10 @@ HRESULT UI::init()
 {
 	_progressBar = new progressBar;
 	_progressBar->init(100, 25, "playerFrontHp", 230, 25, "playerBackHp", 250, 25);
+	_optionRC = RectMake(WINSIZEX - 75, 25, 50, 50);
+
+	_option = new option;
+	_option->init();
 
 	return S_OK;
 }
@@ -17,8 +21,17 @@ void UI::release() {}
 
 void UI::update()
 {
+	if (_option->getIsView()) _option->update();
+	if (_option->getIsView()) return;
+
 	_progressBar->update();
 	_progressBar->setGauge(_player->getCurrentHp(), _player->getMaxHp());
+
+	if (PtInRect(&_optionRC, getCameraPoint()))
+	{
+		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) { _option->setIsView(true); }
+	}
+	
 }
 
 void UI::render()
@@ -30,6 +43,12 @@ void UI::render()
 	_progressBar->render();
 	_image = IMAGEMANAGER->findImage("playerCoin");
 	_image->render(CAMERAMANAGER->getCameraDC(), 100, 65);
+	_image = IMAGEMANAGER->findImage("optionIcon");
+	_image->frameRender(CAMERAMANAGER->getCameraDC(), WINSIZEX - 75, 25);
+	(PtInRect(&_optionRC, getCameraPoint())) ? _image->setFrameY(1) : _image->setFrameY(0);
+
+	
+
 
 	HFONT font, oldFont;
 	RECT itemText;
@@ -53,4 +72,6 @@ void UI::render()
 		_image = IMAGEMANAGER->findImage("buttonF");
 		_image->render(getMemDC(), _player->getPosition().x - _image->getWidth() / 2, _player->getPosition().y - _image->getHeight() - 30);
 	}
+
+	_option->render();
 }

@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "progressBar.h"
+#include "option.h"
 
 class player;
 
@@ -10,6 +11,8 @@ private:
 	image * _image;
 	player* _player;
 	progressBar* _progressBar;
+	option* _option;
+	RECT _optionRC;
 public:
 	UI();
 	~UI();

@@ -76,8 +76,8 @@ POINTFLOAT Astar::readyPath(POINTFLOAT bottomPosition, int monsterIndex)
 
 	if (_vClosedList.size())
 	{
-		_endPosition.x = _vClosedList[_vClosedList.size() - 1]->getCenter().x;
-		_endPosition.y = _vClosedList[_vClosedList.size() - 1]->getCenter().y;
+		_endPosition.x = _vClosedList[_vClosedList.size() - 2]->getCenter().x;
+		_endPosition.y = _vClosedList[_vClosedList.size() - 2]->getCenter().y;
 
 		//_endPosition.x = _vEndTile[_vEndTile.size() - 1]->getCenter().x;
 		//_endPosition.y = _vEndTile[_vEndTile.size() - 1]->getCenter().y;

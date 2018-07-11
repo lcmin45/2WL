@@ -4,11 +4,23 @@
 class option : public gameNode
 {
 private:
-	bool	_isView;
-	float	_effectX;
-	float	_bgmX;
+	struct tagIcon
+	{
+		image*	barImg;
+		RECT	barRc;
+		image*	iconImg;
+		RECT	iconRc;
+		float	iconX;
+		float	volume;
+	};
 
+private:
+	tagIcon		_bgm;
+	tagIcon		_eff;
 
+	bool		_isView;
+	RECT		_button;
+	
 public:
 	option();
 	~option();
@@ -18,9 +30,6 @@ public:
 	virtual void update();
 	virtual void render();
 
-
-
-
-	void setIsView(bool isView) { _isView = isView; }
+	void setIsView(bool isView);
 	bool getIsView(void) { return _isView; }
 };

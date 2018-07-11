@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "saveAndLoad.h"
+#include "option.h"
 
 struct changeScene
 {
@@ -27,6 +28,7 @@ class intro : public gameNode
 	int _soundCheck;
 
 	saveAndLoad* _saveAndLoad;
+	option* _option;
 public:
 	intro();
 	~intro();

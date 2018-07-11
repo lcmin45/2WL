@@ -9,9 +9,28 @@ HRESULT option::init()
 {
 	_isView = false;
 
-	_effectX = SOUNDMANAGER->getEffectVolume();
-	_bgmX = SOUNDMANAGER->singleChannelGetVolume();
+	_bgm.barImg = IMAGEMANAGER->findImage("optionBar");
+	_eff.barImg = IMAGEMANAGER->findImage("optionBar");
 
+	_bgm.barRc = RectMake(WINSIZEX / 2 - _bgm.barImg->getWidth() / 2,
+		WINSIZEY / 2 - 25, _bgm.barImg->getWidth(), _bgm.barImg->getHeight());
+	_eff.barRc = RectMake(WINSIZEX / 2 - _eff.barImg->getWidth() / 2,
+		WINSIZEY / 2 + 55, _eff.barImg->getWidth(), _eff.barImg->getHeight());
+
+	_bgm.iconImg = IMAGEMANAGER->findImage("optionChoiceBar");
+	_eff.iconImg = IMAGEMANAGER->findImage("optionChoiceBar");
+	
+	_bgm.volume = SOUNDMANAGER->singleChannelGetVolume();
+	_eff.volume = SOUNDMANAGER->getEffectVolume();	
+
+	_bgm.iconX = (_bgm.volume * (float)(_bgm.barRc.right - _bgm.barRc.left)) + _bgm.barRc.left;
+	_eff.iconX = (_eff.volume * (float)(_eff.barRc.right - _eff.barRc.left)) + _eff.barRc.left;
+
+	_bgm.iconRc = RectMake(_bgm.iconX - _bgm.iconImg->getWidth() / 2, WINSIZEY / 2 - 25 - 5, _bgm.iconImg->getWidth(), _bgm.iconImg->getHeight());
+	_eff.iconRc = RectMake(_eff.iconX - _eff.iconImg->getHeight() / 2, WINSIZEY / 2 + 55 - 5, _eff.iconImg->getWidth(), _eff.iconImg->getHeight());
+
+	_button = RectMakeCenter(WINSIZEX / 2, WINSIZEY / 2 + 170, 130, 50);
+	
 	return S_OK;
 }
 
@@ -26,27 +45,66 @@ void option::update()
 
 	if (!KEYMANAGER->isStayKeyDown(VK_LBUTTON)) return;
 
-	// 렉트 드래그 처리
-	//_volumeBar.px = _ptMouse.x;
-	//if (_volumeBar.px >= _volumeBar.barRC.right)	_volumeBar.px = _volumeBar.barRC.right;
-	//if (_volumeBar.px <= _volumeBar.barRC.left)		_volumeBar.px = _volumeBar.barRC.left;
-	//
-	//_volumeBar.pointRC = RectMakeCenter(_volumeBar.px, _volumeBar.y, _volumeBar.point->getWidth(), _volumeBar.point->getHeight());
-	//
-	//_volume = (float)(_volumeBar.px - _volumeBar.barRC.left) / (float)(_volumeBar.barRC.right - _volumeBar.barRC.left);
+	if (PtInRect(&_button, getCameraPoint()))	// 취소 버튼
+	{
+		_isView = false;
+	}
 
-	// 미니멈 맥시멈 처리
+	if (PtInRect(&_bgm.iconRc, getCameraPoint()))
+	{
+		_bgm.iconX = getCameraPoint().x;	
 
-	// 사운드 설정
-	SOUNDMANAGER->setEffectVolume(_effectX);
-	SOUNDMANAGER->singleChannelChangeVolume(_bgmX);
+		if (_bgm.iconX < _bgm.barRc.left) _bgm.iconX = _bgm.barRc.left;
+		if (_bgm.iconX > _bgm.barRc.right) _bgm.iconX = _bgm.barRc.right;
 
-	// 렉트 설정
+		_bgm.volume = (float)(_bgm.iconX - _bgm.barRc.left) / (float)(_bgm.barRc.right - _bgm.barRc.left);
+		_bgm.iconRc = RectMake(_bgm.iconX - _bgm.iconImg->getWidth() / 2, WINSIZEY / 2 - 25 - 5, _bgm.iconImg->getWidth(), _bgm.iconImg->getHeight());
+	}
+	
+	if (PtInRect(&_eff.iconRc, getCameraPoint()))
+	{
+		_eff.iconX = getCameraPoint().x;
+
+		if (_eff.iconX < _eff.barRc.left) _eff.iconX = _eff.barRc.left;
+		if (_eff.iconX > _eff.barRc.right) _eff.iconX = _eff.barRc.right;
+
+		_eff.volume = (float)(_eff.iconX - _eff.barRc.left) / (float)(_eff.barRc.right - _eff.barRc.left);
+		_eff.iconRc = RectMake(_eff.iconX - _eff.iconImg->getHeight() / 2, WINSIZEY / 2 + 55 - 5, _eff.iconImg->getWidth(), _eff.iconImg->getHeight());
+	}
+
+	SOUNDMANAGER->setEffectVolume(_eff.volume);
+	SOUNDMANAGER->singleChannelChangeVolume(_bgm.volume);
 }
 
 void option::render()
 {
 	if (!_isView) return;
 
+	IMAGEMANAGER->findImage("option")->render(CAMERAMANAGER->getCameraDC(),
+		WINSIZEX / 2 - IMAGEMANAGER->findImage("option")->getWidth() / 2,
+		WINSIZEY / 2 - IMAGEMANAGER->findImage("option")->getHeight() / 2);
 
+	_bgm.barImg->render(CAMERAMANAGER->getCameraDC(),
+		_bgm.barRc.left, _bgm.barRc.top);
+	_eff.barImg->render(CAMERAMANAGER->getCameraDC(),
+		_eff.barRc.left, _eff.barRc.top);
+	
+	_bgm.iconImg->render(CAMERAMANAGER->getCameraDC(),
+		_bgm.iconRc.left, _bgm.iconRc.top);
+	_eff.iconImg->render(CAMERAMANAGER->getCameraDC(),
+		_eff.iconRc.left, _eff.iconRc.top);
+}
+
+void option::setIsView(bool isView)
+{
+	_isView = isView;
+
+	_bgm.volume = SOUNDMANAGER->singleChannelGetVolume();
+	_eff.volume = SOUNDMANAGER->getEffectVolume();
+
+	_bgm.iconX = (_bgm.volume * (float)(_bgm.barRc.right - _bgm.barRc.left)) + _bgm.barRc.left;
+	_eff.iconX = (_eff.volume * (float)(_eff.barRc.right - _eff.barRc.left)) + _eff.barRc.left;
+
+	_bgm.iconRc = RectMake(_bgm.iconX - _bgm.iconImg->getWidth() / 2, WINSIZEY / 2 - 25 - 5, _bgm.iconImg->getWidth(), _bgm.iconImg->getHeight());
+	_eff.iconRc = RectMake(_eff.iconX - _eff.iconImg->getHeight() / 2, WINSIZEY / 2 + 55 - 5, _eff.iconImg->getWidth(), _eff.iconImg->getHeight());
 }
