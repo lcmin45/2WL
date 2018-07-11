@@ -31,9 +31,12 @@ void inventory::render()
 
 		for (int i = 0; i < _vItem.size(); i++)
 		{
-			if (_selectedItemIndex == i) _itemRect[_selectedItemIndex] = RectMakeCenter(_ptMouse.x, _ptMouse.y, 50, 50);
+			if (_selectedItemIndex == i) _itemRect[_selectedItemIndex] = RectMakeCenter(_ptMouse.x + 12, _ptMouse.y + 12, 50, 50);
 			else _itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
 			_vItem[i]->getImage()->render(CAMERAMANAGER->getCameraDC(), _itemRect[i].left, _itemRect[i].top);
+
+			if (_selectedItemIndex != -1) continue;
+
 			if (PtInRect(&_itemRect[i], _ptMouse))
 			{
 				//아이템 이름, 설명을 위한 폰트 작업

@@ -96,6 +96,9 @@ public:
 
 
 
+	fireBoss* getFireBoss() { return _fireBoss; };
+	iceBoss* getIceBoss() { return _iceBoss; };
+	woodBoss* getWoodBoss() { return _woodBoss; };
 
 
 	vGhoul		getVGhoul()			{ return _vGhoul; }

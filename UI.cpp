@@ -74,4 +74,6 @@ void UI::render()
 	}
 
 	_option->render();
+
+	_player->getSkillSet()->render();
 }

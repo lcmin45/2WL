@@ -120,7 +120,20 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("playerFrontHp", "image/UI/playerFrontHp.bmp", 230, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("playerBackHp", "image/UI/playerBackHp.bmp", 250, 25, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("playerCoin", "image/UI/playerCoin.bmp", 30, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("buttonZ", "image/UI/buttonZ.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("buttonX", "image/UI/buttonX.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("buttonC", "image/UI/buttonC.bmp", 40, 40, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("buttonF", "image/UI/buttonF.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("mouseL", "image/UI/mouseL.bmp", 40, 40, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("skillSet", "image/UI/skillSet.bmp", 400, 560, true, RGB(255, 0, 255));
+	//SKILL UI
+	IMAGEMANAGER->addImage("UI¹Ù¶÷º£±â", "image/UI/¹Ù¶÷º£±â.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UIÈëÁÖ¸Ô", "image/UI/ÈëÁÖ¸Ô.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UIºÒ²ÉÅ¸°Ý", "image/UI/ºÒ²ÉÅ¸°Ý.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UIÈ­¿°±¸", "image/UI/È­¿°±¸.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UIºÒÅ¸´Â¿Ã°¡¹Ì", "image/UI/ºÒÅ¸´Â¿Ã°¡¹Ì.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UI¸Í·ÄÈ¸¿À¸®", "image/UI/¸Í·ÄÈ¸¿À¸®.bmp", 50, 50, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("UI»çÀÌÅ¬·ÐºÎ¸Þ¶û", "image/UI/»çÀÌÅ¬·ÐºÎ¸Þ¶û.bmp", 50, 50, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("TitleScreen", "image/UI/TitleScreen.bmp", 1200, 900, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("TitleLogo", "image/UI/TitleLogo.bmp", 1200, 900, true, RGB(255, 0, 255));

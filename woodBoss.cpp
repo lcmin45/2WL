@@ -61,6 +61,7 @@ void woodBoss::update()
 {
 	if (_woodBossDie == false)//보스가 죽지 않았을때
 	{
+		woodSkill();
 		_woodHpBar->setGauge(_woodCurrentHP, _woodMaxHP);
 		_woodHpBar->update();
 		//프래임 이미지 카운트

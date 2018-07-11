@@ -96,6 +96,9 @@ HRESULT player::init() //초기화
 	_canTakeItem = false;
 	_isDead = false;
 
+	_skillSet = new skillSet;
+	_skillSet->init();
+
 	_saveAndLoad = new saveAndLoad;
 	_saveAndLoad->init();
 
@@ -112,13 +115,10 @@ void player::update()
 	collisionCheckWithItem();
 	inventoryProcess();
 	playerHpCheck();
+	_skillSet->update();
 	CAMERAMANAGER->setCameraPoint(_position);
 
 	//////////////////////////////////////////////임시
-	if (KEYMANAGER->isStayKeyDown('K'))
-	{
-		_currentHp = 0.0f;
-	}
 	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
 	{
 		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
@@ -151,7 +151,7 @@ void player::render()
 
 void player::keyProcess()
 {
-	if (_itemManager->getInventory()->getIsOpen() || _action == DEAD) return;
+	if (_itemManager->getInventory()->getIsOpen() || _skillSet->getIsOpen() || _action == DEAD) return;
 
 	//이동 키 입력시
 	if ((KEYMANAGER->isStayKeyDown('W') || KEYMANAGER->isStayKeyDown('S') || KEYMANAGER->isStayKeyDown('A') || KEYMANAGER->isStayKeyDown('D')) && (_action == IDLE || _action == MOVE))
@@ -199,7 +199,7 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("바람베기");
+		_ptM->fire(_skillSet->getSettingSkill()[0].name);
 	}
 	//쉬프트(대쉬 키 입력)
 	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT)) //쿨타임 추가 해야함
@@ -212,40 +212,13 @@ void player::keyProcess()
 		SOUNDMANAGER->play("playerDash" );
 	}
 	//스킬 사용
-	if (KEYMANAGER->isOnceKeyDown('Z'))
+	if (KEYMANAGER->isOnceKeyDown('Z') || (KEYMANAGER->isOnceKeyDown('X')) || (KEYMANAGER->isOnceKeyDown('C')))
 	{
-		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
+		int index = (KEYMANAGER->isOnceKeyDown('Z') ? 1 : (KEYMANAGER->isOnceKeyDown('X') ? 2 : 3));
+		_action = (strcmp(_skillSet->getSettingSkill()[index].name, "화염구") == 0 ? FIREBALL : (strcmp(_skillSet->getSettingSkill()[index].name, "불타는올가미") == 0 ? FIRESWORD : (strcmp(_skillSet->getSettingSkill()[index].name, "맹렬회오리") == 0 ? WINDSTORM : (_action == ATTACK1 ? ATTACK2 : ATTACK2))));
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire("불꽃타격");
-	}
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		_action = FIREBALL;
-		attackAngleProcess();
-		animationProcess();
-		_ptM->fire("화염구");
-	}
-	if (KEYMANAGER->isOnceKeyDown('C'))
-	{
-		_action = WINDSTORM;
-		attackAngleProcess();
-		animationProcess();
-		_ptM->fire("맹렬회오리");
-	}
-	if (KEYMANAGER->isOnceKeyDown('V'))
-	{
-		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
-		attackAngleProcess();
-		animationProcess();
-		_ptM->fire("사이클론부메랑");
-	}
-	if (KEYMANAGER->isOnceKeyDown('B'))
-	{
-		_action = FIRESWORD;
-		attackAngleProcess();
-		animationProcess();
-		_ptM->fire("불타는올가미");
+		_ptM->fire(_skillSet->getSettingSkill()[index].name);
 	}
 }
 

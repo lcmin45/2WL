@@ -60,6 +60,7 @@ void iceBoss::update()
 {
 	if (_iceBossDie == false)//보스가 죽지 않았을때
 	{
+		iceSkill();
 		_iceHpBar->setGauge(_iceCurrentHP, _iceMaxHP);
 		_iceHpBar->update();
 		//프래임 이미지 카운트

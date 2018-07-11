@@ -3,6 +3,8 @@
 #include "item.h"
 #include "skill.h"
 #include "saveAndLoad.h"
+#include "UI.h"
+#include "skillSet.h"
 
 #define PLAYER_MOVE_ANI_SPEED 10
 #define PLAYER_ACTION_ANI_SPEED 20
@@ -45,7 +47,7 @@ private:
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
 	bool _isDead;
 	int _playerTileIndex;
-
+	skillSet* _skillSet;
 	saveAndLoad* _saveAndLoad;
 public:
 	player();
@@ -80,6 +82,7 @@ public:
 	bool getCanTakeItem() { return _canTakeItem; }
 	bool getIsDead() { return _isDead; }
 	void setPlayerHit(float att) { _currentHp -= att; }
+	skillSet* getSkillSet() { return _skillSet; }
 	void setIsDead(bool isDead) { _isDead = isDead; }
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }

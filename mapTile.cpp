@@ -426,8 +426,8 @@ void mapTile::checkEraser(void)
 				switch (_eraser)
 				{
 				case ER_WAY:
-					//_tile[temp].terrain = TR_WAY;
-					_tile[temp].terrain = TR_NONE;
+					_tile[temp].terrain = TR_WAY;
+					//_tile[temp].terrain = TR_NONE;
 					break;
 				case ER_WALL:
 					_tile[temp].terrain = TR_WALL;
@@ -502,6 +502,12 @@ void mapTile::imageObjectRender(void)
 				break;
 			case 34:
 				IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
+				break;
+			case 100:
+				IMAGEMANAGER->findImage("storeNpc")->render(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top);
+				break;
+			case 101:
+				IMAGEMANAGER->findImage("storeTable")->render(getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top);
 				break;
 			}
 		}

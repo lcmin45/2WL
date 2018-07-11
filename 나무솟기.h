@@ -33,5 +33,6 @@ public:
 	virtual void frameCount();
 	void woodVector();
 	void getPlayerAddressLink(player* player) { _player = player; }
+	vector<WOODPARTICLE*> getVWoodSkill() {	return vWood;}
 };
 
