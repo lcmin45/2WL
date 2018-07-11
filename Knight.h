@@ -12,7 +12,7 @@ public:
 	~Knight();
 
 
-	virtual HRESULT init(const char* imgName, POINTFLOAT point,int index, int monsterRoomIndex);
+	virtual HRESULT init(const char* imgName, POINTFLOAT point, int monsterRoomIndex);
 	virtual void release();
 	virtual void update();
 	virtual void render();
@@ -27,5 +27,7 @@ public:
 
 	void Test();
 
+	void HitMotion();
+	void Die();
 };
 

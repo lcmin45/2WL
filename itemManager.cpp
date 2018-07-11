@@ -32,13 +32,6 @@ HRESULT itemManager::init()
 	_store = new store;
 	_store->init();
 
-	for (int i = 0; i < 4;) //랜덤으로 상점에 아이템 4개 배치
-	{
-		int rand = RND->getInt(10);
-		if (_vItem[rand]->getStatus() == IN_STORE) continue;
-		else _store->addItem(_vItem[rand]); i++;
-	}
-
 	return S_OK;
 }
 
@@ -66,6 +59,16 @@ void itemManager::render()
 	}
 }
 
+void itemManager::setStoreItem()
+{
+	for (int i = 0; i < 4;) //랜덤으로 상점에 아이템 4개 배치
+	{
+		int rand = RND->getInt(10);
+		if (_vItem[rand]->getStatus() == IN_STORE) continue;
+		else addItemToStore(_vItem[rand]); i++;
+	}
+}
+
 //인벤토리에 아이템 추가 이외의 아이템 값 설정 함수
 void itemManager::setItem(item* item, STATUS status, POINTFLOAT position)
 {
@@ -73,9 +76,17 @@ void itemManager::setItem(item* item, STATUS status, POINTFLOAT position)
 }
 
 //인벤토리에 아이템 추가 함수
-bool itemManager::addItem(item * item)
+bool itemManager::addItemToInventory(item * item)
 {
 	if (_inventory->addItem(item)) { item->setPosition({ -25, -25 }); item->setStatus(IN_INVENTORY); return true; }
+
+	return false;
+}
+
+//상점에 아이템 추가 함수
+bool itemManager::addItemToStore(item * item)
+{
+	if (_store->addItem(item)) { item->setStatus(IN_STORE); return true; }
 
 	return false;
 }
@@ -83,7 +94,7 @@ bool itemManager::addItem(item * item)
 //상점에서 아이템 판매 함수
 bool itemManager::sellItem(item * item)
 {
-	if (_player->getCoin() >= item->getPrice()) { if (addItem(item)) { _store->sellItem(item); return true; } }
+	if (_player->getCoin() >= item->getPrice()) { if (addItemToInventory(item)) { _store->sellItem(item); return true; } }
 
 	return false;
 }

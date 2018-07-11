@@ -127,6 +127,12 @@
     <Filter Include="playGround\skill\bossSkill">
       <UniqueIdentifier>{652dc0d2-8e30-45fa-a11f-9f1b374cdd45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\saveAndLoad">
+      <UniqueIdentifier>{00f0136f-38b8-42d8-aa51-cfae140dc600}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="playGround\option">
+      <UniqueIdentifier>{4f0d2b9f-e683-4012-a4d8-c713dc12bf3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -360,8 +366,14 @@
     <ClInclude Include="얼음던지기매니저.h">
       <Filter>playGround\skill\bossSkill</Filter>
     </ClInclude>
+    <ClInclude Include="saveAndLoad.h">
+      <Filter>playGround\saveAndLoad</Filter>
+    </ClInclude>
     <ClInclude Include="우박.h">
       <Filter>playGround\skill\bossSkill</Filter>
+    </ClInclude>
+    <ClInclude Include="option.h">
+      <Filter>playGround\option</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -581,8 +593,14 @@
     <ClCompile Include="얼음던지기매니저.cpp">
       <Filter>playGround\skill\bossSkill</Filter>
     </ClCompile>
+    <ClCompile Include="saveAndLoad.cpp">
+      <Filter>playGround\saveAndLoad</Filter>
+    </ClCompile>
     <ClCompile Include="우박.cpp">
       <Filter>playGround\skill\bossSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="option.cpp">
+      <Filter>playGround\option</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

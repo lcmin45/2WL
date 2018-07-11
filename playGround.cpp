@@ -80,7 +80,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("bossbackBar", "image/boss/bossHpBarBottom.bmp", 450, 60, true, RGB(255, 0, 255));
 
 	//나무 보스 이미지
-	IMAGEMANAGER->addFrameImage("나무소환", "image/boss/나무보스/나무보스소환.bmp", 0, 0, 3200, 129, 25, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("나무소환", "image/boss/나무보스/나무보스소환.bmp", 0, 0, 3328, 129, 26, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무등장", "image/boss/나무보스/나무보스등장.bmp", 0, 0, 294 * 2, 58 * 2, 7, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무점프", "image/boss/나무보스/나무보스점프.bmp", 0, 0, 420 * 2, 69 * 2, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("나무오른쪽", "image/boss/나무보스/나무보스오른쪽이동.bmp", 0, 0, 138 * 2, 51 * 2, 3, 1, true, RGB(255, 0, 255));
@@ -94,7 +94,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("나무대화", "image/boss/나무보스/나무대화.bmp", 850, 200, false, RGB(0, 0, 0));
 
 	//얼음 보스 이미지
-	IMAGEMANAGER->addFrameImage("얼음소환", "image/boss/얼음보스/얼음보스소환.bmp", 0, 0, 500 * 2, 61 * 2, 10, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("얼음소환", "image/boss/얼음보스/얼음보스소환.bmp", 0, 0, 550 * 2, 61 * 2, 11, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음등장", "image/boss/얼음보스/얼음보스등장.bmp", 0, 0, 228 * 2, 54 * 2, 6, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음스킬", "image/boss/얼음보스/얼음보스스킬.bmp", 0, 0, 306 * 2, 52 * 2, 9, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음스킬2", "image/boss/얼음보스/얼음보스스킬2.bmp", 0, 0, 96 * 2, 50 * 2, 3, 1, true, RGB(255, 0, 255));
@@ -103,7 +103,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addImage("얼음대화", "image/boss/얼음보스/얼음대화.bmp", 850, 200, false, RGB(0, 0, 0));
 
 	//불꽃 보스 이미지
-	IMAGEMANAGER->addFrameImage("불소환", "image/boss/불보스/불보스소환.bmp", 0, 0, 350 * 2, 45 * 2, 7, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불소환", "image/boss/불보스/불보스소환.bmp", 0, 0, 400 * 2, 45 * 2, 8, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불등장", "image/boss/불보스/불보스등장.bmp", 0, 0, 350 * 2, 33 * 2, 10, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불오른쪽", "image/boss/불보스/불보스오른쪽이동.bmp", 0, 0, 40 * 2, 28 * 2, 1, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("불왼쪽", "image/boss/불보스/불보스왼쪽이동.bmp", 0, 0, 40 * 2, 28 * 2, 1, 1, true, RGB(255, 0, 255));
@@ -132,7 +132,12 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("Setting", "image/UI/Setting.bmp", 260, 100, 1, 2, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
-	IMAGEMANAGER->addImage("포탈", "image/UI/포탈.bmp", 26 * 2, 42 * 2, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("포탈", "image/UI/포탈.bmp", 52*2, 42*2, 2, 1, true, RGB(255, 0, 255));
+
+
+	IMAGEMANAGER->addImage("option", "image/UI/option.bmp", 600, 400, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("optionBar", "image/UI/optionBar.bmp", 400, 30, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addImage("optionChoiceBar", "image/UI/optionChoiceBar.bmp", 40, 40, true, RGB(255, 0, 255));
 
 	//====================================================== ITEM ===================================================
 	IMAGEMANAGER->addFrameImage("coinFrame", "image/item/coinFrame.bmp", 150, 25, 6, 1, true, RGB(255, 0, 255));
@@ -304,4 +309,13 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("woodbossskill2", "sound/boss/나무/woodbossskill2.WAV", false, false);
 	SOUNDMANAGER->addSound("woodbossHurt", "sound/boss/나무/woddboosHurt.WAV", false, false);
 
+	//================================================= PLAYER ===============================================
+	SOUNDMANAGER->addSound("playerFootStep", "sound/player/playerFootStep.WAV", false, false);
+	SOUNDMANAGER->addSound("playerDash", "sound/player/playerDash.WAV", false, false);
+	SOUNDMANAGER->addSound("playerDead", "sound/player/playerDead.WAV", false, false);
+	SOUNDMANAGER->addSound("takeItem", "sound/player/takeItem.WAV", false, false);
+	SOUNDMANAGER->addSound("failTakeItem", "sound/player/failTakeItem.WAV", false, false);
+	SOUNDMANAGER->addSound("dropItem", "sound/player/dropItem.WAV", false, false);
+	SOUNDMANAGER->addSound("takeCoin", "sound/player/takeCoin.WAV", false, false);
+	SOUNDMANAGER->addSound("openInventory", "sound/player/openInventory.WAV", false, false);
 }

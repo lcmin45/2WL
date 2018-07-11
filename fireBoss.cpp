@@ -137,6 +137,7 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불왼쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x -= 4;
 			_y += 3;
@@ -148,11 +149,12 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불오른쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x += 4;
 			_y -= 2;
 		}
-		//중앙으로 순간이동
+		//중앙으로 이동
 		else if (_bossMoveCount < 800 && _bossMoveCount >= 700)
 		{
 			if (!_isCheck)
@@ -160,6 +162,7 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불왼쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x -= 4;
 			_y += 2;
@@ -172,6 +175,7 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불왼쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x -= 4;
 			_y -= 3;
@@ -183,11 +187,12 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불오른쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x += 4;
 			_y += 2;
 		}
-		//중앙으로 순간이동
+		//중앙으로 이동
 		else if (_bossMoveCount < 1800 && _bossMoveCount >= 1700)
 		{
 			if (!_isCheck)
@@ -195,6 +200,7 @@ void fireBoss::fireMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("불왼쪽");
 				_fireindex = 0;
+				_skill = false;
 			}
 			_x -= 4;
 			_y -= 2;

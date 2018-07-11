@@ -86,10 +86,6 @@ void page2::boxRender(void)
 	{
 		IMAGEMANAGER->findImage(_box[i].boxImageName)->render(CAMERAMANAGER->getCameraDC(), _box[i].rc.left, _box[i].rc.top);
 	}
-
-	char str[128];
-	sprintf_s(str, "%d", _currentObject.imageObjectIndex);
-	TextOut(CAMERAMANAGER->getCameraDC(), 100, 100, str, strlen(str));
 }
 
 void page2::checkBox(void)
@@ -124,40 +120,28 @@ void page2::setIndex(int index)
 	switch (index)
 	{
 	case 0:
-		for (int i = 0; i < 4; ++i)
+		for (int i = 0; i < 12; ++i)
 		{
-			_box[i].objectImageName = "OBJECT_12";
-			_box[i].imageObjectIndex = 1;
-			_box[i].frameX = i;
-			_box[i].frameY = 0;
-			_box[i].objectSetPoint = LEFT_TOP;
-			_box[i].renderPoint = PointMake(2, 3);
-			_box[i].objectCheckSize = PointMake(2, 3);
-			_box[i].terrain = TR_WALL;
+			_box[i].objectImageName = "IMAGE_OBJECT_2_2";
+			_box[i].imageObjectIndex = 22;
+			_box[i].frameX = i % 6;
+			_box[i].frameY = i / 6;
+			_box[i].objectSetPoint = LEFT_BOTTOM;
+			_box[i].renderPoint = PointMake(16, 48);
+			_box[i].objectCheckSize = PointMake(2, 2);
+			_box[i].terrain = TR_WAY;
 		}
 
-		for (int i = 0; i < 5; ++i)
+		for (int i = 0; i < 6; ++i)
 		{
-			_box[4 + i].objectImageName = "OBJECT_10";
-			_box[4 + i].imageObjectIndex = 2;
-			_box[4 + i].frameX = i;
-			_box[4 + i].frameY = 0;
-			_box[4 + i].objectSetPoint = LEFT_TOP;
-			_box[4 + i].renderPoint = PointMake(2, 2);
-			_box[4 + i].objectCheckSize = PointMake(2, 2);
-			_box[4 + i].terrain = TR_WALL;
-		}
-
-		for (int i = 0; i < 4; ++i)
-		{
-			_box[9 + i].objectImageName = "OBJECT_11";
-			_box[9 + i].imageObjectIndex = 3;
-			_box[9 + i].frameX = i;
-			_box[9 + i].frameY = 0;
-			_box[9 + i].objectSetPoint = LEFT_BOTTOM;
-			_box[9 + i].renderPoint = PointMake(2, 2);
-			_box[9 + i].objectCheckSize = PointMake(1, 2);
-			_box[9 + i].terrain = TR_WAY;
+			_box[12 + i].objectImageName = "IMAGE_OBJECT_3_4";
+			_box[12 + i].imageObjectIndex = 34;
+			_box[12 + i].frameX = i;
+			_box[12 + i].frameY = 0;
+			_box[12 + i].objectSetPoint = LEFT_BOTTOM;
+			_box[12 + i].renderPoint = PointMake(16, 80);
+			_box[12 + i].objectCheckSize = PointMake(2, 3);
+			_box[12 + i].terrain = TR_WAY;
 		}
 
 		break;

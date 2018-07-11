@@ -6,10 +6,8 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-
 	setBoss();
 	settingMonster();
-
 
 	return S_OK;
 }
@@ -22,6 +20,7 @@ void enemyManager::update()
 
 	BossUpdate();
 	monsterUpdate();
+	monsterRemove();
 
 }
 
@@ -39,6 +38,10 @@ void enemyManager::setBoss()
 	_iceposition.y = 464;
 	_fireposition.x = 624;
 	_fireposition.y = 4224;
+
+	fireBossStart = false;
+	iceBossStart = false;
+	woodBossStart = false;
 
 	_woodBoss = new woodBoss;
 	_woodBoss->init();
@@ -59,18 +62,35 @@ void enemyManager::BossUpdate()
 {
 
 	//조건 추가하기
-	_woodBoss->setPlayerPoint(_playerPoint);
-	_woodBoss->update();
-	_woodBoss->woodMove();
-	_woodBoss->woodSkill();
+	if (1 == _playerIndex) fireBossStart = true;
+	if (2 == _playerIndex) iceBossStart = true;
+	if (3 == _playerIndex) woodBossStart = true;
+	if (fireBossStart)
+	{
+		_fireBoss->update();
+		_fireBoss->fireMove();
+		_fireBoss->fireSkill();
+		_fireBoss->setPlayerPoint(_playerPoint);
+		_fireBoss->setProjectileAddressLink(_PM);
+	}
 	//조건 추가하기
-	_iceBoss->update();
-	_iceBoss->iceMove();
-	_iceBoss->iceSkill();
+	if (iceBossStart)
+	{
+		_iceBoss->update();
+		_iceBoss->iceMove();
+		_iceBoss->iceSkill();
+		_iceBoss->setPlayerPoint(_playerPoint);
+		_iceBoss->setProjectileAddressLink(_PM);
+	}
 	//조건 추가하기
-	_fireBoss->update();
-	_fireBoss->fireMove();
-	_fireBoss->fireSkill();
+	if (woodBossStart)
+	{
+		_woodBoss->setPlayerPoint(_playerPoint);
+		_woodBoss->update();
+		_woodBoss->woodMove();
+		_woodBoss->woodSkill();
+		_woodBoss->setProjectileAddressLink(_PM);
+	}
 }
 
 void enemyManager::BossRender()
@@ -81,49 +101,143 @@ void enemyManager::BossRender()
 	_fireBoss->render();
 }
 
-void enemyManager::settingMonster()
+void enemyManager::settingMonster()			//주석은 타일 번호
 {
-	for (float i = 0; i < 1; ++i)
+	//훈련용 허수아비 이닛
+	for (float i = 0; i <2; ++i)
 	{
-		Ghoul* _ghoul;
-		_ghoul = new Ghoul;
-		_ghoul->init({ 128 + i * 128,128 }, i,1);
+		for (float j = 0; j < 3; ++j)
+		{
+			Scarecrow* _Scarecrow;
+			_Scarecrow = new Scarecrow;
+			_Scarecrow->init({ 2816 + i * 896 + 16 ,(4736 + j * 128 + 16) });	// 88.148 , 88.152 , 88.156 / 116.148 , 116.152 , 116.156
 
-		_vGhoul.push_back(_ghoul);
+			_vScarecrow.push_back(_Scarecrow);
+		}
 	}
-	for (float i = 0; i < 1; ++i)
+	//index 4 번 몬스터 이닛
 	{
-		Knight* _Knight;
-		_Knight = new Knight;
-		_Knight->init("BlueKnight", { 128 + i * 128,128*2 }, i,2);
-		_vKnight.push_back(_Knight);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4);		//102.118
+
+			_vGhoul.push_back(_ghoul);
+		}
+		for (float i = 0; i < 2; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4);	//93.123 , 116.123
+
+			_vGhoul.push_back(_ghoul);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 5 번 몬스터 이닛 (RED)
 	{
-		Mage* _Mage;
-		_Mage = new Mage;
-		_Mage->init("RedMage", { 128 + i * 128,128*3 }, i, 3);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 1504 + 16, 3040 + 16 }, 5);	//47.95
 
-		_vMage.push_back(_Mage);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("RedMage", {1344+16,2720+16}, 5);	//42.85
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("RedKnight", { 1600 +16,2816 +16 }, 5);	//50.88
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("RedRogue", { 1408+16,3232+16 }, 5);	//44.101
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 6 번 몬스터 이닛 (BLUE)
 	{
-		Rogue* _Rogue;
-		_Rogue = new Rogue;
-		_Rogue->init("GreenRogue", { 128 + i * 128,128 * 4 }, i,4);
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 3232 + 16, 1792 + 16 }, 6);	//101.56
 
-		_vRogue.push_back(_Rogue);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("BlueMage", { 3616 + 16,1504 + 16 }, 6);	//113.47
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("BlueKnight", { 3552 + 16,1856+ 16 }, 6);	//111.58
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("BlueRogue", { 3200 + 16,1440 + 16 }, 6);	//100.45
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
-
-	for (float i = 0; i < 1; ++i)
+	//index 7 번 몬스터 이닛 (GREEN)
 	{
-		Scarecrow* _Scarecrow;
-		_Scarecrow = new Scarecrow;
-		_Scarecrow->init({ 128 + i * 128,128 * 5 });
+		for (float i = 0; i < 1; ++i)
+		{
+			Ghoul* _ghoul;
+			_ghoul = new Ghoul;
+			_ghoul->init({ 4672 + 16, 2752 + 16 }, 7);	// 146.86
 
-		_vScarecrow.push_back(_Scarecrow);
+			_vGhoul.push_back(_ghoul);
+		}
+
+		for (float i = 0; i < 1; ++i)
+		{
+			Mage* _Mage;
+			_Mage = new Mage;
+			_Mage->init("GreenMage", { 5088 + 16,2688 + 16 }, 7);	//159.84
+
+			_vMage.push_back(_Mage);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Knight* _Knight;
+			_Knight = new Knight;
+			_Knight->init("GreenKnight", { 4800 + 16,3040 + 16 }, 7);	//150.95
+			_vKnight.push_back(_Knight);
+		}
+		for (float i = 0; i < 1; ++i)
+		{
+			Rogue* _Rogue;
+			_Rogue = new Rogue;
+			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7);	//157.100
+
+			_vRogue.push_back(_Rogue);
+		}
 	}
 }
 
@@ -190,5 +304,41 @@ void enemyManager::monsterRender()
 	for (_viScarecrow = _vScarecrow.begin(); _viScarecrow != _vScarecrow.end(); ++_viScarecrow)
 	{
 		(*_viScarecrow)->render();
+	}
+}
+
+void enemyManager::monsterRemove()
+{
+	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); )
+	{
+		if ((*_viGhoul)->getIsDie())
+		{
+			_viGhoul = _vGhoul.erase(_viGhoul);
+		}
+		else ++_viGhoul;
+	}
+	for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); )
+	{
+		if ((*_viKnight)->getIsDie())
+		{
+			_viKnight = _vKnight.erase(_viKnight);
+		}
+		else ++_viKnight;
+	}
+	for (_viMage = _vMage.begin(); _viMage != _vMage.end(); )
+	{
+		if ((*_viMage)->getIsDie())
+		{
+			_viMage = _vMage.erase(_viMage);
+		}
+		else ++_viMage;
+	}
+	for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); )
+	{
+		if ((*_viRogue)->getIsDie())
+		{
+			_viRogue = _vRogue.erase(_viRogue);
+		}
+		else ++_viRogue;
 	}
 }
