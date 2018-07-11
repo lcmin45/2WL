@@ -65,7 +65,8 @@ public:
 	void inventoryProcess(); //인벤토리 처리
 	void playerHpCheck(); //플레이어 체력 체크
 	void saveData();
-	static void afterAction(void* obj); //에니매이션 콜백용
+	static void afterActionCallBack(void* obj); //에니매이션 콜백용
+	void afterAction(); //에니매이션 콜백용
 	static void playerDead(void* obj); //플레이어 죽음 콜백용
 
 	POINTFLOAT getPosition() { return _position; }
@@ -76,9 +77,7 @@ public:
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
 	bool getIsDead() { return _isDead; }
-	void setAction(ACTION action) { _action = action; }
 	void setIsDead(bool isDead) { _isDead = isDead; }
-	void setAnimation(animation* animation) { _animation = animation; }
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
