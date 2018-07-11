@@ -91,10 +91,7 @@ void skillSet::render()
 
 void skillSet::keyProcess()
 {
-	if (KEYMANAGER->isOnceKeyDown('K'))
-	{
-		_isOpen = (_isOpen ? false : true);
-	}
+	if (KEYMANAGER->isOnceKeyDown('K')) { _isOpen = (_isOpen ? false : true); SOUNDMANAGER->play("openSkillSet"); }
 
 	if (_isOpen)
 	{
@@ -136,5 +133,9 @@ void skillSet::changeSkillKeySet(int click, int change)
 		tagSkillSet temp = _skillSet[click];
 		_skillSet[click] = _skillSet[change];
 		_skillSet[change] = temp;
+		SOUNDMANAGER->play("changeSkillSet");
+		return;
 	}
+
+	SOUNDMANAGER->play("failChangeSkillSet");
 }

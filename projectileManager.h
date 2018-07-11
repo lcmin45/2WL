@@ -17,6 +17,12 @@
 #include "메테오.h"
 #include "불기둥.h"
 
+struct tagCoolTime
+{
+	const char* name;
+	float coolTime;
+	float skillTime;
+};
 
 class projectileManager : public gameNode
 {
@@ -26,7 +32,7 @@ private:
 	vector<skill*>				vSkill;
 	vector<skill*>::iterator	viSkill;
 
-	float coolTime[7];
+	tagCoolTime coolTime[7];
 
 public:
 	projectileManager();
@@ -37,7 +43,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void fire(const char * skillName);
+	bool fire(const char * skillName);
 	void fire(const char * skillName, POINTFLOAT pt);
 	void vectorCheck();
 	void vectorDraw();
@@ -46,6 +52,6 @@ public:
 
 	vector<skill*>				getVSkill() { return vSkill; };
 	vector<skill*>::iterator	getViSkill() { return viSkill; };
-	float* getCoolTime() { return coolTime; }
+	float getCoolTime(const char* name);
 };
 

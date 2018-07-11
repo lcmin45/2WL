@@ -18,18 +18,17 @@ HRESULT inGame::init()
 
 	_itemManager = new itemManager;
 	_itemManager->init();
-	_itemManager->setStoreItem();
 
 	_ptM = new projectileManager;
-
+	_ptM->init();
 
 	_enemyManager = new enemyManager;
 	_enemyManager->init();
 
-
 	_Astar = new Astar;
 
 	_UI->setPlayerAddressLink(_player);
+	_UI->setProjectileManagerAddressLink(_ptM);
 	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
@@ -61,13 +60,18 @@ HRESULT inGame::init(void * obj)
 	_player->init();
 	_player->setSaveInfo(temp->playerPosition, temp->currnetHp, temp->coin);
 
+	for (int i = 0; i < 7; i++)
+	{
+		_player->getSkillSet()->setSettingSkill(temp->skillSet[i], i);
+	}
+
 	_itemManager = new itemManager;
 	_itemManager->init();
 	for (int i = 0; i < _itemManager->getVItem().size(); i++)
 	{
-		if (temp->status[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
-		else if (temp->status[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
-		else if (temp->status[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
+		if (temp->itemStatus[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
+		else if (temp->itemStatus[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
+		else if (temp->itemStatus[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
 		else { _itemManager->getVItem()[i]->setPosition({ 0, 0 });  _itemManager->getVItem()[i]->setStatus(NOWHERE); }
 	}
 
@@ -79,6 +83,7 @@ HRESULT inGame::init(void * obj)
 	_Astar = new Astar;
 
 	_UI->setPlayerAddressLink(_player);
+	_UI->setProjectileManagerAddressLink(_ptM);
 	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
@@ -152,8 +157,8 @@ void inGame::collide()
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) 
-				&& _enemyManager->getVGhoul()[i]->getForm()== BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVGhoul()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
 				_enemyManager->getVGhoul()[i]->HitMotion();
 				_enemyManager->getVGhoul()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());

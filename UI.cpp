@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "UI.h"
 #include "player.h"
+#include "projectileManager.h"
 
 UI::UI() {}
 UI::~UI() {}
@@ -74,10 +75,23 @@ void UI::render()
 		char temp[50] = "UI";
 		strcat_s(temp, _player->getSkillSet()->getSettingSkill()[i].name);
 		IMAGEMANAGER->findImage(temp)->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 75);
+
+		if (_projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name) <= 0.0f) continue;
+
+		HFONT font, oldFont;
+		RECT itemText;
+		font = CreateFont(30, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("¸¼Àº °íµñ"));
+		oldFont = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font);
+		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(0, 0, 255));
+		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
+		char info[128];
+		sprintf_s(info, "%.1f", _projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name));
+		itemText = RectMake(25 + i * 75, WINSIZEY - 75, 50, 50);
+		DrawText(CAMERAMANAGER->getCameraDC(), TEXT(info), strlen(info), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+
+		SelectObject(CAMERAMANAGER->getCameraDC(), oldFont);
+		DeleteObject(font);
 	}
-
-
-	
 
 	_option->render();
 

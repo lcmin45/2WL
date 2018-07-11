@@ -2,6 +2,7 @@
 #include "gameNode.h"
 #include "saveAndLoad.h"
 #include "item.h"
+#include "skillSet.h"
 
 struct tagSaveInfo
 {
@@ -9,11 +10,9 @@ struct tagSaveInfo
 	float currnetHp;
 	int coin;
 	POINTFLOAT itemPosition[10];
-	STATUS status[10];
+	STATUS itemStatus[10];
+	tagSkillSet skillSet[7];
 };
-
-class player;
-class itemManager;
 
 class saveAndLoad : public gameNode
 {

@@ -31,5 +31,6 @@ public:
 	void keyProcess();
 	void changeSkillKeySet(int click, int change);
 	tagSkillSet* getSettingSkill() { return _skillSet; }
+	void setSettingSkill(tagSkillSet skillSet, int skillIndex) { _skillSet[skillIndex] = skillSet; }
 	bool getIsOpen() { return _isOpen; }
 };

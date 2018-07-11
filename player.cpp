@@ -192,33 +192,32 @@ void player::keyProcess()
 	}
 	//모든 이동 키에 입력이 없을 경우 행동은 IDLE, 에니매이션 갱신
 	else if ((KEYMANAGER->isOnceKeyUp('W') || KEYMANAGER->isOnceKeyUp('S') || KEYMANAGER->isOnceKeyUp('A') || KEYMANAGER->isOnceKeyUp('D')) && (_action == IDLE || _action == MOVE)) { _action = IDLE; animationProcess(); }
-
-	//마우스 왼쪽(공격 키 입력)
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
-	{
-		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
-		attackAngleProcess();
-		animationProcess();
-		_ptM->fire(_skillSet->getSettingSkill()[0].name);
-	}
 	//쉬프트(대쉬 키 입력)
-	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT)) //쿨타임 추가 해야함
+	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT) && _action != DASH) //쿨타임 추가 해야함
 	{
 		if (_angle == ANGLE1 || _angle == ANGLE3) _direction = UP;
 		else if (_angle == ANGLE5 || _angle == ANGLE7) _direction = DOWN;
 		_action = DASH;
 		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
-		SOUNDMANAGER->play("playerDash" );
+		SOUNDMANAGER->play("playerDash");
 	}
-	//스킬 사용
-	if (KEYMANAGER->isOnceKeyDown('Z') || (KEYMANAGER->isOnceKeyDown('X')) || (KEYMANAGER->isOnceKeyDown('C')))
+	//마우스 왼쪽(공격 키 입력)
+	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _action != DASH)
 	{
-		int index = (KEYMANAGER->isOnceKeyDown('Z') ? 1 : (KEYMANAGER->isOnceKeyDown('X') ? 2 : 3));
-		_action = (strcmp(_skillSet->getSettingSkill()[index].name, "화염구") == 0 ? FIREBALL : (strcmp(_skillSet->getSettingSkill()[index].name, "불타는올가미") == 0 ? FIRESWORD : (strcmp(_skillSet->getSettingSkill()[index].name, "맹렬회오리") == 0 ? WINDSTORM : (_action == ATTACK1 ? ATTACK2 : ATTACK2))));
+		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire(_skillSet->getSettingSkill()[index].name);
+		_ptM->fire(_skillSet->getSettingSkill()[0].name);
+	}
+	//스킬 사용
+	if ((KEYMANAGER->isOnceKeyDown('Z') || KEYMANAGER->isOnceKeyDown('X') || KEYMANAGER->isOnceKeyDown('C')) && _action != DASH)
+	{
+		int index = (KEYMANAGER->isOnceKeyDown('Z') ? 1 : (KEYMANAGER->isOnceKeyDown('X') ? 2 : 3));
+		ACTION tempAction = _action;
+		_action = (strcmp(_skillSet->getSettingSkill()[index].name, "화염구") == 0 ? FIREBALL : (strcmp(_skillSet->getSettingSkill()[index].name, "불타는올가미") == 0 ? FIRESWORD : (strcmp(_skillSet->getSettingSkill()[index].name, "맹렬회오리") == 0 ? WINDSTORM : (_action == ATTACK1 ? ATTACK2 : ATTACK2))));
+		if (_ptM->fire(_skillSet->getSettingSkill()[index].name)) { attackAngleProcess(); animationProcess(); }
+		else _action = tempAction;
 	}
 }
 
@@ -335,7 +334,7 @@ void player::collisionCheckWithItem()
 			{
 				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
 				_itemManager->takeCoin(i);
-				SOUNDMANAGER->play("takeCoin" );
+				SOUNDMANAGER->play("takeCoin");
 			}
 			else
 			{
@@ -402,7 +401,7 @@ void player::playerHpCheck()
 		attackAngleProcess();
 		animationProcess();
 		SOUNDMANAGER->singleChannelPause();
-		SOUNDMANAGER->play("playerDead" );
+		SOUNDMANAGER->play("playerDead");
 	}
 
 	if (_action == DEAD) _currentHp = 0;
@@ -417,8 +416,12 @@ void player::saveData()
 
 	for (int i = 0; i < _itemManager->getVItem().size(); i++)
 	{
-		temp->status[i] = _itemManager->getVItem()[i]->getStatus();
+		temp->itemStatus[i] = _itemManager->getVItem()[i]->getStatus();
 		temp->itemPosition[i] = _itemManager->getVItem()[i]->getPosition();
+	}
+	for (int i = 0; i < 7; i++)
+	{
+		temp->skillSet[i] = _skillSet->getSettingSkill()[i];
 	}
 
 	_saveAndLoad->save(temp);

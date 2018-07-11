@@ -332,4 +332,8 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("dropItem", "sound/player/dropItem.WAV", false, false);
 	SOUNDMANAGER->addSound("takeCoin", "sound/player/takeCoin.WAV", false, false);
 	SOUNDMANAGER->addSound("openInventory", "sound/player/openInventory.WAV", false, false);
+	SOUNDMANAGER->addSound("openSkillSet", "sound/player/openSkillSet.WAV", false, false);
+	SOUNDMANAGER->addSound("changeSkillSet", "sound/player/changeSkillSet.WAV", false, false);
+	SOUNDMANAGER->addSound("failChangeSkillSet", "sound/player/failChangeSkillSet.WAV", false, false);
+
 }

@@ -13,6 +13,15 @@ projectileManager::~projectileManager()
 
 HRESULT projectileManager::init()
 {
+	const char* tempSkillName[7] = { "바람베기", "화염구", "불타는올가미", "맹렬회오리", "흙주먹", "불꽃타격", "사이클론부메랑" };
+	float tempSkillTime[7] = { 0.1f, 5.0f, 10.0f, 5.0f, 0.3f, 0.2f, 10.0f };
+
+	for (int i = 0; i < 7; i++)
+	{
+		coolTime[i].name = tempSkillName[i];
+		coolTime[i].skillTime = tempSkillTime[i];
+	}
+
 	return S_OK;
 }
 
@@ -30,64 +39,80 @@ void projectileManager::render()
 	vectorDraw();
 }
 
-void projectileManager::fire(const char * skillName)
+bool projectileManager::fire(const char * skillName)
 {
 	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, getMousePoint().x, getMousePoint().y);
 
-	if (skillName == "불꽃타격" && TIMEMANAGER->getWorldTime() - coolTime[0] > 0.2f)
-	{
-		불꽃타격* FirePunch = new 불꽃타격;
-		FirePunch->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1, 1.0f, PLAYER);
-		vSkill.push_back(FirePunch);
-		coolTime[0] = TIMEMANAGER->getWorldTime();
-	}
-	if (skillName == "바람베기" && TIMEMANAGER->getWorldTime() - coolTime[1] > 0.1f)
+	float tempDeal = _player->getDamage();
+	if (RND->getInt(100) < _player->getCritical()) tempDeal * 2.0f;
+
+	if (skillName == "바람베기" && TIMEMANAGER->getWorldTime() - coolTime[0].coolTime > coolTime[0].skillTime)
 	{
 		바람베기* WindCutter = new 바람베기;
-		WindCutter->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1, 1.0f, PLAYER);
+		WindCutter->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(WindCutter);
-		coolTime[1] = TIMEMANAGER->getWorldTime();
-	}
-	if (skillName == "흙주먹" && TIMEMANAGER->getWorldTime() - coolTime[2] > 0.3f)
-	{
-		흙주먹* EarthPunch = new 흙주먹;
-		EarthPunch->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1, 1.0f, PLAYER);
-		EarthPunch->fireAtt();
-		vSkill.push_back(EarthPunch);
-		coolTime[2] = TIMEMANAGER->getWorldTime();
-	}
+		coolTime[0].coolTime = TIMEMANAGER->getWorldTime();
 
-	if (skillName == "화염구" && TIMEMANAGER->getWorldTime() - coolTime[3] > 5.0f)
+		return true;
+	}
+	if (skillName == "화염구" && TIMEMANAGER->getWorldTime() - coolTime[1].coolTime > coolTime[1].skillTime)
 	{
 		화염구* FireBall = new 화염구;
-		FireBall->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 1, 30, PLAYER);
+		FireBall->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 1 * tempDeal, 30, PLAYER);
 		vSkill.push_back(FireBall);
-		coolTime[3] = TIMEMANAGER->getWorldTime();
-	}
+		coolTime[1].coolTime = TIMEMANAGER->getWorldTime();
 
-	if (skillName == "불타는올가미" && TIMEMANAGER->getWorldTime() - coolTime[4] > 10.0f)
+		return true;
+	}
+	if (skillName == "불타는올가미" && TIMEMANAGER->getWorldTime() - coolTime[2].coolTime > coolTime[2].skillTime)
 	{
 		불타는올가미* FireSword = new 불타는올가미;
-		FireSword->fire(skillName, 1, _player->getPosition(), 8, 200, 1, 1.0f, PLAYER);
+		FireSword->fire(skillName, 1, _player->getPosition(), 8, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(FireSword);
-		coolTime[4] = TIMEMANAGER->getWorldTime();
-	}
+		coolTime[2].coolTime = TIMEMANAGER->getWorldTime();
 
-	if (skillName == "맹렬회오리" && TIMEMANAGER->getWorldTime() - coolTime[5] > 5.0f)
+		return true;
+	}
+	if (skillName == "맹렬회오리" && TIMEMANAGER->getWorldTime() - coolTime[3].coolTime > coolTime[3].skillTime)
 	{
 		맹렬회오리* WindTornado = new 맹렬회오리;
-		WindTornado->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1, 1.0f, PLAYER);
+		WindTornado->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(WindTornado);
-		coolTime[5] = TIMEMANAGER->getWorldTime();
+		coolTime[3].coolTime = TIMEMANAGER->getWorldTime();
+
+		return true;
 	}
 
-	if (skillName == "사이클론부메랑" && TIMEMANAGER->getWorldTime() - coolTime[6] > 10.0f)
+	if (skillName == "흙주먹" && TIMEMANAGER->getWorldTime() - coolTime[4].coolTime > coolTime[4].skillTime)
+	{
+		흙주먹* EarthPunch = new 흙주먹;
+		EarthPunch->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
+		EarthPunch->fireAtt();
+		vSkill.push_back(EarthPunch);
+		coolTime[4].coolTime = TIMEMANAGER->getWorldTime();
+
+		return true;
+	}
+	if (skillName == "불꽃타격" && TIMEMANAGER->getWorldTime() - coolTime[5].coolTime > coolTime[5].skillTime)
+	{
+		불꽃타격* FirePunch = new 불꽃타격;
+		FirePunch->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
+		vSkill.push_back(FirePunch);
+		coolTime[5].coolTime = TIMEMANAGER->getWorldTime();
+
+		return true;
+	}
+	if (skillName == "사이클론부메랑" && TIMEMANAGER->getWorldTime() - coolTime[6].coolTime > coolTime[6].skillTime)
 	{
 		사이클론부메랑* CyclronBoomerang = new 사이클론부메랑;
-		CyclronBoomerang->fire(skillName, 1, _player->getPosition(), tempAngle, 15, 350, 1, 1.0f, PLAYER);
+		CyclronBoomerang->fire(skillName, 1, _player->getPosition(), tempAngle, 15, 350, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(CyclronBoomerang);
-		coolTime[6] = TIMEMANAGER->getWorldTime();
+		coolTime[6].coolTime = TIMEMANAGER->getWorldTime();
+
+		return true;
 	}
+
+	return false;
 }
 
 void projectileManager::fire(const char * skillName, POINTFLOAT pt)
@@ -191,6 +216,19 @@ void projectileManager::vectorDraw()
 		for (viSkill = vSkill.begin(); viSkill != vSkill.end(); viSkill++)
 		{
 			(*viSkill)->render();
+		}
+	}
+}
+
+float projectileManager::getCoolTime(const char * name)
+{
+	for (int i = 0; i < 7; i++)
+	{
+		if (strcmp(name, coolTime[i].name) == 0)
+		{
+			float tempTime = coolTime[i].skillTime - (TIMEMANAGER->getWorldTime() - coolTime[i].coolTime);
+			if (tempTime <= 0.0f) return 0.0f;
+			else return tempTime;
 		}
 	}
 }

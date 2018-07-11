@@ -77,6 +77,8 @@ public:
 	DIRECTION getDirection() { return _direction; }
 	float getMaxHp() { return _maxHp; }
 	float getCurrentHp() { return _currentHp; }
+	float getDamage() { return _damage; }
+	float getCritical() { return _critical; }
 	int getPlayerIndex() { return _playerTileIndex; }
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
