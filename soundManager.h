@@ -56,11 +56,14 @@ public:
 	void setPlayTime(string keyName, unsigned int time);
 	bool isPlaySound(string keyName);
 	bool isPauseSound(string keyName);
+	void setEffectVolume(float volume);
+	float getEffectVolume(void);
 
 	void singleChannelPlay(string keyName);
 	void singleChannelPause(void);
 	void singleChannelResume(void);
 	void singleChannelChangeVolume(float volume);
+	float singleChannelGetVolume(void);
 	bool singleChannelIsPlay(void);
 	bool singleChannelIsPause(void);
 	int  singleChannelPlayTime(void);

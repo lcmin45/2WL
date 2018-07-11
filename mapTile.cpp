@@ -47,6 +47,22 @@ void mapTile::update(void)
 		_eraser = ER_OBJ;
 		_currentCheck = CH_AUTO_DELETE_WAY;
 	}
+
+	if (KEYMANAGER->isOnceKeyDown('P'))
+	{
+		_currentCheck = CH_OBJECT_IMAGE;
+		_currentObject.objectIndex = NULL;
+		_currentObject.imageObjectIndex = NULL;
+		_currentObject.frameX = NULL;
+		_currentObject.frameY = NULL;
+		_currentObject.terrain = TR_NONE;
+	}
+
+	if (KEYMANAGER->isOnceKeyDown('O'))
+	{
+		_currentCheck = CH_OBJECT;
+		_currentObject.objectIndex = NULL;
+	}
 }
 
 void mapTile::render(void)
@@ -167,7 +183,7 @@ void mapTile::checkImageObject(void)
 	{
 		for (int j = getMousePoint().x / TILESIZE; j < getMousePoint().x / TILESIZE + WINSIZEX / TILESIZE; ++j)
 		{
-			if (i >= MAXTILEY || j >= MAXTILEX || _tile[i * MAXTILEX + j].object != OBJ_NONE) continue;
+			if (i >= MAXTILEY || j >= MAXTILEX) continue;
 
 			temp = i * MAXTILEX + j;
 
@@ -213,7 +229,13 @@ void mapTile::checkObject(void)
 			{
 				temp = i * MAXTILEX + j;
 
-				if (_tile[temp].objectIndex == NULL || _tile[temp].object == OBJ_NONE)
+				if (_currentObject.objectIndex == NULL)
+				{
+					_tile[temp].objectIndex = NULL;
+					_tile[temp].object = OBJ_NONE;
+					_tile[temp + 1].object = OBJ_NONE;
+				}
+				else if (_tile[temp].objectIndex == NULL || _tile[temp].object == OBJ_NONE)
 				{
 					_tile[temp].objectClass = new tileObject;
 					_tile[temp].objectIndex = _currentObject.objectIndex;
@@ -404,6 +426,7 @@ void mapTile::checkEraser(void)
 				{
 				case ER_WAY:
 					_tile[temp].terrain = TR_WAY;
+					//_tile[temp].terrain = TR_NONE;
 					break;
 				case ER_WALL:
 					_tile[temp].terrain = TR_WALL;
