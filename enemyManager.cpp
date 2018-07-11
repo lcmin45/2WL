@@ -69,7 +69,6 @@ void enemyManager::BossUpdate()
 	{
 		_fireBoss->update();
 		_fireBoss->fireMove();
-		_fireBoss->fireSkill();
 		_fireBoss->setPlayerPoint(_playerPoint);
 		_fireBoss->setProjectileAddressLink(_PM);
 	}
@@ -78,7 +77,6 @@ void enemyManager::BossUpdate()
 	{
 		_iceBoss->update();
 		_iceBoss->iceMove();
-		_iceBoss->iceSkill();
 		_iceBoss->setPlayerPoint(_playerPoint);
 		_iceBoss->setProjectileAddressLink(_PM);
 	}
@@ -88,7 +86,6 @@ void enemyManager::BossUpdate()
 		_woodBoss->setPlayerPoint(_playerPoint);
 		_woodBoss->update();
 		_woodBoss->woodMove();
-		_woodBoss->woodSkill();
 		_woodBoss->setProjectileAddressLink(_PM);
 	}
 }

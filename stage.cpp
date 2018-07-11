@@ -78,6 +78,12 @@ void stage::render()
 			case 34:
 				IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
 				break;
+			case 100:
+				IMAGEMANAGER->findImage("storeNpc")->render(getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top);
+				break;
+			case 101:
+				IMAGEMANAGER->findImage("storeTable")->render(getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top);
+				break;
 			}
 
 			if ((int)(_player->getPosition().y / TILESIZE) == i) _player->render();

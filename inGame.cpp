@@ -146,12 +146,14 @@ void inGame::render()
 
 void inGame::collide()
 {
+	//================================= 에너미랑 플레이어 스킬 충돌체크 ============================
 	for (int i = 0; i < _enemyManager->getVGhoul().size(); ++i)
 	{
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) 
+				&& _enemyManager->getVGhoul()[i]->getForm()== BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
 				_enemyManager->getVGhoul()[i]->HitMotion();
 				_enemyManager->getVGhoul()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
@@ -163,7 +165,8 @@ void inGame::collide()
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_enemyManager->getVKnight()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			if (IntersectRect(&temp, &_enemyManager->getVKnight()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVKnight()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
 				_enemyManager->getVKnight()[i]->HitMotion();
 				_enemyManager->getVKnight()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
@@ -175,7 +178,8 @@ void inGame::collide()
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_enemyManager->getVMage()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			if (IntersectRect(&temp, &_enemyManager->getVMage()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVMage()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
 				_enemyManager->getVMage()[i]->HitMotion();
 				_enemyManager->getVMage()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
@@ -187,7 +191,8 @@ void inGame::collide()
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_enemyManager->getVRogue()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			if (IntersectRect(&temp, &_enemyManager->getVRogue()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
+				&& _enemyManager->getVRogue()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
 				_enemyManager->getVRogue()[i]->HitMotion();
 				_enemyManager->getVRogue()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
@@ -205,8 +210,34 @@ void inGame::collide()
 			}
 		}
 	}
+	//================================= 보스랑 플레이어 스킬 충돌체크 ============================
 
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		{
+			_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
 
+	//================================= 플레이어랑 적 스킬 충돌체크 ============================
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
 		RECT temp;
@@ -215,9 +246,6 @@ void inGame::collide()
 			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 		}
 	}
-
-		
-
 
 
 

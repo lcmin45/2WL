@@ -41,9 +41,9 @@ HRESULT boss::init()
 	_fireHpBar = new bossProgressBar;
 	_fireHpBar->init(380, 0, "bossfrontBar", 360, 25, "bossbackBar", 450, 60);
 
-	_woodCurrentHP = _woodMaxHP = 150;
-	_iceCurrentHP = _iceMaxHP = 150;
-	_fireCurrentHP = _fireMaxHP = 150;
+	_woodCurrentHP = _woodMaxHP = 500;
+	_iceCurrentHP = _iceMaxHP = 500;
+	_fireCurrentHP = _fireMaxHP = 500;
 
 	_speed = 5.0f;
 	_jump = 0.0f;

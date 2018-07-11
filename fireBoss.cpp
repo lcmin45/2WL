@@ -60,6 +60,7 @@ void fireBoss::update()
 {
 	if (_fireBossDie == false)//보스가 살아있을때
 	{
+		fireSkill();
 		_fireHpBar->setGauge(_fireCurrentHP, _fireMaxHP);
 		_fireHpBar->update();
 		//프래임 이미지 카운트
