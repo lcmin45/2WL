@@ -31,7 +31,6 @@ void UI::update()
 	{
 		if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON)) { _option->setIsView(true); }
 	}
-	
 }
 
 void UI::render()
@@ -46,9 +45,6 @@ void UI::render()
 	_image = IMAGEMANAGER->findImage("optionIcon");
 	_image->frameRender(CAMERAMANAGER->getCameraDC(), WINSIZEX - 75, 25);
 	(PtInRect(&_optionRC, getCameraPoint())) ? _image->setFrameY(1) : _image->setFrameY(0);
-
-	
-
 
 	HFONT font, oldFont;
 	RECT itemText;
@@ -69,9 +65,19 @@ void UI::render()
 
 	if (_player->getCanTakeItem())
 	{
-		_image = IMAGEMANAGER->findImage("buttonF");
-		_image->render(getMemDC(), _player->getPosition().x - _image->getWidth() / 2, _player->getPosition().y - _image->getHeight() - 30);
+		IMAGEMANAGER->findImage("buttonF")->render(getMemDC(), _player->getPosition().x - _image->getWidth() / 2, _player->getPosition().y - _image->getHeight() - 30);
 	}
+
+	for (int i = 0; i < 4; i++)
+	{
+		IMAGEMANAGER->findImage((i == 0 ? "mouseL" : (i == 1 ? "buttonZ" : (i == 2 ? "buttonX" : "buttonC"))))->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 125);
+		char temp[50] = "UI";
+		strcat_s(temp, _player->getSkillSet()->getSettingSkill()[i].name);
+		IMAGEMANAGER->findImage(temp)->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 75);
+	}
+
+
+	
 
 	_option->render();
 
