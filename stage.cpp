@@ -96,7 +96,7 @@ void stage::render()
 		for (int i = 0; i < 6; i++)
 		{
 			RECT temp;
-			if (IntersectRect(&temp, &_potal[i], &_player->getPlayerRect()))
+			if (IntersectRect(&temp, &_potalRc[i], &_player->getPlayerRect()))
 			{
 				_image = IMAGEMANAGER->findImage("buttonF");
 				_image->render(getMemDC(), _potalRc[i].left + 5, _potalRc[i].top - 50);
