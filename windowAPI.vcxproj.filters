@@ -130,6 +130,9 @@
     <Filter Include="playGround\saveAndLoad">
       <UniqueIdentifier>{00f0136f-38b8-42d8-aa51-cfae140dc600}</UniqueIdentifier>
     </Filter>
+    <Filter Include="playGround\option">
+      <UniqueIdentifier>{4f0d2b9f-e683-4012-a4d8-c713dc12bf3c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -369,6 +372,9 @@
     <ClInclude Include="우박.h">
       <Filter>playGround\skill\bossSkill</Filter>
     </ClInclude>
+    <ClInclude Include="option.h">
+      <Filter>playGround\option</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -592,6 +598,9 @@
     </ClCompile>
     <ClCompile Include="우박.cpp">
       <Filter>playGround\skill\bossSkill</Filter>
+    </ClCompile>
+    <ClCompile Include="option.cpp">
+      <Filter>playGround\option</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

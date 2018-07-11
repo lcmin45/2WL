@@ -240,6 +240,22 @@ bool soundManager::isPauseSound(string keyName)
 	return isPause;
 }
 
+void  soundManager::setEffectVolume(float volume)
+{
+	for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
+	{
+		_channel[index].channel->setVolume(volume);
+	}
+}
+
+float soundManager::getEffectVolume(void)
+{
+	float volume = 0.0f;
+	_channel[0].channel->getVolume(&volume);
+
+	return volume;
+}
+
 void soundManager::singleChannelPlay(string keyName)
 {
 	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
@@ -265,6 +281,14 @@ void soundManager::singleChannelResume(void)
 void soundManager::singleChannelChangeVolume(float volume)
 {
 	_singleChannel->setVolume(volume);
+}
+
+float soundManager::singleChannelGetVolume(void)
+{
+	float _volume = 0.0f;
+	_singleChannel->getVolume(&_volume);
+
+	return _volume;
 }
 
 bool soundManager::singleChannelIsPlay(void)
