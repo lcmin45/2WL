@@ -375,6 +375,9 @@
     <ClInclude Include="option.h">
       <Filter>playGround\option</Filter>
     </ClInclude>
+    <ClInclude Include="skillSet.h">
+      <Filter>playGround\UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="windowAPI.cpp">
@@ -601,6 +604,9 @@
     </ClCompile>
     <ClCompile Include="option.cpp">
       <Filter>playGround\option</Filter>
+    </ClCompile>
+    <ClCompile Include="skillSet.cpp">
+      <Filter>playGround\UI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

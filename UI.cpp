@@ -53,4 +53,6 @@ void UI::render()
 		_image = IMAGEMANAGER->findImage("buttonF");
 		_image->render(getMemDC(), _player->getPosition().x - _image->getWidth() / 2, _player->getPosition().y - _image->getHeight() - 30);
 	}
+
+	_player->getSkillSet()->render();
 }
