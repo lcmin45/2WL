@@ -72,12 +72,5 @@ void boss::render()
 
 void boss::update()
 {
-	_woodHpBar->setGauge(_woodCurrentHP, _woodMaxHP);
-	_woodHpBar->update();
-
-	_iceHpBar->setGauge(_iceCurrentHP, _iceMaxHP);
-	_iceHpBar->update();
-
-	_fireHpBar->setGauge(_fireCurrentHP, _fireMaxHP);
-	_fireHpBar->update();
+	
 }

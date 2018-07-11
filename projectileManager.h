@@ -39,5 +39,10 @@ public:
 	void vectorCheck();
 	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
+
+
+	vector<skill*>				getVSkill() { return vSkill; };
+	vector<skill*>::iterator	getViSkill() { return viSkill; };
+	
 };
 

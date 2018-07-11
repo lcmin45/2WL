@@ -26,6 +26,8 @@ HRESULT intro::init()
 
 	_saveAndLoad = new saveAndLoad;
 	_saveAndLoad->init();
+	_option = new option;
+	_option->init();
 
 	return S_OK;
 }
@@ -34,6 +36,9 @@ void intro::release() {}
 
 void intro::update()
 {
+	if (_option->getIsView()) _option->update();
+	if (_option->getIsView()) return;
+
 	if (_introStart == 1) { _setScene = 1; _introStart = 2; }
 
 	if (_setScene == 0)
@@ -62,7 +67,7 @@ void intro::update()
 
 		if (_soundCheck == 1)
 		{
-			SOUNDMANAGER->play("MenuMove", _effectSound);
+			SOUNDMANAGER->play("MenuMove" );
 			_soundCheck = 2;
 		}
 
@@ -76,7 +81,7 @@ void intro::update()
 				_changeScene.isChanged = true;
 				_changeScene.menuIndex = 0;
 				SOUNDMANAGER->singleChannelPlay("Earth");
-				SOUNDMANAGER->play("MenuOpen", _effectSound);
+				SOUNDMANAGER->play("MenuOpen" );
 			}
 		}
 		else if (PtInRect(&_rc[1], _ptMouse))
@@ -89,7 +94,7 @@ void intro::update()
 				_changeScene.isChanged = true;
 				_changeScene.menuIndex = 1;
 				SOUNDMANAGER->singleChannelPlay("Earth");
-				SOUNDMANAGER->play("MenuOpen", _effectSound);
+				SOUNDMANAGER->play("MenuOpen" );
 			}
 		}
 		else if (PtInRect(&_rc[2], _ptMouse))
@@ -101,7 +106,7 @@ void intro::update()
 				_changeScene.isChanged = true;
 				_changeScene.menuIndex = 2;
 				SOUNDMANAGER->singleChannelPlay("MapTool");
-				SOUNDMANAGER->play("MenuOpen", _effectSound);
+				SOUNDMANAGER->play("MenuOpen" );
 			}
 		}
 		else if (PtInRect(&_rc[3], _ptMouse))
@@ -110,7 +115,8 @@ void intro::update()
 			_Setting->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				SOUNDMANAGER->play("MenuOpen", _effectSound);
+				_option->setIsView(true);
+				SOUNDMANAGER->play("MenuOpen" );
 			}
 		}
 		else if (PtInRect(&_rc[4], _ptMouse))
@@ -119,7 +125,7 @@ void intro::update()
 			_EXIT->setFrameY(1);
 			if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON))
 			{
-				SOUNDMANAGER->play("MenuOpen", _effectSound);
+				SOUNDMANAGER->play("MenuOpen" );
 				PostQuitMessage(777);
 			}
 		}
@@ -149,4 +155,6 @@ void intro::render()
 	_MapTool->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 140, WINSIZEY / 2 + 180, _sceneAlpha);
 	_Setting->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 130, WINSIZEY / 2 + 245, _sceneAlpha);
 	_EXIT->alphaFrameRender(getMemDC(), WINSIZEX / 2 - 75, WINSIZEY / 2 + 310, _sceneAlpha);
+
+	_option->render();
 }

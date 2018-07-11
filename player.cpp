@@ -79,7 +79,7 @@ HRESULT player::init() //초기화
 	KEYANIMANAGER->addArrayFrameAnimation("playerStormDown", "player", playerStormDown, 11, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerDeadDown[] = { 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 3, false, afterActionCallBack, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 3, false, playerDead, this);
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
@@ -209,7 +209,7 @@ void player::keyProcess()
 		_action = DASH;
 		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
-		SOUNDMANAGER->play("playerDash", _effectSound);
+		SOUNDMANAGER->play("playerDash" );
 	}
 	//스킬 사용
 	if (KEYMANAGER->isOnceKeyDown('Z'))
@@ -362,7 +362,7 @@ void player::collisionCheckWithItem()
 			{
 				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
 				_itemManager->takeCoin(i);
-				SOUNDMANAGER->play("takeCoin", _effectSound);
+				SOUNDMANAGER->play("takeCoin" );
 			}
 			else
 			{
@@ -426,12 +426,13 @@ void player::playerHpCheck()
 	if (_currentHp <= 0 && _action != DEAD)
 	{
 		_action = DEAD;
-		_currentHp = 0;
 		attackAngleProcess();
 		animationProcess();
 		SOUNDMANAGER->singleChannelPause();
-		SOUNDMANAGER->play("playerDead", _effectSound);
+		SOUNDMANAGER->play("playerDead" );
 	}
+
+	if (_action == DEAD) _currentHp = 0;
 }
 
 void player::saveData()

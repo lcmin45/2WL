@@ -40,7 +40,7 @@ void Scarecrow::release()
 
 void Scarecrow::update()
 {
-	Test();
+	//Test();
 }
 
 void Scarecrow::render()
@@ -53,14 +53,10 @@ void Scarecrow::render()
 	}
 }
 
-void Scarecrow::Test()
+void Scarecrow::HitMotion()
 {
-	if (KEYMANAGER->isOnceKeyDown('Z'))
-	{
-
+	
 		_scarecrowDirection = SCARECROW_HIT;
 		_scarecrowMotion = KEYANIMANAGER->findAnimation("ScarecrowHit");
 		_scarecrowMotion->start();
-	}
-
 }

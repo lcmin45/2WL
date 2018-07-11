@@ -30,8 +30,8 @@ public:
 	virtual void update();
 	virtual void render();
 
-	void Test();
-
+	void HitMotion();
+	
 
 	//상태에 대한 접근자, 설정자
 	SCARECROWDIRECTION getScarecrowDirection() { return _scarecrowDirection; }

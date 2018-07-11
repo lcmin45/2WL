@@ -96,7 +96,7 @@ public:
 
 	inline bool getIsDie() { return _isDie; }
 
-	inline void HitHP(float att, float angle) { _monsterHP -= att; _bottomPosition.x += cos(angle) * 3; _bottomPosition.y += -sin(angle) * 3;}
+	inline void HitHP(float att, float angle) { _monsterHP -= att; _bottomPosition.x += cos(angle) * 1; _bottomPosition.y += -sin(angle) * 1;}
 	inline float getHP() { return _monsterHP; }
 
 	MONSTERFORM getForm() { return _form; }
@@ -106,7 +106,7 @@ public:
 	POINTFLOAT getPosition() { return _position; }
 	POINTFLOAT getBottomPosition() { return _bottomPosition; }
 
-
+	RECT getMonsterRC() { return _rc; }
 
 	//상태에 대한 접근자, 설정자
 

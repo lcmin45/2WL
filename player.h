@@ -69,6 +69,8 @@ public:
 	void afterAction(); //에니매이션 콜백용
 	static void playerDead(void* obj); //플레이어 죽음 콜백용
 
+
+	RECT getBody() { return _body; }
 	POINTFLOAT getPosition() { return _position; }
 	DIRECTION getDirection() { return _direction; }
 	float getMaxHp() { return _maxHp; }
@@ -77,6 +79,7 @@ public:
 	int getCoin() { return _coin; }
 	bool getCanTakeItem() { return _canTakeItem; }
 	bool getIsDead() { return _isDead; }
+	void setPlayerHit(float att) { _currentHp -= att; }
 	void setIsDead(bool isDead) { _isDead = isDead; }
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }

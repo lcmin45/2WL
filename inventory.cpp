@@ -73,7 +73,7 @@ void inventory::render()
 void inventory::keyProcess(POINTFLOAT position)
 {
 	//인벤토리 열기
-	if (KEYMANAGER->isOnceKeyDown('I')) { _isOpen = (_isOpen ? false : true); SOUNDMANAGER->play("openInventory", _effectSound); }
+	if (KEYMANAGER->isOnceKeyDown('I')) { _isOpen = (_isOpen ? false : true); SOUNDMANAGER->play("openInventory" ); }
 
 	//열려있는 상태에서 아이템 버리기 처리
 	if (_isOpen)
@@ -102,9 +102,9 @@ void inventory::keyProcess(POINTFLOAT position)
 //아이템 추가
 bool inventory::addItem(item * item)
 {
-	if (_vItem.size() != 3) { _vItem.push_back(item); SOUNDMANAGER->play("takeItem", _effectSound); return true; }
+	if (_vItem.size() != 3) { _vItem.push_back(item); SOUNDMANAGER->play("takeItem" ); return true; }
 
-	SOUNDMANAGER->play("failTakeItem", _effectSound);
+	SOUNDMANAGER->play("failTakeItem" );
 
 	return false;
 }
@@ -115,5 +115,5 @@ void inventory::dumpItem(int index, POINTFLOAT position)
 	_vItem[_selectedItemIndex]->setPosition(position);
 	_vItem[_selectedItemIndex]->setStatus(ON_FIELD);
 	_vItem.erase(_vItem.begin() + index);
-	SOUNDMANAGER->play("dropItem", _effectSound);
+	SOUNDMANAGER->play("dropItem" );
 }

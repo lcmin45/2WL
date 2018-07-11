@@ -96,9 +96,9 @@ void enemyManager::BossUpdate()
 void enemyManager::BossRender()
 {
 	//조건 추가하기
-	_woodBoss->render();
-	_iceBoss->render();
-	_fireBoss->render();
+	if (fireBossStart) { _fireBoss->render(); }
+	if (iceBossStart) { _iceBoss->render(); } 
+	if (woodBossStart) { _woodBoss->render(); }
 }
 
 void enemyManager::settingMonster()			//주석은 타일 번호
