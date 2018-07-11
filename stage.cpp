@@ -27,6 +27,19 @@ void stage::release() {}
 void stage::update()
 {
 	_player->update();
+
+	_potalCount++;
+	if (_potalCount % 10 == 0)
+	{
+		++_potalIndex;
+		for (int i = 0; i < 6; i++)
+		{
+			if (_potalIndex > _potal[i]->getMaxFrameX())
+			{
+				_potalIndex = 0;
+			}
+		}
+	}
 }
 
 void stage::render()
@@ -99,12 +112,12 @@ void stage::render()
 	char str[128];
 	sprintf_s(str, "%d, %d", _player->getPosition().x, _player->getPosition().y);
 	TextOut(CAMERAMANAGER->getCameraDC(), 100, 100, str, strlen(str));
-
+	
 	////////////////Æ÷Å»//////////////////
 	for (int i = 0; i < 6; i++)
 	{
 		_potal[i] = IMAGEMANAGER->findImage("Æ÷Å»");
-		_potal[i]->render(getMemDC(), _potalRc[i].left, _potalRc[i].top);
+		_potal[i]->frameRender(getMemDC(), _potalRc[i].left, _potalRc[i].top, _potalIndex,0);
 	}
 }
 
