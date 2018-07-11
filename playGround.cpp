@@ -13,13 +13,12 @@ HRESULT playGround::init(void)
 	settingAddSound();
 
 	SCENEMANAGER->addScene("intro", new intro);
-	SCENEMANAGER->addScene("ending", new ending);
-	SCENEMANAGER->addScene("loading", new loading);
 	SCENEMANAGER->addScene("inGame", new inGame);
+	SCENEMANAGER->addScene("loading", new loading);
+	SCENEMANAGER->addScene("ending", new ending);
 	SCENEMANAGER->addScene("mapTool", new mapTool);
 
 	SCENEMANAGER->changeScene("intro");
-	
 
 	return S_OK;
 }
@@ -39,8 +38,7 @@ void playGround::update(void)
 		CAMERAMANAGER->setCameraPoint({ 0, 0 });
 	}
 
-
-	SCENEMANAGER->update(); 
+	SCENEMANAGER->update();
 }
 
 void playGround::render(void)
@@ -51,12 +49,11 @@ void playGround::render(void)
 	SCENEMANAGER->render();
 	IMAGEMANAGER->findImage("Black")->alphaRender(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, _BlackAalpha);
 
+	TIMEMANAGER->render(CAMERADC);
+
 	CAMERAMANAGER->render(this->getBackBuffer());
 	this->getBackBuffer()->render(getHDC(), 0, 0, CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 }
-
-
-
 
 void playGround::settingAddImage(void)
 {
@@ -176,9 +173,16 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("RedRogueBullet", "image/skill/monsterBullet/RedRogueBullet.bmp", 64, 32, 2, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("GhoulBullet", "image/skill/monsterBullet/GhoulBullet.bmp", 240, 480, 4, 8, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음던지기", "image/skill/bossSkill/얼음던지기.bmp", 88, 24, 4, 1, true, RGB(255, 0, 255));
-	IMAGEMANAGER->addFrameImage("스킬범위", "image/skill/bossSkill/스킬범위.bmp", 3200, 129, 25, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("우박범위", "image/skill/bossSkill/우박범위.bmp", 3200, 129, 25, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("우박", "image/skill/bossSkill/우박.bmp", 128, 128, 4, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음효과", "image/skill/bossSkill/얼음효과.bmp", 120, 40, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("나무솟기", "image/skill/bossSkill/나무솟기.bmp", 405, 70, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기", "image/skill/bossSkill/돌던지기.bmp", 27, 37, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기2", "image/skill/bossSkill/돌던지기2.bmp", 25, 28, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오", "image/skill/bossSkill/메테오.bmp", 1020, 175, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오효과", "image/skill/bossSkill/메테오효과.bmp", 1419, 129, 11, 1,true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불기둥", "image/skill/bossSkill/불기둥.bmp", 200, 134, 10, 1, true, RGB(255, 0, 255));
+
 
 
 	//========================================================================================================================//
@@ -231,9 +235,11 @@ void playGround::settingAddImage(void)
 
 	// 오브젝트 이미지
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_1_3", "image/mapTool/object/imageObject_1_3.bmp", 384, 96, 12, 1, true, RGBMAGENTA);
-	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_2", "image/mapTool/object/imageObject_2_2.bmp", 384, 128, 12, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_2", "image/mapTool/object/imageObject_2_2.bmp", 384, 128, 6, 2, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_3", "image/mapTool/object/imageObject_2_3.bmp", 576, 192, 9, 2, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_2_4", "image/mapTool/object/imageObject_2_4.bmp", 384, 128, 6, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_3_2", "image/mapTool/object/imageObject_3_2.bmp", 576, 64, 6, 1, true, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("IMAGE_OBJECT_3_4", "image/mapTool/object/imageObject_3_4.bmp", 576, 128, 6, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_5", "image/mapTool/object/object_5.bmp", 192, 96, 6, 1, true, RGBMAGENTA);
 
 
@@ -245,10 +251,13 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("OBJECT_11", "image/mapTool/object/object_11.bmp", 256, 64, 4, 1, true, RGBMAGENTA);
 	IMAGEMANAGER->addFrameImage("OBJECT_12", "image/mapTool/object/object_12.bmp", 256, 96, 4, 1, true, RGBMAGENTA);
 
-	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("SAMPLE_TILE_AUTO_ICE", "image/mapTool/tile/tile_auto_ice.bmp", 736, 224, 23, 7, false, RGBNONE);
 
 	// 오토 타일 이미지
-	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBMAGENTA);
+	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE", "image/mapTool/tile/autoTile.bmp", 1088, 768, 34, 24, false, RGBNONE);
+	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE_2", "image/mapTool/tile/autoTile_2.bmp", 384, 320, 12, 10, false, RGBNONE);
+
+	IMAGEMANAGER->addFrameImage("FRAME_OBJECT", "image/mapTool/object/frameObject.bmp", 192, 192, 6, 3, true, RGBMAGENTA);
 }
 
 void playGround::settingAddSound(void)
