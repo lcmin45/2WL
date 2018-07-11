@@ -49,7 +49,7 @@ void woodBoss::render()
 			HFONT font3, oldFont3;
 			font3 = CreateFont(20, 0, 0, 0, 1300, false, false, false, HANGUL_CHARSET, 0, 0, 0, 0, TEXT("Times New Roman"));
 			oldFont3 = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font3);
-			sprintf_s(str, "다이아몬드보다 강한 의지를 지녔군..잘 가길,고난의 땅을 건너야 할 테니!");
+			sprintf_s(str, "바위보다 강한 의지를 지녔군..잘 가길,고난의 땅을 건너야 할 테니!");
 			TextOut(CAMERAMANAGER->getCameraDC(), 360, 670, str, strlen(str));
 			SelectObject(CAMERAMANAGER->getCameraDC(), oldFont3);
 			DeleteObject(font3);
@@ -194,7 +194,7 @@ void woodBoss::woodMove()
 			}
 			else
 			{
-				_jump += 0.18f;
+				_jump += 0.1f;
 				_x += cos(_angle) * _speed;
 				if (_y >_playerPosition.y)_y += -sin(_angle) * 13 + _jump;
 				else if (_y < _playerPosition.y)

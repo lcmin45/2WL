@@ -41,6 +41,8 @@ HRESULT inGame::init()
 
 	_BlackAalpha = 255;
 
+	_player->update();
+
 	return S_OK;
 }
 
@@ -88,6 +90,8 @@ HRESULT inGame::init(void * obj)
 
 	_BlackAalpha = 255;
 
+	_player->update();
+
 	return S_OK;
 }
 
@@ -125,7 +129,6 @@ void inGame::update()
 		_enemyManager->setStage(_stage);
 		_enemyManager->setPlayerPoint(_player->getPosition());
 		//==========================플레이어 인덱스 정보 필요함!!!!!!!!!!!!!
-		//_enemyManager->setPlayerIndex(20);
 		_enemyManager->setPlayerIndex(_player->getPlayerIndex());
 		_Astar->setPlayerPositionLink(_player->getPosition());
 	}

@@ -12,8 +12,8 @@ HRESULT stage::init()
 	_stage = 0;
 
 	///////¾óÀ½ Æ÷Å»
-	_potalRc[0] = RectMakeCenter(672, 1488, 52, 84);
-	_potalRc[1] = RectMakeCenter(2240, 1664, 52, 84);
+	_potalRc[0] = RectMakeCenter(2240, 1664, 52, 84);
+	_potalRc[1] = RectMakeCenter(672, 1488, 52, 84);
 	//ºÒ Æ÷Å»
 	_potalRc[2] = RectMakeCenter(956, 2912, 52, 84);
 	_potalRc[3] = RectMakeCenter(656, 5504, 52, 84);
@@ -79,22 +79,13 @@ void stage::render()
 				IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
 				break;
 			}
-		}
-	}
-	
-	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	{
-		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-		{
-			if (CAMERAMAXCHECK) continue;
-	
+
 			if ((int)(_player->getPosition().y / TILESIZE) == i) _player->render();
-	
+
 			if (_tile[i * MAXTILEX + j].objectIndex == NULL) continue;
-	
+
 			_tile[i * MAXTILEX + j].objectClass->render();
 		}
-	
 	}
 
 	char str[128];

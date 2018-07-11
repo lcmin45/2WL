@@ -73,4 +73,5 @@ public:
 	inline POINT getFramePos() { return _frameList[_playList[_nowPlayIndex]]; }
 	inline int getFrameWidth() { return _frameWidth; }
 	inline int getFrameHeight() { return _frameHeight; }
+	inline int getNowPlayIndex() { return _nowPlayIndex; }
 };

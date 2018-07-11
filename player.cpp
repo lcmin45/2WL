@@ -9,11 +9,8 @@ player::~player() {}
 
 HRESULT player::init() //초기화
 {
-	_position.x = 3280.0f;
-	_position.y = 3080.0f;
-
-	//_position.x = 3296 + 16;		//게임 시작 위치!
-	//_position.y = 5664 + 16;
+	_position.x = 3296 + 16;
+	_position.y = 5664 + 16;
 
 	_direction = DOWN;
 	_action = IDLE;
@@ -39,50 +36,50 @@ HRESULT player::init() //초기화
 	KEYANIMANAGER->addArrayFrameAnimation("playerMoveRight", "player", playerMoveRight, 10, PLAYER_MOVE_ANI_SPEED, true);
 
 	int playerAttack1Up[] = { 64, 65, 66, 67, 68, 69, 70, 71 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Up", "player", playerAttack1Up, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Up", "player", playerAttack1Up, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack2Up[] = { 72, 73, 74, 75, 76, 77, 78, 79 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Up", "player", playerAttack2Up, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Up", "player", playerAttack2Up, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack1Down[] = { 80, 81, 82, 83, 84, 85, 86, 87 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Down", "player", playerAttack1Down, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Down", "player", playerAttack1Down, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack2Down[] = { 88, 89, 90, 91, 92, 93, 94, 95 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Down", "player", playerAttack2Down, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Down", "player", playerAttack2Down, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack1Left[] = { 96, 97, 98, 99, 100, 101, 102, 103 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Left", "player", playerAttack1Left, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Left", "player", playerAttack1Left, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack2Left[] = { 104, 105, 106, 107, 108, 109, 110, 111 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Left", "player", playerAttack2Left, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Left", "player", playerAttack2Left, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack1Right[] = { 112, 113, 114, 115, 116, 117, 118, 119 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Right", "player", playerAttack1Right, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack1Right", "player", playerAttack1Right, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerAttack2Right[] = { 120, 121, 122, 123, 124, 125, 126, 127 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Right", "player", playerAttack2Right, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerAttack2Right", "player", playerAttack2Right, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerDashUp[] = { 128, 129, 130, 131, 132, 133, 134, 135, 136, 136, 136, 136, 136 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashUp", "player", playerDashUp, 13, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashUp", "player", playerDashUp, 13, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerDashDown[] = { 144, 145, 146, 147, 148, 149, 150, 151, 152, 152, 152, 152, 152 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashDown", "player", playerDashDown, 13, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashDown", "player", playerDashDown, 13, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerDashLeft[] = { 160, 161, 162, 163, 164, 165, 166, 167, 168, 168, 168, 168, 168 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashLeft", "player", playerDashLeft, 13, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashLeft", "player", playerDashLeft, 13, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerDashRight[] = { 176, 177, 178, 179, 180, 181, 182, 183, 184, 184, 184, 184, 184 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDashRight", "player", playerDashRight, 13, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDashRight", "player", playerDashRight, 13, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerKickUp[] = { 192, 193, 194, 195, 196, 197, 198, 199 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickUp", "player", playerKickUp, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickUp", "player", playerKickUp, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerKickDown[] = { 208, 209, 210, 211, 212, 213, 214, 215 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickDown", "player", playerKickDown, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickDown", "player", playerKickDown, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerKickLeft[] = { 224, 225, 226, 227, 228, 229, 230, 231 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickLeft", "player", playerKickLeft, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickLeft", "player", playerKickLeft, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerKickRight[] = { 240, 241, 242, 243, 244, 245, 246, 247 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerKickRight", "player", playerKickRight, 8, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerKickRight", "player", playerKickRight, 8, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerBangUp[] = { 256, 257, 258, 259, 260, 261, 262, 263, 263, 263, 263, 263, 264, 265 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerBangUp", "player", playerBangUp, 14, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangUp", "player", playerBangUp, 14, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 	int playerBangDown[] = { 272, 273, 274, 275, 276, 277, 278, 279, 279, 279, 279, 279, 280, 281 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 14, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerBangDown", "player", playerBangDown, 14, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerStormDown[] = { 80, 97, 66, 115, 84, 100, 68, 116, 85, 86, 87 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerStormDown", "player", playerStormDown, 11, PLAYER_ACTION_ANI_SPEED, false, afterAction, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerStormDown", "player", playerStormDown, 11, PLAYER_ACTION_ANI_SPEED, false, afterActionCallBack, this);
 
 	int playerDeadDown[] = { 288, 289, 290, 291, 292, 293, 294, 295, 296, 297, 298, 299, 300, 301 };
-	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 2, false, playerDead, this);
+	KEYANIMANAGER->addArrayFrameAnimation("playerDeadDown", "player", playerDeadDown, 14, PLAYER_ACTION_ANI_SPEED / 3, false, afterActionCallBack, this);
 
 	_animation = KEYANIMANAGER->findAnimation("playerIdleDown");
 
@@ -109,9 +106,6 @@ void player::release() {}
 
 void player::update()
 {
-
-	if (KEYMANAGER->isStayKeyDown('P')) _playerTileIndex = 6;
-
 	keyProcess();
 	moveProcess();
 	collisionCheckWithTile();
@@ -129,7 +123,6 @@ void player::update()
 	{
 		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
 	}
-
 	if (KEYMANAGER->isOnceKeyDown('Y'))
 	{
 		saveData();
@@ -153,8 +146,6 @@ void player::render()
 	char temp[128];
 	sprintf_s(temp, "HP : %f / %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _currentHp, _maxHp, _damage, _speed, _critical);
 	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 50, temp, strlen(temp));
-	sprintf_s(temp, "%f, %f", _position.x, _position.y);
-	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 300, temp, strlen(temp));
 	////////////////////////////////////////////////////////////////////
 }
 
@@ -218,6 +209,7 @@ void player::keyProcess()
 		_action = DASH;
 		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
+		SOUNDMANAGER->play("playerDash", _effectSound);
 	}
 	//스킬 사용
 	if (KEYMANAGER->isOnceKeyDown('Z'))
@@ -354,6 +346,8 @@ void player::collisionCheckWithTile()
 			}
 		}
 	}
+
+	_playerTileIndex = _tile[playerTileIndex].roomIndex;
 }
 
 void player::collisionCheckWithItem()
@@ -362,12 +356,13 @@ void player::collisionCheckWithItem()
 	_canTakeItem = false;
 	for (int i = 0; i < _itemManager->getVItem().size(); i++)
 	{
-		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 25)
+		if (getDistance(_position.x, _position.y, _itemManager->getVItem()[i]->getPosition().x, _itemManager->getVItem()[i]->getPosition().y) <= 40)
 		{
 			if (_itemManager->getVItem()[i]->getEffect()[0].type == COIN) //코인이면 코인에 습득
 			{
 				_coin += _itemManager->getVItem()[i]->getEffect()[0].amount;
 				_itemManager->takeCoin(i);
+				SOUNDMANAGER->play("takeCoin", _effectSound);
 			}
 			else
 			{
@@ -434,6 +429,8 @@ void player::playerHpCheck()
 		_currentHp = 0;
 		attackAngleProcess();
 		animationProcess();
+		SOUNDMANAGER->singleChannelPause();
+		SOUNDMANAGER->play("playerDead", _effectSound);
 	}
 }
 
@@ -453,12 +450,18 @@ void player::saveData()
 	_saveAndLoad->save(temp);
 }
 
-void player::afterAction(void* obj)
+void player::afterActionCallBack(void * obj)
 {
 	player* temp = (player*)obj;
-	temp->setAction(IDLE);
-	temp->keyProcess();
-	temp->animationProcess();
+
+	temp->afterAction();
+}
+
+void player::afterAction()
+{
+	_action = IDLE;
+	keyProcess();
+	animationProcess();
 }
 
 void player::playerDead(void * obj)
