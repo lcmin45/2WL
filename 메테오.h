@@ -31,5 +31,8 @@ public:
 
 	void createMeteor();
 	void moveMeteor();
+
+
+	vector<METEOR*>	getVMeteor() { return vMeteor; };
 };
 

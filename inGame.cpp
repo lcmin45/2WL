@@ -247,6 +247,17 @@ void inGame::collide()
 		}
 	}
 
+	/*for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		RECT temp;
+		if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]. && _ptM->getVSkill()[j]->getSubject() == ENEMY)
+		{
+			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+*/
+
+
 
 
 

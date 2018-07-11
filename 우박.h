@@ -37,5 +37,6 @@ public:
 	void createHail();
 	void moveHail();
 	void collisionHail();
+	vector<collision*>	getVHail() { return vHail; }
 };
 

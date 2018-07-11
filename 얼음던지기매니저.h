@@ -22,5 +22,7 @@ public:
 
 	virtual void fire(const char * skillName, int amount, POINTFLOAT pt, float speed, float range, float damage, float coolTime, SUBJECT subject);
 	void getPlayerAddressLink(player* player) { _player = player; }
+
+	vector<얼음던지기*>	getVIceThrow() { return vIceThrow; }
 };
 
