@@ -11,7 +11,7 @@ Ghoul::~Ghoul()
 {
 }
 
-HRESULT Ghoul::init(POINTFLOAT point,int index, int monsterRoomIndex)
+HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex)
 {
 	_Astar = new Astar;
 	_image = IMAGEMANAGER->findImage("SummonMonster");
@@ -27,14 +27,15 @@ HRESULT Ghoul::init(POINTFLOAT point,int index, int monsterRoomIndex)
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(),10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
+	_keyIndex = int(point.x + point.y+ monsterRoomIndex);
 
-	sprintf_s(_motionName1, "GhoulMonsterSummon%d", index);
-	sprintf_s(_motionName2, "GhoulRightAttack%d", index);
-	sprintf_s(_motionName3, "GhoulLeftAttack%d", index);
-	sprintf_s(_motionName4, "GhoulRightHit%d", index);
-	sprintf_s(_motionName5, "GhoulLeftHit%d", index);
-	sprintf_s(_motionName6, "GhoulRightDie%d", index);
-	sprintf_s(_motionName7, "GhoulLeftDie%d", index);
+	sprintf_s(_motionName1, "GhoulMonsterSummon%d", _keyIndex);
+	sprintf_s(_motionName2, "GhoulRightAttack%d", _keyIndex);
+	sprintf_s(_motionName3, "GhoulLeftAttack%d", _keyIndex);
+	sprintf_s(_motionName4, "GhoulRightHit%d", _keyIndex);
+	sprintf_s(_motionName5, "GhoulLeftHit%d", _keyIndex);
+	sprintf_s(_motionName6, "GhoulRightDie%d", _keyIndex);
+	sprintf_s(_motionName7, "GhoulLeftDie%d", _keyIndex);
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
@@ -88,12 +89,58 @@ void Ghoul::update()
 	if (_form == BATTLE)
 	{
 		ghoulMove();
+		Die();
 		Test();
 	}
 }
 
 void Ghoul::render()
 {
+	if (KEYMANAGER->isToggleKey(VK_F1))
+	{
+		if (_Astar->getTotalTile().size() != 0)
+		{
+			for (int i = 0; i < _Astar->getTotalTile().size(); ++i)
+			{
+				RectangleMakeCenter(getMemDC(), _Astar->getTotalTile()[i]->getCenter().x, _Astar->getTotalTile()[i]->getCenter().y, 32, 32);
+			}
+		}
+	}	
+
+
+	if (KEYMANAGER->isToggleKey(VK_F2))
+	{
+		if (_Astar->getOpen().size() != 0)
+		{
+			for (int i = 0; i < _Astar->getOpen().size(); ++i)
+			{
+				RectangleMakeCenter(getMemDC(), _Astar->getOpen()[i]->getCenter().x, _Astar->getOpen()[i]->getCenter().y, 32, 32);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isToggleKey(VK_F3))
+	{
+		if (_Astar->getClose().size() != 0)
+		{
+			for (int i = 0; i < _Astar->getClose().size(); ++i)
+			{
+				RectangleMakeCenter(getMemDC(), _Astar->getClose()[i]->getCenter().x, _Astar->getClose()[i]->getCenter().y, 32, 32);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isToggleKey(VK_F4))
+	{
+		if (_Astar->getEndTile().size() != 0)
+		{
+			for (int i = 0; i < _Astar->getEndTile().size(); ++i)
+			{
+				RectangleMakeCenter(getMemDC(), _Astar->getEndTile()[i]->getCenter().x, _Astar->getEndTile()[i]->getCenter().y, 32, 32);
+			}
+		}
+	}
+	
 
 	_image->aniRender(getMemDC(), _rc.left, _rc.top, _Motion);
 	if (KEYMANAGER->isToggleKey(VK_TAB))
@@ -101,6 +148,7 @@ void Ghoul::render()
 		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
 		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 	}
+
 }
 
 void Ghoul::ghoulMove()
@@ -159,9 +207,10 @@ void Ghoul::ghoulMove()
 	}
 	else //에이스타 움직임
 	{
+		//_endPosition = _Astar->readyPath(_bottomPosition, _monsterIndex);
 		if (_timecnt % 33 == 0)
 		{
-			_endPosition = _Astar->readyPath(_bottomPosition);
+			_endPosition = _Astar->readyPath(_bottomPosition, _monsterIndex);
 			_timecnt = 0;
 		}
 		else
@@ -234,6 +283,7 @@ void Ghoul::MonsterDie(void * obj)
 void Ghoul::Test()
 {
 
+	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
 
@@ -256,19 +306,41 @@ void Ghoul::Test()
 	}
 
 
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		if (_form == DIE) return;
-		if (_Direction == RIGHT_MOVE || _Direction ==RIGHT_HIT)
-		{
+}
 
+void Ghoul::HitMotion()
+{
+	if (_form == DIE) return;
+	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
+	if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = RIGHT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName4);
+		_Motion->start();
+	}
+	else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = LEFT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName5);
+		_Motion->start();
+	}
+}
+
+void Ghoul::Die()
+{
+	if (_monsterHP <= 0)
+	{
+		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
+		{
 			SOUNDMANAGER->play("GhoulDie", _effectSound);
 			_Direction = RIGHT_DIE;
 			_form = DIE;
 			_Motion = KEYANIMANAGER->findAnimation(_motionName6);
 			_Motion->start();
 		}
-		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT)
+		else if (_Direction == LEFT_MOVE || _Direction == LEFT_HIT || _Direction == LEFT_STAND)
 		{
 			SOUNDMANAGER->play("GhoulDie", _effectSound);
 			_Direction = LEFT_DIE;

@@ -24,8 +24,9 @@ public:
 	inGame();
 	~inGame();
 
-	virtual HRESULT init();
-	virtual void release();
-	virtual void update();
-	virtual void render();
+	HRESULT init();
+	HRESULT init(void* obj);
+	void release();
+	void update();
+	void render();
 };

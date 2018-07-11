@@ -5,10 +5,6 @@
 #include "tile.h"
 #include "mapToolNode.h"
 
-//================= 임시 디파일 길이 ================
-#define TILEX 30
-#define TILEY 30
-
 
 class Astar : public gameNode
 {
@@ -36,7 +32,10 @@ class Astar : public gameNode
 	POINTFLOAT _endPosition;
 	POINTFLOAT _playerPosition;
 
-	//bool _start;
+	int _tileX, _tileY;
+	int _tileStartX, _tileStartY;
+	int _tileEndX, _tileEndY;
+
 
 public:
 	Astar();
@@ -44,7 +43,7 @@ public:
 
 
 	//void Move();
-	POINTFLOAT readyPath(POINTFLOAT bottomPosition);
+	POINTFLOAT readyPath(POINTFLOAT bottomPosition, int monsterIndex);
 	vector<tile*> addOpenList(tile * currentTile);
 	void pathFinder(tile * currentTile);
 	
@@ -52,5 +51,10 @@ public:
 
 	void setPlayerPositionLink(POINTFLOAT playerPosition) {	_playerPosition = playerPosition; }
 	void setStageMemoryAdressLink(stage* stage) { _stage = stage; }
+
+	vector<tile*> getEndTile(void) { return _vEndTile; }
+	vector<tile*> getTotalTile() { return _vTotalList; }
+	vector<tile*> getClose() { return _vClosedList; }
+	vector<tile*> getOpen() { return _vOpenList; }
 };
 

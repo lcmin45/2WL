@@ -5,6 +5,7 @@
 
 #include "mapToolNode.h"
 
+extern ERASER				_eraser;
 extern currentCheck			_currentCheck;		// 현재 어떤 상태인지
 extern tagCurrentTerrain	_currentTerrain;	// 현재 지형 정보
 extern tagCurrentObject		_currentObject;		// 현재 오브젝트 정보
