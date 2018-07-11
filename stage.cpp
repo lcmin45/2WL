@@ -29,6 +29,7 @@ void stage::release() {}
 void stage::update()
 {
 	_player->update();
+	warp();
 
 	_potalCount++;
 	if (_potalCount % 10 == 0)
@@ -143,4 +144,37 @@ void stage::stageLoad(int stage)
 			_tile[i * MAXTILEX + j].objectClass->setCenterPoint(_tile[i * MAXTILEX + j].center);
 		}
 	}
+}
+
+void stage::warp()
+{
+	RECT temp;
+	//불지역
+	if (IntersectRect(&temp, &_potalRc[0], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 2240, 1664 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[1], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 672, 1488 });
+	}
+	//얼음지역
+	else if (IntersectRect(&temp, &_potalRc[2], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 656, 5504 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[3], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 956, 2912 });
+	}
+	//나무지역
+	else if (IntersectRect(&temp, &_potalRc[4], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 5376, 1328 });
+	}
+	else if (IntersectRect(&temp, &_potalRc[5], &_player->getPlayerRect()) && KEYMANAGER->isOnceKeyDown('F'))
+	{
+		_player->setPosition({ 5632, 2944 });
+	}
+
 }

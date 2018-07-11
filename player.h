@@ -86,4 +86,6 @@ public:
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
 
 	void setSaveInfo(POINTFLOAT position, float currentHp, int coin);
+	RECT getPlayerRect() { return _body; }
+	void setPosition(POINTFLOAT position) { _position = position; }
 };

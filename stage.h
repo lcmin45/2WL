@@ -28,6 +28,7 @@ public:
 	virtual void render();
 
 	void stageLoad(int stage);
+	void warp();           //Æ÷Å» ÀÌµ¿
 
 	tagMapToolTile* getTileinfo() { return _tile; }
 	void setPlayerMemoryAdressLink(player* player) { _player = player; }

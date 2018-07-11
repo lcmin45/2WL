@@ -182,6 +182,13 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("우박범위", "image/skill/bossSkill/우박범위.bmp", 3200, 129, 25, 1, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("우박", "image/skill/bossSkill/우박.bmp", 128, 128, 4, 4, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addFrameImage("얼음효과", "image/skill/bossSkill/얼음효과.bmp", 120, 40, 3, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("나무솟기", "image/skill/bossSkill/나무솟기.bmp", 405, 70, 9, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기", "image/skill/bossSkill/돌던지기.bmp", 27, 37, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("돌던지기2", "image/skill/bossSkill/돌던지기2.bmp", 25, 28, 1, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오", "image/skill/bossSkill/메테오.bmp", 1020, 175, 6, 1, true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("메테오효과", "image/skill/bossSkill/메테오효과.bmp", 1419, 129, 11, 1,true, RGB(255, 0, 255));
+	IMAGEMANAGER->addFrameImage("불기둥", "image/skill/bossSkill/불기둥.bmp", 200, 134, 10, 1, true, RGB(255, 0, 255));
+
 
 
 	//========================================================================================================================//
