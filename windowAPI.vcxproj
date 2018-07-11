@@ -183,6 +183,7 @@
     <ClInclude Include="mapToolNode.h" />
     <ClInclude Include="miniMap.h" />
     <ClInclude Include="monster.h" />
+    <ClInclude Include="option.h" />
     <ClInclude Include="page0.h" />
     <ClInclude Include="page1.h" />
     <ClInclude Include="page2.h" />
@@ -262,6 +263,7 @@
     <ClCompile Include="mapToolBook.cpp" />
     <ClCompile Include="miniMap.cpp" />
     <ClCompile Include="monster.cpp" />
+    <ClCompile Include="option.cpp" />
     <ClCompile Include="page0.cpp" />
     <ClCompile Include="page1.cpp" />
     <ClCompile Include="page2.cpp" />

@@ -152,18 +152,22 @@ void woodBoss::woodMove()
 				_woodindex = 0;
 				_angle = getAngle(_x, _y, _playerPosition.x, _playerPosition.y);
 				_distance = getDistance(_x, _y, _playerPosition.x, _playerPosition.y);
+				_skill = false;
 			}
 			if (_distance < 10)
 			{
 			}
 			else
 			{
-				_x += cos(_angle) * _speed;
-				_y += -sin(_angle) * _speed;
+				if ((_bossRc.left>4736) && (_bossRc.right<5920) && (_bossRc.top>64) && (_bossRc.bottom<640))
+				{
+					_x += cos(_angle) * _speed;
+					_y += -sin(_angle) * _speed;
+				}
 			}
 		}
 
-		else if (_bossMoveCount >= 100 && _bossMoveCount < 300)
+		else if (_bossMoveCount >= 100 && _bossMoveCount < 200)
 		{
 			if (_isCheck)
 			{
@@ -174,7 +178,7 @@ void woodBoss::woodMove()
 			}
 		}
 
-		else if (_bossMoveCount >= 300 && _bossMoveCount<360)
+		else if (_bossMoveCount >= 200 && _bossMoveCount<260)
 		{
 			if (!_isCheck)
 			{
@@ -183,6 +187,7 @@ void woodBoss::woodMove()
 				_woodindex = 0;
 				_angle = getAngle(_x, _y, _playerPosition.x, _playerPosition.y);
 				_distance = getDistance(_x, _y, _playerPosition.x, _playerPosition.y);
+				_skill = false;
 			}
 			if (_distance < 10)
 			{
@@ -192,11 +197,15 @@ void woodBoss::woodMove()
 				_jump += 0.18f;
 				_x += cos(_angle) * _speed;
 				if (_y >_playerPosition.y)_y += -sin(_angle) * 13 + _jump;
-				else if (_y <_playerPosition.y)_y += -sin(-_angle) * 10 + _jump;
+				else if (_y < _playerPosition.y)
+				{
+					if (_bossMoveCount >= 200 && _bossMoveCount<220)_y -= 3;
+					else _y += -sin(_angle) * _speed;
+				}
 			}
 		}
 
-		else if (_bossMoveCount >= 360 && _bossMoveCount < 560)
+		else if (_bossMoveCount >= 260 && _bossMoveCount < 460)
 		{
 			if (_isCheck)
 			{
@@ -206,17 +215,18 @@ void woodBoss::woodMove()
 			}
 		}
 
-		else if (_bossMoveCount >= 560 && _bossMoveCount<760)
+		else if (_bossMoveCount >= 460 && _bossMoveCount<660)
 		{
 			if (!_isCheck)
 			{
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("나무등장");
 				_woodindex = 0;
+				_skill = false;
 			}
 		}
 
-		else if (_bossMoveCount >= 760)
+		else if (_bossMoveCount >= 660)
 		{
 			if (_isCheck)
 			{
@@ -225,7 +235,6 @@ void woodBoss::woodMove()
 				_jump = 0.0f;
 			}
 		}
-
 	}
 }
 

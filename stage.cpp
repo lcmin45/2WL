@@ -7,6 +7,8 @@ stage::~stage() {}
 
 HRESULT stage::init()
 {
+	_stage1 = IMAGEMANAGER->addImage("STAGE1", TILESIZE * MAXTILEX, TILESIZE * MAXTILEY);
+
 	_stage = 0;
 
 	///////¾óÀ½ Æ÷Å»
@@ -27,29 +29,27 @@ void stage::release() {}
 void stage::update()
 {
 	_player->update();
+
+	_potalCount++;
+	if (_potalCount % 10 == 0)
+	{
+		++_potalIndex;
+		for (int i = 0; i < 6; i++)
+		{
+			if (_potalIndex > _potal[i]->getMaxFrameX())
+			{
+				_potalIndex = 0;
+			}
+		}
+	}
 }
 
 void stage::render()
 {
 	if (_stage == 0) return;
 
-	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	{
-		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-		{
-			if (CAMERAMAXCHECK) continue;
-
-			switch (_tile[i * MAXTILEX + j].imageIndex)
-			{
-			case 10:
-				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-				break;
-			case 11:
-				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE_2")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
-				break;
-			}
-		}
-	}
+	_stage1->render(getMemDC(), CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2,
+		CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2, CAMERAMANAGER->getCameraPoint().y - WINSIZEY / 2, WINSIZEX, WINSIZEY);
 	
 	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
 	{
@@ -99,12 +99,12 @@ void stage::render()
 	char str[128];
 	sprintf_s(str, "%d, %d", _player->getPosition().x, _player->getPosition().y);
 	TextOut(CAMERAMANAGER->getCameraDC(), 100, 100, str, strlen(str));
-
+	
 	////////////////Æ÷Å»//////////////////
 	for (int i = 0; i < 6; i++)
 	{
 		_potal[i] = IMAGEMANAGER->findImage("Æ÷Å»");
-		_potal[i]->render(getMemDC(), _potalRc[i].left, _potalRc[i].top);
+		_potal[i]->frameRender(getMemDC(), _potalRc[i].left, _potalRc[i].top, _potalIndex,0);
 	}
 }
 
@@ -121,6 +121,24 @@ void stage::stageLoad(int stage)
 	ReadFile(file, _tile, sizeof(tagMapToolTile) * MAXTILEX * MAXTILEY, &load, NULL);
 
 	CloseHandle(file);
+
+	PatBlt(_stage1->getMemDC(), 0, 0, TILESIZE * MAXTILEX, TILESIZE * MAXTILEY, BLACKNESS);
+
+	for (int i = 0; i < MAXTILEY; ++i)
+	{
+		for (int j = 0; j < MAXTILEX; ++j)
+		{
+			switch (_tile[i * MAXTILEX + j].imageIndex)
+			{
+			case 10:
+				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE")->frameRender(_stage1->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
+			case 11:
+				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE_2")->frameRender(_stage1->getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
+				break;
+			}
+		}
+	}
 
 	for (int i = 0; i < MAXTILEY; ++i)
 	{

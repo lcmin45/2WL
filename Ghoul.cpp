@@ -89,6 +89,7 @@ void Ghoul::update()
 	if (_form == BATTLE)
 	{
 		ghoulMove();
+		Die();
 		Test();
 	}
 }
@@ -148,9 +149,6 @@ void Ghoul::render()
 		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 	}
 
-	
-
-	
 }
 
 void Ghoul::ghoulMove()
@@ -285,6 +283,7 @@ void Ghoul::MonsterDie(void * obj)
 void Ghoul::Test()
 {
 
+	if (KEYMANAGER->isOnceKeyDown('X')) _monsterHP = 0;
 	if (KEYMANAGER->isOnceKeyDown('Z'))
 	{
 
@@ -307,12 +306,34 @@ void Ghoul::Test()
 	}
 
 
-	if (KEYMANAGER->isOnceKeyDown('X'))
-	{
-		
-		if (_Direction == RIGHT_MOVE || _Direction ==RIGHT_HIT || _Direction == RIGHT_STAND)
-		{
+}
 
+void Ghoul::HitMotion()
+{
+	if (_form == DIE) return;
+	if (_Direction == RIGHT_HIT || _Direction == LEFT_HIT) return;
+	if (_Direction == RIGHT_MOVE || _Direction == RIGHT_STAND || _Direction == RIGHT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = RIGHT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName4);
+		_Motion->start();
+	}
+	else if (_Direction == LEFT_MOVE || _Direction == LEFT_STAND || _Direction == LEFT_ATTACK)
+	{
+		SOUNDMANAGER->play("EnemyHurt", _effectSound);
+		_Direction = LEFT_HIT;
+		_Motion = KEYANIMANAGER->findAnimation(_motionName5);
+		_Motion->start();
+	}
+}
+
+void Ghoul::Die()
+{
+	if (_monsterHP <= 0)
+	{
+		if (_Direction == RIGHT_MOVE || _Direction == RIGHT_HIT || _Direction == RIGHT_STAND)
+		{
 			SOUNDMANAGER->play("GhoulDie", _effectSound);
 			_Direction = RIGHT_DIE;
 			_form = DIE;

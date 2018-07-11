@@ -20,6 +20,7 @@ void enemyManager::update()
 
 	BossUpdate();
 	monsterUpdate();
+	monsterRemove();
 
 }
 
@@ -222,6 +223,43 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 			_vRogue.push_back(_Rogue);
 		}
 	}
+
+	//for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
+	//{
+	//	(*_viGhoul)->setSkillLink(_PM);
+	//	(*_viGhoul)->setStageLink(_stage);
+	//	(*_viGhoul)->setPlayerPoint(_playerPoint);
+	//	(*_viGhoul)->setPlayerIndex(_playerIndex);
+	//}
+	//for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
+	//{
+	//	(*_viGhoul)->setSkillLink(_PM);
+	//	(*_viGhoul)->setStageLink(_stage);
+	//	(*_viGhoul)->setPlayerPoint(_playerPoint);
+	//	(*_viGhoul)->setPlayerIndex(_playerIndex);
+	//}
+	//for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); ++_viKnight)
+	//{
+	//	(*_viKnight)->setSkillLink(_PM);
+	//	(*_viKnight)->setStageLink(_stage);
+	//	(*_viKnight)->setPlayerPoint(_playerPoint);
+	//	(*_viKnight)->setPlayerIndex(_playerIndex);
+	//}
+	//for (_viMage = _vMage.begin(); _viMage != _vMage.end(); ++_viMage)
+	//{
+	//	(*_viMage)->setSkillLink(_PM);
+	//	(*_viMage)->setStageLink(_stage);
+	//	(*_viMage)->setPlayerPoint(_playerPoint);
+	//	(*_viMage)->setPlayerIndex(_playerIndex);
+	//}
+	//for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); ++_viRogue)
+	//{
+	//	(*_viRogue)->setSkillLink(_PM);
+	//	(*_viRogue)->setStageLink(_stage);
+	//	(*_viRogue)->setPlayerPoint(_playerPoint);
+	//	(*_viRogue)->setPlayerIndex(_playerIndex);
+	//}
+
 }
 
 void enemyManager::monsterUpdate()
@@ -288,4 +326,39 @@ void enemyManager::monsterRender()
 	{
 		(*_viScarecrow)->render();
 	}
+}
+
+void enemyManager::monsterRemove()
+{
+	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
+	{
+		if ((*_viGhoul)->getIsDie())
+		{
+			_viGhoul = _vGhoul.erase(_viGhoul);
+		}
+	}
+	for (_viKnight = _vKnight.begin(); _viKnight != _vKnight.end(); ++_viKnight)
+	{
+		if ((*_viKnight)->getIsDie())
+		{
+			_viKnight = _vKnight.erase(_viKnight);
+		}
+	}
+	for (_viMage = _vMage.begin(); _viMage != _vMage.end(); ++_viMage)
+	{
+		if ((*_viMage)->getIsDie())
+		{
+			_viMage = _vMage.erase(_viMage);
+		}
+	}
+	for (_viRogue = _vRogue.begin(); _viRogue != _vRogue.end(); ++_viRogue)
+	{
+		if ((*_viRogue)->getIsDie())
+		{
+			_viRogue = _vRogue.erase(_viRogue);
+		}
+	}
+
+
+
 }
