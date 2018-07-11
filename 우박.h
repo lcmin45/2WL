@@ -16,8 +16,8 @@ private:
 	vector<collision*>				vHail;
 	vector<collision*>::iterator	viHail;
 
-	POINTFLOAT _pt2, _pt3;
-	RECT _rc2, _rc3;
+	POINTFLOAT _pt2, _pt3, _pt4;
+	RECT _rc2, _rc3,_rc4;
 
 public:
 	¿ì¹Ú();
@@ -37,5 +37,6 @@ public:
 	void createHail();
 	void moveHail();
 	void collisionHail();
+	vector<collision*>	getVHail() { return vHail; }
 };
 

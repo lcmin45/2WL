@@ -25,6 +25,9 @@ private:
 
 	vector<skill*>				vSkill;
 	vector<skill*>::iterator	viSkill;
+
+	float coolTime[7];
+
 public:
 	projectileManager();
 	~projectileManager();
@@ -43,6 +46,6 @@ public:
 
 	vector<skill*>				getVSkill() { return vSkill; };
 	vector<skill*>::iterator	getViSkill() { return viSkill; };
-	
+	float* getCoolTime() { return coolTime; }
 };
 

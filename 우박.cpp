@@ -37,6 +37,7 @@ void 快冠::render()
 		_img->frameRender(getMemDC(), _rc.left, _rc.top,_frameIndex, _img->getFrameY());
 		_img->frameRender(getMemDC(), _rc2.left, _rc2.top, _frameIndex, _img->getFrameY());
 		_img->frameRender(getMemDC(), _rc3.left, _rc3.top, _frameIndex, _img->getFrameY());
+		_img->frameRender(getMemDC(), _rc4.left, _rc4.top, _frameIndex, _img->getFrameY());
 
 		for (viHail = vHail.begin(); viHail != vHail.end(); viHail++)
 		{
@@ -62,14 +63,17 @@ void 快冠::fire(const char * skillName, int amount, float angle, float speed, fl
 		if (angle > PI / 2 || angle < PI2 - PI / 2) _angle = PI;
 		else _angle = 0;
 		_pt.x = CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2 + 100;
-		_pt.y = CAMERAMANAGER->getCameraPoint().y;
+		_pt.y = CAMERAMANAGER->getCameraPoint().y - 64;
 		_pt2.x = CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2 + 100;
-		_pt2.y = CAMERAMANAGER->getCameraPoint().y - 129;
+		_pt2.y = CAMERAMANAGER->getCameraPoint().y + 64;
 		_pt3.x = CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2 + 100;
-		_pt3.y = CAMERAMANAGER->getCameraPoint().y + 129;
+		_pt3.y = CAMERAMANAGER->getCameraPoint().y - 193;
+		_pt4.x = CAMERAMANAGER->getCameraPoint().x - WINSIZEX / 2 + 100;
+		_pt4.y = CAMERAMANAGER->getCameraPoint().y + 193;
 		_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_rc2 = RectMakeCenter(_pt2.x, _pt2.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_rc3 = RectMakeCenter(_pt3.x, _pt3.y, _img->getFrameWidth(), _img->getFrameHeight());
+		_rc4 = RectMakeCenter(_pt4.x, _pt4.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_speed = speed;
 		_range = range;
 		_damage = damage;
@@ -85,9 +89,11 @@ void 快冠::move()
 		_pt.x += 10;
 		_pt2.x += 10;
 		_pt3.x += 10;
+		_pt4.x += 10;
 		_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_rc2 = RectMakeCenter(_pt2.x, _pt2.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_rc3 = RectMakeCenter(_pt3.x, _pt3.y, _img->getFrameWidth(), _img->getFrameHeight());
+		_rc4 = RectMakeCenter(_pt4.x, _pt4.y, _img->getFrameWidth(), _img->getFrameHeight());
 		createHail();
 		moveHail();
 	}
@@ -131,6 +137,15 @@ void 快冠::createHail()
 		col3->ptStart = col3->pt;
 		col3->frameIndex = 0;
 		vHail.push_back(col3);
+
+		collision* col4 = new collision;
+		col4->img = IMAGEMANAGER->findImage("快冠");
+		float angle4 = RND->getFloat(PI2);
+		col4->pt.x = _pt4.x + cos(angle4) * RND->getFloat(129 / 2);
+		col4->pt.y = _pt4.y - sin(angle4) * RND->getFloat(129 / 2) - 200;
+		col4->ptStart = col4->pt;
+		col4->frameIndex = 0;
+		vHail.push_back(col4);
 	}
 }
 

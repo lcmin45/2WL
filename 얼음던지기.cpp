@@ -45,8 +45,8 @@ void 얼음던지기::fire(const char * skillName, int amount, POINTFLOAT pt, float s
 		_firePt = pt;
 		_pt = pt;
 		_fireAngle = 0;
-		_pt.x = _pt.x + cosf(_angle) * 50;
-		_pt.y = _pt.y - sinf(_angle) * 50;
+		_pt.x = _pt.x + cosf(_angle) * 200;
+		_pt.y = _pt.y - sinf(_angle) * 200;
 		_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 		_speed = speed;
 		_range = range;
@@ -70,8 +70,8 @@ void 얼음던지기::move()
 		else
 		{
 			_angle = getAngle(_pt.x, _pt.y, _player->getPosition().x, _player->getPosition().y);
-			_pt.x = _firePt.x + cosf(_fireAngle) * 50;
-			_pt.y = _firePt.y - sinf(_fireAngle) * 50;
+			_pt.x = _firePt.x + cosf(_fireAngle) * 200;
+			_pt.y = _firePt.y - sinf(_fireAngle) * 200;
 			_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
 			_fireAngle += PI2 / 32;
 		}
