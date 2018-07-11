@@ -18,6 +18,7 @@ HRESULT inGame::init()
 
 	_itemManager = new itemManager;
 	_itemManager->init();
+	_itemManager->setStoreItem();
 
 	_ptM = new projectileManager;
 	_ptM->init();

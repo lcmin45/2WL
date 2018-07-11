@@ -191,7 +191,7 @@ void player::keyProcess()
 	//모든 이동 키에 입력이 없을 경우 행동은 IDLE, 에니매이션 갱신
 	else if ((KEYMANAGER->isOnceKeyUp('W') || KEYMANAGER->isOnceKeyUp('S') || KEYMANAGER->isOnceKeyUp('A') || KEYMANAGER->isOnceKeyUp('D')) && (_action == IDLE || _action == MOVE)) { _action = IDLE; animationProcess(); }
 	//쉬프트(대쉬 키 입력)
-	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT) && _action != DASH) //쿨타임 추가 해야함
+	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT) && (_action == IDLE || _action == MOVE))
 	{
 		if (_angle == ANGLE1 || _angle == ANGLE3) _direction = UP;
 		else if (_angle == ANGLE5 || _angle == ANGLE7) _direction = DOWN;
