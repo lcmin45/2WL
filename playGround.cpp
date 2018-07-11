@@ -302,4 +302,13 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("woodbossskill2", "sound/boss/나무/woodbossskill2.WAV", false, false);
 	SOUNDMANAGER->addSound("woodbossHurt", "sound/boss/나무/woddboosHurt.WAV", false, false);
 
+	//================================================= PLAYER ===============================================
+	SOUNDMANAGER->addSound("playerFootStep", "sound/player/playerFootStep.WAV", false, false);
+	SOUNDMANAGER->addSound("playerDash", "sound/player/playerDash.WAV", false, false);
+	SOUNDMANAGER->addSound("playerDead", "sound/player/playerDead.WAV", false, false);
+	SOUNDMANAGER->addSound("takeItem", "sound/player/takeItem.WAV", false, false);
+	SOUNDMANAGER->addSound("failTakeItem", "sound/player/failTakeItem.WAV", false, false);
+	SOUNDMANAGER->addSound("dropItem", "sound/player/dropItem.WAV", false, false);
+	SOUNDMANAGER->addSound("takeCoin", "sound/player/takeCoin.WAV", false, false);
+	SOUNDMANAGER->addSound("openInventory", "sound/player/openInventory.WAV", false, false);
 }
