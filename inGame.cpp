@@ -33,11 +33,13 @@ HRESULT inGame::init()
 	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
-	_enemyManager->setProjectileManagerAddressLink(_ptM);
 	_itemManager->setPlayerAddressLink(_player);
+	_enemyManager->setProjectileManagerAddressLink(_ptM);
+	_enemyManager->setItemManagerLink(_itemManager);
 	_ptM->setPlayerAddressLink(_player);
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
+	_player->setEnemyManagerAddressLink(_enemyManager);
 
 	_BlackAalpha = 255;
 
@@ -87,6 +89,7 @@ HRESULT inGame::init(void * obj)
 	_ptM->setPlayerAddressLink(_player);
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
+	_player->setEnemyManagerAddressLink(_enemyManager);
 
 	_BlackAalpha = 255;
 
@@ -246,6 +249,47 @@ void inGame::collide()
 			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 		}
 	}
+
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		for (int h = 0; h < _ptM->getVSkill()[j]->getVWoodSkill().size(); ++h)
+		{			
+			RECT temp;
+			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVWoodSkill()[h]->rc))
+			{
+				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+
+		for (int h = 0; h < _ptM->getVSkill()[j]->getVHail().size(); ++h)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVHail()[h]->rc))
+			{
+				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+
+		for (int h = 0; h < _ptM->getVSkill()[j]->getVIceThrow().size(); ++h)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVIceThrow()[h]->getRect()))
+			{
+				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+		// 메테오 오지게 아픔 떨어질떄 판정
+		for (int h = 0; h < _ptM->getVSkill()[j]->getVMeteor().size(); ++h)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVMeteor()[h]->rc) 
+				&& _ptM->getVSkill()[j]->getVMeteor()[h]->img == IMAGEMANAGER->findImage("메테오효과"))
+			{
+				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+	}
+
 
 	/*for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{

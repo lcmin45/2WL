@@ -86,4 +86,7 @@ public:
 		_playerPosition = playerPosition;
 	}
 	void setProjectileAddressLink(projectileManager* ptM) { _ptM = ptM; }
+	bool getWoodBossDie() { return _woodBossDie; }
+	bool getIceBossDie() { return _iceBossDie; }
+	bool getFireBossDie() { return _fireBossDie; }
 };

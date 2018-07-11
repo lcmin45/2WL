@@ -3,6 +3,7 @@
 #include "itemManager.h"
 #include "projectileManager.h"
 #include "mapToolNode.h"
+#include "enemyManager.h"
 
 player::player() {}
 player::~player() {}
@@ -119,10 +120,7 @@ void player::update()
 	CAMERAMANAGER->setCameraPoint(_position);
 
 	//////////////////////////////////////////////юс╫ц
-	if (KEYMANAGER->isOnceKeyDown(VK_RBUTTON))
-	{
-		_itemManager->dropCoin({ float(getMousePoint().x), float(getMousePoint().y) });
-	}
+
 	if (KEYMANAGER->isOnceKeyDown('Y'))
 	{
 		saveData();
@@ -296,7 +294,7 @@ void player::collisionCheckWithTile()
 	int playerTileY = int((_position.y + _image->getFrameHeight() / 4) / TILESIZE);
 	int playerTileIndex = playerTileY * MAXTILEX + playerTileX;
 	int checkTileIndex[4] = { playerTileIndex - MAXTILEX, playerTileIndex + MAXTILEX, playerTileIndex - 1, playerTileIndex + 1 };
-
+	bool isCheck = false;
 	for (int i = 0; i < 4; i++)
 	{
 		RECT temp;
@@ -317,10 +315,49 @@ void player::collisionCheckWithTile()
 				_position.x -= (_tileCheck.right - _tile[checkTileIndex[i]].rc.left);
 				break;
 			}
+			isCheck = true;
 		}
 	}
 
 	_playerTileIndex = _tile[playerTileIndex].roomIndex;
+
+	if (_playerTileIndex == 0 || isCheck) return;
+
+	bool isRoomMove = true;
+
+	if (_playerTileIndex == 1 && !_enemyManager->getFireBoss()->getFireBossDie())	isRoomMove = false;
+	if (_playerTileIndex == 2 && !_enemyManager->getIceBoss()->getIceBossDie())		isRoomMove = false;
+	if (_playerTileIndex == 3 && !_enemyManager->getWoodBoss()->getWoodBossDie())	isRoomMove = false;
+	if (_playerTileIndex == 4 && _enemyManager->getVGhoul().size() != 0)			isRoomMove = false;
+	if (_playerTileIndex == 5 && _enemyManager->getVMage().size() != 0)				isRoomMove = false;
+	if (_playerTileIndex == 6 && _enemyManager->getVKnight().size() != 0)			isRoomMove = false;
+	if (_playerTileIndex == 7 && _enemyManager->getVRogue().size() != 0)			isRoomMove = false;
+	
+	if (!isRoomMove)
+	{
+		for (int i = 0; i < 4; ++i)
+		{
+			RECT temp;
+			if (_tile[checkTileIndex[i]].roomIndex == 0 && IntersectRect(&temp, &_tile[checkTileIndex[i]].rc, &_tileCheck))
+			{
+				switch (i)
+				{
+				case 0:
+					_position.y += (_tile[checkTileIndex[i]].rc.bottom - _tileCheck.top);
+					break;
+				case 1:
+					_position.y -= (_tileCheck.bottom - _tile[checkTileIndex[i]].rc.top);
+					break;
+				case 2:
+					_position.x += (_tile[checkTileIndex[i]].rc.right - _tileCheck.left);
+					break;
+				case 3:
+					_position.x -= (_tileCheck.right - _tile[checkTileIndex[i]].rc.left);
+					break;
+				}
+			}
+		}
+	}
 }
 
 void player::collisionCheckWithItem()

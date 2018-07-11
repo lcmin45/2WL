@@ -15,6 +15,8 @@
 #include "Rogue.h"
 #include "Scarecrow.h"
 
+
+class itemManager;
 class enemyManager : public gameNode
 {
 private:
@@ -44,6 +46,7 @@ private:
 	//보스 좌표설정
 	POINTFLOAT _woodposition, _iceposition, _fireposition;
 
+	itemManager* _itemManager;
 
 	vGhoul			 _vGhoul;
 	viGhoul			 _viGhoul;
@@ -93,6 +96,7 @@ public:
 	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
 	void setPlayerIndex(int index) { _playerIndex = index; }
 	void setProjectileManagerAddressLink(projectileManager * PM) { _PM = PM; }
+	void setItemManagerLink(itemManager* itemManager) { _itemManager = itemManager; }
 
 
 
@@ -115,11 +119,7 @@ public:
 
 	vScarecrow	getVScarecrow()		{ return _vScarecrow; }
 	viScarecrow	getViScarecrow()	{ return _viScarecrow; }
-
-
-
-
-
+	
 
 
 };

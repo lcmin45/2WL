@@ -10,10 +10,11 @@ private:
 	player* _player;
 	int _count;
 	float _fireAngle;
+	
 public:
 	얼음던지기();
 	~얼음던지기();
-
+	RECT rc;
 	virtual HRESULT init();
 	virtual void release();
 	virtual void update();
@@ -24,7 +25,7 @@ public:
 
 	virtual void move();
 	virtual void frameCount();
-
+	
 	void getPlayerAddressLink(player* player) { _player = player; }
 };
 

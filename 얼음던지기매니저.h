@@ -5,8 +5,7 @@
 class 얼음던지기매니저 : public skill
 {
 private:
-	vector<얼음던지기*>			vIceThrow;
-	vector<얼음던지기*>::iterator viIceThrow;
+	
 
 	player* _player;
 
@@ -23,6 +22,6 @@ public:
 	virtual void fire(const char * skillName, int amount, POINTFLOAT pt, float speed, float range, float damage, float coolTime, SUBJECT subject);
 	void getPlayerAddressLink(player* player) { _player = player; }
 
-	vector<얼음던지기*>	getVIceThrow() { return vIceThrow; }
+	
 };
 

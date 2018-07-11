@@ -1,6 +1,9 @@
 #pragma once
 #include "gameNode.h"
 
+class 얼음던지기;
+class 얼음던지기매니저;
+
 enum SUBJECT
 {
 	PLAYER, ENEMY
@@ -20,6 +23,33 @@ struct PARTICLE
 class skill : public gameNode
 {
 protected:
+	struct WOODPARTICLE
+	{
+		image* img;
+		POINTFLOAT pt;
+		RECT rc;
+		int frameIndex;
+	};
+	struct METEOR
+	{
+		image* img;
+		image* img2;
+		POINTFLOAT pt, pt2;
+		RECT rc, rc2;
+		int frameIndex, frameIndex2;
+		float startTime;
+	};
+	struct collision
+	{
+		image* img;
+		POINTFLOAT ptStart;
+		POINTFLOAT pt;
+		RECT rc;
+		int frameIndex;
+	};
+	
+
+protected:
 	SUBJECT _subject;
 	image* _img;
 	RECT _rc;
@@ -34,7 +64,14 @@ protected:
 	int _amount;
 	int _frameIndex;
 	float _startTime;
-
+	vector<WOODPARTICLE*>			vWood;
+	vector<WOODPARTICLE*>::iterator	viWood;
+	vector<METEOR*>				vMeteor;
+	vector<METEOR*>::iterator	viMeteor;
+	vector<얼음던지기*>			vIceThrow;
+	vector<얼음던지기*>::iterator viIceThrow;
+	vector<collision*>				vHail;
+	vector<collision*>::iterator	viHail;
 public:
 	skill();
 	~skill();
@@ -62,4 +99,10 @@ public:
 
 	image* getImage() { return _img; }
 	int getFrameIndex() { return _frameIndex; }
+
+
+	vector<WOODPARTICLE*> getVWoodSkill() { return vWood; }
+	vector<METEOR*>	getVMeteor() { return vMeteor; };
+	vector<얼음던지기*>	getVIceThrow() { return vIceThrow; }
+	vector<collision*>	getVHail() { return vHail; }
 };

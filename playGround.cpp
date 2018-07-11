@@ -332,4 +332,13 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("dropItem", "sound/player/dropItem.WAV", false, false);
 	SOUNDMANAGER->addSound("takeCoin", "sound/player/takeCoin.WAV", false, false);
 	SOUNDMANAGER->addSound("openInventory", "sound/player/openInventory.WAV", false, false);
+
+	//================================================= PLAYER SKILL =========================================
+	SOUNDMANAGER->addSound("Blazing", "sound/skill/player/Blazing.WAV", false, false);
+	SOUNDMANAGER->addSound("earthPunch", "sound/skill/player/earthPunch.WAV", false, false);
+	SOUNDMANAGER->addSound("Fireball", "sound/skill/player/Fireball.WAV", false, false);
+	SOUNDMANAGER->addSound("FlameStrike", "sound/skill/player/FlameStrike.WAV", false, false);
+	SOUNDMANAGER->addSound("Tornado", "sound/skill/player/Tornado.WAV", false, false);
+	SOUNDMANAGER->addSound("WindSlash", "sound/skill/player/WindSlash.WAV", false, false);
+
 }

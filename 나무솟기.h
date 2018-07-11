@@ -2,20 +2,14 @@
 #include "skill.h"
 #include "player.h"
 
-struct WOODPARTICLE
-{
-	image* img;
-	POINTFLOAT pt;
-	RECT rc;
-	int frameIndex;
-};
+
 
 class ³ª¹«¼Ú±â : public skill
 {
 private:
-	player * _player;
+	player * _player;/*
 	vector<WOODPARTICLE*>			vWood;
-	vector<WOODPARTICLE*>::iterator	viWood;
+	vector<WOODPARTICLE*>::iterator	viWood;*/
 	int _fireCount;
 public:
 	³ª¹«¼Ú±â();
@@ -33,6 +27,5 @@ public:
 	virtual void frameCount();
 	void woodVector();
 	void getPlayerAddressLink(player* player) { _player = player; }
-	vector<WOODPARTICLE*> getVWoodSkill() {	return vWood;}
 };
 
