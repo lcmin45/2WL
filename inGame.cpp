@@ -229,25 +229,49 @@ void inGame::collide()
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
 		RECT temp;
-		if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		if (_enemyManager->getFireBoss()->getFireDialogue() == false)
 		{
-			_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+				if (_enemyManager->getFireBoss()->getbossimage() == IMAGEMANAGER->findImage("불등장"))
+				{
+					_enemyManager->getFireBoss()->setbossimage(IMAGEMANAGER->findImage("불피격"));
+					SOUNDMANAGER->play("firebossHurt");
+				}
+			}
 		}
 	}
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
 		RECT temp;
-		if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		if (_enemyManager->getIceBoss()->getIceDialogue() == false)
 		{
-			_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+				if (_enemyManager->getIceBoss()->getbossimage() == IMAGEMANAGER->findImage("얼음등장"))
+				{
+					_enemyManager->getIceBoss()->setbossimage(IMAGEMANAGER->findImage("얼음피격"));
+					SOUNDMANAGER->play("icebossHurt");
+				}
+			}
 		}
 	}
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
 		RECT temp;
-		if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+		if (_enemyManager->getWoodBoss()->getWoodDialogue() == false)
 		{
-			_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+				if (_enemyManager->getWoodBoss()->getbossimage() == IMAGEMANAGER->findImage("나무등장"))
+				{
+					_enemyManager->getWoodBoss()->setbossimage(IMAGEMANAGER->findImage("나무오른쪽피격"));
+					SOUNDMANAGER->play("woodbossHurt");
+				}
+			}
 		}
 	}
 
