@@ -11,7 +11,7 @@ Mage::~Mage()
 {
 }
 
-HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex)
+HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, int a)
 {
 	_Astar = new Astar;
 	sprintf_s(str, "%s", imgName);
@@ -29,7 +29,7 @@ HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex)
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y + monsterRoomIndex);
+	_keyIndex = int(point.x + point.y + monsterRoomIndex +a);
 
 	sprintf_s(_motionName1, "MageMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "MageRightAttack%d", _keyIndex);

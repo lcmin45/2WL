@@ -32,6 +32,7 @@ private:
 	enemyManager* _enemyManager;
 	stage * _stage;
 	Astar* _Astar;
+
 public:
 	inGame();
 	~inGame();

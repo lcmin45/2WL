@@ -29,6 +29,7 @@ public:
 	vector<item*> getVItem() { return _vItem; }
 	inventory* getInventory() { return _inventory; }
 	void setItem(item* item, STATUS status, POINTFLOAT position);
+	void dropItem(POINTFLOAT position);
 	bool addItemToInventory(item* item);
 	bool addItemToStore(item* item);
 	bool sellItem(item* item);

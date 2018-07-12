@@ -80,9 +80,10 @@ void UI::render()
 
 		HFONT font, oldFont;
 		RECT itemText;
-		font = CreateFont(30, 0, 0, 0, 25, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("¸¼Àº °íµñ"));
+		
+		font = CreateFont(30, 0, 0, 0, 30, 0, 0, 0, DEFAULT_CHARSET, OUT_STRING_PRECIS, CLIP_CHARACTER_PRECIS, PROOF_QUALITY, DEFAULT_PITCH | FF_SWISS, TEXT("@ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ"));
 		oldFont = (HFONT)SelectObject(CAMERAMANAGER->getCameraDC(), font);
-		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(0, 0, 255));
+		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 0, 0));
 		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
 		char info[128];
 		sprintf_s(info, "%.1f", _projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name));

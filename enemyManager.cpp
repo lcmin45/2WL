@@ -7,13 +7,23 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
+	static int a = 0;
+	a += 1;
+
 	setBoss();
-	settingMonster();
+	settingMonster(a);
 
 	return S_OK;
 }
 
-void enemyManager::release() {}
+void enemyManager::release() 
+{
+	_vGhoul.clear();
+	_vKnight.clear();
+	_vMage.clear();
+	_vRogue.clear();
+	_vScarecrow.clear();
+}
 
 void enemyManager::update()
 {
@@ -99,7 +109,7 @@ void enemyManager::BossRender()
 	if (woodBossStart) { _woodBoss->render(); }
 }
 
-void enemyManager::settingMonster()			//주석은 타일 번호
+void enemyManager::settingMonster(int a)			//주석은 타일 번호
 {
 	//훈련용 허수아비 이닛
 	for (float i = 0; i <2; ++i)
@@ -119,7 +129,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Ghoul* _ghoul;
 			_ghoul = new Ghoul;
-			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4);		//102.118
+			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4, a);		//102.118
 
 			_vGhoul.push_back(_ghoul);
 		}
@@ -127,7 +137,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Ghoul* _ghoul;
 			_ghoul = new Ghoul;
-			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4);	//93.123 , 116.123
+			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4, a);	//93.123 , 116.123
 
 			_vGhoul.push_back(_ghoul);
 		}
@@ -138,7 +148,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("RedMage", {1344+16,2720+16}, 5);	//42.85
+			_Mage->init("RedMage", {1344+16,2720+16}, 5, a);	//42.85
 
 			_vMage.push_back(_Mage);
 		}
@@ -146,7 +156,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("BlueMage", { 1600 + 16,2816 + 16 }, 5);	//50.88
+			_Mage->init("BlueMage", { 1600 + 16,2816 + 16 }, 5, a);	//50.88
 
 			_vMage.push_back(_Mage);
 		}
@@ -154,7 +164,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("GreenMage", { 1408 + 16,3232 + 16 }, 5);	//44.101
+			_Mage->init("GreenMage", { 1408 + 16,3232 + 16 }, 5, a);	//44.101
 
 			_vMage.push_back(_Mage);
 		}
@@ -166,21 +176,21 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("RedKnight", { 3616 + 16,1504 + 16 }, 6);	//113.47
+			_Knight->init("RedKnight", { 3616 + 16,1504 + 16 }, 6, a);	//113.47
 			_vKnight.push_back(_Knight);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("BlueKnight", { 3552 + 16,1856+ 16 }, 6);	//111.58
+			_Knight->init("BlueKnight", { 3552 + 16,1856+ 16 }, 6, a);	//111.58
 			_vKnight.push_back(_Knight);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("GreenKnight", { 3200 + 16,1440 + 16 }, 6);	//100.45
+			_Knight->init("GreenKnight", { 3200 + 16,1440 + 16 }, 6, a);	//100.45
 			_vKnight.push_back(_Knight);
 		}
 	}
@@ -190,7 +200,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("RedRogue", { 5088 + 16,2688 + 16 }, 7);	//159.84
+			_Rogue->init("RedRogue", { 5088 + 16,2688 + 16 }, 7, a);	//159.84
 
 			_vRogue.push_back(_Rogue);
 		}
@@ -198,7 +208,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("BlueRogue", { 4800 + 16,3040 + 16 }, 7);	//150.95
+			_Rogue->init("BlueRogue", { 4800 + 16,3040 + 16 }, 7, a);	//150.95
 
 			_vRogue.push_back(_Rogue);
 		}
@@ -206,7 +216,7 @@ void enemyManager::settingMonster()			//주석은 타일 번호
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7);	//157.100
+			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7, a);	//157.100
 
 			_vRogue.push_back(_Rogue);
 		}
