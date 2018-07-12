@@ -135,6 +135,8 @@ void inGame::update()
 	else
 	{
 		collide();
+		updateEffect();
+
 		_UI->update();
 		_itemManager->update();
 		_ptM->update();
@@ -156,6 +158,43 @@ void inGame::render()
 	_itemManager->render();
 	_ptM->render();
 	_UI->render();
+	drawEffect();
+	//for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	//{
+	//	RECT temp;
+	//	for (int h = 0; h < MAXPARTICLE; h++)
+	//	{
+	//		for (int k = 0; k < _enemyManager->getVGhoul().size(); ++k)
+	//		{
+	//			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[k]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h]) && _ptM->getVSkill()[j]->getSubject() == ENEMY)
+	//			{
+	//				createEffect(temp);
+	//				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
+	//			}
+	//		}
+	//	}
+	//}
+
+	if (KEYMANAGER->isToggleKey('G'))
+	{
+		for (int i = 0; i < _ptM->getVSkill().size(); ++i)
+		{
+			for (int j = 0; j < MAXPARTICLE; ++j)
+			{
+				Rectangle(getMemDC(), _ptM->getVSkill()[i]->getsRect()[j].left, _ptM->getVSkill()[i]->getsRect()[j].top, _ptM->getVSkill()[i]->getsRect()[j].right, _ptM->getVSkill()[i]->getsRect()[j].bottom);
+			}
+		}
+	}
+
+	if (KEYMANAGER->isToggleKey('H'))
+	{
+
+	}
+
+	if (KEYMANAGER->isToggleKey('J'))
+	{
+
+	}
 }
 
 void inGame::collide()
@@ -169,11 +208,30 @@ void inGame::collide()
 			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
 				&& _enemyManager->getVGhoul()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
+				createEffect(temp);
 				_enemyManager->getVGhoul()[i]->HitMotion();
 				_enemyManager->getVGhoul()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
 			}
 		}
 	}
+	for (int i = 0; i < _enemyManager->getVGhoul().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			for (int h = 0; h < MAXPARTICLE; h++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_enemyManager->getVGhoul()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h])
+					&& _enemyManager->getVGhoul()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+				{
+					createEffect(temp);
+					_enemyManager->getVGhoul()[i]->HitMotion();
+					_enemyManager->getVGhoul()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+				}
+			}
+		}
+	}
+	//=========================================================================================================================
 	for (int i = 0; i < _enemyManager->getVKnight().size(); ++i)
 	{
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
@@ -182,11 +240,32 @@ void inGame::collide()
 			if (IntersectRect(&temp, &_enemyManager->getVKnight()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
 				&& _enemyManager->getVKnight()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
+				createEffect(temp);
 				_enemyManager->getVKnight()[i]->HitMotion();
 				_enemyManager->getVKnight()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
 			}
 		}
 	}
+	for (int i = 0; i < _enemyManager->getVKnight().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			for (int h = 0; h < MAXPARTICLE; h++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_enemyManager->getVKnight()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h])
+					&& _enemyManager->getVKnight()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+				{
+					createEffect(temp);
+					_enemyManager->getVKnight()[i]->HitMotion();
+					_enemyManager->getVKnight()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+				}
+			}
+		}
+	}
+	//=========================================================================================================================
+
+
 	for (int i = 0; i < _enemyManager->getVMage().size(); ++i)
 	{
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
@@ -195,11 +274,30 @@ void inGame::collide()
 			if (IntersectRect(&temp, &_enemyManager->getVMage()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
 				&& _enemyManager->getVMage()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
+				createEffect(temp);
 				_enemyManager->getVMage()[i]->HitMotion();
 				_enemyManager->getVMage()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
 			}
 		}
 	}
+	for (int i = 0; i < _enemyManager->getVMage().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			for (int h = 0; h < MAXPARTICLE; h++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_enemyManager->getVMage()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h])
+					&& _enemyManager->getVMage()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+				{
+					createEffect(temp);
+					_enemyManager->getVMage()[i]->HitMotion();
+					_enemyManager->getVMage()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+				}
+			}
+		}
+	}
+	//=========================================================================================================================
 	for (int i = 0; i < _enemyManager->getVRogue().size(); ++i)
 	{
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
@@ -208,11 +306,30 @@ void inGame::collide()
 			if (IntersectRect(&temp, &_enemyManager->getVRogue()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect())
 				&& _enemyManager->getVRogue()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
+				createEffect(temp);
 				_enemyManager->getVRogue()[i]->HitMotion();
 				_enemyManager->getVRogue()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
 			}
 		}
 	}
+	for (int i = 0; i < _enemyManager->getVRogue().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			for (int h = 0; h < MAXPARTICLE; h++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_enemyManager->getVRogue()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h])
+					&& _enemyManager->getVRogue()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+				{
+					createEffect(temp);
+					_enemyManager->getVRogue()[i]->HitMotion();
+					_enemyManager->getVRogue()[i]->HitHP(_ptM->getVSkill()[j]->getSkillDamage(), _ptM->getVSkill()[j]->getSkillAngle());
+				}
+			}
+		}
+	}
+	//=========================================================================================================================
 	for (int i = 0; i < _enemyManager->getVScarecrow().size(); ++i)
 	{
 		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
@@ -220,7 +337,24 @@ void inGame::collide()
 			RECT temp;
 			if (IntersectRect(&temp, &_enemyManager->getVScarecrow()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 			{
+				createEffect(temp);
 				_enemyManager->getVScarecrow()[i]->HitMotion();
+			}
+		}
+	}
+	for (int i = 0; i < _enemyManager->getVScarecrow().size(); ++i)
+	{
+		for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+		{
+			for (int h = 0; h < MAXPARTICLE; h++)
+			{
+				RECT temp;
+				if (IntersectRect(&temp, &_enemyManager->getVScarecrow()[i]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h])
+					&& _enemyManager->getVScarecrow()[i]->getForm() == BATTLE && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+				{
+					createEffect(temp);
+					_enemyManager->getVScarecrow()[i]->HitMotion();
+				}
 			}
 		}
 	}
@@ -231,23 +365,66 @@ void inGame::collide()
 		RECT temp;
 		if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 		{
+			createEffect(temp);
 			_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
 		}
 	}
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
+		for (int h = 0; h < MAXPARTICLE; h++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getFireBoss()->getbossRect(), &_ptM->getVSkill()[j]->getsRect()[h]) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				createEffect(temp);
+				_enemyManager->getFireBoss()->setFireBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+	}
+
+
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
 		RECT temp;
 		if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 		{
+			createEffect(temp);
 			_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
 		}
 	}
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
+		for (int h = 0; h < MAXPARTICLE; h++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getIceBoss()->getbossRect(), &_ptM->getVSkill()[j]->getsRect()[h]) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				createEffect(temp);
+				_enemyManager->getIceBoss()->setIceBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
+		}
+	}
+
+
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
 		RECT temp;
 		if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
 		{
+			createEffect(temp);
 			_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+		}
+	}
+	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
+	{
+		for (int h = 0; h < MAXPARTICLE; h++)
+		{
+			RECT temp;
+			if (IntersectRect(&temp, &_enemyManager->getWoodBoss()->getbossRect(), &_ptM->getVSkill()[j]->getsRect()[h]) && _ptM->getVSkill()[j]->getSubject() == PLAYER)
+			{
+				createEffect(temp);
+				_enemyManager->getWoodBoss()->setWoodBossHit(_ptM->getVSkill()[j]->getSkillDamage());
+			}
 		}
 	}
 
@@ -257,6 +434,7 @@ void inGame::collide()
 		RECT temp;
 		if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getRect()) && _ptM->getVSkill()[j]->getSubject() == ENEMY)
 		{
+			createEffect(temp);
 			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 		}
 	}
@@ -268,6 +446,7 @@ void inGame::collide()
 			RECT temp;
 			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVWoodSkill()[h]->rc))
 			{
+				createEffect(temp);
 				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 			}
 		}
@@ -277,6 +456,7 @@ void inGame::collide()
 			RECT temp;
 			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVHail()[h]->rc))
 			{
+				createEffect(temp);
 				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 			}
 		}
@@ -286,6 +466,7 @@ void inGame::collide()
 			RECT temp;
 			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVIceThrow()[h]->getRect()))
 			{
+				createEffect(temp);
 				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 			}
 		}
@@ -296,6 +477,7 @@ void inGame::collide()
 			if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]->getVMeteor()[h]->rc) 
 				&& _ptM->getVSkill()[j]->getVMeteor()[h]->img == IMAGEMANAGER->findImage("메테오효과"))
 			{
+				createEffect(temp);
 				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
 			}
 		}
@@ -316,4 +498,33 @@ void inGame::collide()
 
 
 
+}
+
+void inGame::createEffect(RECT rect)
+{
+	HITEFFECT* effect = new HITEFFECT;
+	effect->img = IMAGEMANAGER->findImage("효과");
+	effect->pt = { (rect.left + (rect.right - rect.left) / 2 )+ RND->getFromIntTo(-5,5), (rect.top + (rect.bottom - rect.top) / 2 )+ RND->getFromIntTo(-5,5) };
+	effect->rc = RectMakeCenter(effect->pt.x, effect->pt.y, effect->img->getFrameWidth(), effect->img->getFrameHeight());
+	effect->frameIndex = 0;
+	vEffect.push_back(effect);
+}
+
+void inGame::updateEffect()
+{
+	for (viEffect = vEffect.begin(); viEffect != vEffect.end();)
+	{
+		(*viEffect)->frameIndex++;
+
+		if ((*viEffect)->img->getMaxFrameX() < (*viEffect)->frameIndex) viEffect = vEffect.erase(viEffect);
+		else viEffect++;
+	}
+}
+
+void inGame::drawEffect()
+{
+	for (viEffect = vEffect.begin(); viEffect != vEffect.end();viEffect++)
+	{
+		(*viEffect)->img->frameRender(getMemDC(), (*viEffect)->rc.left, (*viEffect)->rc.top, (*viEffect)->frameIndex,0);
+	}
 }
