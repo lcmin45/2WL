@@ -89,4 +89,7 @@ public:
 	bool getWoodBossDie() { return _woodBossDie; }
 	bool getIceBossDie() { return _iceBossDie; }
 	bool getFireBossDie() { return _fireBossDie; }
+	bool getWoodDialogue() {return _woodDialogue; }
+	bool getIceDialogue() { return _iceDialogue; }
+	bool getFireDialogue(){return _fireDialogue; }
 };

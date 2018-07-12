@@ -100,7 +100,7 @@ void fireBoss::update()
 					}
 				}
 				if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽") || _bossImg == IMAGEMANAGER->findImage("불스킬왼쪽")
-					|| _bossImg == IMAGEMANAGER->findImage("불스킬2") || _bossImg == IMAGEMANAGER->findImage("불오른쪽") || _bossImg == IMAGEMANAGER->findImage("불왼쪽"))
+					|| _bossImg == IMAGEMANAGER->findImage("불스킬2") || _bossImg == IMAGEMANAGER->findImage("불오른쪽") || _bossImg == IMAGEMANAGER->findImage("불왼쪽") || _bossImg == IMAGEMANAGER->findImage("불피격"))
 				{
 					if (_fireindex > _bossImg->getMaxFrameX())
 					{

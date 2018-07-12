@@ -100,7 +100,7 @@ void iceBoss::update()
 					}
 				}
 
-				if (_bossImg == IMAGEMANAGER->findImage("얼음스킬") || _bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
+				if (_bossImg == IMAGEMANAGER->findImage("얼음스킬") || _bossImg == IMAGEMANAGER->findImage("얼음스킬2") || _bossImg == IMAGEMANAGER->findImage("얼음피격"))
 				{
 					if (_iceindex > _bossImg->getMaxFrameX())
 					{

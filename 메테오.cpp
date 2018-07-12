@@ -99,7 +99,11 @@ void 메테오::moveMeteor()
 		}
 		if (PtInRect(&(*viMeteor)->rc, { (long)(*viMeteor)->pt2.x,(long)(*viMeteor)->pt2.y }) && (*viMeteor)->img != IMAGEMANAGER->findImage("메테오효과"))
 		{
-			if ((*viMeteor)->frameIndex != 0) (*viMeteor)->frameIndex = 0;
+			if ((*viMeteor)->frameIndex != 0)
+			{
+				(*viMeteor)->frameIndex = 0;
+				SOUNDMANAGER->play("MeteorExplosion");
+			}
 			(*viMeteor)->img = IMAGEMANAGER->findImage("메테오효과");
 			(*viMeteor)->img2 = NULL;
 		}
