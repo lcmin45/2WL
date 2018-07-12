@@ -35,6 +35,8 @@ private:
 	Astar* _Astar;
 	saveAndLoad* _saveAndLoad;
 
+	int _count;
+
 public:
 	inGame();
 	~inGame();
