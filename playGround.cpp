@@ -297,7 +297,8 @@ void playGround::settingAddSound(void)
 	//================================================= UI ================================================
 
 	SOUNDMANAGER->addSound("MenuMove", "sound/UI/MenuMove.WAV", false, false);
-	SOUNDMANAGER->addSound("MenuOpen", "sound/UI/MenuOpen.WAV", false, false);
+	SOUNDMANAGER->addSound("MenuOpen", "sound/UI/MenuOpen.WAV", false, false); 
+	SOUNDMANAGER->addSound("StageVictory", "sound/UI/StageVictory.WAV", false, false);
 
 	//================================================= BGM ===============================================
 
@@ -345,4 +346,12 @@ void playGround::settingAddSound(void)
 	SOUNDMANAGER->addSound("changeSkillSet", "sound/player/changeSkillSet.WAV", false, false);
 	SOUNDMANAGER->addSound("failChangeSkillSet", "sound/player/failChangeSkillSet.WAV", false, false);
 
+	//================================================= BOSS SKILL =========================================
+
+	SOUNDMANAGER->addSound("Blizzard", "sound/skill/boss/Blizzard.WAV", false, false);
+	SOUNDMANAGER->addSound("Explosion", "sound/skill/boss/Explosion.WAV", false, false);
+	SOUNDMANAGER->addSound("IceFormQuick", "sound/skill/boss/IceFormQuick.WAV", false, false);
+	SOUNDMANAGER->addSound("MeteorExplosion", "sound/skill/boss/MeteorExplosion.WAV", false, false);
+	SOUNDMANAGER->addSound("ThrowBoulder", "sound/skill/boss/ThrowBoulder.WAV", false, false);
+	SOUNDMANAGER->addSound("WoodPickUp", "sound/skill/boss/WoodPickUp.WAV", false, false);
 }

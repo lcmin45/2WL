@@ -37,6 +37,7 @@ void È­¿°±¸::update()
 void È­¿°±¸::render()
 {
 	if (_img)_img->frameRender(getMemDC(), _rc.left, _rc.top,_img->getFrameX(),_img->getFrameY());
+	if (KEYMANAGER->isToggleKey(VK_TAB)) Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 }
 
 

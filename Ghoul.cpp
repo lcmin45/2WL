@@ -11,7 +11,7 @@ Ghoul::~Ghoul()
 {
 }
 
-HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex)
+HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex, int a)
 {
 	_Astar = new Astar;
 	_image = IMAGEMANAGER->findImage("SummonMonster");
@@ -27,7 +27,7 @@ HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex)
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(),10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y+ monsterRoomIndex);
+	_keyIndex = int(point.x + point.y+ monsterRoomIndex + a);
 
 	sprintf_s(_motionName1, "GhoulMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "GhoulRightAttack%d", _keyIndex);

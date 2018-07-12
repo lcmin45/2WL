@@ -87,7 +87,7 @@ public:
 	void BossUpdate();
 	void BossRender();
 
-	void settingMonster();
+	void settingMonster(int a);
 	void monsterUpdate();
 	void monsterRender();
 	void monsterRemove();

@@ -9,7 +9,7 @@ public:
 	Ghoul();
 	~Ghoul();
 	
-	virtual HRESULT init(POINTFLOAT point,int monsterRoomIndex);
+	virtual HRESULT init(POINTFLOAT point,int monsterRoomIndex, int a);
 	virtual void release();
 	virtual void update();
 	virtual void render();
