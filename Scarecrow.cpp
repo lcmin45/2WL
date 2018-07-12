@@ -21,13 +21,15 @@ HRESULT Scarecrow::init(POINTFLOAT point)
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),
 		_image->getFrameHeight());
+	_keyIndex = point.x + point.y;
 
+	sprintf_s(_motionName1, "ScarecrowHit%d", _keyIndex);
 
 	int Stand[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("ScarecrowStand", "Scarecrow", Stand, 1, 1, false);
 
 	int Hit[] = { 1, 0 };
-	KEYANIMANAGER->addArrayFrameAnimation("ScarecrowHit", "Scarecrow", Hit, 2, 5, false);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "Scarecrow", Hit, 2, 5, false);
 
 	_scarecrowMotion = KEYANIMANAGER->findAnimation("ScarecrowStand");
 
@@ -55,8 +57,7 @@ void Scarecrow::render()
 
 void Scarecrow::HitMotion()
 {
-	
-		_scarecrowDirection = SCARECROW_HIT;
-		_scarecrowMotion = KEYANIMANAGER->findAnimation("ScarecrowHit");
-		_scarecrowMotion->start();
+	_scarecrowDirection = SCARECROW_HIT;
+	_scarecrowMotion = KEYANIMANAGER->findAnimation(_motionName1);
+	_scarecrowMotion->start();
 }

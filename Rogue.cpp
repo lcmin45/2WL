@@ -11,7 +11,7 @@ Rogue::~Rogue()
 {
 }
 
-HRESULT Rogue::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex)
+HRESULT Rogue::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex, int a)
 {
 	_Astar = new Astar;
 	sprintf_s(str, "%s", imgName);
@@ -29,7 +29,7 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y + monsterRoomIndex);
+	_keyIndex = int(point.x + point.y + monsterRoomIndex+a);
 
 	sprintf_s(_motionName1, "RogueMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "RogueRightAttack%d", _keyIndex);
@@ -68,8 +68,6 @@ HRESULT Rogue::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName6, str, rightDie, 7, 6, false, MonsterDie,this);
 	int leftDie[] = { 30,31,32,33,34,35,36};
 	KEYANIMANAGER->addArrayFrameAnimation(_motionName7, str, leftDie, 7, 6, false,MonsterDie,this);
-
-
 
 	_Motion = KEYANIMANAGER->findAnimation(_motionName1);
 

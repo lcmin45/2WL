@@ -106,6 +106,7 @@ HRESULT inGame::init(void * obj)
 
 void inGame::release()
 {
+	_enemyManager->release();
 	SAFE_DELETE(_UI);
 	SAFE_DELETE(_player);
 	SAFE_DELETE(_itemManager);

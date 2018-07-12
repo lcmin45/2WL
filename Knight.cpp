@@ -11,7 +11,7 @@ Knight::~Knight()
 {
 }
 
-HRESULT Knight::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex)
+HRESULT Knight::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex, int a)
 {
 
 	_Astar = new Astar;
@@ -30,7 +30,7 @@ HRESULT Knight::init(const char * imgName, POINTFLOAT point, int monsterRoomInde
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y + monsterRoomIndex);
+	_keyIndex = int(point.x + point.y + monsterRoomIndex + a);
 
 	sprintf_s(_motionName1, "KnightMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "KnightRightAttack%d", _keyIndex);

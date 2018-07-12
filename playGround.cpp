@@ -297,7 +297,8 @@ void playGround::settingAddSound(void)
 	//================================================= UI ================================================
 
 	SOUNDMANAGER->addSound("MenuMove", "sound/UI/MenuMove.WAV", false, false);
-	SOUNDMANAGER->addSound("MenuOpen", "sound/UI/MenuOpen.WAV", false, false);
+	SOUNDMANAGER->addSound("MenuOpen", "sound/UI/MenuOpen.WAV", false, false); 
+	SOUNDMANAGER->addSound("StageVictory", "sound/UI/StageVictory.WAV", false, false);
 
 	//================================================= BGM ===============================================
 
