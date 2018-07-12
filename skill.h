@@ -50,6 +50,9 @@ protected:
 	
 
 protected:
+
+	#define MAXPARTICLE 5
+
 	SUBJECT _subject;
 	image* _img;
 	RECT _rc;
@@ -72,6 +75,9 @@ protected:
 	vector<얼음던지기*>::iterator viIceThrow;
 	vector<collision*>				vHail;
 	vector<collision*>::iterator	viHail;
+
+
+	RECT sRect[MAXPARTICLE];
 public:
 	skill();
 	~skill();
@@ -93,6 +99,7 @@ public:
 
 	//충돌 판정용 사각형
 	RECT getRect() { return _rc; }
+	RECT* getsRect() { return sRect; }
 	SUBJECT getSubject() { return _subject; }
 	float getSkillDamage() { return _damage; }
 	float getSkillAngle() { return _angle; }

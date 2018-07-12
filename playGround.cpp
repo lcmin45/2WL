@@ -277,6 +277,10 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("AUTO_TILE_IMAGE_2", "image/mapTool/tile/autoTile_2.bmp", 384, 320, 12, 10, false, RGBNONE);
 
 	IMAGEMANAGER->addFrameImage("FRAME_OBJECT", "image/mapTool/object/frameObject.bmp", 192, 192, 6, 3, true, RGBMAGENTA);
+
+	// 타격 이펙트
+
+	IMAGEMANAGER->addFrameImage("효과","image/Effect/effect.bmp", 512, 64, 8, 1, true, RGBMAGENTA);
 }
 
 void playGround::settingAddSound(void)

@@ -1,7 +1,6 @@
 #pragma once
 #include "skill.h"
 
-#define MAXPARTICLE 5
 
 
 class 불타는올가미 : public skill
@@ -12,7 +11,6 @@ private:
 
 	image * pImg[MAXPARTICLE];
 	POINTFLOAT sword[MAXPARTICLE];
-	RECT sRect[MAXPARTICLE];
 	int swordIndexX[MAXPARTICLE];
 	int swordIndexY[MAXPARTICLE];
 	int count;
