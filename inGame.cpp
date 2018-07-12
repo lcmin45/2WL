@@ -117,7 +117,12 @@ void inGame::release()
 
 void inGame::update()
 {
-	if (_player->getIsDead())
+	if (_enemyManager->getFireBoss()->getFireBossDie() && _enemyManager->getIceBoss()->getIceBossDie() && _enemyManager->getWoodBoss()->getWoodBossDie())
+	{
+		SCENEMANAGER->changeScene("ending");
+		CAMERAMANAGER->setCameraPoint({ 0, 0 });
+	}
+	else if (_player->getIsDead())
 	{
 		if (_BlackAalpha < 255) _BlackAalpha += 3;
 		else

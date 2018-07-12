@@ -146,7 +146,7 @@ void playGround::settingAddImage(void)
 	IMAGEMANAGER->addFrameImage("EXIT", "image/UI/EXIT.bmp", 150, 100, 1, 2, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addFrameImage("Æ÷Å»", "image/UI/Æ÷Å».bmp", 52*2, 42*2, 2, 1, true, RGB(255, 0, 255));
-
+	IMAGEMANAGER->addFrameImage("¿£µù", "image/UI/ending.bmp", 960, 21600, 1, 40, true, RGB(255, 0, 255));
 
 	IMAGEMANAGER->addImage("option", "image/UI/option.bmp", 600, 400, true, RGB(255, 0, 255));
 	IMAGEMANAGER->addImage("optionBar", "image/UI/optionBar.bmp", 400, 30, true, RGB(255, 0, 255));

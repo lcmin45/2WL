@@ -173,12 +173,25 @@ void iceBoss::iceMove()
 				_isCheck = true;
 				_bossImg = IMAGEMANAGER->findImage("얼음등장");
 				_woodindex = 0;
+				_x = 656;
+				_y = 464;
+				_skill = false;
+			}
+		}
+
+		else if (_bossMoveCount <1300 && _bossMoveCount >= 1200)
+		{
+			if (!_isCheck)
+			{
+				_isCheck = true;
+				_bossImg = IMAGEMANAGER->findImage("얼음등장");
+				_woodindex = 0;
 				_x = WINSIZEX / 2 - 250;
 				_y = WINSIZEY / 2;
 				_skill = false;
 			}
 		}
-		else if (_bossMoveCount < 1300 && _bossMoveCount >= 1200)
+		else if (_bossMoveCount <1600 && _bossMoveCount >= 1500)
 		{
 			if (!_isCheck)
 			{
@@ -190,7 +203,7 @@ void iceBoss::iceMove()
 				_skill = false;
 			}
 		}
-		else if (_bossMoveCount < 1600 && _bossMoveCount >= 1500)
+		else if (_bossMoveCount <1900 && _bossMoveCount >= 1800)
 		{
 			if (!_isCheck)
 			{
@@ -203,7 +216,7 @@ void iceBoss::iceMove()
 			}
 		}
 
-		else if (_bossMoveCount < 1900 && _bossMoveCount >= 1800)
+		else if (_bossMoveCount <2200 && _bossMoveCount >= 2100)
 		{
 			if (!_isCheck)
 			{
@@ -215,7 +228,7 @@ void iceBoss::iceMove()
 				_skill = false;
 			}
 		}
-		else if (_bossMoveCount >= 1900)
+		else if (_bossMoveCount >= 2200)
 		{
 			if (_isCheck)
 			{
@@ -225,7 +238,7 @@ void iceBoss::iceMove()
 		}
 		///////스킬////////////
 		else if ((_bossMoveCount >= 100 && _bossMoveCount < 300) || (_bossMoveCount >= 400 && _bossMoveCount < 600) || (_bossMoveCount < 900 && _bossMoveCount >= 700) ||
-			(_bossMoveCount < 1200 && _bossMoveCount >= 1000) || (_bossMoveCount < 1500 && _bossMoveCount >= 1300))
+			(_bossMoveCount < 1500 && _bossMoveCount >= 1300) || (_bossMoveCount < 1800 && _bossMoveCount >= 1600))
 		{
 			if (_isCheck)
 			{
@@ -234,7 +247,7 @@ void iceBoss::iceMove()
 				_iceindex = 0;
 			}
 		}
-		else if (_bossMoveCount < 1800 && _bossMoveCount >= 1600)
+		else if ((_bossMoveCount < 1200 && _bossMoveCount >= 1000) || (_bossMoveCount < 2100 && _bossMoveCount >= 1900))
 		{
 			if (_isCheck)
 			{

@@ -3,6 +3,9 @@
 
 class ending : public gameNode
 {
+	int _index;
+	image* _image;
+	int _count;
 public:
 	ending();
 	~ending();
