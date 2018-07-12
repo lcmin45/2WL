@@ -79,6 +79,7 @@ HRESULT inGame::init(void * obj)
 	}
 
 	_ptM = new projectileManager;
+	_ptM->init();
 
 	_enemyManager = new enemyManager;
 	_enemyManager->init();

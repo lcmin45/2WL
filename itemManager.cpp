@@ -75,6 +75,24 @@ void itemManager::setItem(item* item, STATUS status, POINTFLOAT position)
 	item->setPosition(position); item->setStatus(status);
 }
 
+void itemManager::dropItem(POINTFLOAT position)
+{
+	for (_viItem = _vItem.begin(); _viItem != _vItem.end(); ++_viItem) if ((*_viItem)->getStatus() == NOWHERE) break;
+
+	if (_viItem == _vItem.end()) return;
+
+	while (1)
+	{
+		int rendIndex = RND->getInt(10);
+		if (_vItem[rendIndex]->getStatus() == NOWHERE)
+		{
+			_vItem[rendIndex]->setPosition(position);
+			_vItem[rendIndex]->setStatus(ON_FIELD);
+			break;
+		}
+	}
+}
+
 //인벤토리에 아이템 추가 함수
 bool itemManager::addItemToInventory(item * item)
 {

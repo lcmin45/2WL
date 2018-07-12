@@ -120,7 +120,6 @@ void player::update()
 	CAMERAMANAGER->setCameraPoint(_position);
 
 	//////////////////////////////////////////////임시
-
 	if (KEYMANAGER->isOnceKeyDown('Y'))
 	{
 		saveData();
@@ -130,21 +129,7 @@ void player::update()
 
 void player::render()
 {
-	////////////////////////////////////////////////////////////////////임시
-	if (KEYMANAGER->isToggleKey(VK_TAB))
-	{
-		Rectangle(getMemDC(), _tileCheck.left, _tileCheck.top, _tileCheck.right, _tileCheck.bottom);
-		Rectangle(getMemDC(), _body.left, _body.top, _body.right, _body.bottom);
-	}
-	////////////////////////////////////////////////////////////////////
-
 	_image->aniRender(getMemDC(), _position.x - _image->getFrameWidth() / 2, _position.y - _image->getFrameHeight() / 2, _animation);
-
-	////////////////////////////////////////////////////////////////////임시
-	char temp[128];
-	sprintf_s(temp, "HP : %f / %f | DAMAGE : %f | SPEED : %f | CRITICAL : %f", _currentHp, _maxHp, _damage, _speed, _critical);
-	TextOut(CAMERAMANAGER->getCameraDC(), WINSIZEX - 700, 50, temp, strlen(temp));
-	////////////////////////////////////////////////////////////////////
 }
 
 void player::keyProcess()
@@ -191,7 +176,7 @@ void player::keyProcess()
 	//모든 이동 키에 입력이 없을 경우 행동은 IDLE, 에니매이션 갱신
 	else if ((KEYMANAGER->isOnceKeyUp('W') || KEYMANAGER->isOnceKeyUp('S') || KEYMANAGER->isOnceKeyUp('A') || KEYMANAGER->isOnceKeyUp('D')) && (_action == IDLE || _action == MOVE)) { _action = IDLE; animationProcess(); }
 	//쉬프트(대쉬 키 입력)
-	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT) && (_action == IDLE || _action == MOVE))
+	if (KEYMANAGER->isOnceKeyDown(VK_SHIFT) && TIMEMANAGER->getWorldTime() - _dashCoolTime > 0.8f)
 	{
 		if (_angle == ANGLE1 || _angle == ANGLE3) _direction = UP;
 		else if (_angle == ANGLE5 || _angle == ANGLE7) _direction = DOWN;
@@ -199,6 +184,7 @@ void player::keyProcess()
 		_dashSpeed = PLAYER_DASH_SPEED;
 		animationProcess();
 		SOUNDMANAGER->play("playerDash");
+		_dashCoolTime = TIMEMANAGER->getWorldTime();
 	}
 	//마우스 왼쪽(공격 키 입력)
 	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && _action != DASH)

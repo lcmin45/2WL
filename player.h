@@ -41,6 +41,7 @@ private:
 	float _speed; //스피드
 	float _critical; //치명타율
 	float _dashSpeed; //대쉬 스피드
+	float _dashCoolTime;
 	int _coin; //코인
 	tagMapToolTile* _tile; //타일 정보
 	itemManager* _itemManager; //인벤토리
