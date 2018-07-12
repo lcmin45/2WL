@@ -8,8 +8,8 @@ HRESULT skillSet::init()
 {
 	_image = IMAGEMANAGER->findImage("skillSet");
 
-	const char* tempSkillName[7] = { "바람베기", "화염구", "불타는올가미", "맹렬회오리", "흙주먹", "불꽃타격", "사이클론부메랑" };
-	const char* tempSkillInfo[7] = { "바람베기", "화염구", "불타는올가미", "맹렬회오리", "흙주먹", "불꽃타격", "사이클론부메랑" };
+	string tempSkillName[7] = { "바람베기", "화염구", "불타는올가미", "맹렬회오리", "흙주먹", "불꽃타격", "사이클론부메랑" };
+	string tempSkillInfo[7] = { "바람베기", "화염구", "불타는올가미", "맹렬회오리", "흙주먹", "불꽃타격", "사이클론부메랑" };
 	SET_TYPE tempSetType[7] = { NORMAL, ACTIVE_SKILL, ACTIVE_SKILL, ACTIVE_SKILL, NORMAL, NORMAL, ACTIVE_SKILL};
 
 	for (int i = 0; i < 7; i++)
@@ -63,7 +63,7 @@ void skillSet::render()
 				}
 			}
 			char temp[50] = "UI";
-			strcat_s(temp, _skillSet[i].name);
+			strcat_s(temp, _skillSet[i].name.c_str());
 
 			IMAGEMANAGER->findImage(temp)->render(CAMERAMANAGER->getCameraDC(), _sampleRect[i].left, _sampleRect[i].top);
 
@@ -78,9 +78,9 @@ void skillSet::render()
 				SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 255, 255));
 				SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
 				skillText = RectMakeCenter(_skillSetRect.left + 200, _skillSetRect.top + 425, 400, 50);
-				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_skillSet[i].name), strlen(_skillSet[i].name), &skillText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_skillSet[i].name.c_str()), strlen(_skillSet[i].name.c_str()), &skillText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 				skillText = RectMakeCenter(_skillSetRect.left + 200, _skillSetRect.top + 475, 400, 50);
-				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_skillSet[i].info), strlen(_skillSet[i].info), &skillText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
+				DrawText(CAMERAMANAGER->getCameraDC(), TEXT(_skillSet[i].info.c_str()), strlen(_skillSet[i].info.c_str()), &skillText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
 				SelectObject(CAMERAMANAGER->getCameraDC(), oldFont);
 				DeleteObject(font);

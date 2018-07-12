@@ -8,7 +8,7 @@ Rogue::Rogue()
 
 
 Rogue::~Rogue()
-{
+{ 
 }
 
 HRESULT Rogue::init(const char * imgName, POINTFLOAT point, int monsterRoomIndex, int a)

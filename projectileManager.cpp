@@ -39,7 +39,7 @@ void projectileManager::render()
 	vectorDraw();
 }
 
-bool projectileManager::fire(const char * skillName)
+bool projectileManager::fire(string skillName)
 {
 	float tempAngle = getAngle(_player->getPosition().x, _player->getPosition().y, getMousePoint().x, getMousePoint().y);
 
@@ -49,7 +49,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "¹Ù¶÷º£±â" && TIMEMANAGER->getWorldTime() - coolTime[0].coolTime > coolTime[0].skillTime)
 	{
 		¹Ù¶÷º£±â* WindCutter = new ¹Ù¶÷º£±â;
-		WindCutter->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
+		WindCutter->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(WindCutter);
 		coolTime[0].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("WindSlash");
@@ -59,7 +59,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "È­¿°±¸" && TIMEMANAGER->getWorldTime() - coolTime[1].coolTime > coolTime[1].skillTime)
 	{
 		È­¿°±¸* FireBall = new È­¿°±¸;
-		FireBall->fire(skillName, 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 1 * tempDeal, 30, PLAYER);
+		FireBall->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 1 * tempDeal, 30, PLAYER);
 		vSkill.push_back(FireBall);
 		coolTime[1].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("Fireball");
@@ -69,7 +69,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "ºÒÅ¸´Â¿Ã°¡¹Ì" && TIMEMANAGER->getWorldTime() - coolTime[2].coolTime > coolTime[2].skillTime)
 	{
 		ºÒÅ¸´Â¿Ã°¡¹Ì* FireSword = new ºÒÅ¸´Â¿Ã°¡¹Ì;
-		FireSword->fire(skillName, 1, _player->getPosition(), 8, 200, 1 * tempDeal, 1.0f, PLAYER);
+		FireSword->fire(skillName.c_str(), 1, _player->getPosition(), 8, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(FireSword);
 		coolTime[2].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("Blazing");
@@ -79,7 +79,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "¸Í·ÄÈ¸¿À¸®" && TIMEMANAGER->getWorldTime() - coolTime[3].coolTime > coolTime[3].skillTime)
 	{
 		¸Í·ÄÈ¸¿À¸®* WindTornado = new ¸Í·ÄÈ¸¿À¸®;
-		WindTornado->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
+		WindTornado->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(WindTornado);
 		coolTime[3].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("Tornado");
@@ -90,7 +90,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "ÈëÁÖ¸Ô" && TIMEMANAGER->getWorldTime() - coolTime[4].coolTime > coolTime[4].skillTime)
 	{
 		ÈëÁÖ¸Ô* EarthPunch = new ÈëÁÖ¸Ô;
-		EarthPunch->fire(skillName, 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
+		EarthPunch->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 8, 200, 1 * tempDeal, 1.0f, PLAYER);
 		EarthPunch->fireAtt();
 		vSkill.push_back(EarthPunch);
 		coolTime[4].coolTime = TIMEMANAGER->getWorldTime();
@@ -101,7 +101,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "ºÒ²ÉÅ¸°Ý" && TIMEMANAGER->getWorldTime() - coolTime[5].coolTime > coolTime[5].skillTime)
 	{
 		ºÒ²ÉÅ¸°Ý* FirePunch = new ºÒ²ÉÅ¸°Ý;
-		FirePunch->fire(skillName, 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
+		FirePunch->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 100, 200, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(FirePunch);
 		coolTime[5].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("FlameStrike");
@@ -111,7 +111,7 @@ bool projectileManager::fire(const char * skillName)
 	if (skillName == "»çÀÌÅ¬·ÐºÎ¸Þ¶û" && TIMEMANAGER->getWorldTime() - coolTime[6].coolTime > coolTime[6].skillTime)
 	{
 		»çÀÌÅ¬·ÐºÎ¸Þ¶û* CyclronBoomerang = new »çÀÌÅ¬·ÐºÎ¸Þ¶û;
-		CyclronBoomerang->fire(skillName, 1, _player->getPosition(), tempAngle, 15, 350, 1 * tempDeal, 1.0f, PLAYER);
+		CyclronBoomerang->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 15, 350, 1 * tempDeal, 1.0f, PLAYER);
 		vSkill.push_back(CyclronBoomerang);
 		coolTime[6].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("Tornado");

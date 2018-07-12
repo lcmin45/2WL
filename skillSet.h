@@ -5,8 +5,8 @@ enum SET_TYPE { NORMAL, ACTIVE_SKILL };
 
 struct tagSkillSet
 {
-	const char* name;
-	const char* info;
+	string name;
+	string info;
 	SET_TYPE type;
 };
 

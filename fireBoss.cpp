@@ -129,7 +129,7 @@ void fireBoss::update()
 
 void fireBoss::fireMove()
 {
-	if (_fireMove == true)
+	if (_fireCurrentHP > 0)
 	{
 		++_bossMoveCount;
 		//대각선 이동
@@ -260,30 +260,33 @@ void fireBoss::fireMove()
 
 void fireBoss::fireSkill()
 {
-	if (_bossImg == IMAGEMANAGER->findImage("불스킬왼쪽"))
+	if (_fireCurrentHP > 0)
 	{
-		if (_skill == false)
+		if (_bossImg == IMAGEMANAGER->findImage("불스킬왼쪽"))
 		{
-			_ptM->fire("불기둥", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("불기둥", { _x, _y });
+				_skill = true;
+			}
 		}
-	}
 
-	else if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽"))
-	{
-		if (_skill == false)
+		else if (_bossImg == IMAGEMANAGER->findImage("불스킬오른쪽"))
 		{
-			_ptM->fire("불기둥", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("불기둥", { _x, _y });
+				_skill = true;
+			}
 		}
-	}
 
-	else if (_bossImg == IMAGEMANAGER->findImage("불스킬2"))
-	{
-		if (_skill == false)
+		else if (_bossImg == IMAGEMANAGER->findImage("불스킬2"))
 		{
-			_ptM->fire("메테오", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("메테오", { _x, _y });
+				_skill = true;
+			}
 		}
 	}
 

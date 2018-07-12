@@ -15,7 +15,6 @@
 #include "Rogue.h"
 #include "Scarecrow.h"
 
-
 class itemManager;
 class enemyManager : public gameNode
 {
@@ -35,9 +34,6 @@ private:
 
 	typedef vector<Scarecrow*>				vScarecrow;
 	typedef vector<Scarecrow*>::iterator	viScarecrow;
-
-
-
 
 	//보스 클래스 소환
 	woodBoss* _woodBoss;
@@ -69,10 +65,13 @@ private:
 
 	POINTFLOAT		_playerPoint;
 	int				_playerIndex;
+	int _key;
+	bool _alreadyDrop[3];
 
 	bool fireBossStart;
 	bool iceBossStart;
 	bool woodBossStart;
+	bool saveNow;
 
 public:
 	enemyManager();
@@ -86,19 +85,21 @@ public:
 	void setBoss();
 	void BossUpdate();
 	void BossRender();
+	void BossDie();
 
-	void settingMonster(int a);
+	bool getSaveNow() { return saveNow; }
+
+	void settingMonster(int key);
 	void monsterUpdate();
 	void monsterRender();
 	void monsterRemove();
-
 	void setStage(stage* stage) { _stage = stage; }
 	void setPlayerPoint(POINTFLOAT point) { _playerPoint = point; }
 	void setPlayerIndex(int index) { _playerIndex = index; }
 	void setProjectileManagerAddressLink(projectileManager * PM) { _PM = PM; }
 	void setItemManagerLink(itemManager* itemManager) { _itemManager = itemManager; }
-
-
+	void setBossDead(bool fire, bool ice, bool wood) { _fireBoss->setFireBossDie(fire); _iceBoss->setIceBossDie(ice); _woodBoss->setWoodBossDie(wood); }
+	void setAlreadyDrop(bool already0, bool already1, bool already2) { _alreadyDrop[0] = already0; _alreadyDrop[1] = already1; _alreadyDrop[2] = already2; }
 
 	fireBoss* getFireBoss() { return _fireBoss; };
 	iceBoss* getIceBoss() { return _iceBoss; };
@@ -120,6 +121,4 @@ public:
 	vScarecrow	getVScarecrow()		{ return _vScarecrow; }
 	viScarecrow	getViScarecrow()	{ return _viScarecrow; }
 	
-
-
 };

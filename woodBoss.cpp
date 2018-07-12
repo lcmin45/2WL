@@ -141,7 +141,7 @@ void woodBoss::update()
 void woodBoss::woodMove()
 {
 
-	if (_woodMove == true)
+	if (_woodCurrentHP > 0)
 	{
 		++_bossMoveCount;
 
@@ -243,30 +243,33 @@ void woodBoss::woodMove()
 
 void woodBoss::woodSkill()
 {
-	if (_bossImg == IMAGEMANAGER->findImage("나무스킬"))
+	if (_woodCurrentHP > 0)
 	{
-		if (_skill == false)
+		if (_bossImg == IMAGEMANAGER->findImage("나무스킬"))
 		{
-			_ptM->fire("나무솟기", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("나무솟기", { _x, _y });
+				_skill = true;
+			}
 		}
-	}
 
-	else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2왼쪽"))
-	{
-		if (_skill == false)
+		else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2왼쪽"))
 		{
-			_ptM->fire("돌던지기", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("돌던지기", { _x, _y });
+				_skill = true;
+			}
 		}
-	}
 
-	else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2오른쪽"))
-	{
-		if (_skill == false)
+		else if (_bossImg == IMAGEMANAGER->findImage("나무스킬2오른쪽"))
 		{
-			_ptM->fire("돌던지기", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("돌던지기", { _x, _y });
+				_skill = true;
+			}
 		}
 	}
 }

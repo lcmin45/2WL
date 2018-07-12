@@ -9,6 +9,7 @@
 #include "UI.h"
 #include "stage.h"
 #include "Astar.h"
+#include "saveAndLoad.h"
 
 class inGame : public gameNode
 {
@@ -20,6 +21,7 @@ private:
 	enemyManager* _enemyManager;
 	stage * _stage;
 	Astar* _Astar;
+	saveAndLoad* _saveAndLoad;
 
 public:
 	inGame();
@@ -31,6 +33,7 @@ public:
 	void update();
 	void render();
 
-	void collide();
+	void saveData();
 
+	void collide();
 };

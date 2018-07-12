@@ -7,16 +7,21 @@ enemyManager::~enemyManager() {}
 
 HRESULT enemyManager::init()
 {
-	static int a = 0;
-	a += 1;
+
+	_key += 1;
 
 	setBoss();
-	settingMonster(a);
+
+	_alreadyDrop[0] = false; //fire
+	_alreadyDrop[1] = false; //ice
+	_alreadyDrop[2] = false; //wood
+
+	saveNow = false;
 
 	return S_OK;
 }
 
-void enemyManager::release() 
+void enemyManager::release()
 {
 	_vGhoul.clear();
 	_vKnight.clear();
@@ -30,6 +35,7 @@ void enemyManager::update()
 
 
 	BossUpdate();
+	settingMonster(_key);
 	monsterUpdate();
 	monsterRemove();
 
@@ -99,37 +105,52 @@ void enemyManager::BossUpdate()
 		_woodBoss->woodMove();
 		_woodBoss->setProjectileAddressLink(_PM);
 	}
+
+	BossDie();
 }
 
 void enemyManager::BossRender()
 {
 	//조건 추가하기
 	if (fireBossStart) { _fireBoss->render(); }
-	if (iceBossStart) { _iceBoss->render(); } 
+	if (iceBossStart) { _iceBoss->render(); }
 	if (woodBossStart) { _woodBoss->render(); }
 }
 
-void enemyManager::settingMonster(int a)			//주석은 타일 번호
+void enemyManager::BossDie()
+{
+	saveNow = false;
+	if (_fireBoss->getFireBossDie() && !_alreadyDrop[0]) { _itemManager->dropItem(_fireBoss->getPosition()); _alreadyDrop[0] = true; saveNow = true; }
+	if (_iceBoss->getIceBossDie() && !_alreadyDrop[1]) { _itemManager->dropItem(_iceBoss->getPosition()); _alreadyDrop[1] = true; saveNow = true; }
+	if (_woodBoss->getWoodBossDie() && !_alreadyDrop[2]) { _itemManager->dropItem(_woodBoss->getPosition()); _alreadyDrop[2] = true; saveNow = true; }
+}
+
+void enemyManager::settingMonster(int key)			//주석은 타일 번호
 {
 	//훈련용 허수아비 이닛
-	for (float i = 0; i <2; ++i)
+	if (_vScarecrow.size() == 0)
 	{
-		for (float j = 0; j < 3; ++j)
+		for (float i = 0; i < 2; ++i)
 		{
-			Scarecrow* _Scarecrow;
-			_Scarecrow = new Scarecrow;
-			_Scarecrow->init({ 2816 + i * 896 + 16 ,(4736 + j * 128 + 16) });	// 88.148 , 88.152 , 88.156 / 116.148 , 116.152 , 116.156
+			for (float j = 0; j < 3; ++j)
+			{
+				Scarecrow* _Scarecrow;
+				_Scarecrow = new Scarecrow;
+				_Scarecrow->init({ 2816 + i * 896 + 16 ,(4736 + j * 128 + 16) });	// 88.148 , 88.152 , 88.156 / 116.148 , 116.152 , 116.156
 
-			_vScarecrow.push_back(_Scarecrow);
+				_vScarecrow.push_back(_Scarecrow);
+			}
 		}
 	}
 	//index 4 번 몬스터 이닛 (Ghoul)
+	if (_vGhoul.size() == 0 && _playerIndex !=4)
 	{
+		++_key;
 		for (float i = 0; i < 1; ++i)
 		{
 			Ghoul* _ghoul;
 			_ghoul = new Ghoul;
-			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4, a);		//102.118
+			_ghoul->init({ 3264 + 16, 3776 + 16 }, 4, key);		//102.118
 
 			_vGhoul.push_back(_ghoul);
 		}
@@ -137,18 +158,20 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 		{
 			Ghoul* _ghoul;
 			_ghoul = new Ghoul;
-			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4, a);	//93.123 , 116.123
+			_ghoul->init({ 2976 + i * 736 + 16, 3936 + 16 }, 4, key);	//93.123 , 116.123
 
 			_vGhoul.push_back(_ghoul);
 		}
 	}
 	//index 5 번 몬스터 이닛 (Mage)
+	if (_vMage.size() == 0 && _playerIndex != 5)
 	{
+		++_key;
 		for (float i = 0; i < 1; ++i)
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("RedMage", {1344+16,2720+16}, 5, a);	//42.85
+			_Mage->init("RedMage", { 1344 + 16,2720 + 16 }, 5, key);	//42.85
 
 			_vMage.push_back(_Mage);
 		}
@@ -156,7 +179,7 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("BlueMage", { 1600 + 16,2816 + 16 }, 5, a);	//50.88
+			_Mage->init("BlueMage", { 1600 + 16,2816 + 16 }, 5, key);	//50.88
 
 			_vMage.push_back(_Mage);
 		}
@@ -164,43 +187,46 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 		{
 			Mage* _Mage;
 			_Mage = new Mage;
-			_Mage->init("GreenMage", { 1408 + 16,3232 + 16 }, 5, a);	//44.101
+			_Mage->init("GreenMage", { 1408 + 16,3232 + 16 }, 5, key);	//44.101
 
 			_vMage.push_back(_Mage);
 		}
-
 	}
 	//index 6 번 몬스터 이닛 (Knight)
+	if (_vKnight.size() == 0 && _playerIndex != 6)
 	{
+		++_key;
 		for (float i = 0; i < 1; ++i)
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("RedKnight", { 3616 + 16,1504 + 16 }, 6, a);	//113.47
+			_Knight->init("RedKnight", { 3616 + 16,1504 + 16 }, 6, key);	//113.47
 			_vKnight.push_back(_Knight);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("BlueKnight", { 3552 + 16,1856+ 16 }, 6, a);	//111.58
+			_Knight->init("BlueKnight", { 3552 + 16,1856 + 16 }, 6, key);	//111.58
 			_vKnight.push_back(_Knight);
 		}
 		for (float i = 0; i < 1; ++i)
 		{
 			Knight* _Knight;
 			_Knight = new Knight;
-			_Knight->init("GreenKnight", { 3200 + 16,1440 + 16 }, 6, a);	//100.45
+			_Knight->init("GreenKnight", { 3200 + 16,1440 + 16 }, 6, key);	//100.45
 			_vKnight.push_back(_Knight);
 		}
 	}
 	//index 7 번 몬스터 이닛 (Rogue)
+	if (_vRogue.size() == 0 && _playerIndex != 7)
 	{
+		++_key;
 		for (float i = 0; i < 1; ++i)
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("RedRogue", { 5088 + 16,2688 + 16 }, 7, a);	//159.84
+			_Rogue->init("RedRogue", { 5088 + 16,2688 + 16 }, 7, key);	//159.84
 
 			_vRogue.push_back(_Rogue);
 		}
@@ -208,7 +234,7 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("BlueRogue", { 4800 + 16,3040 + 16 }, 7, a);	//150.95
+			_Rogue->init("BlueRogue", { 4800 + 16,3040 + 16 }, 7, key);	//150.95
 
 			_vRogue.push_back(_Rogue);
 		}
@@ -216,7 +242,7 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 		{
 			Rogue* _Rogue;
 			_Rogue = new Rogue;
-			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7, a);	//157.100
+			_Rogue->init("GreenRogue", { 5024 + 16,3200 + 16 }, 7, key);	//157.100
 
 			_vRogue.push_back(_Rogue);
 		}
@@ -225,7 +251,7 @@ void enemyManager::settingMonster(int a)			//주석은 타일 번호
 
 void enemyManager::monsterUpdate()
 {
-	
+
 	for (_viGhoul = _vGhoul.begin(); _viGhoul != _vGhoul.end(); ++_viGhoul)
 	{
 		(*_viGhoul)->setSkillLink(_PM);

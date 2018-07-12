@@ -78,6 +78,7 @@ public:
 	void setWoodBossHit(float att) { _woodCurrentHP -= att; }
 
 	//Á¢±ÙÀÚ
+	POINTFLOAT getPosition() { return { _x, _y }; }
 	inline RECT getbossRect() { return _bossRc; }
 	inline void setbossimage(image* bossimg) { _bossImg = bossimg; }
 	inline image * getbossimage() { return  _bossImg; }
@@ -89,6 +90,9 @@ public:
 	bool getWoodBossDie() { return _woodBossDie; }
 	bool getIceBossDie() { return _iceBossDie; }
 	bool getFireBossDie() { return _fireBossDie; }
+	void setFireBossDie(bool die) { _fireBossDie = die; }
+	void setIceBossDie(bool die) { _iceBossDie = die; }
+	void setWoodBossDie(bool die) { _woodBossDie = die; }
 	bool getWoodDialogue() {return _woodDialogue; }
 	bool getIceDialogue() { return _iceDialogue; }
 	bool getFireDialogue(){return _fireDialogue; }

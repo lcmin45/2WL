@@ -43,6 +43,9 @@ HRESULT inGame::init()
 
 	_BlackAalpha = 255;
 
+	_saveAndLoad = new saveAndLoad;
+	_saveAndLoad->init();
+
 	_player->update();
 
 	return S_OK;
@@ -56,27 +59,16 @@ HRESULT inGame::init(void * obj)
 	_stage->init();
 	_stage->stageLoad(1);
 
-	_UI = new UI;
-	_UI->init();
+	
 
 	_player = new player;
 	_player->init();
-	_player->setSaveInfo(temp->playerPosition, temp->currnetHp, temp->coin);
 
-	for (int i = 0; i < 7; i++)
-	{
-		_player->getSkillSet()->setSettingSkill(temp->skillSet[i], i);
-	}
+	_UI = new UI;
+	_UI->init();
 
 	_itemManager = new itemManager;
 	_itemManager->init();
-	for (int i = 0; i < _itemManager->getVItem().size(); i++)
-	{
-		if (temp->itemStatus[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
-		else if (temp->itemStatus[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
-		else if (temp->itemStatus[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
-		else { _itemManager->getVItem()[i]->setPosition({ 0, 0 });  _itemManager->getVItem()[i]->setStatus(NOWHERE); }
-	}
 
 	_ptM = new projectileManager;
 	_ptM->init();
@@ -97,6 +89,21 @@ HRESULT inGame::init(void * obj)
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 	_player->setEnemyManagerAddressLink(_enemyManager);
+
+	_player->setSaveInfo(temp->playerPosition, temp->currnetHp, temp->coin);
+	for (int i = 0; i < 7; i++)
+	{
+		_player->getSkillSet()->setSettingSkill(temp->skillSet[i], i);
+	}
+	for (int i = 0; i < _itemManager->getVItem().size(); i++)
+	{
+		if (temp->itemStatus[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
+		else if (temp->itemStatus[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
+		else if (temp->itemStatus[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
+		else { _itemManager->getVItem()[i]->setPosition({ 0, 0 });  _itemManager->getVItem()[i]->setStatus(NOWHERE); }
+	}
+	_enemyManager->setBossDead(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
+	_enemyManager->setAlreadyDrop(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
 
 	_BlackAalpha = 255;
 
@@ -137,7 +144,6 @@ void inGame::update()
 	else
 	{
 		collide();
-		_UI->update();
 		_itemManager->update();
 		_ptM->update();
 		_stage->update();			//플레이어 업데이트 여기 안에 있음!
@@ -147,6 +153,8 @@ void inGame::update()
 		_enemyManager->setPlayerPoint(_player->getPosition());
 		_enemyManager->setPlayerIndex(_player->getPlayerIndex());
 		//_Astar->setPlayerPositionLink(_player->getPosition());
+		_UI->update();
+		if (_enemyManager->getSaveNow()) saveData();
 	}
 	KEYANIMANAGER->update();
 }
@@ -158,6 +166,29 @@ void inGame::render()
 	_itemManager->render();
 	_ptM->render();
 	_UI->render();
+}
+
+void inGame::saveData()
+{
+	tagSaveInfo* temp = new tagSaveInfo;
+	temp->playerPosition = _player->getPosition();
+	temp->currnetHp = _player->getCurrentHp();
+	temp->coin = _player->getCoin();
+
+	for (int i = 0; i < _itemManager->getVItem().size(); i++)
+	{
+		temp->itemStatus[i] = _itemManager->getVItem()[i]->getStatus();
+		temp->itemPosition[i] = _itemManager->getVItem()[i]->getPosition();
+	}
+	for (int i = 0; i < 7; i++)
+	{
+		temp->skillSet[i] = _player->getSkillSet()->getSettingSkill()[i];
+	}
+	temp->bossDead[0] = _enemyManager->getFireBoss()->getFireBossDie();
+	temp->bossDead[1] = _enemyManager->getIceBoss()->getIceBossDie();
+	temp->bossDead[2] = _enemyManager->getWoodBoss()->getWoodBossDie();
+
+	_saveAndLoad->save(temp);
 }
 
 void inGame::collide()

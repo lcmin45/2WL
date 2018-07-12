@@ -100,9 +100,6 @@ HRESULT player::init() //초기화
 	_skillSet = new skillSet;
 	_skillSet->init();
 
-	_saveAndLoad = new saveAndLoad;
-	_saveAndLoad->init();
-
 	return S_OK;
 }
 
@@ -118,13 +115,6 @@ void player::update()
 	playerHpCheck();
 	_skillSet->update();
 	CAMERAMANAGER->setCameraPoint(_position);
-
-	//////////////////////////////////////////////임시
-	if (KEYMANAGER->isOnceKeyDown('Y'))
-	{
-		saveData();
-	}
-	////////////////////////////////////////////////
 }
 
 void player::render()
@@ -192,15 +182,15 @@ void player::keyProcess()
 		_action = (_action == ATTACK1 ? ATTACK2 : ATTACK1);
 		attackAngleProcess();
 		animationProcess();
-		_ptM->fire(_skillSet->getSettingSkill()[0].name);
+		_ptM->fire(_skillSet->getSettingSkill()[0].name.c_str());
 	}
 	//스킬 사용
 	if ((KEYMANAGER->isOnceKeyDown('Z') || KEYMANAGER->isOnceKeyDown('X') || KEYMANAGER->isOnceKeyDown('C')) && _action != DASH)
 	{
 		int index = (KEYMANAGER->isOnceKeyDown('Z') ? 1 : (KEYMANAGER->isOnceKeyDown('X') ? 2 : 3));
 		ACTION tempAction = _action;
-		_action = (strcmp(_skillSet->getSettingSkill()[index].name, "화염구") == 0 ? FIREBALL : (strcmp(_skillSet->getSettingSkill()[index].name, "불타는올가미") == 0 ? FIRESWORD : (strcmp(_skillSet->getSettingSkill()[index].name, "맹렬회오리") == 0 ? WINDSTORM : (_action == ATTACK1 ? ATTACK2 : ATTACK2))));
-		if (_ptM->fire(_skillSet->getSettingSkill()[index].name)) { attackAngleProcess(); animationProcess(); }
+		_action = (strcmp(_skillSet->getSettingSkill()[index].name.c_str(), "화염구") == 0 ? FIREBALL : (strcmp(_skillSet->getSettingSkill()[index].name.c_str(), "불타는올가미") == 0 ? FIRESWORD : (strcmp(_skillSet->getSettingSkill()[index].name.c_str(), "맹렬회오리") == 0 ? WINDSTORM : (_action == ATTACK1 ? ATTACK2 : ATTACK2))));
+		if (_ptM->fire(_skillSet->getSettingSkill()[index].name.c_str())) { attackAngleProcess(); animationProcess(); }
 		else _action = tempAction;
 	}
 }
@@ -317,7 +307,7 @@ void player::collisionCheckWithTile()
 	if (_playerTileIndex == 5 && _enemyManager->getVMage().size() != 0)				isRoomMove = false;
 	if (_playerTileIndex == 6 && _enemyManager->getVKnight().size() != 0)			isRoomMove = false;
 	if (_playerTileIndex == 7 && _enemyManager->getVRogue().size() != 0)			isRoomMove = false;
-	
+
 	if (!isRoomMove)
 	{
 		for (int i = 0; i < 4; ++i)
@@ -428,26 +418,6 @@ void player::playerHpCheck()
 	}
 
 	if (_action == DEAD) _currentHp = 0;
-}
-
-void player::saveData()
-{
-	tagSaveInfo* temp = new tagSaveInfo;
-	temp->playerPosition = _position;
-	temp->currnetHp = _currentHp;
-	temp->coin = _coin;
-
-	for (int i = 0; i < _itemManager->getVItem().size(); i++)
-	{
-		temp->itemStatus[i] = _itemManager->getVItem()[i]->getStatus();
-		temp->itemPosition[i] = _itemManager->getVItem()[i]->getPosition();
-	}
-	for (int i = 0; i < 7; i++)
-	{
-		temp->skillSet[i] = _skillSet->getSettingSkill()[i];
-	}
-
-	_saveAndLoad->save(temp);
 }
 
 void player::afterActionCallBack(void * obj)

@@ -12,6 +12,7 @@ struct tagSaveInfo
 	POINTFLOAT itemPosition[10];
 	STATUS itemStatus[10];
 	tagSkillSet skillSet[7];
+	bool bossDead[3];
 };
 
 class saveAndLoad : public gameNode

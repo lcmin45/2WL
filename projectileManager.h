@@ -43,7 +43,7 @@ public:
 	virtual void update();
 	virtual void render();
 
-	bool fire(const char * skillName);
+	bool fire(string skillName);
 	void fire(const char * skillName, POINTFLOAT pt);
 	void vectorCheck();
 	void vectorDraw();

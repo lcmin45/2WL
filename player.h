@@ -2,14 +2,13 @@
 #include "gameNode.h"
 #include "item.h"
 #include "skill.h"
-#include "saveAndLoad.h"
 #include "UI.h"
 #include "skillSet.h"
 
 #define PLAYER_MOVE_ANI_SPEED 10
 #define PLAYER_ACTION_ANI_SPEED 20
 
-#define PLAYER_HP 500.0f
+#define PLAYER_HP 600000.0f
 #define PLAYER_DAMAGE 1.0f
 #define PLAYER_SPEED 3.0f
 #define PLAYER_CRITICAL 10.0f
@@ -50,7 +49,6 @@ private:
 	bool _isDead;
 	int _playerTileIndex;
 	skillSet* _skillSet;
-	saveAndLoad* _saveAndLoad;
 	enemyManager* _enemyManager;
 
 public:
@@ -70,7 +68,6 @@ public:
 	void collisionCheckWithItem(); //아이템 충돌 처리
 	void inventoryProcess(); //인벤토리 처리
 	void playerHpCheck(); //플레이어 체력 체크
-	void saveData();
 	static void afterActionCallBack(void* obj); //에니매이션 콜백용
 	void afterAction(); //에니매이션 콜백용
 	static void playerDead(void* obj); //플레이어 죽음 콜백용
@@ -93,7 +90,6 @@ public:
 	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 	void setItemManagerAddressLink(itemManager* getLink) { _itemManager = getLink; }
 	void setProjectileManagerAddressLink(projectileManager* getLink) { _ptM = getLink; }
-
 	void setSaveInfo(POINTFLOAT position, float currentHp, int coin);
 	RECT getPlayerRect() { return _body; }
 	void setPosition(POINTFLOAT position) { _position = position; }

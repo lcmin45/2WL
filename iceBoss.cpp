@@ -129,7 +129,7 @@ void iceBoss::update()
 
 void iceBoss::iceMove()
 {
-	if (_iceMove == true)
+	if (_iceCurrentHP > 0)
 	{
 		++_bossMoveCount;
 		if (_bossMoveCount < 100)
@@ -261,21 +261,24 @@ void iceBoss::iceMove()
 
 void iceBoss::iceSkill()
 {
-	if (_bossImg == IMAGEMANAGER->findImage("얼음스킬"))
+	if (_iceCurrentHP > 0)
 	{
-		if (_skill == false)
+		if (_bossImg == IMAGEMANAGER->findImage("얼음스킬"))
 		{
-			_ptM->fire("얼음던지기", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("얼음던지기", { _x, _y });
+				_skill = true;
+			}
 		}
-	}
 
-	else if (_bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
-	{
-		if (_skill == false)
+		else if (_bossImg == IMAGEMANAGER->findImage("얼음스킬2"))
 		{
-			_ptM->fire("우박", { _x, _y });
-			_skill = true;
+			if (_skill == false)
+			{
+				_ptM->fire("우박", { _x, _y });
+				_skill = true;
+			}
 		}
 	}
 }

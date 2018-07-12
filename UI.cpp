@@ -73,10 +73,10 @@ void UI::render()
 	{
 		IMAGEMANAGER->findImage((i == 0 ? "mouseL" : (i == 1 ? "buttonZ" : (i == 2 ? "buttonX" : "buttonC"))))->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 125);
 		char temp[50] = "UI";
-		strcat_s(temp, _player->getSkillSet()->getSettingSkill()[i].name);
+		strcat_s(temp, _player->getSkillSet()->getSettingSkill()[i].name.c_str());
 		IMAGEMANAGER->findImage(temp)->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 75);
 
-		if (_projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name) <= 0.0f) continue;
+		if (_projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name.c_str()) <= 0.0f) continue;
 
 		HFONT font, oldFont;
 		RECT itemText;
@@ -86,7 +86,7 @@ void UI::render()
 		SetTextColor(CAMERAMANAGER->getCameraDC(), RGB(255, 0, 0));
 		SetBkMode(CAMERAMANAGER->getCameraDC(), TRANSPARENT);
 		char info[128];
-		sprintf_s(info, "%.1f", _projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name));
+		sprintf_s(info, "%.1f", _projectileManager->getCoolTime(_player->getSkillSet()->getSettingSkill()[i].name.c_str()));
 		itemText = RectMake(25 + i * 75, WINSIZEY - 75, 50, 50);
 		DrawText(CAMERAMANAGER->getCameraDC(), TEXT(info), strlen(info), &itemText, DT_CENTER | DT_VCENTER | DT_SINGLELINE);
 
