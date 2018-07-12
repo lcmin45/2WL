@@ -495,6 +495,33 @@ void inGame::collide()
 		}
 	}
 
+	if (_enemyManager->getFireBoss()->getbossimage() == IMAGEMANAGER->findImage("불피격"))
+	{
+		++_count;
+		if ((_count % 5 == 0) && (_enemyManager->getFireBoss()->getbossimage() == IMAGEMANAGER->findImage("불피격")))
+		{
+			_enemyManager->getFireBoss()->setbossimage(IMAGEMANAGER->findImage("불등장"));
+		}
+	}
+
+	else if (_enemyManager->getIceBoss()->getbossimage() == IMAGEMANAGER->findImage("얼음피격"))
+	{
+		++_count;
+		if ((_count % 5 == 0) && (_enemyManager->getIceBoss()->getbossimage() == IMAGEMANAGER->findImage("얼음피격")))
+		{
+			_enemyManager->getIceBoss()->setbossimage(IMAGEMANAGER->findImage("얼음등장"));
+		}
+	}
+
+	else if (_enemyManager->getWoodBoss()->getbossimage() == IMAGEMANAGER->findImage("나무오른쪽피격"))
+	{
+		++_count;
+		if ((_count % 5 == 0) && (_enemyManager->getWoodBoss()->getbossimage() == IMAGEMANAGER->findImage("나무오른쪽피격")))
+		{
+			_enemyManager->getWoodBoss()->setbossimage(IMAGEMANAGER->findImage("나무등장"));
+		}
+	}
+
 	//================================= 플레이어랑 적 스킬 충돌체크 ============================
 	for (int j = 0; j < _ptM->getVSkill().size(); ++j)
 	{
