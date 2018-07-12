@@ -93,6 +93,7 @@ void ³ª¹«¼Ú±â::woodVector()
 {
 	for (viWood = vWood.begin(); viWood != vWood.end(); ++viWood)
 	{
+		if ((*viWood)->frameIndex == 0) SOUNDMANAGER->play("WoodPickUp");
 		(*viWood)->frameIndex++;
 		if ((*viWood)->frameIndex > 4) (*viWood)->frameIndex = 5;
 	}
