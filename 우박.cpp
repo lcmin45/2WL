@@ -54,6 +54,7 @@ void 우박::fire(const char * skillName, int amount, float angle, float speed, fl
 {
 	if (!_img)
 	{
+		SOUNDMANAGER->play("Blizzard");
 		_subject = subject;
 		sprintf_s(_str, "우박범위");
 		_img = IMAGEMANAGER->findImage(_str);

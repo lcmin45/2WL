@@ -27,11 +27,14 @@ void 얼음던지기매니저::update()
 		if (TIMEMANAGER->getWorldTime() - _startTime <= 0.7f)
 		{
 			if (count % 5 == 0);
-			{얼음던지기* IceThrow = new 얼음던지기;
-			IceThrow->fire(_str, _amount, _pt, _speed, _range, _damage, _coolTime, _subject);
-			IceThrow->getPlayerAddressLink(_player);
-			vIceThrow.push_back(IceThrow);
-			count = 0; }
+			{
+				SOUNDMANAGER->play("IceFormQuick");
+				얼음던지기* IceThrow = new 얼음던지기;
+				IceThrow->fire(_str, _amount, _pt, _speed, _range, _damage, _coolTime, _subject);
+				IceThrow->getPlayerAddressLink(_player);
+				vIceThrow.push_back(IceThrow);
+				count = 0;
+			}
 		}
 		if (vIceThrow.size() != 0)
 		{

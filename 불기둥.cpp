@@ -42,6 +42,7 @@ void ºÒ±âµÕ::fire(const char * skillName, int amount, POINTFLOAT pt, float angle
 {
 	if (!_img)
 	{
+		SOUNDMANAGER->play("Explosion");
 		_subject = subject;
 		sprintf_s(_str, "ºÒ±âµÕ");
 		_img = IMAGEMANAGER->findImage("ºÒ±âµÕ");
@@ -66,7 +67,11 @@ void ºÒ±âµÕ::move()
 		_pt.x += cosf(_angle) * _speed;
 		_pt.y -= sinf(_angle) * _speed;
 		_rc = RectMakeCenter(_pt.x, _pt.y, _img->getFrameWidth(), _img->getFrameHeight());
-		if (_frameIndex > _img->getMaxFrameX()) _frameIndex = 0;
+		if (_frameIndex > _img->getMaxFrameX())
+		{
+			_frameIndex = 0;
+			SOUNDMANAGER->play("Explosion");
+		}
 	}
 
 }

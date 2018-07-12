@@ -40,6 +40,7 @@ void 돌던지기::fire(const char * skillName, int amount, POINTFLOAT pt, float spe
 {
 	if (!_img)
 	{
+		SOUNDMANAGER->play("ThrowBoulder");
 		_subject = subject;
 		sprintf_s(_str, "%s", skillName);
 		_img = IMAGEMANAGER->findImage("돌던지기");
@@ -80,5 +81,6 @@ void 돌던지기::frameCount()
 	if (TIMEMANAGER->getWorldTime() - _startTime > 0.5f)
 	{
 		_img = IMAGEMANAGER->findImage("돌던지기2");
+		SOUNDMANAGER->play("ThrowBoulder");
 	}
 }
