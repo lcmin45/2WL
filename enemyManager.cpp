@@ -5,9 +5,10 @@
 enemyManager::enemyManager() {}
 enemyManager::~enemyManager() {}
 
+static int _key = 0;
+
 HRESULT enemyManager::init()
 {
-
 	_key += 1;
 
 	setBoss();

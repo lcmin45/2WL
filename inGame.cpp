@@ -48,6 +48,8 @@ HRESULT inGame::init()
 
 	_player->update();
 
+	saveData();
+
 	return S_OK;
 }
 
@@ -59,22 +61,34 @@ HRESULT inGame::init(void * obj)
 	_stage->init();
 	_stage->stageLoad(1);
 
-	
-
-	_player = new player;
-	_player->init();
-
 	_UI = new UI;
 	_UI->init();
 
+	_player = new player;
+	_player->init();
+	_player->setSaveInfo(temp->playerPosition, temp->currnetHp, temp->coin);
+	for (int i = 0; i < 7; i++)
+	{
+		_player->getSkillSet()->setSettingSkill(temp->skillSet[i], i);
+	}
+
 	_itemManager = new itemManager;
 	_itemManager->init();
+	for (int i = 0; i < _itemManager->getVItem().size(); i++)
+	{
+		if (temp->itemStatus[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
+		else if (temp->itemStatus[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
+		else if (temp->itemStatus[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
+		else { _itemManager->getVItem()[i]->setPosition({ 0, 0 });  _itemManager->getVItem()[i]->setStatus(NOWHERE); }
+	}
 
 	_ptM = new projectileManager;
 	_ptM->init();
 
 	_enemyManager = new enemyManager;
 	_enemyManager->init();
+	_enemyManager->setBossDead(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
+	_enemyManager->setAlreadyDrop(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
 
 	_Astar = new Astar;
 
@@ -83,31 +97,22 @@ HRESULT inGame::init(void * obj)
 	_player->setTileAddressLink(_stage->getTileinfo());
 	_player->setItemManagerAddressLink(_itemManager);
 	_player->setProjectileManagerAddressLink(_ptM);
-	_enemyManager->setProjectileManagerAddressLink(_ptM);
 	_itemManager->setPlayerAddressLink(_player);
+	_enemyManager->setProjectileManagerAddressLink(_ptM);
+	_enemyManager->setItemManagerLink(_itemManager);
 	_ptM->setPlayerAddressLink(_player);
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 	_player->setEnemyManagerAddressLink(_enemyManager);
 
-	_player->setSaveInfo(temp->playerPosition, temp->currnetHp, temp->coin);
-	for (int i = 0; i < 7; i++)
-	{
-		_player->getSkillSet()->setSettingSkill(temp->skillSet[i], i);
-	}
-	for (int i = 0; i < _itemManager->getVItem().size(); i++)
-	{
-		if (temp->itemStatus[i] == ON_FIELD) { _itemManager->getVItem()[i]->setPosition(temp->itemPosition[i]); _itemManager->getVItem()[i]->setStatus(ON_FIELD); }
-		else if (temp->itemStatus[i] == IN_INVENTORY) _itemManager->addItemToInventory(_itemManager->getVItem()[i]);
-		else if (temp->itemStatus[i] == IN_STORE) _itemManager->addItemToStore(_itemManager->getVItem()[i]);
-		else { _itemManager->getVItem()[i]->setPosition({ 0, 0 });  _itemManager->getVItem()[i]->setStatus(NOWHERE); }
-	}
-	_enemyManager->setBossDead(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
-	_enemyManager->setAlreadyDrop(temp->bossDead[0], temp->bossDead[1], temp->bossDead[2]);
-
 	_BlackAalpha = 255;
 
+	_saveAndLoad = new saveAndLoad;
+	_saveAndLoad->init();
+
 	_player->update();
+
+	saveData();
 
 	return S_OK;
 }
@@ -115,6 +120,7 @@ HRESULT inGame::init(void * obj)
 void inGame::release()
 {
 	_enemyManager->release();
+	_itemManager->release();
 	SAFE_DELETE(_UI);
 	SAFE_DELETE(_player);
 	SAFE_DELETE(_itemManager);
@@ -185,17 +191,7 @@ void inGame::render()
 	//		}
 	//	}
 	//}
-
-	if (KEYMANAGER->isToggleKey('G'))
-	{
-		for (int i = 0; i < _ptM->getVSkill().size(); ++i)
-		{
-			for (int j = 0; j < MAXPARTICLE; ++j)
-			{
-				Rectangle(getMemDC(), _ptM->getVSkill()[i]->getsRect()[j].left, _ptM->getVSkill()[i]->getsRect()[j].top, _ptM->getVSkill()[i]->getsRect()[j].right, _ptM->getVSkill()[i]->getsRect()[j].bottom);
-			}
-		}
-	}
+}
 
 void inGame::saveData()
 {

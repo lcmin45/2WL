@@ -129,7 +129,7 @@ void fireBoss::update()
 
 void fireBoss::fireMove()
 {
-	if (_fireCurrentHP > 0)
+	if ((_fireCurrentHP > 0) && (_fireMove == true))
 	{
 		++_bossMoveCount;
 		//대각선 이동

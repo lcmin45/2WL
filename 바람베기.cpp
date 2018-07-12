@@ -32,7 +32,6 @@ void 바람베기::update()
 void 바람베기::render()
 {
 	if (_img)_img->frameRender(getMemDC(), _rc.left, _rc.top);
-	if (KEYMANAGER->isToggleKey(VK_TAB)) Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
 }
 
 void 바람베기::move()

@@ -146,15 +146,15 @@ void soundManager::removePlayList(string keyName)
 
 void soundManager::play(string KeyName)
 {
-	bool isCheck;
-
 	for (_viSound = _vSound.begin(); _viSound != _vSound.end(); ++_viSound)
 	{
 		if (KeyName == _viSound->keyName)
 		{
 			for (int index = 0; index < TOTALSOUNDBUFFER; ++index)
 			{
-				if (_channel[index].keyName == "\0" || _channel[index].keyName == KeyName)
+				bool isCheck = true;
+				_channel[index].channel->isPlaying(&isCheck);
+				if (!isCheck)
 				{
 					_system->playSound(FMOD_CHANNEL_FREE, _viSound->sound, false, &_channel[index].channel);
 					_channel[index].keyName = _viSound->keyName;

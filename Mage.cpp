@@ -104,11 +104,6 @@ void Mage::render()
 {
 
 	_image->aniRender(getMemDC(), _rc.left, _rc.top, _Motion);
-	if (KEYMANAGER->isToggleKey(VK_TAB))
-	{
-		Rectangle(getMemDC(), _Zrc.left, _Zrc.top, _Zrc.right, _Zrc.bottom);
-		Rectangle(getMemDC(), _rc.left, _rc.top, _rc.right, _rc.bottom);
-	}
 }
 
 void Mage::MageMove()

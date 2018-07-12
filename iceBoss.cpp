@@ -129,7 +129,7 @@ void iceBoss::update()
 
 void iceBoss::iceMove()
 {
-	if (_iceCurrentHP > 0)
+	if ((_iceCurrentHP > 0) && (_iceMove == true))
 	{
 		++_bossMoveCount;
 		if (_bossMoveCount < 100)

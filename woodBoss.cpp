@@ -141,7 +141,7 @@ void woodBoss::update()
 void woodBoss::woodMove()
 {
 
-	if (_woodCurrentHP > 0)
+	if ((_woodCurrentHP > 0) && (_woodMove == true))
 	{
 		++_bossMoveCount;
 

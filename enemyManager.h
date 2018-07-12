@@ -65,7 +65,7 @@ private:
 
 	POINTFLOAT		_playerPoint;
 	int				_playerIndex;
-	int _key;
+	
 	bool _alreadyDrop[3];
 
 	bool fireBossStart;

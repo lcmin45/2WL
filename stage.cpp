@@ -104,10 +104,6 @@ void stage::render()
 		}
 
 	}
-
-	char str[128];
-	sprintf_s(str, "%d, %d", _player->getPosition().x, _player->getPosition().y);
-	TextOut(CAMERAMANAGER->getCameraDC(), 100, 100, str, strlen(str));
 	
 	////////////////Æ÷Å»//////////////////
 	for (int i = 0; i < 6; i++)
