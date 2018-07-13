@@ -70,7 +70,6 @@ void page2::tileRender(void)
 {
 	for (int i = 0; i < MAXBOX; ++i)
 	{
-		// 지금만 삭제
 		if (_box[i].imageObjectIndex == NULL) continue;
 
 		IMAGEMANAGER->findImage(_box[i].objectImageName)->frameRender(CAMERAMANAGER->getCameraDC(),

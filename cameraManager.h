@@ -4,8 +4,8 @@
 class cameraManager : public singletonBase<cameraManager>
 {
 private:
-	image*	_camera;
-	POINTFLOAT _cameraPos;
+	image*	_camera;		// 카메라 화면이 담길 곳
+	POINTFLOAT _cameraPos;	// 카메라 중점 좌표
 public:
 	cameraManager();
 	~cameraManager();

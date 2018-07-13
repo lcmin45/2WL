@@ -9,7 +9,7 @@ class miniMap;
 class mapTool : public gameNode
 {
 private:
-	mapTile*		_mapTile;		// Å¸ÀÏ¸Ê
+	mapTile * _mapTile;		// Å¸ÀÏ¸Ê
 	mapToolBook*	_book;			// Ã¥
 	miniMap*		_miniMap;		// ¹Ì´Ï¸Ê
 
@@ -28,7 +28,7 @@ public:
 	void mapToolUpdate(void);		// ¸ÊÅø µ¿ÀÛ
 	void inputKey(void);			// ÀÔ·ÂÅ° Ã³¸®
 
-	void miniMapRender(void);	// ¹Ì´Ï¸Ê ·£´õ
-	void mapToolRender(void);	// ¸ÊÅø ·»´õ
+	void miniMapRender(void);		// ¹Ì´Ï¸Ê ·£´õ
+	void mapToolRender(void);		// ¸ÊÅø ·»´õ
 };
 

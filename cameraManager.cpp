@@ -36,6 +36,8 @@ void cameraManager::render()
 
 void cameraManager::render(image* img)
 {
+	// playGround에서 칠한 검은색 위에 이미지들이 렌더되고 백버퍼의 이미지에 씌우면서 검은색 배경을 삭제한다
+
 	GdiTransparentBlt(img->getMemDC(), _cameraPos.x - WINSIZEX / 2, _cameraPos.y - WINSIZEY / 2, WINSIZEX, WINSIZEY,
 		_camera->getMemDC(), 0, 0, WINSIZEX, WINSIZEY, RGB(0, 0, 0));
 }

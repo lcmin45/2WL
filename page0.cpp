@@ -20,7 +20,6 @@ void page0::release(void)
 
 void page0::update(void)
 {
-	if (KEYMANAGER->isOnceKeyDown('X')) _mapTile->save();
 	checkBox();
 }
 

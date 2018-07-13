@@ -27,13 +27,13 @@ public:
 	virtual void update(void);
 	virtual void render(void);
 
-	void boxInit(void);
+	void boxInit(void);			// 박스 초기화
 
-	void checkBox(void);
+	void checkBox(void);		// 박스 체크시 상태 변경
 
-	void titleRender(void);
-	void tileRender(void);
-	void boxRender(void);
+	void titleRender(void);		// 타이틀 폰트 렌더
+	void tileRender(void);		// 타일 이미지 렌더
+	void boxRender(void);		// 박스 이미지 렌더
 
 	void setIndex(int index);
 	void setCenterPoint(POINT point);

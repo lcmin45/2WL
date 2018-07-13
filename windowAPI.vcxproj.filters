@@ -309,9 +309,6 @@
     <ClInclude Include="tileObject.h">
       <Filter>playGround\mapTool\object</Filter>
     </ClInclude>
-    <ClInclude Include="mapTile.h">
-      <Filter>playGround\mapTool\tile</Filter>
-    </ClInclude>
     <ClInclude Include="projectileManager.h">
       <Filter>playGround\skill</Filter>
     </ClInclude>
@@ -389,6 +386,9 @@
     </ClInclude>
     <ClInclude Include="skillSet.h">
       <Filter>playGround\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="mapTile.h">
+      <Filter>playGround\mapTool\tile</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -4,10 +4,10 @@
 class tileObject : public gameNode
 {
 private:
-	image *		_img;
-	animation*	_animation;
-	POINT		_tileCenterPoint;
-	POINT		_renderPoint;
+	image * _img;				// 이미지
+	animation*	_animation;			// 애니메이션
+	POINT		_tileCenterPoint;	// 타일 중점 포인트
+	POINT		_renderPoint;		// 랜드용 좌표
 
 public:
 	tileObject();

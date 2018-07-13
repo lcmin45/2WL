@@ -18,11 +18,11 @@ private:
 	miniMap*			_miniMap;
 
 	bool				_isMouseBook;		// 마우스가 책위에 있는지 체크
-	tagAutoPoint		_autoPoint;
-	POINT				_startPoint;
-	POINT				_endPoint;
+	tagAutoPoint		_autoPoint;			// 오토 포인트
+	POINT				_startPoint;		// 오토 체크용 스타트 포인트
+	POINT				_endPoint;			// 오토 체크용 엔드 포인트
 
-	bool				_isMiniMap;
+	bool				_isMiniMap;			// 미니맵을 보는중?
 
 public:
 	mapTile();
@@ -42,7 +42,6 @@ public:
 	void checkObject(void);			// 박스에 오브젝트 체크
 	void checkAuto(void);			// 박스에 자동타일 체크
 	void checkRoomIndex(void);		// 몬스터 등장용 인덱스 설정
-	void checkEraser(void);
 
 	void terrainRender(void);		// 지형 렌더
 	void imageObjectRender(void);	// 이미지 오브젝트 렌더
@@ -50,7 +49,7 @@ public:
 	void tileBoxRender(void);		// 타일 박스 렌더
 	void pointRender(void);			// 좌표 렌더
 	void mouseBoxRender(void);		// 마우스가 있는 박스 렌더
-	void mousePointRender(void);	// 마우스 체크 렌더
+	void roomIndexRender(void);		// 방 인덱스 렌더
 
 	void save(void);				// 저장
 	void load(void);				// 불러오기

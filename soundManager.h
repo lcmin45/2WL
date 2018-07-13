@@ -39,8 +39,8 @@ private:
 	tagChannel*					_channel;
 	Channel*					_singleChannel;
 
-	float						_bgmVolume;
-	float						_effVolume;
+	float						_bgmVolume;		// BGM 볼륨
+	float						_effVolume;		// EFFECT 볼륨
 
 public:
 	HRESULT init();
@@ -63,6 +63,7 @@ public:
 	void setEffectVolume(float volume);
 	float getEffectVolume(void);
 
+	// BGM 용의 단일 채널
 	void singleChannelPlay(string keyName);
 	void singleChannelPause(void);
 	void singleChannelResume(void);

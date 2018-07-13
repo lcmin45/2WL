@@ -24,14 +24,14 @@ public:
 	virtual void update(void);
 	virtual void render(void);
 
-	void boxInit(void);
+	void boxInit(void);					// 박스 초기화
 
-	void checkBox(void);
+	void checkBox(void);				// 박스 선택시 현재 상태 변경
 
-	void boxRender(void);
-	void fontRender(void);
+	void boxRender(void);				// 박스 렌더
+	void fontRender(void);				// 폰트 렌더
 
-	void setCenterPoint(POINT point);
+	void setCenterPoint(POINT point);	// 책의 중점 좌표를 받아와 박스의 위치를 재설정
 
 	void setMapTileClass(mapTile* mapTile) { _mapTile = mapTile; }
 };

@@ -26,7 +26,6 @@ void mapToolBook::release(void)
 
 void mapToolBook::update(void)
 {
-	if (KEYMANAGER->isOnceKeyDown('Z')) _mainBook.pageIndex = 0;
 	inputKey();
 	checkPageIndexCenter();
 	pageUpdate();

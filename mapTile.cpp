@@ -23,46 +23,6 @@ void mapTile::update(void)
 {
 	inputKey();
 	checkTile();
-
-	if (KEYMANAGER->isOnceKeyDown('F'))
-	{
-		_eraser = ER_NONE;
-		_currentCheck = CH_AUTO_DELETE_WAY;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('G'))
-	{
-		_eraser = ER_WAY;
-		_currentCheck = CH_AUTO_DELETE_WAY;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('H'))
-	{
-		_eraser = ER_WALL;
-		_currentCheck = CH_AUTO_DELETE_WAY;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('J'))
-	{
-		_eraser = ER_OBJ;
-		_currentCheck = CH_AUTO_DELETE_WAY;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('P'))
-	{
-		_currentCheck = CH_OBJECT_IMAGE;
-		_currentObject.objectIndex = NULL;
-		_currentObject.imageObjectIndex = NULL;
-		_currentObject.frameX = NULL;
-		_currentObject.frameY = NULL;
-		_currentObject.terrain = TR_NONE;
-	}
-
-	if (KEYMANAGER->isOnceKeyDown('O'))
-	{
-		_currentCheck = CH_OBJECT;
-		_currentObject.objectIndex = NULL;
-	}
 }
 
 void mapTile::render(void)
@@ -74,37 +34,9 @@ void mapTile::render(void)
 
 	pointRender();
 	mouseBoxRender();
-	mousePointRender();
+	roomIndexRender();
 
-	if (KEYMANAGER->isToggleKey(VK_F8))
-	{
-		for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-		{
-			for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-			{
-				if (CAMERAMAXCHECK) continue;
 
-				char str[128];
-				sprintf_s(str, "%d", (int)_tile[i * MAXTILEX + j].terrain);
-				TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
-			}
-		}
-	}
-
-	// ·ë ÀÎµ¦½º Å×½ºÆ®
-	if (KEYMANAGER->isToggleKey(VK_F9)) return;
-
-	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	{
-		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-		{
-			if (CAMERAMAXCHECK || _tile[i * MAXTILEX + j].roomIndex == NULL) continue;
-
-			char str[128];
-			sprintf_s(str, "%d", _tile[i * MAXTILEX + j].roomIndex);
-			TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
-		}
-	}
 }
 
 void mapTile::tileInit(void)
@@ -142,7 +74,6 @@ void mapTile::checkTile(void)
 	checkObject();
 	checkAuto();
 	checkRoomIndex();
-	checkEraser();
 }
 
 void mapTile::checkTerrain(void)
@@ -330,7 +261,7 @@ void mapTile::checkRoomIndex(void)
 {
 	if (_currentCheck != CH_ROOM_INDEX) return;
 
-	// ÃßÈÄ ¼öÁ¤ ÇÊ¿ä
+	// ·ë ÀÎµ¦½º ¼³Á¤
 	if (KEYMANAGER->isOnceKeyDown('1')) _currentAuto.roomIndex = 1;
 	if (KEYMANAGER->isOnceKeyDown('2')) _currentAuto.roomIndex = 2;
 	if (KEYMANAGER->isOnceKeyDown('3')) _currentAuto.roomIndex = 3;
@@ -386,64 +317,6 @@ void mapTile::checkRoomIndex(void)
 	}
 }
 
-void mapTile::checkEraser(void)
-{
-	if (_eraser == ER_NONE) return;
-
-	if (KEYMANAGER->isOnceKeyDown(VK_LBUTTON) && !_isMouseBook)
-	{
-		_startPoint = PointMake(getMousePoint().x / TILESIZE, getMousePoint().y / TILESIZE);
-	}
-
-	if (KEYMANAGER->isOnceKeyUp(VK_LBUTTON) && _startPoint.x != NULL && _startPoint.y != NULL)
-	{
-		_endPoint = PointMake(getMousePoint().x / TILESIZE, getMousePoint().y / TILESIZE);
-
-		POINT tempPoint;
-
-		if (_startPoint.x > _endPoint.x)
-		{
-			tempPoint.x = _endPoint.x;
-			_endPoint.x = _startPoint.x;
-			_startPoint.x = tempPoint.x;
-		}
-
-		if (_startPoint.y > _endPoint.y)
-		{
-			tempPoint.y = _endPoint.y;
-			_endPoint.y = _startPoint.y;
-			_startPoint.y = tempPoint.y;
-		}
-
-		int temp;
-
-		for (int i = _startPoint.y; i < _endPoint.y + 1; ++i)
-		{
-			for (int j = _startPoint.x; j < _endPoint.x + 1; ++j)
-			{
-				temp = i * MAXTILEX + j;
-
-				switch (_eraser)
-				{
-				case ER_WAY:
-					_tile[temp].terrain = TR_WAY;
-					//_tile[temp].terrain = TR_NONE;
-					break;
-				case ER_WALL:
-					_tile[temp].terrain = TR_WALL;
-					break;
-				case ER_OBJ:
-					_tile[temp].object = OBJ_WAY;
-					break;
-				}
-			}
-		}
-
-		_startPoint = ZEROPOINT;
-		_endPoint = ZEROPOINT;
-	}
-}
-
 void mapTile::terrainRender(void)
 {
 	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
@@ -460,16 +333,6 @@ void mapTile::terrainRender(void)
 			case 11:
 				IMAGEMANAGER->findImage("AUTO_TILE_IMAGE_2")->frameRender(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, _tile[i * MAXTILEX + j].terrainFrameX, _tile[i * MAXTILEX + j].terrainFrameY);
 				break;
-			}
-
-			if (KEYMANAGER->isToggleKey(VK_F3))
-			{
-				if (_tile[i * MAXTILEX + j].terrain == TR_WALL)
-				{
-					char str[128];
-					sprintf_s(str, "1");
-					TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
-				}				
 			}
 		}
 	}
@@ -600,11 +463,21 @@ void mapTile::mouseBoxRender(void)
 	}
 }
 
-void mapTile::mousePointRender(void)
+void mapTile::roomIndexRender(void)
 {
-	if (_isMouseBook) return;
+	if (KEYMANAGER->isToggleKey(VK_F9)) return;
 
+	for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
+	{
+		for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
+		{
+			if (CAMERAMAXCHECK || _tile[i * MAXTILEX + j].roomIndex == NULL) continue;
 
+			char str[128];
+			sprintf_s(str, "%d", _tile[i * MAXTILEX + j].roomIndex);
+			TextOut(getMemDC(), _tile[i * MAXTILEX + j].rc.left, _tile[i * MAXTILEX + j].rc.top, str, strlen(str));
+		}
+	}
 }
 
 void mapTile::save(void)
@@ -704,36 +577,5 @@ void mapTile::minimap(void)
 		}
 	}
 
-	//for (int i = CAMERASTARTY; i < CAMERAENDY; ++i)
-	//{
-	//	for (int j = CAMERASTARTX; j < CAMERAENDX; ++j)
-	//	{
-	//		if (CAMERAMAXCHECK) continue;
-	//
-	//		switch (_tile[i * MAXTILEX + j].imageObjectIndex)
-	//		{
-	//		case 13:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_1_3")->frameRender(tempImg->getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		case 22:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_2_2")->frameRender(tempImg->getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		case 23:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_2_3")->frameRender(tempImg->getMemDC(), _tile[(i - 2) * MAXTILEX + (j)].rc.left, _tile[(i - 2) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		case 24:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_2_4")->frameRender(tempImg->getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		case 32:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_3_2")->frameRender(tempImg->getMemDC(), _tile[(i - 1) * MAXTILEX + (j)].rc.left, _tile[(i - 1) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		case 34:
-	//			IMAGEMANAGER->findImage("IMAGE_OBJECT_3_4")->frameRender(tempImg->getMemDC(), _tile[(i - 3) * MAXTILEX + (j)].rc.left, _tile[(i - 3) * MAXTILEX + (j)].rc.top, _tile[i * MAXTILEX + j].imageObjectFrameX, _tile[i * MAXTILEX + j].imageObjectFrameY);
-	//			break;
-	//		}
-	//	}
-	//}
-
 	_miniMap->setMiniMap(tempImg->getMemDC());
-	//_miniMap->setMiniMap(getMemDC());
 }

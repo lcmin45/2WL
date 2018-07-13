@@ -33,5 +33,5 @@ void miniMap::setMiniMap(HDC hdc)
 {
 	PatBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, BLACKNESS);
 
-	StretchBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, hdc, 0, 0, TOTALSIZEX, TOTALSIZEY, SRCCOPY);
+	StretchBlt(_miniMap->getMemDC(), 0, 0, WINSIZEY, WINSIZEY, hdc, 0, 0, TOTALSIZEX, TOTALSIZEY, SRCCOPY);		// 축소복사
 }
