@@ -10,7 +10,7 @@
 
 #define PLAYER_HP 50000.0f
 #define PLAYER_DAMAGE 1.0f
-#define PLAYER_SPEED 3.0f
+#define PLAYER_SPEED 4.5f
 #define PLAYER_CRITICAL 10.0f
 #define PLAYER_DASH_SPEED 4.0f
 

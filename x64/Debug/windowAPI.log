@@ -1,0 +1,103 @@
+﻿  Ghoul.cpp
+  Knight.cpp
+  Mage.cpp
+  Rogue.cpp
+  Scarecrow.cpp
+  UI.cpp
+  boss.cpp
+  enemyManager.cpp
+  fireBoss.cpp
+  iceBoss.cpp
+  inGame.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(1806): warning C4819: 현재 코드 페이지(0)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(1802): note: 클래스 템플릿 멤버 함수 '얼음던지기 *&std::vector<얼음던지기 *,std::allocator<_Ty>>::operator [](const unsigned __int64)'을(를) 컴파일하고 있습니다.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\users\2_kga_19\source\repos\2wl\ingame.cpp(548): note: 컴파일 중인 함수 템플릿 인스턴스화 '얼음던지기 *&std::vector<얼음던지기 *,std::allocator<_Ty>>::operator [](const unsigned __int64)'에 대한 참조를 확인하십시오.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\users\2_kga_19\source\repos\2wl\skill.h(76): note: 컴파일 중인 클래스 템플릿 인스턴스화 'std::vector<얼음던지기 *,std::allocator<_Ty>>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  itemManager.cpp
+  monster.cpp
+  playGround.cpp
+  player.cpp
+  projectileManager.cpp
+  stage.cpp
+  windowAPI.cpp
+  woodBoss.cpp
+  나무솟기.cpp
+  코드를 생성하고 있습니다...
+  컴파일하고 있습니다...
+  돌던지기.cpp
+  불기둥.cpp
+  얼음던지기.cpp
+  얼음던지기매니저.cpp
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(1623): warning C4819: 현재 코드 페이지(0)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(1617): note: 클래스 템플릿 멤버 함수 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::erase(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>)'을(를) 컴파일하고 있습니다.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\users\2_kga_19\source\repos\2wl\얼음던지기매니저.cpp(45): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> std::vector<_Ty,std::allocator<_Ty>>::erase(std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>)'에 대한 참조를 확인하십시오.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\users\2_kga_19\source\repos\2wl\skill.h(76): note: 컴파일 중인 클래스 템플릿 인스턴스화 'std::vector<얼음던지기 *,std::allocator<_Ty>>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(56): warning C4819: 현재 코드 페이지(0)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(48): note: 클래스 템플릿 멤버 함수 '얼음던지기 *const &std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::operator *(void) const'을(를) 컴파일하고 있습니다.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(296): note: 컴파일 중인 함수 템플릿 인스턴스화 '얼음던지기 *const &std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::operator *(void) const'에 대한 참조를 확인하십시오.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(273): note: 컴파일 중인 클래스 템플릿 인스턴스화 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\users\2_kga_19\source\repos\2wl\skill.h(77): note: 컴파일 중인 클래스 템플릿 인스턴스화 'std::_Vector_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>'에 대한 참조를 확인하세요.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(227): warning C4819: 현재 코드 페이지(0)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(224): note: 클래스 템플릿 멤버 함수 'void std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::_Compat(const std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> &) const'을(를) 컴파일하고 있습니다.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(192): note: 컴파일 중인 함수 템플릿 인스턴스화 'void std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::_Compat(const std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> &) const'에 대한 참조를 확인하십시오.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(84): warning C4819: 현재 코드 페이지(0)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(77): note: 클래스 템플릿 멤버 함수 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> &std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::operator ++(void)'을(를) 컴파일하고 있습니다.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  c:\program files (x86)\microsoft visual studio\2017\community\vc\tools\msvc\14.13.26128\include\vector(306): note: 컴파일 중인 함수 템플릿 인스턴스화 'std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>> &std::_Vector_const_iterator<std::_Vector_val<std::_Simple_types<_Ty>>>::operator ++(void)'에 대한 참조를 확인하십시오.
+          with
+          [
+              _Ty=얼음던지기 *
+          ]
+  코드를 생성하고 있습니다...
+  windowAPI.vcxproj -> C:\Users\2_KGA_19\Source\Repos\2WL\x64\Debug\windowAPI.exe
