@@ -11,13 +11,13 @@ enum SUBJECT
 
 struct PARTICLE
 {
-	image* img;
-	POINTFLOAT pt;
-	RECT rc;
-	int indexX;
-	int indexY;
-	float angle;
-	float startTime;
+	image* img;						//파티클 이미지
+	POINTFLOAT pt;					//파티클 좌표
+	RECT rc;						//파티클 렉트
+	int indexX;						//파티클 프레임 인덱스 X
+	int indexY;						//파티클 프레임 인덱스 Y
+	float angle;					//파티클 앵글
+	float startTime;				//파티클 생성된시간 
 };
 
 class skill : public gameNode
@@ -25,23 +25,23 @@ class skill : public gameNode
 protected:
 	struct WOODPARTICLE
 	{
-		image* img;
-		POINTFLOAT pt;
-		RECT rc;
-		int frameIndex;
+		image* img;						//우드보스 파티클 이미지
+		POINTFLOAT pt;					//우드보스 파티클 좌표
+		RECT rc;						//우드보스 렉트
+		int frameIndex;					//우드보스 프레임 인덱스
 	};
 	struct METEOR
 	{
-		image* img;
-		image* img2;
-		POINTFLOAT pt, pt2;
-		RECT rc, rc2;
-		int frameIndex, frameIndex2;
-		float startTime;
+		image* img;						//파이어 보스 마법진 이미지 & 폭발 이미지
+		image* img2;					//파이어 보스 메테오 이미지
+		POINTFLOAT pt, pt2;				//파이어 보스 마법진 좌표,메테오 이미지
+		RECT rc, rc2;					//파이어 보스 마법진 렉트,메테오 렉트
+		int frameIndex, frameIndex2;	//파이어 보스 마법진 프레임인덱스, 메테오 프레임인덱스
+		float startTime;				//파이어 보스 메테오 생성시간
 	};
 	struct collision
 	{
-		image* img;
+		image* img;						
 		POINTFLOAT ptStart;
 		POINTFLOAT pt;
 		RECT rc;

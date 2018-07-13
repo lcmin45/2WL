@@ -11,7 +11,7 @@ Mage::~Mage()
 {
 }
 
-HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, int a)
+HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, int key)
 {
 	_Astar = new Astar;
 	sprintf_s(str, "%s", imgName);
@@ -29,7 +29,7 @@ HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, 
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(), 10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y + monsterRoomIndex +a);
+	_keyIndex = int(point.x + point.y + monsterRoomIndex + key);
 
 	sprintf_s(_motionName1, "MageMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "MageRightAttack%d", _keyIndex);
@@ -40,7 +40,7 @@ HRESULT Mage::init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, 
 	sprintf_s(_motionName7, "MageLeftDie%d", _keyIndex);
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 25, false, summonOn, this);
 
 	int rightStand[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("MageRightStand", str, rightStand, 1, 1, false);

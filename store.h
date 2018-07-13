@@ -6,9 +6,9 @@
 class store : public gameNode
 {
 private:
-	POINTFLOAT _position; //상점 위치
-	vector<item*> _vItem; //상점 아이템
-	image* _image; //이미지
+	POINTFLOAT _position;		//상점 위치
+	vector<item*> _vItem;		//상점 아이템
+	image* _image;				//이미지
 public:
 	store();
 	~store();
