@@ -37,6 +37,7 @@ void skillSet::update()
 
 void skillSet::render()
 {
+	//열려있을때만 렌더
 	if (_isOpen)
 	{
 		IMAGEMANAGER->findImage("skillSet")->alphaRender(CAMERAMANAGER->getCameraDC(), _skillSetRect.left, _skillSetRect.top, 200);
@@ -91,8 +92,10 @@ void skillSet::render()
 
 void skillSet::keyProcess()
 {
+	//열기 닫기
 	if (KEYMANAGER->isOnceKeyDown('K')) { _isOpen = (_isOpen ? false : true); SOUNDMANAGER->play("openSkillSet"); }
 
+	//열려있을 때 스킬 셋 변경가능
 	if (_isOpen)
 	{
 		if (KEYMANAGER->isStayKeyDown(VK_LBUTTON))
@@ -124,6 +127,7 @@ void skillSet::keyProcess()
 	}
 }
 
+//스킬 위치를 바꾸면 실행되는 스킬 셋 변경 함수
 void skillSet::changeSkillKeySet(int click, int change)
 {
 	if (click == change) return;

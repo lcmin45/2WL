@@ -265,9 +265,11 @@ void player::moveProcess()
 
 void player::collisionCheckWithTile()
 {
+	//타일과의 충돌 체크
 	int playerTileX = int(_position.x / TILESIZE);
 	int playerTileY = int((_position.y + _image->getFrameHeight() / 4) / TILESIZE);
-	int playerTileIndex = playerTileY * MAXTILEX + playerTileX;
+	int playerTileIndex = playerTileY * MAXTILEX + playerTileX; //주인공의 현재 타일
+	//상 하 좌 우 로 타일 검사
 	int checkTileIndex[4] = { playerTileIndex - MAXTILEX, playerTileIndex + MAXTILEX, playerTileIndex - 1, playerTileIndex + 1 };
 	bool isCheck = false;
 	for (int i = 0; i < 4; i++)
@@ -406,6 +408,7 @@ void player::inventoryProcess()
 	if (_currentHp > _maxHp) _currentHp = _maxHp; //체력 아이템 습득 시 최대 체력에 맞게 현재 체력 보정
 }
 
+//주인공 죽음 체크
 void player::playerHpCheck()
 {
 	if (_currentHp <= 0 && _action != DEAD)
@@ -427,6 +430,7 @@ void player::afterActionCallBack(void * obj)
 	temp->afterAction();
 }
 
+//각 액션 끝난 후 
 void player::afterAction()
 {
 	_action = IDLE;

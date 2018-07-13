@@ -11,7 +11,7 @@ Ghoul::~Ghoul()
 {
 }
 
-HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex, int a)
+HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex, int key)
 {
 	_Astar = new Astar;
 	_image = IMAGEMANAGER->findImage("SummonMonster");
@@ -27,7 +27,7 @@ HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex, int a)
 	_monsterIndex = monsterRoomIndex;
 	_Zrc = RectMakeCenter(_bottomPosition.x, _bottomPosition.y, _image->getFrameWidth(),10);
 	_rc = RectMakeCenter(_position.x, _position.y, _image->getFrameWidth(),	_image->getFrameHeight());
-	_keyIndex = int(point.x + point.y+ monsterRoomIndex + a);
+	_keyIndex = int(point.x + point.y+ monsterRoomIndex + key);
 
 	sprintf_s(_motionName1, "GhoulMonsterSummon%d", _keyIndex);
 	sprintf_s(_motionName2, "GhoulRightAttack%d", _keyIndex);
@@ -38,7 +38,7 @@ HRESULT Ghoul::init(POINTFLOAT point, int monsterRoomIndex, int a)
 	sprintf_s(_motionName7, "GhoulLeftDie%d", _keyIndex);
 
 	int Summon[] = { 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28 };
-	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 10, false, summonOn, this);
+	KEYANIMANAGER->addArrayFrameAnimation(_motionName1, "SummonMonster", Summon, 29, 25, false, summonOn, this);
 
 	int rightStand[] = { 0 };
 	KEYANIMANAGER->addArrayFrameAnimation("GhoulRightStand", "Ghoul", rightStand, 1, 1, false);

@@ -3,22 +3,18 @@
 
 
 
-enum SCARECROWDIRECTION
+enum SCARECROWDIRECTION		//허수아비 상태
 {
 	SCARECROW_STAND,
 	SCARECROW_HIT
 };
 
-
-
-
 class Scarecrow :
 	public monster
 {
 
-	SCARECROWDIRECTION _scarecrowDirection;
-	animation* _scarecrowMotion;
-
+	SCARECROWDIRECTION	_scarecrowDirection;		//허수하비 방향
+	animation*			_scarecrowMotion;			//허수아비 모션
 
 public:
 	Scarecrow();
@@ -34,11 +30,10 @@ public:
 	
 
 	//상태에 대한 접근자, 설정자
-	SCARECROWDIRECTION getScarecrowDirection() { return _scarecrowDirection; }
-	void setScarecrowDirection(SCARECROWDIRECTION direction) { _scarecrowDirection = direction; }
-
-	animation* getScarecrowMotion() { return _scarecrowMotion; }
-	void setScarecrowMotion(animation* ani) { _scarecrowMotion = ani; }
+	inline SCARECROWDIRECTION getScarecrowDirection()					{ return _scarecrowDirection; }
+	inline animation* getScarecrowMotion()								{ return _scarecrowMotion; }
+	inline void setScarecrowDirection	(SCARECROWDIRECTION direction)	{ _scarecrowDirection = direction; }
+	inline void setScarecrowMotion		(animation* ani)				{ _scarecrowMotion = ani; }
 
 
 };
