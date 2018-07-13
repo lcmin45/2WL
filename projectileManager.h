@@ -1,6 +1,7 @@
 #pragma once
 #include "gameNode.h"
 #include "player.h"
+#include "mapToolNode.h"
 #include "∫“≤…≈∏∞›.h"
 #include "πŸ∂˜∫£±‚.h"
 #include "»Î¡÷∏‘.h"
@@ -28,6 +29,7 @@ class projectileManager : public gameNode
 {
 private:
 	player * _player;
+	tagMapToolTile* _tile;
 
 	vector<skill*>				vSkill;
 	vector<skill*>::iterator	viSkill;
@@ -48,6 +50,7 @@ public:
 	void vectorCheck();
 	void vectorDraw();
 	void setPlayerAddressLink(player* getPlayer) { _player = getPlayer; }
+	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 
 
 	vector<skill*>				getVSkill() { return vSkill; };

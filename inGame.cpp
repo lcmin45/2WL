@@ -37,6 +37,7 @@ HRESULT inGame::init()
 	_enemyManager->setProjectileManagerAddressLink(_ptM);
 	_enemyManager->setItemManagerLink(_itemManager);
 	_ptM->setPlayerAddressLink(_player);
+	_ptM->setTileAddressLink(_stage->getTileinfo());
 	_stage->setPlayerMemoryAdressLink(_player);
 	_Astar->setStageMemoryAdressLink(_stage);
 	_player->setEnemyManagerAddressLink(_enemyManager);
@@ -203,6 +204,7 @@ void inGame::saveData()
 
 void inGame::collide()
 {
+
 	//================================= 에너미랑 플레이어 스킬 충돌체크 ============================
 	for (int i = 0; i < _enemyManager->getVGhoul().size(); ++i)
 	{

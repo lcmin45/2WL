@@ -1,5 +1,6 @@
 #pragma once
 #include "gameNode.h"
+#include "mapToolNode.h"
 
 class 얼음던지기;
 class 얼음던지기매니저;
@@ -47,6 +48,7 @@ protected:
 		RECT rc;
 		int frameIndex;
 	};
+	tagMapToolTile* _tile;
 	
 
 protected:
@@ -112,4 +114,5 @@ public:
 	vector<METEOR*>	getVMeteor() { return vMeteor; };
 	vector<얼음던지기*>	getVIceThrow() { return vIceThrow; }
 	vector<collision*>	getVHail() { return vHail; }
+	void setTileAddressLink(tagMapToolTile* getLink) { _tile = getLink; }
 };

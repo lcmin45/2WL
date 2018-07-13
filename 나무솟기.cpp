@@ -27,7 +27,7 @@ void ³ª¹«¼Ú±â::update()
 		woodVector();
 		move();
 		frameCount();
-		if (getDistance(_firePt.x, _firePt.y,_pt.x, _pt.y) > _range)
+		if (getDistance(_firePt.x, _firePt.y, _pt.x, _pt.y) > _range || (PtInRect(&_tile[(int)_pt.y / TILESIZE * MAXTILEX + (int)_pt.x / TILESIZE].rc, { (int)_pt.x,(int)_pt.y }) && _tile[(int)_pt.y / TILESIZE * MAXTILEX + (int)_pt.x / TILESIZE].terrain == TR_WALL))
 		{
 			_pt = _firePt;
 			_angle = getAngle(_pt.x, _pt.y, _player->getPosition().x, _player->getPosition().y);
