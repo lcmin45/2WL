@@ -13,10 +13,10 @@
 
 struct HITEFFECT
 {
-	image* img;
-	POINT pt;
-	RECT rc;
-	int frameIndex;
+	image* img;						//맞는 이펙트 구조체
+	POINT pt;						//맞는 이펙트 좌표
+	RECT rc;						//맞는 이펙트 렉트
+	int frameIndex;					//맞는 이펙트 프레임 번호
 };
 
 class inGame : public gameNode

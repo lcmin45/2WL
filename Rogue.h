@@ -14,7 +14,7 @@ public:
 	~Rogue();
 
 
-	virtual HRESULT init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, int a);
+	virtual HRESULT init(const char* imgName, POINTFLOAT point, int monsterRoomIndex, int key);
 	virtual void release();
 	virtual void update();
 	virtual void render();

@@ -78,16 +78,7 @@ POINTFLOAT Astar::readyPath(POINTFLOAT bottomPosition, int monsterIndex)
 	{
 		_endPosition.x = _vClosedList[_vClosedList.size() - 2]->getCenter().x;
 		_endPosition.y = _vClosedList[_vClosedList.size() - 2]->getCenter().y;
-
-		//_endPosition.x = _vEndTile[_vEndTile.size() - 1]->getCenter().x;
-		//_endPosition.y = _vEndTile[_vEndTile.size() - 1]->getCenter().y;
-
-		//_vClosedList.clear();
-		//_vOpenList.clear();
-		//_vTotalList.clear();
-
-		//cout << _endPosition.x << "\t" << _endPosition.y << endl;
-
+		
 		return _endPosition;
 	}
 	else
@@ -117,12 +108,9 @@ vector<tile*> Astar::addOpenList(tile * currentTile)
 			if (temp < 0 || temp > _tileX * _tileY) continue;
 			if (startX + j > _tileX || startX + j < 0 || startY + i < 0 || startY + i > _tileY) continue;
 
-			//if (startX + j < _tileStartX || startY + i < _tileStartY || (startX + j > _tileEndX - 1 || startY + i > _tileEndY - 1)) continue;
-			//if (startX + j < 0 || startY + i < 0 || startX + j > MAXTILEX - 1 || startY + i > MAXTILEX - 1) continue;
 			tile* node = _vTotalList[temp];
 			
 			//예외처리
-			//if ((i == 0 && j == 0) || (i == 2 && j == 0) || (i == 0 && j == 2) || (i == 2 && j == 2)) continue;
 			if (!node->getIsOpen()) continue;
 			if (node->getAttribute() == "start") continue;
 			if (node->getAttribute() == "wall") continue;
@@ -203,8 +191,6 @@ void Astar::pathFinder(tile * currentTile)
 			//_start = false;
 
 		}
-		
-
 		return;
 	}
 

@@ -5,26 +5,25 @@
 class tile : public gameNode
 {
 private:
-	int _idX;
-	int _idY;
+	int _idX;		//에이스타에서 받아온 인덱스 X
+	int _idY;		//에이스타에서 받아온 인덱스 Y
 
-	POINT _center;
-	RECT _rc;
+	POINT _center;	//중심점
+	RECT _rc;		//렉트
 
 	//F = G + H 
 	//F == 총 거리 비용 (TotalCost)
 	//G == 시작점으로부터 현재 노드까지 경로비용(CostFromStart)
 	//H == 현재노드로부터 도착점까지 경로비용(CostToGoal)
 
-	float _totalCost;
-	float _costFromStart;
-	float _costToGoal;
+	float _totalCost;		//토탈비용
+	float _costFromStart;	//스타트 지점부터 현재까지 비용
+	float _costToGoal;		//도착점까지 비용
 
-	bool _isOpen;//갈수있는 타일인지 유무
+	bool _isOpen;			//갈수있는 타일인지 유무
+	tile* _parentNode;		//제일 상위 타일 (계속 갱신되는 타일)
+	const char* _attribute;	//타일 타입
 
-	tile* _parentNode; //제일 상위 타일 (계속 갱신되는 타일)
-	
-	const char* _attribute;
 public:
 	tile();
 	~tile();

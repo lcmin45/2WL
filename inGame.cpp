@@ -176,21 +176,6 @@ void inGame::render()
 	_ptM->render();
 	_UI->render();
 	drawEffect();
-	//for (int j = 0; j < _ptM->getVSkill().size(); ++j)
-	//{
-	//	RECT temp;
-	//	for (int h = 0; h < MAXPARTICLE; h++)
-	//	{
-	//		for (int k = 0; k < _enemyManager->getVGhoul().size(); ++k)
-	//		{
-	//			if (IntersectRect(&temp, &_enemyManager->getVGhoul()[k]->getMonsterRC(), &_ptM->getVSkill()[j]->getsRect()[h]) && _ptM->getVSkill()[j]->getSubject() == ENEMY)
-	//			{
-	//				createEffect(temp);
-	//				_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
-	//			}
-	//		}
-	//	}
-	//}
 }
 
 void inGame::saveData()
@@ -576,21 +561,6 @@ void inGame::collide()
 			}
 		}
 	}
-
-
-	/*for (int j = 0; j < _ptM->getVSkill().size(); ++j)
-	{
-		RECT temp;
-		if (IntersectRect(&temp, &_player->getBody(), &_ptM->getVSkill()[j]. && _ptM->getVSkill()[j]->getSubject() == ENEMY)
-		{
-			_player->setPlayerHit(_ptM->getVSkill()[j]->getSkillDamage());
-		}
-	}
-*/
-
-
-
-
 
 }
 
