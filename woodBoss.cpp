@@ -197,14 +197,22 @@ void woodBoss::woodMove()
 			}
 			else
 			{
-				_jump += 0.1f;
-				_x += cos(_angle) * _speed;
-				if (_y >_playerPosition.y)_y += -sin(_angle) * 13 + _jump;
-				else if (_y < _playerPosition.y)
+				if ((_bossRc.left > 4736) && (_bossRc.right < 5920) && (_bossRc.top > 64) && (_bossRc.bottom < 640))
 				{
-					if (_bossMoveCount >= 200 && _bossMoveCount<220)_y -= 3;
-					else _y += -sin(_angle) * _speed;
+					if (_bossRc.left > 4736)_x += 3;
+					else if (_bossRc.right < 5920)_x -= 3;
+					else if (_bossRc.top > 64)_y += 3;
+					else if (_bossRc.bottom < 640) _y -= 3;
 				}
+					_jump += 0.1f;
+					_x += cos(_angle) * _speed;
+					if (_y > _playerPosition.y)_y += -sin(_angle) * 13 + _jump;
+					else if (_y < _playerPosition.y)
+					{
+						if (_bossMoveCount >= 200 && _bossMoveCount < 220)_y -= 3;
+						else _y += -sin(_angle) * _speed;
+					}
+				
 			}
 		}
 
