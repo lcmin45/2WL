@@ -142,8 +142,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x -= 4;
-			_y += 3;
+			_x -= 5;
+			_y += 4;
 		}
 		else if (_bossMoveCount < 500 && _bossMoveCount >= 300)
 		{
@@ -154,8 +154,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x += 4;
-			_y -= 2;
+			_x += 5;
+			_y -= 3;
 		}
 		//중앙으로 이동
 		else if (_bossMoveCount < 800 && _bossMoveCount >= 700)
@@ -167,8 +167,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x -= 4;
-			_y += 2;
+			_x -= 5;
+			_y += 3;
 		}
 
 		else if (_bossMoveCount < 1100 && _bossMoveCount >= 1000)
@@ -180,8 +180,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x -= 4;
-			_y -= 3;
+			_x -= 5;
+			_y -= 4;
 		}
 		else if (_bossMoveCount < 1500 && _bossMoveCount >= 1300)
 		{
@@ -192,8 +192,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x += 4;
-			_y += 2;
+			_x += 5;
+			_y += 3;
 		}
 		//중앙으로 이동
 		else if (_bossMoveCount < 1800 && _bossMoveCount >= 1700)
@@ -205,8 +205,8 @@ void fireBoss::fireMove()
 				_fireindex = 0;
 				_skill = false;
 			}
-			_x -= 4;
-			_y -= 2;
+			_x -= 5;
+			_y -= 3;
 		}
 		else if (_bossMoveCount < 2200 && _bossMoveCount >= 2000)
 		{
