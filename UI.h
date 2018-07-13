@@ -9,12 +9,12 @@ class projectileManager;
 class UI : public gameNode
 {
 private:
-	image * _image;
-	player* _player;
-	projectileManager* _projectileManager;
-	progressBar* _progressBar;
-	option* _option;
-	RECT _optionRC;
+	image * _image;								//UI 이미지
+	player* _player;							//플레이어 수치확인을 위한 객체
+	projectileManager* _projectileManager;		//스킬 쿨타임 확인을 위한 객체
+	progressBar* _progressBar;					//보스 체력바
+	option* _option;							//사운드 옵션
+	RECT _optionRC;								//옵션 충돌판정을 위한 렉트 
 public:
 	UI();
 	~UI();

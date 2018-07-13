@@ -13,8 +13,8 @@ struct tagSkillSet
 class skillSet : public gameNode
 {
 private:
-	image * _image;
-	tagSkillSet _skillSet[7];
+	image * _image;						//스킬 아이콘 이미지
+	tagSkillSet _skillSet[7];			
 	RECT _skillSetRect;
 	RECT _sampleRect[7];
 	int _selectedSkillIndex;
