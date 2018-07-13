@@ -60,6 +60,7 @@ bool projectileManager::fire(string skillName)
 	{
 		È­¿°±¸* FireBall = new È­¿°±¸;
 		FireBall->fire(skillName.c_str(), 1, _player->getPosition(), tempAngle, 30, WINSIZEX * 2, 1 * tempDeal, 30, PLAYER);
+		FireBall->setTileAddressLink(_tile);
 		vSkill.push_back(FireBall);
 		coolTime[1].coolTime = TIMEMANAGER->getWorldTime();
 		SOUNDMANAGER->play("Fireball");
@@ -180,6 +181,7 @@ void projectileManager::fire(const char * skillName, POINTFLOAT pt)
 		³ª¹«¼Ú±â* woodUp = new ³ª¹«¼Ú±â;
 		woodUp->fire(skillName, 1, pt, tempAngle, 20, 850, 0.5f, 1.0f, ENEMY);
 		woodUp->getPlayerAddressLink(_player);
+		woodUp->setTileAddressLink(_tile);
 		vSkill.push_back(woodUp);
 	}
 	if (!strcmp(skillName, "¸ÞÅ×¿À"))
