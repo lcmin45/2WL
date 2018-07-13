@@ -10,7 +10,7 @@ HRESULT inventory::init()
 	_image = new image;
 	_image = IMAGEMANAGER->findImage("inventory");
 	_inventoryRect = RectMakeCenter(WINSIZEX / 5, WINSIZEY / 2, 400, 500);
-	_selectedItemIndex = -1;
+	_selectedItemIndex = -1; //인벤토리에서 선택한 아이템 변수는 -1로 초기화
 	_isOpen = false;
 
 	return S_OK;
@@ -31,6 +31,7 @@ void inventory::render()
 
 		for (int i = 0; i < _vItem.size(); i++)
 		{
+			//선택한 아이템이 있을 경우 마우스를 따라 렉트 이동 
 			if (_selectedItemIndex == i) _itemRect[_selectedItemIndex] = RectMakeCenter(_ptMouse.x + 12, _ptMouse.y + 12, 50, 50);
 			else _itemRect[i] = RectMakeCenter(_inventoryRect.left + 110 + i * 100, _inventoryRect.top + 100, 50, 50);
 			_vItem[i]->getImage()->render(CAMERAMANAGER->getCameraDC(), _itemRect[i].left, _itemRect[i].top);

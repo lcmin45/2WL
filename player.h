@@ -40,15 +40,15 @@ private:
 	float _speed; //스피드
 	float _critical; //치명타율
 	float _dashSpeed; //대쉬 스피드
-	float _dashCoolTime;
+	float _dashCoolTime; //대쉬 쿨타임
 	int _coin; //코인
 	tagMapToolTile* _tile; //타일 정보
 	itemManager* _itemManager; //인벤토리
 	projectileManager* _ptM; // 투사체 매니저 호환
 	bool _canTakeItem; //아이템 줍기 가능인지 여부
-	bool _isDead;
-	int _playerTileIndex;
-	skillSet* _skillSet;
+	bool _isDead; //주인공 죽음 여부
+	int _playerTileIndex; //주인공이 밟고 있는 타일
+	skillSet* _skillSet; //UI에서 쓸 주인공 스킬 셋팅 창
 	enemyManager* _enemyManager;
 
 public:

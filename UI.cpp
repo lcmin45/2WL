@@ -8,6 +8,7 @@ UI::~UI() {}
 
 HRESULT UI::init()
 {
+	//주인공 에너지 프로그레스 바
 	_progressBar = new progressBar;
 	_progressBar->init(100, 25, "playerFrontHp", 230, 25, "playerBackHp", 250, 25);
 	_optionRC = RectMake(WINSIZEX - 75, 25, 50, 50);
@@ -25,6 +26,7 @@ void UI::update()
 	if (_option->getIsView()) _option->update();
 	if (_option->getIsView()) return;
 
+	//주인공 체력 갱신
 	_progressBar->update();
 	_progressBar->setGauge(_player->getCurrentHp(), _player->getMaxHp());
 
@@ -36,6 +38,7 @@ void UI::update()
 
 void UI::render()
 {
+	//각 UI를 그려준다
 	_image = IMAGEMANAGER->findImage("mouse");
 	_image->render(CAMERAMANAGER->getCameraDC(), _ptMouse.x - _image->getWidth() / 2, _ptMouse.y - _image->getHeight() / 2);
 	_image = IMAGEMANAGER->findImage("playerIcon");
@@ -64,11 +67,13 @@ void UI::render()
 	SelectObject(CAMERAMANAGER->getCameraDC(), oldFont);
 	DeleteObject(font);
 
+	//주인공이 아이템 줍기 가능 일 때
 	if (_player->getCanTakeItem())
 	{
 		IMAGEMANAGER->findImage("buttonF")->render(getMemDC(), _player->getPosition().x - _image->getWidth() / 2, _player->getPosition().y - _image->getHeight() - 30);
 	}
 
+	//스킬셋 상태와 각 스킬 쿨타임 UI
 	for (int i = 0; i < 4; i++)
 	{
 		IMAGEMANAGER->findImage((i == 0 ? "mouseL" : (i == 1 ? "buttonZ" : (i == 2 ? "buttonX" : "buttonC"))))->render(CAMERAMANAGER->getCameraDC(), 25 + i * 75, WINSIZEY - 125);

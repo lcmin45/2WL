@@ -9,12 +9,12 @@ class projectileManager;
 class UI : public gameNode
 {
 private:
-	image * _image;
-	player* _player;
-	projectileManager* _projectileManager;
-	progressBar* _progressBar;
-	option* _option;
-	RECT _optionRC;
+	image * _image; //이미지
+	player* _player; //주인공
+	projectileManager* _projectileManager; //발사체 관리
+	progressBar* _progressBar; //프로그래스 바
+	option* _option; //옵션
+	RECT _optionRC; //옵션 렉트
 public:
 	UI();
 	~UI();

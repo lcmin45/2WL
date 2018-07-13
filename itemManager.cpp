@@ -37,7 +37,7 @@ HRESULT itemManager::init()
 
 void itemManager::release()
 {
-	_vItem.clear();
+	_vItem.clear(); //아이템 백터 클리어
 }
 
 void itemManager::update()
@@ -78,6 +78,7 @@ void itemManager::setItem(item* item, STATUS status, POINTFLOAT position)
 	item->setPosition(position); item->setStatus(status);
 }
 
+//죽은 보스에게 호출받아 아이템을 드랍할 함수
 void itemManager::dropItem(POINTFLOAT position)
 {
 	for (_viItem = _vItem.begin(); _viItem != _vItem.end(); ++_viItem) if ((*_viItem)->getStatus() == NOWHERE) break;
